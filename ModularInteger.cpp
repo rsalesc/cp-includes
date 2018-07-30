@@ -220,6 +220,14 @@ namespace {
       return res ^= rhs;
     }
 
+    type operator-() const {
+      type res = *this;
+      for(int i = 0; i < sizeof...(Mods); i++)
+        if(res.x[i])
+          res.x[i] = mods[i] - res.x[i];
+      return res;
+    }
+
     friend bool operator==(const type& lhs, const type& rhs) {
       for(size_t i = 0; i < sizeof...(Mods); i++)
         if(lhs.x[i] != rhs.x[i])
