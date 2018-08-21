@@ -22,27 +22,27 @@ namespace rng {
 
     template<typename T,
              typename enable_if<is_integral<T>::value>::type* = nullptr>
-    T uniform_int(T L, T R) {
+    inline T uniform_int(T L, T R) {
       return uniform_int_distribution<T>(L, R)(rng);
     }
 
     template<typename T>
-    T uniform_int(T N) {
+    inline T uniform_int(T N) {
       return uniform_int(0, N-1);
     }
 
     template<typename T>
-    T uniform_real(T N) {
+    inline T uniform_real(T N) {
       return uniform_real(0.0, static_cast<double>(N));
     }
 
     template<typename T>
-    T uniform_real(T L, T R) {
+    inline T uniform_real(T L, T R) {
       return uniform_real_distribution<double>(static_cast<double>(L),
                                                static_cast<double>(R))(rng);
     }
 
-    double uniform_real() {
+    inline double uniform_real() {
       return uniform_real(0.0, 1.0);
     }
   };

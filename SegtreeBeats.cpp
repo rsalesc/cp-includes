@@ -8,14 +8,14 @@ namespace lib {
 namespace seg { 
   struct DefaultBreakCond {
     template<typename Node>
-    bool operator()(const Node& no, int l, int r, int i, int j) const {
+    inline bool operator()(const Node& no, int l, int r, int i, int j) const {
       return i > r || j < l;
     }
   };
 
   struct DefaultTagCond {
     template<typename Node>
-    bool operator()(const Node& no, int l, int r, int i, int j) const {
+    inline bool operator()(const Node& no, int l, int r, int i, int j) const {
       return i <= l && r <= j;
     }
   };
@@ -46,7 +46,7 @@ namespace seg {
       R = range.second;
       assert(L >= 0 && L <= R);
       t = vector<Node>(size() * MULTIPLIER + SHIFT);
-      build(builder, ROOT, L, R);
+      build(builder);
     }
 
     template<typename Builder>
@@ -61,7 +61,12 @@ namespace seg {
       }
     }
 
-    int size() const { return R-L+1; }
+    template<typename Builder>
+    void build(const Builder& builder) {
+      return build(builder, ROOT, L, R);
+    }
+
+    inline int size() const { return R-L+1; }
 
     void push(int no, int l, int r) {
       Node* left = l == r ? 0 : &t[no<<1];
@@ -82,7 +87,7 @@ namespace seg {
     }
 
     template<typename T, typename Folder>
-    T query(int i, int j, const Folder& folder) {
+    inline T query(int i, int j, const Folder& folder) {
       return query<T>(ROOT, L, R, i, j, folder);
     }
 
@@ -104,7 +109,7 @@ namespace seg {
     }
 
     template<typename Updater>
-    void update(int i, int j, const Updater& updater) {
+    inline void update(int i, int j, const Updater& updater) {
       update(ROOT, L, R, i, j, updater);
     }
 
@@ -126,7 +131,7 @@ namespace seg {
     }
 
     template<typename Beater>
-    void beat(int i, int j, const Beater& beater) {
+    inline void beat(int i, int j, const Beater& beater) {
       beat(ROOT, L, R, i, j, beater);
     } 
   };
@@ -134,7 +139,7 @@ namespace seg {
   template<typename Node, typename CombinerFn>
   struct SegtreeNormal : SegtreeBeats<Node, CombinerFn> {
     typedef SegtreeBeats<Node, CombinerFn> Base;
-    using Base::SegtreeBeats;
+    using SegtreeBeats<Node, CombinerFn>::SegtreeBeats;
     using Base::ROOT;
     using Base::combiner_fn;
     using Base::L;
@@ -156,7 +161,7 @@ namespace seg {
     }
     
     template<typename Updater>
-    void update_element(int idx, const Updater& updater) {
+    inline void update_element(int idx, const Updater& updater) {
       update_element(ROOT, L, R, idx, updater);
     }
   };
@@ -184,7 +189,7 @@ namespace seg {
     }
 
     template<typename T, typename Folder>
-    T query_element(int idx, const Folder& folder) {
+    inline T query_element(int idx, const Folder& folder) {
       return query_element<T>(ROOT, L, R, idx, folder);
     }
 
@@ -203,7 +208,7 @@ namespace seg {
     }
 
     template<typename Updater>
-    void splash(int i, int j, const Updater& updater) {
+    inline void splash(int i, int j, const Updater& updater) {
       splash(ROOT, L, R, i, j, updater);
     }
   };

@@ -8,13 +8,13 @@ namespace seg {
   struct LeafBuilder {
     template<typename Node>
     void operator()(Node& no, int i) const {}
-    pair<int, int> range() const { return {0, 0}; }
+    inline pair<int, int> range() const { return {0, 0}; }
   };
 
   struct EmptyLeafBuilder : LeafBuilder {
     int n;
     explicit EmptyLeafBuilder(int n) : n(n) {}
-    pair<int, int> range() const { return {0, n-1}; }
+    inline pair<int, int> range() const { return {0, n-1}; }
   };
 
   template<typename RandomIterator>
@@ -24,9 +24,9 @@ namespace seg {
       : begin(begin), end(end) {}
 
     template<typename Node>
-    void operator()(Node& no, int i) const { no = *(begin + i); }
+    inline void operator()(Node& no, int i) const { no = *(begin + i); }
 
-    pair<int, int> range() const { return {0, end-begin-1}; }
+    inline pair<int, int> range() const { return {0, end-begin-1}; }
   };
 
   EmptyLeafBuilder make_builder(int n) { return EmptyLeafBuilder(n); }
@@ -46,12 +46,12 @@ namespace seg {
 
   template<typename T>
   struct CombineFolder {
-    T operator()() const { return T(); }
+    inline T operator()() const { return T(); }
 
     template<typename Node>
-    T operator()(const Node& no) const { return T(no); }
+    inline T operator()(const Node& no) const { return T(no); }
 
-    T operator()(const T& a, const T& b) const { return a + b; }
+    inline T operator()(const T& a, const T& b) const { return a + b; }
   };
 
   template<typename T>
@@ -59,8 +59,8 @@ namespace seg {
     using CombineFolder<T>::operator();
 
     template<typename Node>
-    T operator()(const Node& no) const { return T(); }
-    T operator()(const T& a, const T& b) const { return T(); }
+    inline T operator()(const Node& no) const { return T(); }
+    inline T operator()(const T& a, const T& b) const { return T(); }
   };
 
   template<typename T>
@@ -69,15 +69,15 @@ namespace seg {
   template<typename T>
   struct MaxFolder : CombineFolder<T> {
     using CombineFolder<T>::operator();
-    T operator()() const { return numeric_limits<T>::min(); }
-    T operator()(const T& a, const T& b) const { return max(a, b); }
+    inline T operator()() const { return numeric_limits<T>::min(); }
+    inline T operator()(const T& a, const T& b) const { return max(a, b); }
   };
 
   template<typename T>
   struct MinFolder : CombineFolder<T> {
     using CombineFolder<T>::operator();
-    T operator()() const { return numeric_limits<T>::max(); }
-    T operator()(const T& a, const T& b) const { return min(a, b); }
+    inline T operator()() const { return numeric_limits<T>::max(); }
+    inline T operator()(const T& a, const T& b) const { return min(a, b); }
   };
 
   template<typename T>
@@ -91,7 +91,7 @@ namespace seg {
     using SingleValueUpdater<T>::SingleValueUpdater;
 
     template<typename Node>
-    void operator()(Node& no) const { no = this->value; }
+    inline void operator()(Node& no) const { no = this->value; }
   };
 
   template<typename T>
@@ -99,12 +99,12 @@ namespace seg {
     using SingleValueUpdater<T>::SingleValueUpdater;
 
     template<typename Node>
-    void operator()(Node& no) const { no += this->value; }
+    inline void operator()(Node& no) const { no += this->value; }
   };
 
   struct EmptyPushdown {
     template<typename Node>
-    void operator()(Node& no, int l, int r, 
+    inline void operator()(Node& no, int l, int r, 
                     Node* ln, Node* rn) const {}
   };
 }  // namespace seg

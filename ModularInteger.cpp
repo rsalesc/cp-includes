@@ -31,7 +31,7 @@ namespace {
 
     T x[1];
 
-    operator T() const { return this->x[0]; }
+    explicit operator T() const { return this->x[0]; }
     friend ostream& operator<<(ostream& output, const type& var) {
       return output << var.x[0];
     }
@@ -66,10 +66,12 @@ namespace {
         x[i] = y;
       normalize();
     }
-    ModularIntegerImpl(T y[sizeof...(Mods)]) {
+    static type with_remainders(T y[sizeof...(Mods)]) {
+      type res;
       for(size_t i = 0; i < sizeof...(Mods); i++)
-        x[i] = y[i];
-      normalize();
+        res.x[i] = y[i];
+      res.normalize();
+      return res;
     }
 
     void normalize() {
@@ -78,13 +80,13 @@ namespace {
           x[i] += mods[i];
     }
 
-    T operator[](int i) const { return x[i]; }
+    inline T operator[](int i) const { return x[i]; }
 
-    T multiply(T a, T b, T mod) {
+    inline T multiply(T a, T b, T mod) {
       return (large_int)a*b % mod;
     }
 
-    T inv(T a, T mod) {
+    inline T inv(T a, T mod) {
       return static_cast<T>(nt::inverse(a, mod));
     }
     
@@ -253,7 +255,7 @@ namespace {
   template<typename T, T ...Mods>
   using ModularInteger = 
     ModularIntegerImpl<T,
-                       class enable_if<is_integral<T>::value>::type,
+                       typename enable_if<is_integral<T>::value>::type,
                        Mods...>;
  
   template<int32_t ...Mods>

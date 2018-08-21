@@ -13,10 +13,10 @@ struct Data {
 };
 
 struct PushdownSum {
-  void operator()(Data& no, int l, int r, Data& ln, Data& rn) const {
+  void operator()(Data& no, int l, int r, Data* ln, Data* rn) const {
     if(l != r) {
-      ln.lz += no.lz;
-      rn.lz += no.lz;
+      ln->lz += no.lz;
+      rn->lz += no.lz;
     }
     no.x += no.lz * (r-l+1);
     no.lz = 0;

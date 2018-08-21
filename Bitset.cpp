@@ -48,13 +48,13 @@ namespace lib {
         resize(nw);
     }
 
-    int size() const { return n; }
+    inline int size() const { return n; }
 
-    bool operator[](int pos) const {
+    inline bool operator[](int pos) const {
       return test(pos);
     }
 
-    bool test(size_t pos) const {
+    inline bool test(size_t pos) const {
       return (v[pos >> SHIFT]>>(pos&MASK))&(T)1;
     }
 

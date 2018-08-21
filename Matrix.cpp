@@ -22,10 +22,10 @@ namespace linalg {
       }
     }
 
-    int rows() const { return n; }
-    int cols() const { return m; }
-    int size() const { return n*m; }
-    bool is_square() const { return n == m; }
+    inline int rows() const { return n; }
+    inline int cols() const { return m; }
+    inline int size() const { return n*m; }
+    inline bool is_square() const { return n == m; }
     T operator()(const int i, const int j) const {
       return g[i*m+j];
     }
@@ -119,7 +119,7 @@ namespace linalg {
       return Matrix<T>::power(lhs, rhs);
     }
 
-    void fill(T x) {
+    inline void fill(T x) {
       for(T& t : g) t = x;
     }
 

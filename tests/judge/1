@@ -1,0 +1,241 @@
+In file included from hld.cpp:2:
+In file included from ./../../Graph.cpp:4:
+./../../Traits.cpp:15:16: error: no member named 'test' in 'IsDerivedFrom<U, T>'; did you mean 'get'?
+      decltype(IsDerivedFrom<U, T>::test(std::declval<U>()))::value;
+               ^~~~~~~~~~~~~~~~~~~~~~~~~
+               get
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/utility:147:5: note: 'get' declared here
+    get(std::pair<_Tp1, _Tp2>& __in) noexcept
+    ^
+In file included from hld.cpp:2:
+In file included from ./../../Graph.cpp:4:
+./../../Traits.cpp:15:37: error: no matching function for call to 'get'
+      decltype(IsDerivedFrom<U, T>::test(std::declval<U>()))::value;
+                                    ^~~~
+./../../HLD.cpp:16:39: note: in instantiation of template class 'lib::traits::IsDerivedFrom<lib::graph::RootedForest<void, void>, RootedForest>' requested here
+           typename enable_if<traits::IsDerivedFrom<G, RootedForest>::value>::type* = nullptr>
+                                      ^
+./../../SegtreeHLD.cpp:113:21: note: while substituting prior template arguments into non-type template parameter [with G = lib::graph::RootedForest<void, void>]
+  struct RangeHLD : HLD<G> {
+                    ^~~~~~
+./../../SegtreeHLD.cpp:113:26: note: while checking a default template argument used here
+  struct RangeHLD : HLD<G> {
+                    ~~~~~^
+hld.cpp:52:14: note: in instantiation of template class 'lib::graph::RangeHLD<lib::seg::SegtreeBeats<Node, lib::seg::CombineFolder<Node>, Pushdown, lib::seg::DefaultBreakCond, lib::seg::DefaultTagCond>, lib::graph::RootedForest<void, void> >' requested here
+  auto hld = graph::make_range_hld<SegtreeBeats<Node, seg::CombineFolder<Node>, Pushdown>>(f);
+             ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/utility:147:5: note: candidate template ignored: could not match 'pair' against 'RootedForest'
+    get(std::pair<_Tp1, _Tp2>& __in) noexcept
+    ^
+hld.cpp:69:33: error: expected '(' for function-style cast or type construction
+      cout << hld.query_path<int>(x, y, folder) << endl;
+                             ~~~^
+hld.cpp:69:35: warning: expression result unused [-Wunused-value]
+      cout << hld.query_path<int>(x, y, folder) << endl;
+                                  ^
+hld.cpp:69:38: warning: expression result unused [-Wunused-value]
+      cout << hld.query_path<int>(x, y, folder) << endl;
+                                     ^
+hld.cpp:69:52: error: reference to overloaded function could not be resolved; did you mean to call it?
+      cout << hld.query_path<int>(x, y, folder) << endl;
+                                                   ^~~~
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/ostream:590:5: note: possible target for call
+    endl(basic_ostream<_CharT, _Traits>& __os)
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/valarray:1175:1: note: candidate function [with _Tp = lib::seg::MaxFolder<int>] not viable: no overload of 'endl' matching 'const valarray<lib::seg::MaxFolder<int> >' for 2nd argument
+_DEFINE_BINARY_OPERATOR(<<, __shift_left)
+^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/valarray:1160:5: note: expanded from macro '_DEFINE_BINARY_OPERATOR'
+    operator _Op(const _Tp& __t, const valarray<_Tp>& __v)              \
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/valarray_after.h:410:5: note: candidate template ignored: couldn't infer template argument '_Dom'
+    _DEFINE_EXPR_BINARY_OPERATOR(<<, __shift_left)
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/valarray_after.h:367:5: note: expanded from macro '_DEFINE_EXPR_BINARY_OPERATOR'
+    operator _Op(const typename _Dom::value_type& __t,                  \
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/valarray_after.h:410:5: note: candidate template ignored: couldn't infer template argument '_Dom'
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/valarray_after.h:393:5: note: expanded from macro '_DEFINE_EXPR_BINARY_OPERATOR'
+    operator _Op(const valarray<typename _Dom::value_type>& __v,        \
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/basic_string.h:5172:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(basic_ostream<_CharT, _Traits>& __os,
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/system_error:209:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(basic_ostream<_CharT, _Traits>& __os, const error_code& __e)
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/ostream:497:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(basic_ostream<_CharT, _Traits>& __out, _CharT __c)
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/ostream:502:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(basic_ostream<_CharT, _Traits>& __out, char __c)
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/ostream:508:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(basic_ostream<char, _Traits>& __out, char __c)
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/ostream:514:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(basic_ostream<char, _Traits>& __out, signed char __c)
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/ostream:519:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(basic_ostream<char, _Traits>& __out, unsigned char __c)
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/ostream:539:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(basic_ostream<_CharT, _Traits>& __out, const _CharT* __s)
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/ostream:556:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(basic_ostream<char, _Traits>& __out, const char* __s)
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/ostream:569:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(basic_ostream<char, _Traits>& __out, const signed char* __s)
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/ostream:574:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(basic_ostream<char, _Traits>& __out, const unsigned char* __s)
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/ostream:628:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(basic_ostream<_CharT, _Traits>&& __os, const _Tp& __x)
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/ostream.tcc:321:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(basic_ostream<_CharT, _Traits>& __out, const char* __s)
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/complex:526:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(basic_ostream<_CharT, _Traits>& __os, const complex<_Tp>& __x)
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/random.h:1269:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(std::basic_ostream<_CharT, _Traits>& __os,
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/random.tcc:156:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(std::basic_ostream<_CharT, _Traits>& __os,
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/random.tcc:477:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(std::basic_ostream<_CharT, _Traits>& __os,
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/random.tcc:632:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(std::basic_ostream<_CharT, _Traits>& __os,
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/random.tcc:702:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(std::basic_ostream<_CharT, _Traits>& __os,
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/random.tcc:831:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(std::basic_ostream<_CharT, _Traits>& __os,
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/random.tcc:877:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(std::basic_ostream<_CharT, _Traits>& __os,
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/random.tcc:936:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(std::basic_ostream<_CharT, _Traits>& __os,
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/random.tcc:998:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(std::basic_ostream<_CharT, _Traits>& __os,
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/random.tcc:1080:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(std::basic_ostream<_CharT, _Traits>& __os,
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/random.tcc:1195:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(std::basic_ostream<_CharT, _Traits>& __os,
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/random.tcc:1400:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(std::basic_ostream<_CharT, _Traits>& __os,
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/random.tcc:1667:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(std::basic_ostream<_CharT, _Traits>& __os,
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/random.tcc:1731:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(std::basic_ostream<_CharT, _Traits>& __os,
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/random.tcc:1898:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(std::basic_ostream<_CharT, _Traits>& __os,
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/random.tcc:1963:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(std::basic_ostream<_CharT, _Traits>& __os,
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/random.tcc:2036:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(std::basic_ostream<_CharT, _Traits>& __os,
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/random.tcc:2123:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(std::basic_ostream<_CharT, _Traits>& __os,
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/random.tcc:2200:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(std::basic_ostream<_CharT, _Traits>& __os,
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/random.tcc:2275:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(std::basic_ostream<_CharT, _Traits>& __os,
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/random.tcc:2444:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(std::basic_ostream<_CharT, _Traits>& __os,
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/random.tcc:2522:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(std::basic_ostream<_CharT, _Traits>& __os,
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/random.tcc:2598:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(std::basic_ostream<_CharT, _Traits>& __os,
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/random.tcc:2734:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(std::basic_ostream<_CharT, _Traits>& __os,
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/random.tcc:2944:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(std::basic_ostream<_CharT, _Traits>& __os,
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/random.tcc:3160:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(std::basic_ostream<_CharT, _Traits>& __os,
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bitset:1530:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(std::basic_ostream<_CharT, _Traits>& __os,
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/iomanip:79:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(basic_ostream<_CharT, _Traits>& __os, _Resetiosflags __f)
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/iomanip:109:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(basic_ostream<_CharT, _Traits>& __os, _Setiosflags __f)
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/iomanip:143:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(basic_ostream<_CharT, _Traits>& __os, _Setbase __f)
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/iomanip:178:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(basic_ostream<_CharT, _Traits>& __os, _Setfill<_CharT> __f)
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/iomanip:208:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(basic_ostream<_CharT, _Traits>& __os, _Setprecision __f)
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/iomanip:238:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(basic_ostream<_CharT, _Traits>& __os, _Setw __f)
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/iomanip:311:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(basic_ostream<_CharT, _Traits>& __os, _Put_money<_MoneyT> __f)
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/iomanip:363:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(basic_ostream<_CharT, _Traits>& __os, _Put_time<_CharT> __f)
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/shared_ptr.h:66:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(std::basic_ostream<_Ch, _Tr>& __os,
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/valarray_after.h:410:5: note: candidate template ignored: could not match '_Expr' against 'MaxFolder'
+    _DEFINE_EXPR_BINARY_OPERATOR(<<, __shift_left)
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/valarray_after.h:341:5: note: expanded from macro '_DEFINE_EXPR_BINARY_OPERATOR'
+    operator _Op(const _Expr<_Dom1, typename _Dom1::value_type>& __v,   \
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/valarray_after.h:410:5: note: candidate template ignored: could not match '_Expr' against 'MaxFolder'
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/valarray_after.h:354:5: note: expanded from macro '_DEFINE_EXPR_BINARY_OPERATOR'
+    operator _Op(const _Expr<_Dom, typename _Dom::value_type>& __v,     \
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/valarray_after.h:410:5: note: candidate template ignored: could not match '_Expr' against 'MaxFolder'
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/valarray_after.h:380:5: note: expanded from macro '_DEFINE_EXPR_BINARY_OPERATOR'
+    operator _Op(const _Expr<_Dom,typename _Dom::value_type>& __e,      \
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/valarray:1175:1: note: candidate template ignored: could not match 'valarray' against 'MaxFolder'
+_DEFINE_BINARY_OPERATOR(<<, __shift_left)
+^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/valarray:1139:5: note: expanded from macro '_DEFINE_BINARY_OPERATOR'
+    operator _Op(const valarray<_Tp>& __v, const valarray<_Tp>& __w)    \
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/valarray:1175:1: note: candidate template ignored: could not match 'valarray' against 'MaxFolder'
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/valarray:1150:5: note: expanded from macro '_DEFINE_BINARY_OPERATOR'
+    operator _Op(const valarray<_Tp>& __v, const _Tp& __t)              \
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/thread:243:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(basic_ostream<_CharT, _Traits>& __out, thread::id __id)
+    ^
+/usr/bin/../lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/regex.h:1480:5: note: candidate template ignored: could not match 'basic_ostream' against 'MaxFolder'
+    operator<<(basic_ostream<_Ch_type, _Ch_traits>& __os,
+    ^
+2 warnings and 4 errors generated.

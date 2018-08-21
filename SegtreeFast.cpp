@@ -38,7 +38,7 @@ namespace seg {
       for(int i = n; i < 2*n; i++)
         rebuilder(t[i]);
       for(int i = n-1; i > 0; i--)
-        t[i] = rebuilder(t[i<<1], t[i<<1|1]);
+        rebuilder(t[i], t[i<<1], t[i<<1|1]);
     }
   };
 
@@ -83,8 +83,8 @@ namespace seg {
   };
   
   template<typename Node>
-  struct SegtreeFastSplash : SegtreeFastBase<Node, EmptyFolder<void>> {
-    typedef SegtreeFastBase<Node, EmptyFolder<void>> Base;
+  struct SegtreeFastSplash : SegtreeFastBase<Node, EmptyFolder<Node>> {
+    typedef SegtreeFastBase<Node, EmptyFolder<Node>> Base;
     using Base::SegtreeFastBase;
     using Base::n;
     using Base::t;

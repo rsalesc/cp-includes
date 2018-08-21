@@ -30,19 +30,19 @@ namespace hashing {
     int max_powers = 0;
 
     BaseProvider(T bases[sizeof...(Mods)]) : powers(1, 1) {
-      b = bases;
+      b = mint_type::with_remainders(bases);
     }
     BaseProvider() : powers(1, 1) {
       T bases[sizeof...(Mods)];
       for(size_t i = 0; i < sizeof...(Mods); i++)
         bases[i] = rng::gen.uniform_int(mint_type::mods[i]);
-      b = bases;
+      b = mint_type::with_remainders(bases);
     }
 
     void set_max_powers(int x) { max_powers = x; }
 
-    operator mint_type() const { return b; }
-    T operator()(int i) { return b[i]; }
+    inline operator mint_type() const { return b; }
+    inline T operator()(int i) { return b[i]; }
 
     void ensure(int p) const {
       type* self = const_cast<type*>(this);
@@ -159,7 +159,7 @@ namespace hashing {
       append(begin, end);
     }
 
-    int size() const {
+    inline int size() const {
       return (int) hs.size() - 1;
     }
 
@@ -201,7 +201,7 @@ namespace hashing {
       return *this;
     }
 
-    void pop() {
+    inline void pop() {
       assert(size() > 0);
       hs.pop_back();
     }
@@ -279,16 +279,16 @@ namespace hashing {
         bwd(make_reverse_iterator(end), make_reverse_iterator(begin), base),
         cat(base) {}
 
-    Hash forward(int i, int j) const {
+    inline Hash forward(int i, int j) const {
       return fwd(i, j);
     }
 
-    Hash backward(int i, int j) const {
+    inline Hash backward(int i, int j) const {
       int n = fwd.size();
       return bwd(n - j - 1, n - i - 1);
     }
 
-    pair<Hash, Hash> operator()(int i, int j) const {
+    inline pair<Hash, Hash> operator()(int i, int j) const {
       return {forward(i, j), backward(i, j)};
     }
   };
