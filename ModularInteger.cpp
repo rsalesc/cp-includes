@@ -32,6 +32,9 @@ namespace {
     T x[1];
 
     explicit operator T() const { return this->x[0]; }
+    explicit operator long long() const { return this->x[0]; }
+    explicit operator double() const { return this->x[0]; }
+    explicit operator long double() const { return this->x[0]; }
     friend ostream& operator<<(ostream& output, const type& var) {
       return output << var.x[0];
     }
@@ -41,6 +44,7 @@ namespace {
   template<typename T, class Enable, T ...Mods>
   struct ModularIntegerImpl : ModularIntegerBase<T, Mods...> {
     typedef ModularIntegerImpl<T, Enable, Mods...> type;
+    typedef T type_int;
     typedef int64_t large_int;
     const static size_t n_mods = sizeof...(Mods);
 
@@ -82,12 +86,19 @@ namespace {
 
     inline T operator[](int i) const { return x[i]; }
 
-    inline T multiply(T a, T b, T mod) {
+    inline T multiply(T a, T b, T mod) const {
       return (large_int)a*b % mod;
     }
 
-    inline T inv(T a, T mod) {
+    inline T inv(T a, T mod) const {
       return static_cast<T>(nt::inverse(a, mod));
+    }
+
+    type inverse() const {
+      T res[sizeof...(Mods)];
+      for(size_t i = 0; i < sizeof...(Mods); i++)
+        res[i] = inv(x[i], mods[i]);
+      return type::with_remainders(res);
     }
     
     template<typename U>
@@ -224,7 +235,7 @@ namespace {
 
     type operator-() const {
       type res = *this;
-      for(int i = 0; i < sizeof...(Mods); i++)
+      for(size_t i = 0; i < sizeof...(Mods); i++)
         if(res.x[i])
           res.x[i] = mods[i] - res.x[i];
       return res;
