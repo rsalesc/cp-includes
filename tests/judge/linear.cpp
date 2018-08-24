@@ -236,9 +236,6 @@ using Poly = math::Polynomial<Field, math::poly::NaiveMultiplication>;
 int32_t main() {
   linalg::BMSolver<Poly> solver;
   solver.solve({0, 1, 2, 4, 7, 12});
-  cout << solver.compute(9) << endl;
-
-  exit(0);
 
   int T;
   cin >> T;
