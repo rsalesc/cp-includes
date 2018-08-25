@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #include "../../PolynomialRing.cpp"
+#include "../../PowerSeries.cpp"
 
 using namespace std;
 using namespace lib;
@@ -34,4 +35,9 @@ int main() {
 
   auto pq = Poly::power(a, 4, Poly({1, 1}));
   cout << pq << endl;
+
+  cout << "integral" << endl;
+  cout << w << endl;
+  cout << y.integral() << endl;
+  cout << y.derivative() << endl;
 }
