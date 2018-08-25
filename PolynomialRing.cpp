@@ -302,23 +302,17 @@ namespace poly {
       int m = a.size();
       int n = b.size();
       if(m < n) return {Polynomial(), a};
-      if(m == n) {
-        Field q = a.p.back() / b.p.back();
-#ifdef LIB_DEBUG
-        auto r = a - b * q;
-        assert(r.degree() < b.degree());
-        assert(b * q + r == a);
-#endif
-        return {Polynomial(q), a - b * q};
-      } else {
         type ar = a.reciprocal();
         type bri = (b.reciprocal() % (m - n + 1)).inverse();
         type q = (ar * bri % (m - n + 1)).reciprocal();
+        type r = a - b * q;
+
+        if(r.degree() >= b.degree()) {
+          q += divmod(r, b).first;
+          r = a - b * q;
+        }
 
 #ifdef LIB_DEBUG
-        cerr << "ar-bri " << ar << " " << bri << endl;
-        cerr << "qlong " << ar * bri << endl;
-        auto r = a-b*q;
         if(r.degree() >= b.degree()) {
           cout << a << endl;
           cout << "b deg " << b.degree() << endl;
@@ -336,8 +330,7 @@ namespace poly {
         assert(q * b + r == a);
 #endif
 
-        return {q, a - b * q};
-      }
+      return {q, r};
     }
 
     static type power(const type& a, long long n, const int mod) {
