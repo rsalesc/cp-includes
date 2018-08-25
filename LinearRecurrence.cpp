@@ -1,5 +1,5 @@
 #ifndef _LIB_LINEAR_RECURRENCE
-#define _LIB_LINEAR RECURRENCE
+#define _LIB_LINEAR_RECURRENCE
 #include <bits/stdc++.h>
 #include "PolynomialRing.cpp"
 #include "Traits.cpp"
