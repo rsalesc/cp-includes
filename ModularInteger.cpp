@@ -31,7 +31,7 @@ namespace {
 
     T x[1];
 
-    explicit operator T() const { return this->x[0]; }
+    explicit operator int() const { return this->x[0]; }
     explicit operator long long() const { return this->x[0]; }
     explicit operator double() const { return this->x[0]; }
     explicit operator long double() const { return this->x[0]; }
@@ -166,7 +166,7 @@ namespace {
 
     type& operator/=(T rhs) {
       for(size_t i = 0; i < sizeof...(Mods); i++)
-        x[i] = multiply(inv(rhs, mods[i]), rhs, mods[i]);
+        x[i] = multiply(inv(rhs, mods[i]), x[i], mods[i]);
       return *this;
     }
 

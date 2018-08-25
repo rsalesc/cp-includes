@@ -6,6 +6,7 @@ namespace lib {
   using namespace std;
 namespace math {
 
+  /// caide keep
   template<typename Type>
   struct DefaultPowerOp {
     Type operator()() const { return Type(1); }

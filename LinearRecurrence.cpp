@@ -14,6 +14,7 @@ namespace linalg {
 
   template<typename P>
   struct BMSolver {
+    typedef BMSolver<P> type;
     typedef typename P::field field_type;
     typedef P poly_type;
 
@@ -78,6 +79,16 @@ namespace linalg {
       return T.size() > 0 && base.size() >= T.size();
     }
 
+    void ensure(int nsz) const {
+      auto* self = const_cast<type*>(this);
+      for(int j = base.size(); j < nsz; j++) {
+        field_type acc = 0;
+        for(int i = 0; i < (int)T.size(); i++)
+          acc += base[j - i - 1] * T[i];
+        self->base.push_back(acc);
+      }
+    }
+
     poly_type mod_function() const {
       poly_type res;
       int m = T.size();
@@ -87,18 +98,52 @@ namespace linalg {
       return res;
     }
 
-    field_type compute(long long K) {
+    vector<field_type> compute(long long K, int n) {
+      assert(n > 0);
       assert(solved());
-      if(K < (int)base.size())
-        return base[K];
-
+      vector<field_type> res;
       int N = T.size();
-      poly_type x = poly_type::kth(K, mod_function());
+      int cons = min(n, N);
 
-      field_type res = 0;
-      for(int i = 0; i < N; i++)
-        res += x[i] * base[i];
+      if(K < (int)base.size()) {
+        for(int j = 0; j < n && K + j < (int)base.size(); j++)
+          res.push_back({base[K + j]});
+
+        while((int)res.size() < cons) {
+          field_type acc = 0;
+          int sz = res.size();
+          int mid = min(sz, N);
+          for(int i = 0; i < mid; i++)
+            acc += res[sz - i - 1] * T[i];
+          sz = base.size();
+          for(int i = mid; i < N; i++)
+            acc += base[sz - 1 - (i - mid)] * T[i];
+          res.push_back(acc);
+        }
+      } else {
+        ensure(cons + N - 1);
+
+        poly_type x = poly_type::kth(K, mod_function());
+
+        for(int j = 0; j < cons; j++) {
+          field_type acc = 0;
+            for(int i = 0; i < N; i++)
+              acc += x[i] * base[i + j];
+          res.push_back(acc);
+        }
+      }
+
+      for(int j = res.size(); j < n; j++) {
+        field_type acc = 0;
+        for(int i = 0; i < N; i++)
+          acc += res[j - i - 1] * T[i];
+        res.push_back(acc);
+      }
       return res;
+    }
+
+    field_type compute(long long K) {
+      return compute(K, 1)[0];
     }
   };
 }  // namespace linalg

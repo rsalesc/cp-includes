@@ -12,7 +12,9 @@ namespace math {
 namespace poly {
 
   namespace {
+    /// keep caide
     using traits::IsInputIterator;
+    /// keep caide
     using traits::HasInputIterator;
   }
 
@@ -92,7 +94,7 @@ namespace poly {
     vector<Field> p;
     
     Polynomial() : p(0) {}
-    Polynomial(Field x): p(1, x) {}
+    explicit Polynomial(Field x): p(1, x) {}
 
     template<
       typename Iterator,
@@ -134,12 +136,12 @@ namespace poly {
     }
 
     inline Field operator[](const int i) const { 
-      if(i > degree())
+      if(i >= size())
         return 0;
       return p[i]; 
     }
     inline Field& operator[](const int i) {
-      if(i > degree())
+      if(i >= size())
         p.resize(i + 1);
       return p[i]; 
     }
@@ -296,39 +298,45 @@ namespace poly {
       return type(p.rbegin(), p.rend());
     }
 
+    type integral() const {
+      int sz = size();
+      if(sz == 0) return {};
+      type res = *this;
+      for(int i = sz; i; i--) {
+        res[i] = res[i-1] / i;
+      }
+      res[0] = 0;
+      res.normalize();
+      return res;
+    }
+
+    type derivative() const {
+      int sz = size();
+      if(sz == 0) return {};
+      type res = *this;
+      for(int i = 0; i + 1 < sz; i++) {
+        res[i] = res[i+1] * (i + 1);
+      }
+      res.p.back() = 0;
+      res.normalize();
+      return res;
+    }
+
     static pair<type, type> divmod(const type& a, const type& b) {
       a.normalize();
       b.normalize();
       int m = a.size();
       int n = b.size();
       if(m < n) return {Polynomial(), a};
-        type ar = a.reciprocal();
-        type bri = (b.reciprocal() % (m - n + 1)).inverse();
-        type q = (ar * bri % (m - n + 1)).reciprocal();
-        type r = a - b * q;
+      type ar = a.reciprocal();
+      type bri = (b.reciprocal() % (m - n + 1)).inverse();
+      type q = (ar * bri % (m - n + 1)).reciprocal();
+      type r = a - b * q;
 
-        if(r.degree() >= b.degree()) {
-          q += divmod(r, b).first;
-          r = a - b * q;
-        }
-
-#ifdef LIB_DEBUG
-        if(r.degree() >= b.degree()) {
-          cout << a << endl;
-          cout << "b deg " << b.degree() << endl;
-          cout << b << endl;
-          cout << "q deg " << q.degree() << endl;
-          cout << q << endl;
-          cout << "r deg " << r.degree() << endl;
-          cout << r << endl;
-
-          auto bq = b*q;
-          cout << "trunc deg " << bq.degree() << endl;
-          cout << bq << endl;
-          exit(1);
-        }
-        assert(q * b + r == a);
-#endif
+      if(r.degree() >= b.degree()) {
+        q += divmod(r, b).first;
+        r = a - b * q;
+      }
 
       return {q, r};
     }
@@ -360,6 +368,7 @@ namespace poly {
     }
   };
 }  // namespace poly
+/// keep caide
 using poly::Polynomial;
 }  // namespace math
 }  // namespace lib
