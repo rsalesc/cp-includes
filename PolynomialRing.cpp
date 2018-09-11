@@ -3,7 +3,6 @@
 #include <bits/stdc++.h>
 #include "ModularInteger.cpp"
 #include "Traits.cpp"
-#include "FFT.cpp"
 #include "Math.cpp"
 
 namespace lib {
@@ -16,34 +15,7 @@ namespace poly {
     using traits::IsInputIterator;
     /// keep caide
     using traits::HasInputIterator;
-  }
-
-  struct FastMultiplication {
-    template<typename Field>
-    vector<Field> operator()(const vector<Field>& a, const vector<Field>& b) const {
-      return linalg::rounded_fft(a, b);
-    }
-  };
-  
-  struct SafeMultiplication {
-    template<typename Field>
-    vector<Field> operator()(const vector<Field>& a, const vector<Field>& b) const {
-      return linalg::mod_split_fft(a, b);
-    };
-  };
-
-  struct NaiveMultiplication {
-    template<typename Field>
-    vector<Field> operator()(const vector<Field>& a, const vector<Field>& b) const {
-      vector<Field> res(a.size() + b.size());
-      for(size_t i = 0; i < a.size(); i++) {
-        for(size_t j = 0; j < b.size(); j++) {
-          res[i + j] += a[i] * b[j];
-        }
-      }
-      return res;
-    }
-  };
+  } 
 
   template<typename P>
   struct DefaultPowerOp {

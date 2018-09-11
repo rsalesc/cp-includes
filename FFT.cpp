@@ -2,6 +2,7 @@
 #define _LIB_FFT
 #include <bits/stdc++.h>
 #include "Complex.cpp"
+#include "BitTricks.cpp"
 
 namespace lib {
   using namespace std;
@@ -61,7 +62,7 @@ namespace internal {
   template<typename T>
   void raw_fft(const vector<T>& a, const vector<T>& b) {
     int n = max(a.size(), b.size());
-    n = 1 << (32 - __builtin_clz(n) + ((n & (n-1)) != 0));
+    n = next_power_of_two(n) << 1;
     if((int)internal::fa.size() < n) internal::fa.resize(n);
     if((int)internal::fb.size() < n) internal::fb.resize(n);
     for(size_t i = 0; i < a.size(); i++)

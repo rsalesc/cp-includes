@@ -40,4 +40,10 @@ int main() {
   cout << w << endl;
   cout << y.integral() << endl;
   cout << y.derivative() << endl;
+
+  cout << "series" << endl;
+  cout << series::power(Poly(31), 2, 1) << endl;
+  cout << series::power(root, 1023912, 4) << " " << Poly::power(root, 1023912, 4) << endl;
+  auto pw = 10293109239012;
+  assert(series::power(w, pw, 50) == Poly::power(w, pw, 50));
 }

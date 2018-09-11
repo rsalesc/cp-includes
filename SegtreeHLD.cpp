@@ -221,7 +221,7 @@ namespace range {
       this->template operate_on_path_edges(u, v, issuer);
     }
 
-    // FIX THOSE 
+    // TODO: FIX THOSE 
     template<typename Updater>
     inline void update_element(int idx, const Updater& updater) {
       seg.update_element(idx, updater);
