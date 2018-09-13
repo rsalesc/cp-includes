@@ -1,5 +1,5 @@
-#ifndef _LIB_GEOMETRY_POLY_2D
-#define _LIB_GEOMETRY_POLY_2D
+#ifndef _LIB_GEOMETRY_CIRCLE_2D
+#define _LIB_GEOMETRY_CIRCLE_2D
 #include <bits/stdc++.h>
 #include "Line2D.cpp"
 
@@ -42,6 +42,7 @@ namespace plane {
     typedef Point<T, Large> point;
     typedef Line<T, Large> line;
     typedef Barycentric<Large> bary;
+    typedef Segment<T, Large> segment;
     point center;
     T radius;
 
@@ -73,6 +74,17 @@ namespace plane {
         res.push_back(p + rotate(v, -alpha));
       return res;
     }
+    friend bool contains(const Circle& c, const point& p) {
+      return GEOMETRY_COMPARE(Large, dist(p, c.center), c.radius) <= 0;
+    }
+    friend bool contains(const Circle& c, const segment& s) {
+      return GEOMETRY_COMPARE(Large, dist(s.a, c.center), c.radius) <= 0
+        && GEOMETRY_COMPARE(Large, dist(s.b, c.center), c.radius) <= 0;
+    }
+    template<typename L>
+    friend bool partially_contains(const Circle& c, const L& l) {
+      return GEOMETRY_COMPARE(Large, dist(l, c.center), c.radius) <= 0;
+    }
     template<typename L>
     friend bool has_unique_intersection(const Circle& c, const L& l) {
       return GEOMETRY_COMPARE(Large, dist(l, c.center), c.radius) == 0;
@@ -80,6 +92,11 @@ namespace plane {
     template<typename L>
     friend bool has_intersection(const Circle& c, const L& l) {
       return GEOMETRY_COMPARE(Large, dist(l, c.center), c.radius) <= 0;
+    }
+    friend bool has_intersection(const Circle& c, const segment& s) {
+      return GEOMETRY_COMPARE(Large, dist(s, c.center), c.radius) <= 0
+        && (GEOMETRY_COMPARE(Large, dist(s.a, c.center), c.radius) >= 0
+          || GEOMETRY_COMPARE(Large, dist(s.b, c.center), c.radius) >= 0);
     }
   };
 }  // namespace plane

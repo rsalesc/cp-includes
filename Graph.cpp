@@ -121,6 +121,7 @@ namespace graph {
     }
 
     inline int size() const { return adj.size(); }
+    inline int edge_size() const { return edges.size(); }
     inline edge_type& edge(int i) { return edges[i]; }
     inline edge_type edge(int i) const { return edges[i]; }
 
@@ -151,7 +152,7 @@ namespace graph {
     inline S& add_edge(int u, int v) {
       adj[u].push_back(edges.size());
       edges.push_back({u, v});
-      return edges.back();
+      return edges.back().data;
     }
 
     void add_2edge(int u, int v) {
@@ -161,8 +162,8 @@ namespace graph {
 
     template<typename S = E, typename enable_if<!is_void<S>::value>::type* = nullptr>
     inline void add_2edge(int u, int v, const S& data) {
-      add_edge(u, v).data = data;
-      add_edge(v, u).data = data;
+      add_edge(u, v) = data;
+      add_edge(v, u) = data;
     }
   };
 

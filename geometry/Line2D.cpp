@@ -1,5 +1,5 @@
-#ifndef _LIB_GEOMETRY_2D
-#define _LIB_GEOMETRY_2D
+#ifndef _LIB_GEOMETRY_LINE_2D
+#define _LIB_GEOMETRY_LINE_2D
 #include <bits/stdc++.h>
 #include "GeometryEpsilon.cpp"
 #include "Trigonometry.cpp"
@@ -36,6 +36,7 @@ namespace plane {
     explicit operator Point<G, H>() const {
       return Point<G, H>((G)x, (G)y);
     }
+    friend Point reversed(const Point& a) { return Point(a.y, a.x); }
     Point& operator+=(const Point& rhs) {
       x += rhs.x, y += rhs.y;
       return *this;
@@ -68,17 +69,24 @@ namespace plane {
       Point res = *this;
       return res /= k;
     }
+    Point operator-() const { return Point(-x, -y); }
     inline friend Point convolve(const Point& a, const Point& b) {
       return Point(a.x * b.x - a.y * b.y, a.x * b.y + b.x * a.y);
     }
     inline friend Large cross(const Point& a, const Point& b) {
       return (Large)a.x*b.y - (Large)a.y*b.x;
     }
+    friend Large cross(const Point& a, const Point& b, const Point& c) {
+      return cross(b-a, c-a);
+    }
     inline friend Large dot(const Point& a, const Point& b) {
       return (Large)a.x*b.x + (Large)a.y*b.y;
     }
+    friend int ccw(const Point& u, const Point& v) {
+      return GEOMETRY_COMPARE0(Large, cross(u, v));
+    }
     friend int ccw(const Point& a, const Point& b, const Point& c) {
-      return GEOMETRY_COMPARE0(Large, cross(b-a,c-a));
+      return ccw(b-a, c-a);
     }
     friend Large norm(const Point& a) {
       return sqrtl(dot(a, a));
@@ -154,7 +162,16 @@ namespace plane {
       return !(a == b);
     }
     friend bool operator<(const Point& a, const Point& b) {
-      return tie(a.x, a.y) < tie(b.x, b.y);
+      return tie(a.y, a.x) < tie(b.y, b.x);
+    }
+    friend bool operator>(const Point& a, const Point& b) {
+      return tie(a.y, a.x) > tie(b.y, b.x);
+    }
+    friend bool operator>=(const Point& a, const Point& b) {
+      return tie(a.y, a.x) >= tie(b.y, b.x);
+    }
+    friend bool operator<=(const Point& a, const Point& b) {
+      return tie(a.y, a.x) <= tie(b.y, b.x);
     }
     friend istream& operator>>(istream& in, Point& p) {
       return in >> p.x >> p.y;
@@ -197,6 +214,16 @@ namespace plane {
     typedef Line<T, Large> line;
     point a, b;
     Line(point a, point b) : a(a), b(b) {}
+    template<typename G = T,
+             typename enable_if<!is_integral<G>::value>::type* = nullptr>
+    Line(T A, T B, T C) {
+      if(GEOMETRY_COMPARE0(Large, A))
+        a = point(-C/A, 0), b = point((-C-B)/A, 1);
+      else if(GEOMETRY_COMPARE0(Large, B))
+        a = point(0, -C/B), b = point(1, (-C-A)/B);
+      else
+        assert(false);
+    }
     template<typename G, typename H>
     explicit operator Line<G, H>() const {
       return Line<G, H>(Point<G, H>(a), Point<G, H>(b));
@@ -207,6 +234,9 @@ namespace plane {
     }
     friend bool collinear(const line& u, const line& v) {
       return collinear(u.a, u.b, v.a) && collinear(u.a, u.b, v.b);
+    }
+    bool contains(const point& p) const {
+      return collinear(a, b, p);
     }
     friend bool parallel(const line& u, const line& v) {
       return collinear(u.b - u.a, v.b - v.a);
@@ -347,6 +377,7 @@ namespace plane {
     Segment(point a, point b) : a(a), b(b) {}
     line as_line() const { return line(a, b); }
     explicit operator line() const { return as_line(); }
+    bool is_degenerate() const { return a == b; }
 
     template<typename G, typename H>
     explicit operator Segment<G, H>() const {
@@ -379,6 +410,18 @@ namespace plane {
       if(!s.collinear_contains(p.first) || !r.collinear_contains(p.first))
         return {{}, false};
       return p;
+    }
+    friend pair<segment, int> intersect_segment(segment s1,
+                                                 segment s2) {
+      if(collinear(s1.as_line(), s2.as_line())) {
+        if(s1.a > s1.b) swap(s1.a, s1.b);
+        if(s2.a > s2.b) swap(s2.a, s2.b);
+        segment res(max(s1.a, s2.a), min(s1.b, s2.b));
+        return {res, int(res.a <= res.b) * 2};
+      } else {
+        auto p = intersect(s1, s2);
+        return {segment(p.first, p.first), p.second};
+      }
     }
     friend pair<point, bool> intersect(const segment& s1, const segment& s2) {
       auto p = intersect(s1, s2.as_line());
