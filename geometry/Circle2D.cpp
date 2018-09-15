@@ -59,6 +59,32 @@ namespace plane {
       point center = bary::incenter(p1, p2, p3).as_point();
       return Circle(center, dist(line(p1, p2), center));
     }
+    friend pair<segment, int> intersect_segment(const Circle& c, const line& l) {
+      point H = project(c.center, l);
+      Large h = norm(H - c.center);
+      if(GEOMETRY_COMPARE(Large, c.radius, h) < 0) return {{}, 0};
+      point v = normalized(l.direction(), sqrtl(c.radius*c.radius - h*h));
+      segment res = segment(H - v, H + v);
+      return {res, res.is_degenerate() ? 1 : 2};
+    }
+    static Large intersection_signed_area(double r, const point& a, const point& b) {
+      Circle C(point(), r);
+      auto ps = intersect_segment(C, line(a, b));
+      if(!ps.second)
+        return r*r*signed_angle(a, b) / 2;
+      auto s = ps.first;
+      bool outa = !contains(C, a), outb = !contains(C, b);
+      if(outa && outb) {
+        segment ab(a, b);
+        if(ab.contains(s.a) && ab.contains(s.b))
+          return (r*r*(signed_angle(a, b) - signed_angle(s.a, s.b)) + cross(s.a, s.b))/2;
+        return r*r*signed_angle(a, b)/2;
+      } else if(outa)
+        return (r*r*signed_angle(a, s.a) + cross(s.a, b))/2;
+      else if(outb)
+        return (r*r*signed_angle(s.b, b) + cross(a, s.b))/2;
+      else return cross(a, b)/2;
+    }
     friend vector<point> tangents(const Circle& C, const point& p) {
       point v = C.center - p;
       Large d = norm(v);

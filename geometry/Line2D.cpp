@@ -25,7 +25,7 @@ namespace plane {
       int y = GEOMETRY_COMPARE(T, o, b);
       return x <= 0 && y <= 0 && (x < 0 || y < 0);
     }
-  }
+  } 
 
   template<typename T, typename Large = T>
   struct Point {
@@ -374,6 +374,7 @@ namespace plane {
     typedef Ray<T, Large> ray;
     point a, b;
 
+    Segment() {}
     Segment(point a, point b) : a(a), b(b) {}
     line as_line() const { return line(a, b); }
     explicit operator line() const { return as_line(); }
@@ -494,6 +495,24 @@ namespace plane {
       return tie(l1.a, l1.b) < tie(l2.a, l2.b);
     }
   };
+
+  template<typename T, typename Large = T>
+  struct AngleComparator {
+    typedef Point<T, Large> point;
+    point pivot;
+    AngleComparator(point p) : pivot(p) {}
+    bool operator()(const point& a, const point& b) const {
+      return ccw(pivot, a, b) > 0;
+    }
+    template<typename Iterator>
+    static void sortByAngle(Iterator begin, Iterator end, const point& pivot) {
+      AngleComparator<T, Large> cmp(pivot);
+      begin = partition(begin, end, [&pivot](const point& p) { return p == pivot; });
+      auto half = partition(begin, end, [&pivot](const point& p) { return p > pivot; });
+      sort(begin, half, cmp);
+      sort(half, end, cmp);
+    }
+  };
 }  // namespace plane
 
   template<typename T, typename Large = T>
@@ -503,6 +522,7 @@ namespace plane {
     typedef plane::Rectangle<T, Large> rectangle;
     typedef plane::Segment<T, Large> segment;
     typedef plane::Ray<T, Large> ray;
+    typedef plane::AngleComparator<T, Large> angle_comparator;
   };
 
 }  // namespace geo
