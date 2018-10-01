@@ -9,7 +9,7 @@ namespace lib {
   using namespace std;
 namespace graph {
   namespace {
-    void empty_lifter(int a, int b) {}
+    void empty_lifter(int a, int b, bool inv) {}
   }
 
   template<typename G>
@@ -123,6 +123,11 @@ namespace graph {
 
     inline int lca(int u, int v) {
       return _query_path<false>(u, v, empty_lifter);
+    }
+
+    inline int dist(int u, int v) {
+      int uv = lca(u, v);
+      return L[u] + L[v] - 2*L[uv];
     }
   };
 

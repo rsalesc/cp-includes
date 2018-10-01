@@ -28,7 +28,7 @@ namespace rng {
 
     template<typename T>
     inline T uniform_int(T N) {
-      return uniform_int(0, N-1);
+      return uniform_int(T(), N-1);
     }
 
     template<typename T>

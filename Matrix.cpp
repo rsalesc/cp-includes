@@ -13,11 +13,13 @@ namespace linalg {
     int n, m;
 
     Matrix(int n, int m) : g(n*m), n(n), m(m) {}
-    Matrix(const nested_list& l) : Matrix(l.size(), l[0].size()) {
-      for(int i = 0; i < n; i++) {
-        assert(l[i].size() == m);
-        for(int j = 0; j < m; j++) {
-          (*this)(i, j) = l[i][j];
+    Matrix(const nested_list& l) : Matrix(l.size(), l.begin()->size()) {
+      auto it1 = l.begin();
+      for(int i = 0; i < n; i++, ++it1) {
+        assert((int)it1->size() == m);
+        auto it2 = it1->begin();
+        for(int j = 0; j < m; j++, ++it2) {
+          (*this)(i, j) = *it2;
         }
       }
     }
@@ -31,6 +33,16 @@ namespace linalg {
     }
     T& operator()(const int i, const int j) {
       return g[i*m+j];
+    }
+
+    Matrix<T> t() const {
+      Matrix<T> res(m, n);
+      for(int i = 0; i < m; i++) {
+        for(int j = 0; j < n; j++) {
+          res(i, j) = (*this)(j, i);
+        }
+      }
+      return res;
     }
 
     Matrix<T>& operator+=(const Matrix<T>& rhs) {
@@ -78,7 +90,7 @@ namespace linalg {
       for(int i = 0; i < lhs.n; i++) {
         for(int k = 0; k < lhs.m; k++) {
           for(int j = 0; j < rhs.m; j++) {
-            res(i, j) += res(i, k) * res(k, j);
+            res(i, j) += lhs(i, k) * rhs(k, j);
           }
         }
       }
