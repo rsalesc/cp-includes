@@ -221,6 +221,10 @@ namespace hashing {
       return (*this)(sz - n, sz - 1);
     }
 
+    pair<Hash, Hash> border(int n) const {
+      return {prefix(n), suffix(n)};
+    }
+
     Hash substr(int i) const {
       i = min(i, size());
       return (*this)(i, size() - 1);

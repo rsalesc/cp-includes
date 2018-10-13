@@ -65,10 +65,11 @@ namespace {
       for(size_t i = 0; i < sizeof...(Mods); i++)
         x[i] = T();
     }
-    ModularIntegerImpl(T y) {
-      for(size_t i = 0; i < sizeof...(Mods); i++)
-        x[i] = y;
-      normalize();
+    ModularIntegerImpl(large_int y) {
+      for(size_t i = 0; i < sizeof...(Mods); i++) {
+        x[i] = y % mods[i];
+        if(x[i] < 0) x[i] += mods[i];
+      }
     }
     static type with_remainders(T y[sizeof...(Mods)]) {
       type res;
@@ -102,7 +103,7 @@ namespace {
     }
     
     template<typename U>
-    T power(T a, U p, T mod) {
+    T power_(T a, U p, T mod) {
       if(mod == 1) return T();
       if(p < 0) {
         if(a == 0)
@@ -172,7 +173,7 @@ namespace {
 
     type& operator^=(large_int p) {
       for(size_t i = 0; i < sizeof...(Mods); i++)
-        x[i] = power(x[i], p, mods[i]);
+        x[i] = power_(x[i], p, mods[i]);
       return *this;
     }
 
@@ -231,6 +232,10 @@ namespace {
     friend type operator^(const type& lhs, large_int rhs) {
       type res = lhs;
       return res ^= rhs;
+    }
+
+    friend type power(const type& lhs, large_int rhs) {
+      return lhs ^ rhs;
     }
 
     type operator-() const {

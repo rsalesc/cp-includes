@@ -118,6 +118,16 @@ namespace plane {
     friend Large angle(const Point& v, const Point& w) {
       return abs(signed_angle(v, w));
     }
+    friend Large ccw_angle(const Point& v) {
+      Large res = arg(v);
+      if(res < 0) res += 2.0 * trig::PI;
+      return res;
+    }
+    friend Large ccw_angle(const Point& v, const Point& w) {
+      Large res = signed_angle(v, w);
+      if(res < 0) res += 2.0 * trig::PI;
+      return res;
+    }
     inline friend Point normalized(const Point& a, Large k) {
       return a.is_null() ? Point() : a / norm(a) * k; 
     }
