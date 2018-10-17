@@ -18,13 +18,23 @@ namespace linalg {
     
     static vector<int> rev;
     static vcd fa;
+    static vcd w;
 
     static cd root(fft_type ang) {
       return cd(geo::trig::cos(ang), geo::trig::sin(ang));
     }
 
+    static void dft_roots(int n) {
+      if((int)w.size() < n) w.resize(n);
+      else return;
+      w[0] = cd(1.0, 0.0);
+      for(int i = 1; i < n; i++)
+        w[i] = root(PI * 2.0 / n * i);
+    }
+
     // function used to precompute rev for fixed size fft (n is a power of two)
     static void dft_rev(int n) {
+      dft_roots(n);
       int lbn = __builtin_ctz(n);
       if((int)rev.size() < (1 << lbn)) rev.resize(1 << lbn);
       int h = -1;
@@ -36,16 +46,14 @@ namespace linalg {
 
     static void dft_iter(cd* p, int n) {
       for (int L = 2; L <= n; L <<= 1) {
-        fft_type ang = PI * 2 / L;
-        cd step = root(ang);
+        int rw = (int)w.size() / L;
         for (int i = 0; i < n; i += L) {
-          cd w = 1;
-          for (int j = 0; j < L / 2; j++) {
+          for (int j = 0, aw = rw; j < L / 2; j++, aw += rw) {
+            cd wcur = w[aw];
             cd x = p[i + j];
-            cd y = p[i + j + L / 2] * w;
+            cd y = p[i + j + L / 2] * wcur;
             p[i + j] = x + y;
             p[i + j + L / 2] = x - y;
-            w *= step;
           }
         }
       }
@@ -95,15 +103,15 @@ namespace linalg {
   template<typename T, typename U = double>
   void raw_fft(const vector<T>& a, const vector<T>& b) {
     int n = DFT<U>::ensure(a.size(), b.size());
-    for(size_t i = 0; i < n; i++)
-      DFT<U>::fa[i] = typename DFT<U>::cd(i < a.size() ? a[i] : 0, 
-                                          i < b.size() ? b[i] : 0);
+    for(size_t i = 0; i < (size_t)n; i++)
+      DFT<U>::fa[i] = typename DFT<U>::cd(i < a.size() ? (U) a[i] : U(), 
+                                          i < b.size() ? (U) b[i] : U());
     DFT<U>::dft_rev(n);
     DFT<U>::dft(n);
     for(int i = 0; i < n; i++) DFT<U>::fa[i] *= DFT<U>::fa[i];
     DFT<U>::idft(n);
     for(int i = 0; i < n; i++)
-      DFT<U>::fa[i] = typename DFT<U>::cd(DFT<U>::fa[i].imag() / 2, 0);
+      DFT<U>::fa[i] = typename DFT<U>::cd(DFT<U>::fa[i].imag() / 2, U());
   }
 
   template<typename T, typename U = double>
@@ -190,6 +198,10 @@ namespace linalg {
   DFT<double>::vcd DFT<double>::fa = typename DFT<double>::vcd();
   template<>
   DFT<long double>::vcd DFT<long double>::fa = typename DFT<long double>::vcd();
+  template<>
+  DFT<double>::vcd DFT<double>::w = typename DFT<double>::vcd();
+  template<>
+  DFT<long double>::vcd DFT<long double>::w = typename DFT<long double>::vcd();
 
 }  // namespace linalg
 }  // namespace lib

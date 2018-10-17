@@ -23,6 +23,6 @@ int32_t main() {
     else b[i] = 1;
   }
 
-  auto res = math::circular_conv<math::SafeMultiplication>(a, b);
+  auto res = math::circular_conv<math::FastMultiplication>(a, b);
   for(int i = 1; i < n; i++) cout << res[i] << endl;
 }
