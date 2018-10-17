@@ -3,85 +3,113 @@
 #include <bits/stdc++.h>
 #include "Complex.cpp"
 #include "BitTricks.cpp"
+#include "geometry/Trigonometry.cpp"
 
 namespace lib {
   using namespace std;
 namespace linalg {
-namespace internal {
-  typedef long double fft_type;
-  typedef Complex<fft_type> cd;
-  typedef vector<cd> vcd;
 
-  const fft_type PI = acosl(-1);
-  vector<int> rev;
-  vcd fa, fb;
+  template<typename fft_type>
+  struct DFT {
+    typedef Complex<fft_type> cd;
+    typedef vector<cd> vcd;
 
-  // function used to precompute rev for fixed size fft (n is a power of two)
-  void dft_rev(int n) {
-    int lbn = __builtin_ctz(n);
-    if((int)rev.size() < (1 << lbn)) rev.resize(1 << lbn);
-    int h = -1;
-    for (int i = 1; i < n; i++) {
-      if ((i & (i - 1)) == 0) h++;
-      rev[i] = rev[i ^ (1 << h)] | (1 << (lbn - h - 1));
+    static constexpr fft_type PI = geo::trig::PI;
+    
+    static vector<int> rev;
+    static vcd fa;
+
+    static cd root(fft_type ang) {
+      return cd(geo::trig::cos(ang), geo::trig::sin(ang));
     }
-  }
 
-  void dft_iter(cd* p, int n) {
-    for (int L = 2; L <= n; L <<= 1) {
-      fft_type ang = PI * 2 / L;
-      cd step = cd(cosl(ang), sinl(ang)); // root
-      // for (int i = L; i < root_sz; i <<= 1) NTT HERE
-      //   step = step * step % MOD;
-      for (int i = 0; i < n; i += L) {
-        cd w = 1;
-        for (int j = 0; j < L / 2; j++) {
-          cd x = p[i + j];
-          cd y = p[i + j + L / 2] * w;
-          p[i + j] = x + y;
-          p[i + j + L / 2] = x - y;
-          w *= step;
+    // function used to precompute rev for fixed size fft (n is a power of two)
+    static void dft_rev(int n) {
+      int lbn = __builtin_ctz(n);
+      if((int)rev.size() < (1 << lbn)) rev.resize(1 << lbn);
+      int h = -1;
+      for (int i = 1; i < n; i++) {
+        if ((i & (i - 1)) == 0) h++;
+        rev[i] = rev[i ^ (1 << h)] | (1 << (lbn - h - 1));
+      }
+    }
+
+    static void dft_iter(cd* p, int n) {
+      for (int L = 2; L <= n; L <<= 1) {
+        fft_type ang = PI * 2 / L;
+        cd step = root(ang);
+        for (int i = 0; i < n; i += L) {
+          cd w = 1;
+          for (int j = 0; j < L / 2; j++) {
+            cd x = p[i + j];
+            cd y = p[i + j + L / 2] * w;
+            p[i + j] = x + y;
+            p[i + j + L / 2] = x - y;
+            w *= step;
+          }
         }
       }
     }
-  }
+    static void swap(vcd& buf) {
+      std::swap(fa, buf);
+    }
+    static void _dft(cd* p, int n) {
+      for (int i = 0; i < n; i++)
+        if (i < rev[i]) std::swap(p[i], p[rev[i]]);
+      dft_iter(p, n);
+    }
+    static void _idft(cd* p, int n) {
+      _dft(p, n);
+      reverse(p+1, p+n);
+      for (int i = 0; i < n; i++) p[i] /= n;
+    }
 
-  void dft(cd* p, int n) {
-    for (int i = 0; i < n; i++)
-      if (i < rev[i]) swap(p[i], p[rev[i]]);
-    dft_iter(p, n);
-  }
+    static void dft(int n) {
+      _dft(fa.data(), n);
+    }
 
-  void idft(cd* p, int n) {
-    dft(p, n);
-    reverse(p+1, p+n);
-    for (int i = 0; i < n; i++) p[i] /= n;
-  }
-}
+    static void idft(int n) {
+      _idft(fa.data(), n);
+    }
 
-  template<typename T>
+    static void dft(vcd& v, int n) {
+      swap(v); dft(n); swap(v);
+    }
+    static void idft(vcd& v, int n) {
+      swap(v); idft(n); swap(v);
+    }
+
+    static int ensure(int a, int b = 0) {
+      int n = max(a, b);
+      n = next_power_of_two(n) << 1;
+      if((int)fa.size() < n)
+        fa.resize(n);
+      return n;
+    }
+
+    static void clear(int n) {
+      fill(fa.begin(), fa.begin() + n, 0);
+    }
+  };
+
+  template<typename T, typename U = double>
   void raw_fft(const vector<T>& a, const vector<T>& b) {
-    int n = max(a.size(), b.size());
-    n = next_power_of_two(n) << 1;
-    if((int)internal::fa.size() < n) internal::fa.resize(n);
-    if((int)internal::fb.size() < n) internal::fb.resize(n);
-    for(size_t i = 0; i < a.size(); i++)
-      internal::fa[i] = (internal::fft_type) a[i];
-    for(size_t i = 0; i < b.size(); i++)
-      internal::fb[i] = (internal::fft_type) b[i];
-    fill(internal::fa.begin() + a.size(), internal::fa.end(), 0);
-    fill(internal::fb.begin() + b.size(), internal::fb.end(), 0);
-    internal::dft_rev(n);
-    internal::dft(internal::fa.data(), n);
-    internal::dft(internal::fb.data(), n);
-    for(int i = 0; i < n; i++) internal::fa[i] *= internal::fb[i];
-    internal::idft(internal::fa.data(), n);
+    int n = DFT<U>::ensure(a.size(), b.size());
+    for(size_t i = 0; i < n; i++)
+      DFT<U>::fa[i] = typename DFT<U>::cd(i < a.size() ? a[i] : 0, 
+                                          i < b.size() ? b[i] : 0);
+    DFT<U>::dft_rev(n);
+    DFT<U>::dft(n);
+    for(int i = 0; i < n; i++) DFT<U>::fa[i] *= DFT<U>::fa[i];
+    DFT<U>::idft(n);
+    for(int i = 0; i < n; i++)
+      DFT<U>::fa[i] = typename DFT<U>::cd(DFT<U>::fa[i].imag() / 2, 0);
   }
 
-  template<typename T>
-  internal::vcd fft(const vector<T>& a, const vector<T>& b) {
-    raw_fft(a, b);
-    internal::vcd& raw = internal::fa;
+  template<typename T, typename U = double>
+  typename DFT<U>::vcd fft(const vector<T>& a, const vector<T>& b) {
+    raw_fft<T, U>(a, b);
+    typename DFT<U>::vcd& raw = DFT<U>::fa;
     int sz = raw.size();
     vector<T> res(sz);
     for(int i = 0; i < sz; i++)
@@ -89,10 +117,10 @@ namespace internal {
     return res;
   }
 
-  template<typename T>
+  template<typename T, typename U = double>
   vector<T> rounded_fft(const vector<T>& a, const vector<T>& b) {
-    raw_fft(a, b);
-    internal::vcd& raw = internal::fa;
+    raw_fft<T, U>(a, b);
+    typename DFT<U>::vcd& raw = DFT<U>::fa;
     int sz = raw.size();
     vector<T> res(sz);
     for(int i = 0; i < sz; i++)
@@ -100,51 +128,69 @@ namespace internal {
     return res;
   }
 
-  // TODO: optimize this
-  template<typename M>
+  // TODO: use separate static buffers for this function
+  template<typename M, typename U = double>
   vector<M> mod_split_fft(const vector<M>& a, const vector<M>& b) {
     typedef typename M::type_int type_int;
+    typedef typename M::large_int large_int;
+    typedef typename DFT<U>::cd cd;
+    typedef typename DFT<U>::vcd vcd;
+
     static_assert(sizeof(M::mods) / sizeof(type_int) == 1, 
         "cant multiply with multiple mods");
     type_int base = sqrtl(M::mods[0]) + 0.5;
     M base_m = base;
     int sza = a.size();
     int szb = b.size();
+    int n = 1;
+    while(n <= sza+szb-2) n *= 2;
+    DFT<U>::dft_rev(n);
 
-    vector<M> a0(sza), a1(sza);
-    for(int i = 0; i < sza; i++) {
-      a0[i] = (type_int)a[i] % base;
-      a1[i] = (type_int)a[i] / base;
+    vector<M> res(n);
+
+    // establish buffers
+    vcd fa(n), fb(n), C1(n), C2(n);
+
+    for(int i = 0; i < n; i++)
+      fa[i] = i < sza ? cd((type_int) a[i] / base, (type_int) a[i] % base) : cd();
+    for(int i = 0; i < n; i++)
+      fb[i] = i < szb ? cd((type_int) b[i] / base, (type_int) b[i] % base) : cd();
+    DFT<U>::dft(fa, n);
+    DFT<U>::dft(fb, n);
+
+    for(int i = 0; i < n; i++) {
+      int j = i ? n - i : 0;
+      cd a1 = (fa[i] + fa[j].conj()) * cd(0.5, 0.0);
+      cd a2 = (fa[i] - fa[j].conj()) * cd(0.0, -0.5);
+      cd b1 = (fb[i] + fb[j].conj()) * cd(0.5, 0.0);
+      cd b2 = (fb[i] - fb[j].conj()) * cd(0.0, -0.5);
+      cd c11 = a1 * b1, c12 = a1 * b2;
+      cd c21 = a2 * b1, c22 = a2 * b2;
+      C1[j] = c11 + c12 * cd(0.0, 1.0);
+      C2[j] = c21 + c22 * cd(0.0, 1.0);
+    }
+    DFT<U>::idft(C1, n), DFT<U>::idft(C2, n);
+    for(int i = 0; i < n; i++) {
+      int j = i ? n - i : 0;
+      M x = large_int(C1[j].real() + 0.5);
+      M y1 = large_int(C1[j].imag() + 0.5);
+      M y2 = large_int(C2[j].real() + 0.5);
+      M z = large_int(C2[j].imag() + 0.5);
+      res[i] = x * base_m * base_m + (y1 + y2) * base_m + z;
     }
 
-    vector<M> b0(szb), b1(szb);
-    for(int i = 0; i < szb; i++) {
-      b0[i] = (type_int)b[i] % base;
-      b1[i] = (type_int)b[i] / base;
-    }
-
-    vector<M> a01 = a0, b01 = b0;
-    for(int i = 0; i < sza; i++) a01[i] += a1[i];
-    for(int i = 0; i < szb; i++) b01[i] += b1[i];
-    vector<M> C = rounded_fft(a01, b01);
-    vector<M> a0b0 = rounded_fft(a0, b0);
-    vector<M> a1b1 = rounded_fft(a1, b1);
-
-    vector<M> mid = C;
-    int sz = C.size();
-    for(int i = 0; i < sz; i++) {
-      mid[i] -= a0b0[i];
-      mid[i] -= a1b1[i];
-    }
-
-    vector<M> res = a0b0;
-    for(int i = 0; i < sz; i++)
-      res[i] += base_m * mid[i];
-    base_m *= base_m;
-    for(int i = 0; i < sz; i++)
-      res[i] += base_m * a1b1[i];
     return res;
   }
+
+  template<>
+  vector<int> DFT<double>::rev = vector<int>();
+  template<>
+  vector<int> DFT<long double>::rev = vector<int>();
+  template<>
+  DFT<double>::vcd DFT<double>::fa = typename DFT<double>::vcd();
+  template<>
+  DFT<long double>::vcd DFT<long double>::fa = typename DFT<long double>::vcd();
+
 }  // namespace linalg
 }  // namespace lib
 

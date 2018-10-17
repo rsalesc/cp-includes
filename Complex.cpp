@@ -7,6 +7,8 @@ namespace lib {
     T re, im;
     Complex(T a = T(), T b = T()) : re(a), im(b) {}
     T real() const { return re; }
+    T imag() const { return im; }
+    Complex conj() const { return Complex(re, -im); }
     void operator+=(const Complex<T>& rhs) { re += rhs.re, im += rhs.im; }
     void operator-=(const Complex<T>& rhs) { re -= rhs.re, im -= rhs.im; }
     void operator*=(const Complex<T>& rhs) {

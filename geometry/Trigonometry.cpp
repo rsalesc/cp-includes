@@ -6,7 +6,7 @@ namespace lib {
   using namespace std;
 namespace geo {
 namespace trig {
-  const static long double PI = acosl(-1);
+  constexpr static long double PI = acosl(-1);
   double cos(double x) { return ::cos(x); }
   double sin(double x) { return ::sin(x); }
   double asin(double x) { return ::asin(x); }

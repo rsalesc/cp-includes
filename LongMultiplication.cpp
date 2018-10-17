@@ -7,16 +7,23 @@ namespace lib {
   using namespace std;
 namespace math {
   struct FastMultiplication {
-    template<typename Field>
+    template<typename Field, typename U = double>
     vector<Field> operator()(const vector<Field>& a, const vector<Field>& b) const {
-      return linalg::rounded_fft(a, b);
+      return linalg::rounded_fft<Field, U>(a, b);
     }
   };
-  
-  struct SafeMultiplication {
-    template<typename Field>
+
+  struct FFTMultiplication {
+    template<typename Field, typename U = double>
     vector<Field> operator()(const vector<Field>& a, const vector<Field>& b) const {
-      return linalg::mod_split_fft(a, b);
+      return linalg::fft<Field, U>(a, b);
+    }
+  }
+  ;
+  struct SafeMultiplication {
+    template<typename Field, typename U = double>
+    vector<Field> operator()(const vector<Field>& a, const vector<Field>& b) const {
+      return linalg::mod_split_fft<Field, U>(a, b);
     };
   };
 
@@ -32,6 +39,16 @@ namespace math {
       return res;
     }
   };
+
+  template<typename Mult, typename Field>
+  vector<Field> circular_conv(const vector<Field>& a, vector<Field> b) {
+    if(b.empty()) return {};
+    reverse(b.begin(), b.end());
+    int m = b.size();
+
+    auto res = Mult()(a, b);
+    return vector<Field>(res.begin() + m - 1, res.end());
+  }
 }  // namespace math
 }  // namespace lib
 
