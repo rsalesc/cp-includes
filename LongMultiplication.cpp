@@ -1,32 +1,10 @@
 #ifndef _LIB_LONG_MULTIPLICATION
 #define _LIB_LONG_MULTIPLICATION
-#include "FFT.cpp"
 #include <bits/stdc++.h>
 
 namespace lib {
   using namespace std;
 namespace math {
-  struct FastMultiplication {
-    template<typename Field, typename U = double>
-    vector<Field> operator()(const vector<Field>& a, const vector<Field>& b) const {
-      return linalg::rounded_fft<Field, U>(a, b);
-    }
-  };
-
-  struct FFTMultiplication {
-    template<typename Field, typename U = double>
-    vector<Field> operator()(const vector<Field>& a, const vector<Field>& b) const {
-      return linalg::fft<Field, U>(a, b);
-    }
-  }
-  ;
-  struct SafeMultiplication {
-    template<typename Field, typename U = double>
-    vector<Field> operator()(const vector<Field>& a, const vector<Field>& b) const {
-      return linalg::mod_split_fft<Field, U>(a, b);
-    };
-  };
-
   struct NaiveMultiplication {
     template<typename Field>
     vector<Field> operator()(const vector<Field>& a, const vector<Field>& b) const {
@@ -41,9 +19,10 @@ namespace math {
   };
 
   template<typename Mult, typename Field>
-  vector<Field> circular_conv(const vector<Field>& a, vector<Field> b) {
+  vector<Field> shift_conv(const vector<Field>& a, const vector<Field> b) {
     if(b.empty()) return {};
     reverse(b.begin(), b.end());
+    int n = a.size();
     int m = b.size();
 
     auto res = Mult()(a, b);

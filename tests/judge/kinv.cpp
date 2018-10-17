@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 #include "../../ModularInteger.cpp"
 #include "../../LongMultiplication.cpp"
+#include "../../FFT.cpp"
 
 using namespace std;
 using namespace lib;
@@ -23,6 +24,6 @@ int32_t main() {
     else b[i] = 1;
   }
 
-  auto res = math::circular_conv<math::FastMultiplication>(a, b);
+  auto res = math::shift_conv<math::FastMultiplication>(a, b);
   for(int i = 1; i < n; i++) cout << res[i] << endl;
 }

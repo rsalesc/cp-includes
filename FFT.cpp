@@ -204,6 +204,29 @@ namespace linalg {
   DFT<long double>::vcd DFT<long double>::w = typename DFT<long double>::vcd();
 
 }  // namespace linalg
+
+namespace math {
+  struct FastMultiplication {
+    template<typename Field, typename U = double>
+    vector<Field> operator()(const vector<Field>& a, const vector<Field>& b) const {
+      return linalg::rounded_fft<Field, U>(a, b);
+    }
+  };
+
+  struct FFTMultiplication {
+    template<typename Field, typename U = double>
+    vector<Field> operator()(const vector<Field>& a, const vector<Field>& b) const {
+      return linalg::fft<Field, U>(a, b);
+    }
+  };
+
+  struct SafeMultiplication {
+    template<typename Field, typename U = double>
+    vector<Field> operator()(const vector<Field>& a, const vector<Field>& b) const {
+      return linalg::mod_split_fft<Field, U>(a, b);
+    };
+  };
+}  // namespace math
 }  // namespace lib
 
 #endif
