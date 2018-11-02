@@ -2,25 +2,11 @@
 #define _LIB_GRAPH
 #include <bits/stdc++.h>
 #include "Traits.cpp"
+#include "utils/Wrappers.cpp"
 
 namespace lib {
   using namespace std;
 namespace graph {
-  template<typename T>
-  struct Edge {
-    const int from, to;
-    T data;
-  };
-
-  template<>
-  struct Edge<void> { const int from, to; };
-
-  template<typename T>
-  struct VertexWrapper { T data; };
-
-  template<>
-  struct VertexWrapper<void> {};
-
   template<typename V = void, 
            typename E = void>
   struct Graph {
