@@ -19,7 +19,7 @@ namespace math {
   };
 
   template<typename Type, typename Op>
-  Type generic_power(const Type& a, long long n, Op op = DefaultPowerOp<Type>()) {
+  Type generic_power(const Type& a, long long n, Op op) {
     if(n == 0) return op();
     Type res = op(a);
     int hi = 63 - __builtin_clzll(n);
@@ -27,6 +27,11 @@ namespace math {
       op(res, a, n >> i);
     }
     return res;
+  }
+
+  template<typename Type>
+  Type generic_power(const Type& a, long long n) {
+    return generic_power(a, n, DefaultPowerOp<Type>());
   }
 }  // namespace math
 }  // namespace lib
