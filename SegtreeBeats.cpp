@@ -20,198 +20,198 @@ namespace seg {
     }
   };
 
+  template<typename Node>
+  struct InMemoryNodeManager {
+    typedef int vnode;
+    vector<Node> t;
+
+    template<typename Builder>
+    void initialize(const Builder& builder) {
+      int L, R;
+      tie(L, R) = builder.range();
+      t = vector<Node>(4 * (R - L + 1));
+    }
+
+    inline bool has(vnode no) { return true; }
+    inline vnode root() { return 1; }
+    inline vnode new_root(vnode no) { return no; }
+    inline vnode left(vnode no) { return no << 1; }
+    inline vnode right(vnode no) { return no << 1 | 1; }
+    inline Node& ref(vnode no) { return t[no]; }
+    inline Node* ptr(vnode no) { return &t[no]; }
+    inline Node value(vnode no) { return t[no]; }
+
+    inline vnode persist(vnode no) { return no; }
+    inline void ensure_left(vnode no) {}
+    inline void ensure_right(vnode no) {}
+  };
+
   template<typename Node, 
+           typename NodeManager,
            typename CombinerFn = EmptyFolder<int>,
            typename PushdownFn = EmptyPushdown, 
            typename BreakCond = DefaultBreakCond, 
            typename TagCond = DefaultTagCond>
-  struct SegtreeBeats {
-    const static int ROOT = 1;
-    const static int MULTIPLIER = 4;
-    const static int SHIFT = 0;
-
+  struct SegtreeImpl {
+    typedef typename NodeManager::vnode vnode;
+    constexpr static bool has_lazy = !is_same<PushdownFn, EmptyPushdown>::value;
+    constexpr static bool is_implicit = !is_same<NodeManager, InMemoryNodeManager<Node>>::value;
 
     CombinerFn combiner_fn;
     PushdownFn pushdown_fn;
     BreakCond break_cond;
     TagCond tag_cond;
+    NodeManager manager;
 
-    vector<Node> t;
     int L, R;
 
     template<typename Builder>
-    explicit SegtreeBeats(const Builder& builder) {
-      pair<int, int> range = builder.range();
-      L = range.first;
-      R = range.second;
+    explicit SegtreeImpl(const Builder& builder) {
+      tie(L, R) = builder.range();
       assert(L >= 0 && L <= R);
-      t = vector<Node>(size() * MULTIPLIER + SHIFT);
-      build(builder);
+      manager.initialize(builder);
+      if(builder.should_build())
+        build(builder);
     }
 
+    inline vnode root() { return manager.root(); }
+
     template<typename Builder>
-    void build(const Builder& builder, int no, int l, int r) {
+    vnode build(const Builder& builder, vnode no, int l, int r) {
+      no = manager.persist(no);
       if(l == r) {
-        builder(t[no], l);
+        builder(manager.ref(no), l);
       } else {
         int mid = (l+r)/2;
-        build(builder, no<<1, l, mid);
-        build(builder, no<<1|1, mid+1, r);
-        t[no] = combiner_fn(t[no<<1], t[no<<1|1]);
+        build(builder, manager.left(no), l, mid);
+        build(builder, manager.right(no), mid+1, r);
+        manager.ref(no) = combiner_fn(manager.value(manager.left(no)), 
+                                      manager.value(manager.right(no)));
       }
+      return no;
     }
 
     template<typename Builder>
-    void build(const Builder& builder) {
-      return build(builder, ROOT, L, R);
+    vnode build(const Builder& builder) {
+      return manager.new_root(build(builder, root(), L, R));
     }
 
     inline int size() const { return R-L+1; }
 
-    void push(int no, int l, int r) {
-      Node* left = l == r ? 0 : &t[no<<1];
-      Node* right = l == r ? 0 : &t[no<<1|1];
-      pushdown_fn(t[no], l, r, left, right);
+    void push(vnode no, int l, int r) {
+      manager.ensure_left(no);
+      manager.ensure_right(no);
+      Node* left = l == r ? nullptr : manager.ptr(manager.left(no));
+      Node* right = l == r ? nullptr : manager.ptr(manager.right(no));
+      pushdown_fn(manager.ref(no), l, r, left, right);
     }
 
     template<typename T, typename Folder>
-    T query(int no, int l, int r, int i, int j, const Folder& folder) {
+    T query(vnode no, int l, int r, int i, int j, const Folder& folder) {
+      if(!manager.has(no))
+        return folder();
       if(j < l || i > r) return folder();
-      push(no, l, r);
-      if(i <= l && r <= j) return folder(t[no]);
+      if(has_lazy)
+        push(no, l, r);
+      if(i <= l && r <= j) return folder(manager.ref(no));
       int mid = (l+r)/2;
       return folder(
-          query<T>(no<<1, l, mid, i, j, folder),
-          query<T>(no<<1|1, mid+1, r, i, j, folder)
+          query<T>(manager.left(no), l, mid, i, j, folder),
+          query<T>(manager.right(no), mid+1, r, i, j, folder)
       );
     }
 
     template<typename T, typename Folder>
+    inline T query(vnode root, int i, int j, const Folder& folder) {
+      return query<T>(root, L, R, i, j, folder);
+    }
+
+    template<typename T, typename Folder>
     inline T query(int i, int j, const Folder& folder) {
-      return query<T>(ROOT, L, R, i, j, folder);
+      return query<T>(root(), i, j, folder);
     }
 
     template<typename Updater>
-    void update(int no, int l, int r, int i, int j, const Updater& updater) {
+    vnode update(vnode no, int l, int r, int i, int j, const Updater& updater) {
       push(no, l, r);
-      if(break_cond(t[no], l, r, i, j)) {
+      if(break_cond(manager.ref(no), l, r, i, j)) {
+        return no;
+      }
+      no = manager.persist(no);
+      if(tag_cond(manager.ref(no), l, r, i, j)) {
+        updater(manager.ref(no));
+        push(no, l, r);
+        return no;
+      }
+      int mid = (l+r)/2;
+      update(manager.left(no), l, mid, i, j, updater);
+      update(manager.right(no), mid+1, r, i, j, updater);
+      manager.ref(no) = combiner_fn(manager.value(manager.left(no)),
+                                    manager.value(manager.right(no)));
+      return no;
+    }
+
+    template<typename Updater>
+    inline vnode update(vnode root, int i, int j, const Updater& updater) {
+      return manager.new_root(update(root, L, R, i, j, updater));
+    }
+
+    template<typename Updater>
+    inline vnode update(int i, int j, const Updater& updater) {
+      return update(root(), i, j, updater);
+    }
+
+    template<typename Beater,
+             typename U = NodeManager,
+             typename enable_if<is_same<U, InMemoryNodeManager<Node>>::value>::type* = nullptr>
+    void beat(vnode no, int l, int r, int i, int j, const Beater& beater) {
+      push(no, l, r);
+      if(break_cond(manager.ref(no), l, r, i, j) || beater.stop(manager.ref(no), l, r, i, j)) {
         return;
       }
-      if(tag_cond(t[no], l, r, i, j)) {
-        updater(t[no]);
+      if(tag_cond(manager.ref(no), l, r, i, j) && beater.tag(manager.ref(no), l, r, i, j)) {
+        beater(manager.ref(no));
         push(no, l, r);
         return;
       }
       int mid = (l+r)/2;
-      update(no<<1, l, mid, i, j, updater);
-      update(no<<1|1, mid+1, r, i, j, updater);
-      t[no] = combiner_fn(t[no<<1], t[no<<1|1]);
-    }
-
-    template<typename Updater>
-    inline void update(int i, int j, const Updater& updater) {
-      update(ROOT, L, R, i, j, updater);
-    }
-
-    template<typename Beater>
-    void beat(int no, int l, int r, int i, int j, const Beater& beater) {
-      push(no, l, r);
-      if(break_cond(t[no], l, r, i, j) || beater.stop(t[no], l, r, i, j)) {
-        return;
-      }
-      if(tag_cond(t[no], l, r, i, j) && beater.tag(t[no], l, r, i, j)) {
-        beater(t[no]);
-        push(no, l, r);
-        return;
-      }
-      int mid = (l+r)/2;
-      beat(no<<1, l, mid, i, j, beater);
-      beat(no<<1|1, mid+1, r, i, j, beater);
-      t[no] = combiner_fn(t[no<<1], t[no<<1|1]);
+      beat(manager.left(no), l, mid, i, j, beater);
+      beat(manager.right(no), mid+1, r, i, j, beater);
+      manager.ref(no) = combiner_fn(manager.value(manager.left(no)),
+                                    manager.value(manager.right(no)));
     }
 
     template<typename Beater>
     inline void beat(int i, int j, const Beater& beater) {
-      beat(ROOT, L, R, i, j, beater);
+      beat(root(), L, R, i, j, beater);
     } 
   };
 
-  template<typename Node, typename CombinerFn>
-  struct SegtreeNormal : SegtreeBeats<Node, CombinerFn> {
-    typedef SegtreeBeats<Node, CombinerFn> Base;
-    using SegtreeBeats<Node, CombinerFn>::SegtreeBeats;
-    using Base::ROOT;
-    using Base::combiner_fn;
-    using Base::L;
-    using Base::R;
-    using Base::t;
 
-    template<typename Updater>
-    void update_element(int no, int l, int r, int idx, const Updater& updater) {
-      if(l == r)
-        updater(t[no]);
-      else {
-        int mid = (l+r)/2;
-        if(idx <= mid)
-          update_element(no<<1, l, mid, idx, updater);
-        else
-          update_element(no<<1|1, mid+1, r, idx, updater);
-        t[no] = combiner_fn(t[no<<1], t[no<<1|1]);
-      }
-    }
-    
-    template<typename Updater>
-    inline void update_element(int idx, const Updater& updater) {
-      update_element(ROOT, L, R, idx, updater);
-    }
+  template<typename Node, 
+           typename CombinerFn = EmptyFolder<int>,
+           typename PushdownFn = EmptyPushdown, 
+           typename BreakCond = DefaultBreakCond, 
+           typename TagCond = DefaultTagCond>
+  struct SegtreeBeats : SegtreeImpl<Node,
+                                    InMemoryNodeManager<Node>,
+                                    CombinerFn,
+                                    PushdownFn,
+                                    BreakCond,
+                                    TagCond> {
+
+    template<typename Builder>
+    explicit SegtreeBeats(const Builder& builder)
+     : SegtreeImpl<Node,
+                  InMemoryNodeManager<Node>,
+                  CombinerFn,
+                  PushdownFn,
+                  BreakCond,
+                  TagCond>(builder) {} 
   };
 
   template<typename Node>
-  struct SegtreeSplash : SegtreeBeats<Node, EmptyFolder<void>> {
-    typedef SegtreeBeats<Node, EmptyFolder<void>> Base;
-    using Base::SegtreeBeats;
-    using Base::ROOT;
-    using Base::L;
-    using Base::R;
-    using Base::t;
-
-    template<typename T, typename Folder>
-    T query_element(int no, int l, int r, int idx, const Folder& folder) {
-      T res = folder(t[no]);
-      if(l != r) {
-        int mid = (l+r)/2;
-        if(idx <= mid)
-          res = folder(res, query_element<T>(no<<1, l, mid, idx, folder));
-        else
-          res = folder(res, query_element<T>(no<<1|1, mid+1, r, idx, folder));
-      }
-      return res;
-    }
-
-    template<typename T, typename Folder>
-    inline T query_element(int idx, const Folder& folder) {
-      return query_element<T>(ROOT, L, R, idx, folder);
-    }
-
-    template<typename Updater>
-    void splash(int no, int l, int r, int i, int j, const Updater& updater) {
-      if(break_cond(t[no], l, r, i, j)) {
-        return;
-      }
-      if(tag_cond(t[no], l, r, i, j)) {
-        updater(t[no]);
-        return;
-      }
-      int mid = (l+r)/2;
-      splash(no<<1, l, mid, i, j, updater);
-      splash(no<<1|1, mid+1, r, i, j, updater);
-    }
-
-    template<typename Updater>
-    inline void splash(int i, int j, const Updater& updater) {
-      splash(ROOT, L, R, i, j, updater);
-    }
-  };
+  using Explicit = InMemoryNodeManager<Node>;
 }  // namespace seg
 }  // namespace lib
 

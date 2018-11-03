@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
-#include "../../SegtreeFast.cpp"
+#include "../../SegtreeNormal.cpp"
+#include "../../SegtreePersistent.cpp"
 
 using namespace std;
 using namespace lib;
@@ -10,7 +11,7 @@ int32_t main() {
   vector<int> p(n);
   for(int i = 0; i < n; i++) cin >> p[i];
 
-  seg::SegtreeFast<int, seg::MinFolder<int>> tree(seg::make_builder(p));
+  seg::SegtreeNormal<int, seg::MinFolder<int>, seg::Persistent<int>> tree(seg::make_builder(p));
   seg::MinFolder<int> folder;
 
   int m;

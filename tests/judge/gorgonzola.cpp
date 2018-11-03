@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
-#include "../../SegtreeBeats.cpp"
+#include "../../SegtreeNormal.cpp"
+#include "../../SegtreePersistent.cpp"
 
 using namespace std;
 using namespace lib;
@@ -8,8 +9,8 @@ int32_t main() {
   int n, m;
   cin >> n >> m;
 
-  seg::EmptyLeafBuilder builder(2*n);
-  seg::SegtreeNormal<int, seg::SumFolder<int>> tree(builder);
+  seg::ImplicitBuilder builder(0, 2 * n - 1);
+  seg::SegtreeNormal<int, seg::SumFolder<int>, seg::Persistent<int>> tree(builder);
   seg::SumFolder<int> folder;
 
   for(int i = 0; i < m; i++) {

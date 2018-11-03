@@ -9,12 +9,21 @@ namespace seg {
     template<typename Node>
     void operator()(Node& no, int i) const {}
     inline pair<int, int> range() const { return {0, 0}; }
+    bool should_build() const { return true; }
   };
 
   struct EmptyLeafBuilder : LeafBuilder {
     int n;
     explicit EmptyLeafBuilder(int n) : n(n) {}
     inline pair<int, int> range() const { return {0, n-1}; }
+    bool should_build() const { return true; }
+  };
+
+  struct ImplicitBuilder : LeafBuilder {
+    int L, R;
+    explicit ImplicitBuilder(int L, int R) : L(L), R(R) {}
+    inline pair<int, int> range() const { return {L, R}; }
+    bool should_build() const { return false; }
   };
 
   template<typename RandomIterator>

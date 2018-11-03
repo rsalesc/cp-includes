@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
-#include "../../SegtreeBeats.cpp"
+#include "../../SegtreeLazy.cpp"
+#include "../../SegtreeImplicit.cpp"
 #define int long long
 
 using namespace std;
@@ -34,7 +35,7 @@ int32_t main() {
     cin >> n;
 
     auto builder = seg::make_builder(n);
-    seg::SegtreeBeats<Data, seg::SumFolder<Data>, PushdownSum> tree(builder);
+    seg::SegtreeLazy<Data, seg::SumFolder<Data>, PushdownSum, seg::Implicit<Data>> tree(builder);
     seg::SumFolder<Data> folder;
 
     int m;
