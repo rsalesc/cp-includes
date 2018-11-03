@@ -189,8 +189,8 @@ namespace {
           x[i] += mods[i];
       return *this;
     }
-    type& operator++(int unused) { type res = *this; ++(*this); return res; }
-    type& operator--(int unused) { type res = *this; --(*this); return res; }
+    type operator++(int unused) { type res = *this; ++(*this); return res; }
+    type operator--(int unused) { type res = *this; --(*this); return res; }
 
     friend type operator+(const type& lhs, const type& rhs) {
       type res = lhs;
