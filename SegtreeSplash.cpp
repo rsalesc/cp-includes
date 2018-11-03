@@ -15,6 +15,7 @@ namespace seg {
     using Base::R;
     using typename Base::vnode;
     using Base::manager;
+    using Base::split;
 
     template<typename T, typename Folder>
     T query_element(vnode no, int l, int r, int idx, const Folder& folder) {
@@ -22,7 +23,7 @@ namespace seg {
         return folder();
       T res = folder(manager.ref(no));
       if(l != r) {
-        int mid = (l+r)/2;
+        int mid = split(l, r);
         if(idx <= mid)
           res = folder(res, query_element<T>(manager.left(no), l, mid, idx, folder));
         else
@@ -48,7 +49,7 @@ namespace seg {
         updater(manager.ref(no));
         return no;
       }
-      int mid = (l+r)/2;
+      int mid = split(l, r);
       if(j <= mid) {
         manager.ensure_left(no);
         splash(manager.left(no), l, mid, i, j, updater);

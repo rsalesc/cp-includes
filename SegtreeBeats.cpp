@@ -20,6 +20,23 @@ namespace seg {
     }
   };
 
+  template<typename T>
+  struct SearchResult {
+    bool found;
+    int pos;
+    T value;
+
+    static SearchResult<T> not_found(T acc = T()) {
+      return {false, 0, acc};
+    }
+  };
+
+  struct PrefixSearch;
+  struct SuffixSearch;
+
+  template<typename Direction>
+  using IsSuffix = is_same<Direction, SuffixSearch>;
+
   template<typename Node>
   struct InMemoryNodeManager {
     typedef int vnode;
@@ -68,13 +85,14 @@ namespace seg {
     template<typename Builder>
     explicit SegtreeImpl(const Builder& builder) {
       tie(L, R) = builder.range();
-      assert(L >= 0 && L <= R);
+      assert(L <= R);
       manager.initialize(builder);
       if(builder.should_build())
         build(builder);
     }
 
     inline vnode root() { return manager.root(); }
+    inline int split(int l, int r) { return l + (r-l)/2; }
 
     template<typename Builder>
     vnode build(const Builder& builder, vnode no, int l, int r) {
@@ -82,7 +100,7 @@ namespace seg {
       if(l == r) {
         builder(manager.ref(no), l);
       } else {
-        int mid = (l+r)/2;
+        int mid = split(l, r);
         build(builder, manager.left(no), l, mid);
         build(builder, manager.right(no), mid+1, r);
         manager.ref(no) = combiner_fn(manager.value(manager.left(no)), 
@@ -114,7 +132,7 @@ namespace seg {
       if(has_lazy)
         push(no, l, r);
       if(i <= l && r <= j) return folder(manager.ref(no));
-      int mid = (l+r)/2;
+      int mid = split(l, r);
       return folder(
           query<T>(manager.left(no), l, mid, i, j, folder),
           query<T>(manager.right(no), mid+1, r, i, j, folder)
@@ -143,7 +161,7 @@ namespace seg {
         push(no, l, r);
         return no;
       }
-      int mid = (l+r)/2;
+      int mid = split(l, r);
       update(manager.left(no), l, mid, i, j, updater);
       update(manager.right(no), mid+1, r, i, j, updater);
       manager.ref(no) = combiner_fn(manager.value(manager.left(no)),
@@ -174,7 +192,7 @@ namespace seg {
         push(no, l, r);
         return;
       }
-      int mid = (l+r)/2;
+      int mid = split(l, r);
       beat(manager.left(no), l, mid, i, j, beater);
       beat(manager.right(no), mid+1, r, i, j, beater);
       manager.ref(no) = combiner_fn(manager.value(manager.left(no)),
@@ -184,7 +202,85 @@ namespace seg {
     template<typename Beater>
     inline void beat(int i, int j, const Beater& beater) {
       beat(root(), L, R, i, j, beater);
-    } 
+    }
+
+    template<typename T, typename Direction, typename Folder, typename Checker>
+    SearchResult<T> bsearch_first(vnode no, int l, int r, int i, int j,
+        const Folder& folder, const Checker& checker, T acc) {
+      if(manager.has(no) && has_lazy)
+        push(no, l, r);
+      if(j < l || i > r) return SearchResult<T>::not_found(folder());
+      if(!manager.has(no)) {
+        auto value = folder(acc, folder());
+        if(checker(value))
+          return {true, IsSuffix<Direction>::value ? r : l, value};
+        else
+          return SearchResult<T>::not_found(folder());
+      }
+      int mid = split(l, r);
+      if(i <= l && r <= j) {
+        auto b_value = folder(acc, manager.value(no));
+        if(!checker(b_value))
+          return SearchResult<T>::not_found(manager.value(no));
+        if(l == r)
+          return {true, l, b_value};
+      }
+      if(!IsSuffix<Direction>::value) {
+        auto res_left = bsearch_first<T, Direction>(
+            manager.left(no), l, mid, i, j, folder, checker, acc);
+        if(res_left.found)
+          return res_left;
+        return bsearch_first<T, Direction>(
+            manager.right(no), mid+1, r, i, j, folder, checker,
+            folder(acc, res_left.value));
+      } else {
+        auto res_right = bsearch_first<T, Direction>(
+            manager.right(no), mid+1, r, i, j, folder, checker, acc);
+        if(res_right.found)
+          return res_right;
+        return bsearch_first<T, Direction>(
+            manager.left(no), l, mid, i, j, folder, checker,
+            folder(acc, res_right.value));
+
+      }
+    }
+
+    template<typename T, typename Direction, typename Folder, typename Checker>
+    inline SearchResult<T> bsearch_first(vnode root, int i, int j,
+        const Folder& folder, const Checker& checker) {
+      auto res = bsearch_first<T, Direction>(
+          root, L, R, i, j, folder, checker, folder());
+      if(!res.found)
+        res.pos = IsSuffix<Direction>::value ? i - 1 : j + 1;
+      return res;
+    }
+
+    template<typename T, typename Direction, typename Folder, typename Checker>
+    inline SearchResult<T> bsearch_first(int i, int j,
+        const Folder& folder, const Checker& checker) {
+      return bsearch_first<T, Direction>(root(), i, j, folder, checker);
+    }
+
+    template<typename T, typename Direction, typename Folder, typename Checker>
+    inline SearchResult<T> bsearch_last(vnode root, int i, int j,
+        const Folder& folder, const Checker& checker) {
+      auto res = bsearch_first<T, Direction>(
+          root, i, j, folder, [&checker](T x) { return !checker(x); });
+      if(!IsSuffix<Direction>::value) {
+        if(res.pos == i) res.found = false;
+        res.pos--;
+      } else {
+        if(res.pos == j) res.found = false;
+        res.pos++;
+      }
+      return res;
+    }
+
+    template<typename T, typename Direction, typename Folder, typename Checker>
+    inline SearchResult<T> bsearch_last(int i, int j,
+        const Folder& folder, const Checker& checker) {
+      return bsearch_last<T, Direction>(root(), i, j, folder, checker);
+    }
   };
 
 

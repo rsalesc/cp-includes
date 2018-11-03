@@ -17,6 +17,7 @@ namespace seg {
     using Base::L;
     using Base::R;
     using Base::manager;
+    using Base::split;
 
     template<typename Updater>
     vnode update_element(vnode no, int l, int r, int idx, const Updater& updater) {
@@ -24,7 +25,7 @@ namespace seg {
       if(l == r)
         updater(manager.ref(no));
       else {
-        int mid = (l+r)/2;
+        int mid = split(l, r);
         if(idx <= mid)
           update_element(manager.left(no), l, mid, idx, updater);
         else
