@@ -1,7 +1,6 @@
 #ifndef _LIB_SEGTREE_IMPLICIT
 #define _LIB_SEGTREE_IMPLICIT
 #include <bits/stdc++.h>
-#include "Segtree.cpp"
 
 namespace lib {
   using namespace std;
