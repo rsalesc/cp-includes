@@ -63,7 +63,8 @@ namespace plane {
       point H = project(c.center, l);
       Large h = norm(H - c.center);
       if(GEOMETRY_COMPARE(Large, c.radius, h) < 0) return {{}, 0};
-      point v = normalized(l.direction(), sqrtl(c.radius*c.radius - h*h));
+      Large norma = sqrtl(c.radius + h) * sqrtl(c.radius - h);
+      point v = normalized(l.direction(), norma);
       segment res = segment(H - v, H + v);
       return {res, res.is_degenerate() ? 1 : 2};
     }
@@ -91,7 +92,7 @@ namespace plane {
       if(GEOMETRY_COMPARE(Large, d, C.radius) < 0)
         return {};
       Large alpha = trig::asin(C.radius / d);
-      Large L = sqrtl(max((Large)0, d*d - C.radius*C.radius));
+      Large L = sqrtl(d + C.radius) * sqrtl(max((Large)0, d - C.radius));
       v = normalized(v, L);
 
       vector<point> res;
