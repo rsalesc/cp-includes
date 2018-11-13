@@ -59,9 +59,14 @@ namespace poly {
     }
   };
 
-  template<typename Field, typename Mult>
+  struct DefaultDivmod;
+  struct NaiveDivmod;
+
+  template<typename Field, typename Mult, typename Divmod = DefaultDivmod>
   struct Polynomial {
-    typedef Polynomial<Field, Mult> type;
+    constexpr static bool NaiveMod =
+      is_same<Divmod, NaiveDivmod>::value;
+    typedef Polynomial<Field, Mult, Divmod> type;
     typedef Field field;
     vector<Field> p;
     
@@ -295,6 +300,7 @@ namespace poly {
     }
 
     static pair<type, type> divmod(const type& a, const type& b) {
+      if(NaiveMod) return naive_divmod(a, b);
       a.normalize();
       b.normalize();
       int m = a.size();
@@ -311,6 +317,22 @@ namespace poly {
       }
 
       return {q, r};
+    }
+
+    static pair<type, type> naive_divmod(const type& a, const type& b) {
+      type res = a;
+      int a_deg = a.degree();
+      int b_deg = b.degree();
+      Field normalizer = Field(1) / b[b_deg];
+      for(int i = 0; i < a_deg-b_deg+1; i++) {
+        Field coef = (res[a_deg - i] *= normalizer);
+        if(coef != 0) {
+          for(int j = 1; j <= b_deg; j++) {
+            res[a_deg - i - j] += -b[b_deg - j] * coef;
+          }
+        }
+      }
+      return {res >> b_deg, res % b_deg};
     }
 
     static type power(const type& a, long long n, const int mod) {
