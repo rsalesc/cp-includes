@@ -5,7 +5,7 @@
 namespace lib {
   using namespace std;
 namespace math {
-  template<typename T, typename S = T>
+  template<typename T, typename S = T, typename D = T>
   struct Euclid {
     template<typename U, typename V>
     static V safe_mod(U x, V m) {
@@ -46,37 +46,32 @@ namespace math {
     }
 
     static pair<T, T> crt(T a, T b, T m1, T m2) {
-      T x, y;
-      T g = euclid(m1, m2, x, y);
+      T xx, yy;
+      T g = euclid(m1, m2, xx, yy);
       if(safe_mod(a, g) != safe_mod(b, g))
-        return {-1, 0};
+        return {0, 0};
 
-      T mod = m1/g*m2;
+      T mod = m1 / g * m2;
 
-      // trick for reducing the chances of overflowing
-      S xx = x;
-      S yy = y;
-      x %= mod, y %= mod;
-      if(xx < 0) xx += mod;
-      if(yy < 0) yy += mod;
-
-      x = safe_mod(xx, mod);
-      y = safe_mod(yy, mod);
-      T xb = safe_mult<T>(x, b, mod);
-      T ya = safe_mult<T>(y, a, mod);
-      T res = safe_mult<T>(xb, m1/g, mod) + safe_mult<T>(ya, m2/g, mod);
-      return {safe_mod(res, mod), mod};
+      S x = safe_mod<D, D>(xx, mod);
+      S y = safe_mod<D, D>(yy, mod);
+      S xb = safe_mult<S>(x, b, mod);
+      S ya = safe_mult<S>(y, a, mod);
+      S res = safe_mult<S>(xb, m1/g, mod) + safe_mult<S>(ya, m2/g, mod);
+      return {safe_mod<T>(res, mod), mod};
     }
 
     static pair<T, T> crt(const vector<pair<T, T>>& equations) {
       pair<T, T> acc = {0, 1};
       for(const pair<T, T>& e : equations) {
         acc = crt(acc.first, e.first, acc.second, e.second);
-        if(!acc.second) return {-1, 0};
+        if(!acc.second) return {0, 0};
       }
       return acc;
     }
   };
+
+  using LongCRT = Euclid<long long, unsigned long long>;
 }  // namespace math
 }  // namespace lib
 
