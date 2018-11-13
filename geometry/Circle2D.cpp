@@ -68,7 +68,24 @@ namespace plane {
       segment res = segment(H - v, H + v);
       return {res, res.is_degenerate() ? 1 : 2};
     }
-    static Large intersection_signed_area(double r, const point& a, const point& b) {
+    friend Large intersection_area(const Circle& a, const Circle& b) {
+      Large d = norm(a.center - b.center);
+      if(GEOMETRY_COMPARE(Large, a.radius + b.radius, d) <= 0) return 0.0;
+      if(GEOMETRY_COMPARE(Large, d, abs(a.radius - b.radius)) <= 0) {
+        T r = min(a.radius, b.radius);
+        return r * r  * trig::PI;
+      }
+
+      auto compute = [d](Large ra, Large rb) {
+        Large sup = rb * rb + d * d - ra * ra;
+        Large alpha = trig::acos(sup / (2.0 * rb * d));
+        Large s = alpha * rb * rb;
+        Large t = rb * rb * trig::sin(alpha) * trig::cos(alpha);
+        return s - t;
+      };
+      return compute(a.radius, b.radius) + compute(b.radius, a.radius);
+    }
+    static Large intersection_signed_area(T r, const point& a, const point& b) {
       Circle C(point(), r);
       auto ps = intersect_segment(C, line(a, b));
       if(!ps.second)
