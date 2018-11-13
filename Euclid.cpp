@@ -5,7 +5,16 @@
 namespace lib {
   using namespace std;
 namespace math {
-  template<typename T, typename S = T, typename D = T>
+namespace {
+  constexpr static size_t ULL_SIZE = sizeof(unsigned long long);
+
+  template<typename T>
+  using IsManageableInt = 
+    typename conditional<is_integral<T>::value && sizeof(T) <= ULL_SIZE, 
+                        true_type, false_type>::type;
+}
+
+  template<typename T, typename US = T>
   struct Euclid {
     template<typename U, typename V>
     static V safe_mod(U x, V m) {
@@ -14,7 +23,8 @@ namespace math {
       return x;
     }
 
-    template<typename U>
+    template<typename U,
+             typename enable_if<IsManageableInt<U>::value>::type* = nullptr>
     static U safe_mult(U a, U b, U m) {
       a = safe_mod(a, m), b = safe_mod(b, m);
 
@@ -25,6 +35,12 @@ namespace math {
         if((b>>i)&1) res = safe_mod(res + a, m);
       }
       return res;
+    }
+
+    template<typename U,
+             typename enable_if<!IsManageableInt<U>::value>::type* = nullptr>
+    static U safe_mult(U a, U b, U m) {
+      return a * b % m;
     }
 
     static T euclid_(T a, T b, T& x, T& y) {
@@ -46,6 +62,7 @@ namespace math {
     }
 
     static pair<T, T> crt(T a, T b, T m1, T m2) {
+      if(m1 < m2) swap(m1, m2), swap(a, b);
       T xx, yy;
       T g = euclid(m1, m2, xx, yy);
       if(safe_mod(a, g) != safe_mod(b, g))
@@ -53,11 +70,10 @@ namespace math {
 
       T mod = m1 / g * m2;
 
-      S x = safe_mod<D, D>(xx, mod);
-      S y = safe_mod<D, D>(yy, mod);
-      S xb = safe_mult<S>(x, b, mod);
-      S ya = safe_mult<S>(y, a, mod);
-      S res = safe_mult<S>(xb, m1/g, mod) + safe_mult<S>(ya, m2/g, mod);
+      T x = safe_mod<T>(xx, mod);
+      US s = safe_mult<T>(x, (b-a)/g, m2/g) * m1 % mod;
+      T res = safe_mod<US, US>((US)a + s, mod);
+
       return {safe_mod<T>(res, mod), mod};
     }
 
