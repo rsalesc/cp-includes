@@ -6,6 +6,12 @@ namespace lib {
   using namespace std;
 namespace traits {
 
+  template <typename...>
+  struct make_void { using type = void; };
+
+  template <typename... T>
+  using void_t = typename make_void<T...>::type;
+
   /// keep caide
   template<typename Iterator>
   using IteratorCategory =

@@ -26,6 +26,20 @@ namespace seg {
     bool should_build() const { return false; }
   };
 
+  // TODO: NOT IMPLEMENTED
+  template<typename DefaultNode>
+  struct ImplicitWithDefaultBuilder : LeafBuilder {
+    int L, R;
+    DefaultNode default_node;
+    explicit ImplicitWithDefaultBuilder(int L, int R, DefaultNode def) : L(L), R(R), default_node(def) {}
+
+    template<typename Node>
+    inline void operator()(Node& no, int i) const { no = default_node; }
+
+    inline pair<int, int> range() const { return {L, R}; }
+    bool should_build() const { return false; }
+  };
+
   template<typename RandomIterator>
   struct RangeLeafBuilder : LeafBuilder {
     RandomIterator begin, end;
@@ -74,6 +88,13 @@ namespace seg {
 
   template<typename T>
   struct SumFolder : CombineFolder<T> {};
+
+  template<typename T>
+  struct ProductFolder : CombineFolder<T> {
+    using CombineFolder<T>::operator();
+    inline T operator()() const { return T(1); }
+    inline T operator()(const T& a, const T& b) const { return a*b; }
+  };
   
   template<typename T>
   struct MaxFolder : CombineFolder<T> {
@@ -111,7 +132,18 @@ namespace seg {
     inline void operator()(Node& no) const { no += this->value; }
   };
 
+  template<typename T>
+  struct MultUpdater: SingleValueUpdater<T> {
+    using SingleValueUpdater<T>::SingleValueUpdater;
+
+    template<typename Node>
+    inline void operator()(Node& no) const { no *= this->value; }
+  };
+
   struct EmptyPushdown {
+    template<typename Node>
+    inline bool dirty(const Node& no) const { return false; }
+
     template<typename Node>
     inline void operator()(Node& no, int l, int r, 
                     Node* ln, Node* rn) const {}
