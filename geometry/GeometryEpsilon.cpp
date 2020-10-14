@@ -23,6 +23,7 @@ namespace geo {
   };
 
   GEOMETRY_EPSILON(int, 0);
+  GEOMETRY_EPSILON(long, 0);
   GEOMETRY_EPSILON(long long, 0);
 }  // namespace geo
 }  // namespace lib

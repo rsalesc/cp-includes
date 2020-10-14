@@ -32,6 +32,7 @@ namespace {
     T x[1];
 
     explicit operator int() const { return this->x[0]; }
+    explicit operator int64_t() const { return this->x[0]; }
     explicit operator long long() const { return this->x[0]; }
     explicit operator double() const { return this->x[0]; }
     explicit operator long double() const { return this->x[0]; }

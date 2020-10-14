@@ -4,6 +4,7 @@
 #include "ModularInteger.cpp"
 #include "Traits.cpp"
 #include "Math.cpp"
+#include "Epsilon.cpp"
 
 namespace lib {
   using namespace std;
@@ -99,7 +100,7 @@ namespace poly {
     void normalize() const {
       type* self = const_cast<type*>(this);
       int sz = self->p.size();
-      while(sz > 0 && self->p[sz-1] == 0) sz--;
+      while(sz > 0 && Epsilon<>().null(self->p[sz-1])) sz--;
       if(sz != (int)self->p.size())
         self->p.resize(sz);
     }
@@ -108,7 +109,7 @@ namespace poly {
     inline int degree() const { return max((int)p.size()-1, 0); }
     bool null() const {
       for(Field x : p)
-        if(x != 0) return false;
+        if(Epsilon<>().null(x)) return false;
       return true;
     }
 
@@ -121,6 +122,16 @@ namespace poly {
       if(i >= size())
         p.resize(i + 1);
       return p[i]; 
+    }
+
+    Field operator()(const Field& x) const {
+      if(null()) return Field();
+      Field acc = p.back();
+      for(int i = (int)size() - 2; i >= 0; i--) {
+        acc *= x;
+        acc += p[i];
+      }
+      return acc;
     }
 
     type& operator+=(const type& rhs) {
@@ -262,7 +273,7 @@ namespace poly {
       if(sz == 0)
         return type();
       if(sz == 1) {
-        assert(p[0] != 0);
+        assert(!Epsilon<>().null(p[0]));
         return type(p[0].inverse());
       }
       type q = (*this % ((sz+1)/2)).inverse();

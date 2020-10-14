@@ -3,6 +3,7 @@
 #include <bits/stdc++.h>
 
 namespace lib {
+  using namespace std;
   template <typename T> struct Complex {
     T re, im;
     Complex(T a = T(), T b = T()) : re(a), im(b) {}

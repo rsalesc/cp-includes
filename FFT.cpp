@@ -24,6 +24,7 @@ namespace linalg {
       return cd(geo::trig::cos(ang), geo::trig::sin(ang));
     }
 
+    // TODO: think how to correctly use this.
     static void dft_roots(int n) {
       if((int)w.size() < n) w.resize(n);
       else return;
@@ -46,18 +47,21 @@ namespace linalg {
 
     static void dft_iter(cd* p, int n) {
       for (int L = 2; L <= n; L <<= 1) {
-        int rw = (int)w.size() / L;
+        fft_type ang = PI * 2 / L;
+        cd step = root(ang);
         for (int i = 0; i < n; i += L) {
-          for (int j = 0, aw = rw; j < L / 2; j++, aw += rw) {
-            cd wcur = w[aw];
+          cd w = 1;
+          for (int j = 0; j < L / 2; j++) {
             cd x = p[i + j];
-            cd y = p[i + j + L / 2] * wcur;
+            cd y = p[i + j + L / 2] * w;
             p[i + j] = x + y;
             p[i + j + L / 2] = x - y;
+            w *= step;
           }
         }
       }
     }
+
     static void swap(vcd& buf) {
       std::swap(fa, buf);
     }
@@ -115,13 +119,13 @@ namespace linalg {
   }
 
   template<typename T, typename U = double>
-  typename DFT<U>::vcd fft(const vector<T>& a, const vector<T>& b) {
+  vector<T> fft(const vector<T>& a, const vector<T>& b) {
     raw_fft<T, U>(a, b);
     typename DFT<U>::vcd& raw = DFT<U>::fa;
     int sz = raw.size();
     vector<T> res(sz);
     for(int i = 0; i < sz; i++)
-      res[i] = raw[i];
+      res[i] = raw[i].real();
     return res;
   }
 
