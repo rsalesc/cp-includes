@@ -270,7 +270,7 @@ using namespace std;
 
     template<typename T>
     T eval(const Expression<T>& e, const map<Variable<T>, T>& values) {
-        auto visitor = std::make_unique<EvalVisitor<int>>();
+        auto visitor = std::make_unique<EvalVisitor<T>>();
         return visitor->eval(e, values);
     }
 

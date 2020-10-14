@@ -15,18 +15,16 @@ using namespace std;
             vector<vector<T>> A;
             vector<T> b;
             T mult;
-            int constraint_idx;
 
             ConstraintVisitor(const vector<Variable<T>>& vars, const vector<Constraint<T>>& consts)
                 : vars(vars), consts(consts), mult(1) {
-                A = vector<vector<T>>(consts.size(), vector<T>(vars.size()));
-                b = vector<T>(consts.size());
+                A = vector<vector<T>>();
+                b = vector<T>();
             }
 
             void populate() {
                 for(int i = 0; i < consts.size(); i++) {
                     const auto& constraint = consts[i];
-                    constraint_idx = i;
                     if(constraint.op == ConstraintOperation::less_eq)
                         visit_constraint(constraint, 1);
                     else if(constraint.op == ConstraintOperation::greater_eq)
@@ -35,7 +33,7 @@ using namespace std;
                         visit_constraint(constraint, 1), visit_constraint(constraint, -1);
                 }
 
-                // for(int i = 0; i < consts.size(); i++) {
+                // for(int i = 0; i < b.size(); i++) {
                 //     for(int j = 0; j < vars.size(); j++) {
                 //         cout << A[i][j] << " ";
                 //     }
@@ -44,6 +42,8 @@ using namespace std;
             }
 
             void visit_constraint(const Constraint<T>& constraint, T constraint_mult) {
+                A.emplace_back(vars.size());
+                b.emplace_back();
                 mult *= constraint_mult;
                 this->visit(constraint.lhs);
                 mult = -mult;
@@ -57,10 +57,10 @@ using namespace std;
             }
 
             virtual void visit_variable(const Expression<T>& e) override {
-                A[constraint_idx][index(e->var)] += this->top() * e->coef * mult;
+                A.back()[index(e->var)] += this->top() * e->coef * mult;
             }
             virtual void visit_literal(const Expression<T>& e) override {
-                b[constraint_idx] -= this->top() * e->coef * mult;
+                b.back() -= this->top() * e->coef * mult;
             }
         };
 
@@ -115,11 +115,9 @@ using namespace std;
             objVisitor->populate();
 
             LPSolver<T> solver(visitor->A, visitor->b, objVisitor->c);
-            vector<T> ans(variables.size());
+            vector<T> ans;
             solver.Solve(ans);
-            // for(int i = 0; i < variables.size(); i++)
-            //     cout << ans[i] << " ";
-            // cout << endl;
+            if(ans.size() < vs.size()) return {};
 
             map<Variable<T>, T> res;
             for(int i = 0; i < vs.size(); i++)

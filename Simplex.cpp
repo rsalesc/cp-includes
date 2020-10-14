@@ -10,7 +10,7 @@ using namespace std;
         typedef vector<VD> VVD;
         typedef vector<int> VI;
 
-        const DOUBLE EPS = 1e-9;
+        constexpr static DOUBLE EPS = 1e-9;
 
         int m, n;
         VI B, N;
