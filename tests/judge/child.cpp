@@ -1,5 +1,5 @@
-#include <bits/stdc++.h>
 #include "../../SegtreeBeats.cpp"
+#include <bits/stdc++.h>
 #define int long long
 
 using namespace std;
@@ -12,20 +12,21 @@ struct Data {
 };
 
 struct Pushdown {
-  void operator()(Data& no, int l, int r, Data* ln, Data* rn) const {
-    if(no.lz == -1) return;
-    if(l != r) {
+  void operator()(Data &no, int l, int r, Data *ln, Data *rn) const {
+    if (no.lz == -1)
+      return;
+    if (l != r) {
       ln->lz = no.lz;
       rn->lz = no.lz;
     }
     no.mx = no.mn = no.lz;
-    no.x = no.lz * (r-l+1);
+    no.x = no.lz * (r - l + 1);
     no.lz = -1;
   }
 };
 
 struct Combiner {
-  Data operator()(const Data& a, const Data& b) const {
+  Data operator()(const Data &a, const Data &b) const {
     Data data;
     data.x = a.x + b.x;
     data.mx = max(a.mx, b.mx);
@@ -36,28 +37,24 @@ struct Combiner {
 
 struct Folder : seg::CombineFolder<int> {
   using seg::CombineFolder<int>::operator();
-  int operator()(const Data& no) const { return no.x; }
-  int operator()(const Data& a, const Data& b) const { return a.x+b.x; }
+  int operator()(const Data &no) const { return no.x; }
+  int operator()(const Data &a, const Data &b) const { return a.x + b.x; }
 };
 
 struct ModBeater {
   int mod;
-  bool stop(const Data& no, int l, int r, int i, int j) const {
-    return no.mx < mod; 
+  bool stop(const Data &no, int l, int r, int i, int j) const {
+    return no.mx < mod;
   }
-  bool tag(const Data& no, int l, int r, int i, int j) const {
+  bool tag(const Data &no, int l, int r, int i, int j) const {
     return no.mx == no.mn;
   }
-  void operator()(Data& no) const {
-    no.lz = no.mx % mod;
-  }
+  void operator()(Data &no) const { no.lz = no.mx % mod; }
 };
 
 struct SetTagger {
   int x;
-  void operator()(Data& no) const {
-    no.lz = x;
-  }
+  void operator()(Data &no) const { no.lz = x; }
 };
 
 int32_t main() {
@@ -67,7 +64,7 @@ int32_t main() {
   cin >> n >> q;
 
   vector<int> p;
-  for(int i = 0; i < n; i++) {
+  for (int i = 0; i < n; i++) {
     int x;
     cin >> x;
     p.push_back(x);
@@ -76,21 +73,21 @@ int32_t main() {
   seg::SegtreeBeats<Data, Combiner, Pushdown> tree(seg::make_builder(p));
   Folder folder;
 
-  for(int i = 0; i < q; i++) {
+  for (int i = 0; i < q; i++) {
     int t;
     cin >> t;
-    if(t == 1) {
+    if (t == 1) {
       int x, y;
       cin >> x >> y;
       x--, y--;
       cout << tree.query<int>(x, y, folder) << "\n";
-    } else if(t == 2) {
+    } else if (t == 2) {
       int x, y, mod;
       cin >> x >> y >> mod;
       x--, y--;
       ModBeater beater = {mod};
       tree.beat(x, y, beater);
-    } else if(t == 3) {
+    } else if (t == 3) {
       int x, v;
       cin >> x >> v;
       x--;
@@ -99,4 +96,3 @@ int32_t main() {
     }
   }
 }
-
