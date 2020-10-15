@@ -307,6 +307,23 @@ struct Polynomial {
     return res;
   }
 
+  type mulx(field x) { // component-wise multiplication with x^k
+    field cur = 1;
+    type res(*this);
+    for(auto& c : res.p)
+      c *= cur, cur *= x;
+    return res;
+  }
+  type mulx_sq(field x) { // component-wise multiplication with x^{k^2}
+    field cur = x;
+    field total = 1;
+    field xx = x * x;
+    type res(*this);
+    for(auto& c : res.p)
+      c *= total, total *= cur, cur *= xx;
+    return res;
+  }
+
   static pair<type, type> divmod(const type &a, const type &b) {
     if (NaiveMod)
       return naive_divmod(a, b);

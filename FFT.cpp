@@ -36,7 +36,7 @@ template <typename fft_type> struct DFT {
 
   // function used to precompute rev for fixed size fft (n is a power of two)
   static void dft_rev(int n) {
-    dft_roots(n);
+    // dft_roots(n);
     int lbn = __builtin_ctz(n);
     if ((int)rev.size() < (1 << lbn))
       rev.resize(1 << lbn);

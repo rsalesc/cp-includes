@@ -20,7 +20,7 @@ struct NaiveMultiplication {
 };
 
 template <typename Mult, typename Field>
-vector<Field> shift_conv(const vector<Field> &a, const vector<Field> b) {
+vector<Field> shift_conv(const vector<Field> &a, vector<Field> b) {
   if (b.empty())
     return {};
   reverse(b.begin(), b.end());
