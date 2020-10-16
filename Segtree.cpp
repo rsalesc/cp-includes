@@ -141,7 +141,6 @@ struct EmptyPushdown {
     return false;
   }
 
-<<<<<<< HEAD
   template<typename T>
   struct CombineFolder {
     inline T operator()() const { return T(); }
@@ -225,12 +224,5 @@ struct EmptyPushdown {
   };
 }  // namespace seg
 }  // namespace lib
-=======
-  template <typename Node>
-  inline void operator()(Node &no, int l, int r, Node *ln, Node *rn) const {}
-};
-} // namespace seg
-} // namespace lib
->>>>>>> c1c1a28ee8ea207e55291b3e5e15a7e875e950b9
 
 #endif
