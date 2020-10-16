@@ -137,91 +137,13 @@ template <typename T> struct MultUpdater : SingleValueUpdater<T> {
 };
 
 struct EmptyPushdown {
-  template <typename Node> inline bool dirty(const Node &no) const {
-    return false;
-  }
+  template<typename Node>
+  inline bool dirty(const Node& no) const { return false; }
 
-  template<typename T>
-  struct CombineFolder {
-    inline T operator()() const { return T(); }
-
-    template<typename Node>
-    inline T operator()(const Node& no) const { return T(no); }
-
-    inline T operator()(const T& a, const T& b) const { return a + b; }
-  };
-
-  template<typename T>
-  struct EmptyFolder : CombineFolder<T> {
-    using CombineFolder<T>::operator();
-
-    template<typename Node>
-    inline T operator()(const Node& no) const { return T(); }
-    inline T operator()(const T& a, const T& b) const { return T(); }
-  };
-
-  template<typename T>
-  struct SumFolder : CombineFolder<T> {};
-
-  template<typename T>
-  struct ProductFolder : CombineFolder<T> {
-    using CombineFolder<T>::operator();
-    inline T operator()() const { return T(1); }
-    inline T operator()(const T& a, const T& b) const { return a*b; }
-  };
-  
-  template<typename T>
-  struct MaxFolder : CombineFolder<T> {
-    using CombineFolder<T>::operator();
-    inline T operator()() const { return numeric_limits<T>::min(); }
-    inline T operator()(const T& a, const T& b) const { return max(a, b); }
-  };
-
-  template<typename T>
-  struct MinFolder : CombineFolder<T> {
-    using CombineFolder<T>::operator();
-    inline T operator()() const { return numeric_limits<T>::max(); }
-    inline T operator()(const T& a, const T& b) const { return min(a, b); }
-  };
-
-  template<typename T>
-  struct SingleValueUpdater {
-    T value;
-    explicit SingleValueUpdater(T val) : value(val) {}
-  };
-
-  template<typename T>
-  struct SetUpdater : SingleValueUpdater<T> {
-    using SingleValueUpdater<T>::SingleValueUpdater;
-
-    template<typename Node>
-    inline void operator()(Node& no) const { no = this->value; }
-  };
-
-  template<typename T>
-  struct AddUpdater: SingleValueUpdater<T> {
-    using SingleValueUpdater<T>::SingleValueUpdater;
-
-    template<typename Node>
-    inline void operator()(Node& no) const { no += this->value; }
-  };
-
-  template<typename T>
-  struct MultUpdater: SingleValueUpdater<T> {
-    using SingleValueUpdater<T>::SingleValueUpdater;
-
-    template<typename Node>
-    inline void operator()(Node& no) const { no *= this->value; }
-  };
-
-  struct EmptyPushdown {
-    template<typename Node>
-    inline bool dirty(const Node& no) const { return false; }
-
-    template<typename Node>
-    inline void operator()(Node& no, int l, int r, 
-                    Node* ln, Node* rn) const {}
-  };
+  template<typename Node>
+  inline void operator()(Node& no, int l, int r, 
+                  Node* ln, Node* rn) const {}
+};
 }  // namespace seg
 }  // namespace lib
 
