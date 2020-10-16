@@ -1,6 +1,6 @@
-#include <bits/stdc++.h>
 #include "../../SegtreeNormal.cpp"
 #include "../../SegtreePersistent.cpp"
+#include <bits/stdc++.h>
 
 using namespace std;
 using namespace lib;
@@ -14,9 +14,11 @@ int32_t main() {
   cin >> n;
 
   vector<int> a(n);
-  for(int i = 0; i < n; i++) cin >> a[i];
+  for (int i = 0; i < n; i++)
+    cin >> a[i];
 
-  auto seg = SegtreeNormal<int, SumFolder<int>, Persistent<int>>(make_builder(a));
+  auto seg =
+      SegtreeNormal<int, SumFolder<int>, Persistent<int>>(make_builder(a));
 
   int q;
   cin >> q;
@@ -24,10 +26,10 @@ int32_t main() {
   vector<decltype(seg)::vnode> versions;
   versions.push_back(seg.root());
 
-  while(q--) {
+  while (q--) {
     int type;
     cin >> type;
-    if(type == 1) {
+    if (type == 1) {
       int v, pos, x;
       cin >> v >> pos >> x;
       --pos;

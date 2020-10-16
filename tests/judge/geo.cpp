@@ -1,5 +1,5 @@
-#include <bits/stdc++.h>
 #include "../../geometry/2D.cpp"
+#include <bits/stdc++.h>
 
 using namespace std;
 using namespace lib::geo;
