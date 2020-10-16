@@ -117,6 +117,7 @@ namespace seg {
     inline int size() const { return R-L+1; }
 
     void push(vnode no, int l, int r) {
+      if(!pushdown_fn.dirty(no)) return;
       manager.ensure_left(no);
       manager.ensure_right(no);
       Node* left = l == r ? nullptr : manager.ptr(manager.left(no));

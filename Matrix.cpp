@@ -12,6 +12,7 @@ namespace linalg {
     vector<T> g;
     int n, m;
 
+    Matrix() {}
     Matrix(int n, int m) : g(n*m), n(n), m(m) {}
     Matrix(const nested_list& l) : Matrix(l.size(), l.begin()->size()) {
       auto it1 = l.begin();
