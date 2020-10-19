@@ -41,3 +41,20 @@ TEST_CASE("Polynomial<double> fast multiplicaton") {
 
   REQUIRE_THAT(r1.p, Catch::Approx(r2.p).margin(1e-9));
 }
+
+TEST_CASE("chirp-z transform") {
+  using Field = Mint32<(int)1e9+7>;
+  using Poly = Polynomial<Field, NaiveMultiplication>;
+
+  const int z = 2;
+  const int n = 5;
+
+  Poly p = {1, 2, 3};
+  auto r1 = p.czt(z, n);
+
+  vector<Field> r2(n);
+  for(int i = 0; i < n; i++) {
+    r2[i] = p(power(Field(z), i));
+  }
+  REQUIRE_THAT(r1, Catch::Equals(r2));
+}

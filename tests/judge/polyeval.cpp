@@ -3,16 +3,16 @@
 #include "../../LongMultiplication.cpp"
 #include "../../FFT.cpp"
 #include "../../PolynomialRing.cpp"
-#include "../../polynomial/MultipointEvaluation.cpp"
 
 using namespace std;
 using namespace lib;
 
 typedef long long ll;
 
-const int MOD = (int)1e9+7;
+const int MOD = 786433;
+//const int MOD = (int)1e9+7;
 using Field = Mint32<MOD>;
-using Poly = math::Polynomial<Field, math::FastMultiplication>;
+using Poly = math::Polynomial<Field, math::SafeMultiplication>;
 
 int32_t main() {
     ios::sync_with_stdio(false); cin.tie(0);
@@ -21,18 +21,25 @@ int32_t main() {
 
     vector<Field> v(n+1);
     for(int i = 0; i < n+1; i++)
-    cin >> v[i];
+        cin >> v[i];
 
     Poly p = v;
 
-    int q; cin >> q;
-    vector<Field> qrs(q);
-    for(int i = 0; i < q; i++) cin >> qrs[i];
+    vector<Field> z = p.czt(10, MOD);
+    vector<Field> ans(MOD);
 
-    math::MultipointEvaluation<Poly> me(qrs);
-    auto res = me.eval(p);
+    ans[0] = v[0];
+    Field acc = 1;
+    for(int i = 0; i < MOD; i++) {
+        ans[(int)acc] = z[i];
+        acc *= 10;
+    }
 
-    for(auto x : res) {
-        cout << x << "\n";
+    int q;
+    cin >> q;
+
+    while(q--) {
+        int x; cin >> x;
+        cout << ans[x] << "\n";
     }
 }

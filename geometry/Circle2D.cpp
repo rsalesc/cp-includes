@@ -1,5 +1,6 @@
 #ifndef _LIB_GEOMETRY_CIRCLE_2D
 #define _LIB_GEOMETRY_CIRCLE_2D
+#include "../utils/Annotation.cpp"
 #include "Line2D.cpp"
 #include <bits/stdc++.h>
 
@@ -61,6 +62,10 @@ template <typename T, typename Large = T> struct Circle {
     center = (p1 + p2) / 2;
     radius = dist(center, p1);
   }
+  bool crosses_x_axis(point p = point()) const {
+    auto c = center - p;
+    return GEOMETRY_COMPARE0(T, c.y + radius) >= 0 && GEOMETRY_COMPARE0(T, c.y - radius) < 0;
+  }
   static Circle incircle(const point &p1, const point &p2, const point &p3) {
     point center = bary::incenter(p1, p2, p3).as_point();
     return Circle(center, dist(line(p1, p2), center));
@@ -115,18 +120,62 @@ template <typename T, typename Large = T> struct Circle {
       return cross(a, b) / 2;
   }
   friend vector<point> tangents(const Circle &C, const point &p) {
-    point v = C.center - p;
-    Large d = norm(v);
-    if (GEOMETRY_COMPARE(Large, d, C.radius) < 0)
-      return {};
-    Large alpha = trig::asin(C.radius / d);
-    Large L = sqrtl(d + C.radius) * sqrtl(max((Large)0, d - C.radius));
-    v = normalized(v, L);
+    return _tangents({p, T()}, C, {1});
+  }
+  friend vector<line> inner_tangents(const Circle& a, const Circle& b) {
+    return _tangents(a, b, {-1});
+  }
+  friend vector<line> outer_tangents(const Circle& a, const Circle& b) {
+    return _tangents(a, b, {1});
+  }
+  friend vector<line> _tangents(const Circle& a, const Circle& b, const initializer_list<int>& r_sgn) {
+    vector<line> res;
+    for(int r_s : r_sgn) {
+      point d = b.center - a.center;
+      Large dr = (a.radius - b.radius*r_s), d2 = norm_sq(d), h2 = d2 - dr*dr;
+      if(GEOMETRY_COMPARE0(Large, d2) == 0) continue;
+      if(GEOMETRY_COMPARE0(Large, h2) < 0) continue;
+      for(T sgn : {-1, 1}) {
+        point v = (d * dr + ortho(d) * sqrtl(h2) * sgn) / d2;
+        res.push_back({a.center + v * a.radius, b.center + v * (b.radius * r_s)});
+      }
+      if(GEOMETRY_COMPARE0(Large, h2) == 0) res.pop_back();
+    }
+    return res;
+  }
+  friend vector<Note<line, int>> angular_tangents(const Circle& a, const vector<Circle>& v, vector<int>& sgn) {
+    vector<Note<line, int>> res;
+    res.reserve(4 * v.size());
+    int i = 0;
+    sgn = vector<int>(v.size());
+    vector<bool> reversed(4);
+    bool null_a = GEOMETRY_COMPARE0(T, a.radius) == 0;
 
-    vector<point> res;
-    res.push_back(p + rotate(v, alpha));
-    if (GEOMETRY_COMPARE0(Large, L) != 0)
-      res.push_back(p + rotate(v, -alpha));
+    for(int i = 0; i < v.size(); i++) {
+      bool null_i = GEOMETRY_COMPARE0(T, v[i].radius) == 0;
+      assert(!null_a || !null_i);
+      vector<line> tgts;
+      if(null_a || null_i) tgts = _tangents(a, v[i], {1});
+      else tgts = _tangents(a, v[i], {+1, -1});
+      if(tgts.empty()) continue;
+
+      fill(reversed.begin(), reversed.end(), false);
+      int j = 0;
+      for(auto& t : tgts) {
+        // direct tangents
+        if(ccw(t.b - t.a, a.center - t.a) < 0)
+          swap(t.a, t.b), reversed[j] = true;
+        res.push_back(make_note<line, int>(t, i));
+        j++;
+      }
+
+      // check signal
+      auto it = AngleComparator<RayDirection<line>, T, Large>::minByAngle(tgts.begin(), tgts.end());
+      point ta = reversed[it - tgts.begin()] ? it->b : it->a;
+      point dir = v[i].center - ta;
+      sgn[i] = half_ccw(it->direction(), dir);
+    }
+    AngleComparator<RayDirection<line>, T, Large>::sortByAngle(res.begin(), res.end());
     return res;
   }
   friend bool contains(const Circle &c, const point &p) {

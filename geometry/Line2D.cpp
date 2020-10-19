@@ -83,6 +83,12 @@ template <typename T, typename Large = T> struct Point {
   friend int ccw(const Point &a, const Point &b, const Point &c) {
     return ccw(b - a, c - a);
   }
+  friend int half_ccw(const Point& u, const Point& v) {
+    int dot_sgn = GEOMETRY_COMPARE0(Large, dot(u, v));
+    int ccw_sgn = ccw(u, v);
+    if(dot_sgn == 0) return ccw_sgn ? 1 : 0;
+    return dot_sgn * ccw_sgn;
+  }
   friend Large norm(const Point &a) { return sqrtl(dot(a, a)); }
   friend Large norm_sq(const Point &a) { return dot(a, a); }
   bool is_null() const { return GEOMETRY_COMPARE0(Large, norm_sq(*this)) == 0; }
@@ -475,22 +481,52 @@ template <typename T, typename Large = T> struct Segment {
   }
 };
 
-template <typename T, typename Large = T> struct AngleComparator {
-  typedef Point<T, Large> point;
-  point pivot;
-  AngleComparator(point p) : pivot(p) {}
-  bool operator()(const point &a, const point &b) const {
-    return ccw(pivot, a, b) > 0;
+template <typename Direction, typename T, typename Large> struct AngleComparator {
+  using type = typename Direction::type;
+  using point = Point<T, Large>;
+
+  Direction dir;
+  AngleComparator() {}
+  AngleComparator(Direction dir) : dir(dir) {}
+  bool operator()(const type &a, const type &b) const {
+    return ccw(dir(a), dir(b)) > 0;
   }
   template <typename Iterator>
-  static void sortByAngle(Iterator begin, Iterator end, const point &pivot) {
-    AngleComparator<T, Large> cmp(pivot);
+  static void sortByAngle(Iterator begin, Iterator end, const Direction& dir = Direction()) {
+    AngleComparator cmp(dir);
     begin =
-        partition(begin, end, [&pivot](const point &p) { return p == pivot; });
+        partition(begin, end, [&dir](const type &p) { return dir(p).is_null(); });
     auto half =
-        partition(begin, end, [&pivot](const point &p) { return p > pivot; });
+        partition(begin, end, [&dir](const type &p) { return dir(p) > point(); });
     sort(begin, half, cmp);
     sort(half, end, cmp);
+  }
+  template <typename Iterator>
+  static Iterator minByAngle(Iterator begin, Iterator end, const Direction& dir = Direction()) {
+    AngleComparator cmp(dir);
+    return min_element(begin, end, [&dir, &cmp](const type& a, const type& b) {
+      bool part_a = dir(a) > point();
+      bool part_b = dir(b) > point();
+      if(part_a == part_b)
+        return cmp(a, b);
+      return part_a > part_b;
+    });
+  }
+};
+template <typename Ray> struct RayDirection {
+  using point = typename Ray::point;
+  using type = Ray;
+  point operator()(const type& rhs) const {
+    return rhs.direction();
+  }
+};
+template <typename Point> struct PointDirection {
+  using type = Point;
+  Point pivot;
+  PointDirection() : pivot() {}
+  PointDirection(Point pivot) : pivot(pivot) {}
+  Point operator()(const Point& rhs) const {
+    return (rhs - pivot).direction();
   }
 };
 } // namespace plane
@@ -501,7 +537,9 @@ template <typename T, typename Large = T> struct CartesianPlane {
   typedef plane::Rectangle<T, Large> rectangle;
   typedef plane::Segment<T, Large> segment;
   typedef plane::Ray<T, Large> ray;
-  typedef plane::AngleComparator<T, Large> angle_comparator;
+
+  template<typename Direction>
+  using angle_comparator = plane::AngleComparator<Direction, T, Large>;
 };
 
 } // namespace geo

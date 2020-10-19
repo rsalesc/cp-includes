@@ -11,6 +11,7 @@ namespace linalg {
 
 template <typename fft_type> struct DFT {
   typedef Complex<fft_type> cd;
+  typedef vector<Complex<long double>> vcld;
   typedef vector<cd> vcd;
 
   static constexpr fft_type PI = geo::trig::PI;
@@ -18,25 +19,33 @@ template <typename fft_type> struct DFT {
   static vector<int> rev;
   static vcd fa;
   static vcd w;
+  static vcld wl;
 
-  static cd root(fft_type ang) {
-    return cd(geo::trig::cos(ang), geo::trig::sin(ang));
+  static Complex<long double> root(long double ang) {
+    return Complex<long double>(geo::trig::cos(ang), geo::trig::sin(ang));
   }
 
   // TODO: think how to correctly use this.
   static void dft_roots(int n) {
+    n = max(n, 2);
+    int k = max((int)w.size(), 2);
     if ((int)w.size() < n)
-      w.resize(n);
+      w.resize(n), wl.resize(n);
     else
       return;
-    w[0] = cd(1.0, 0.0);
-    for (int i = 1; i < n; i++)
-      w[i] = root(PI * 2.0 / n * i);
+    w[0] = w[1] = cd(1.0, 0.0);
+    wl[0] = wl[1] = Complex<long double>(1.0, 0.0);
+    for (; k < n; k *= 2) {
+      long double ang = 2.0l * geo::trig::PI / (2*k);
+      Complex<long double> step = root(ang);
+      for(int i = k; i < 2*k; i++)
+        w[i] = wl[i] = (i&1) ? wl[i/2] * step : wl[i/2];
+    }
   }
 
   // function used to precompute rev for fixed size fft (n is a power of two)
   static void dft_rev(int n) {
-    // dft_roots(n);
+    dft_roots(n);
     int lbn = __builtin_ctz(n);
     if ((int)rev.size() < (1 << lbn))
       rev.resize(1 << lbn);
@@ -50,16 +59,11 @@ template <typename fft_type> struct DFT {
 
   static void dft_iter(cd *p, int n) {
     for (int L = 2; L <= n; L <<= 1) {
-      fft_type ang = PI * 2 / L;
-      cd step = root(ang);
       for (int i = 0; i < n; i += L) {
-        cd w = 1;
         for (int j = 0; j < L / 2; j++) {
-          cd x = p[i + j];
-          cd y = p[i + j + L / 2] * w;
-          p[i + j] = x + y;
-          p[i + j + L / 2] = x - y;
-          w *= step;
+          cd z = p[i + j + L / 2] * w[j + L / 2];
+          p[i + j + L / 2] = p[i + j] - z;
+          p[i + j] = p[i + j] + z;
         }
       }
     }
@@ -205,6 +209,10 @@ DFT<long double>::vcd DFT<long double>::fa = typename DFT<long double>::vcd();
 template <> DFT<double>::vcd DFT<double>::w = typename DFT<double>::vcd();
 template <>
 DFT<long double>::vcd DFT<long double>::w = typename DFT<long double>::vcd();
+template <>
+DFT<double>::vcld DFT<double>::wl = typename DFT<double>::vcld();
+template <>
+DFT<long double>::vcld DFT<long double>::wl = typename DFT<long double>::vcld();
 
 } // namespace linalg
 

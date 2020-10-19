@@ -3,6 +3,10 @@
         "iostream": "cpp",
         "*.tcc": "cpp",
         "type_traits": "cpp",
-        "regex": "cpp"
+        "regex": "cpp",
+        "array": "cpp",
+        "string": "cpp",
+        "string_view": "cpp",
+        "random": "cpp"
     }
 }

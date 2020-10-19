@@ -104,7 +104,7 @@ struct Polynomial {
   inline int degree() const { return max((int)p.size() - 1, 0); }
   bool null() const {
     for (Field x : p)
-      if (Epsilon<>().null(x))
+      if (!Epsilon<>().null(x))
         return false;
     return true;
   }
@@ -129,6 +129,13 @@ struct Polynomial {
       acc += p[i];
     }
     return acc;
+  }
+
+  type substr(int i, int sz) const {
+    int j = min(sz + i, size());
+    i = min(i, size());
+    if(i >= j) return type();
+    return type(begin(p)+i, begin(p)+j);
   }
 
   type &operator+=(const type &rhs) {
@@ -307,14 +314,14 @@ struct Polynomial {
     return res;
   }
 
-  type mulx(field x) { // component-wise multiplication with x^k
+  type mulx(field x) const { // component-wise multiplication with x^k
     field cur = 1;
     type res(*this);
     for(auto& c : res.p)
       c *= cur, cur *= x;
     return res;
   }
-  type mulx_sq(field x) { // component-wise multiplication with x^{k^2}
+  type mulx_sq(field x) const { // component-wise multiplication with x^{k^2}
     field cur = x;
     field total = 1;
     field xx = x * x;
@@ -323,7 +330,6 @@ struct Polynomial {
       c *= total, total *= cur, cur *= xx;
     return res;
   }
-
   static pair<type, type> divmod(const type &a, const type &b) {
     if (NaiveMod)
       return naive_divmod(a, b);
@@ -361,7 +367,42 @@ struct Polynomial {
     }
     return {res >> b_deg, res % b_deg};
   }
-
+  vector<Field> czt_even(Field z, int n) const { // P(1), P(z^2), P(z^4), ..., P(z^2(n-1))
+    int m = degree();
+    if(null()) {
+      return vector<Field>(n);
+    }
+    vector<Field> vv(m + n);
+    Field zi = Field(1) / z;
+    Field zz = zi * zi;
+    Field cur = zi;
+    Field total = 1;
+    for(int i = 0; i <= max(n - 1, m); i++) {
+      if(i <= m) {vv[m - i] = total;}
+      if(i < n) {vv[m + i] = total;}
+      total *= cur;
+      cur *= zz;
+    }
+    type w = (mulx_sq(z) * vv).substr(m, n).mulx_sq(z);
+    vector<Field> res(n);
+    for(int i = 0; i < n; i++) {
+      res[i] = w[i];
+    }
+    return res;
+  }
+  vector<Field> czt(Field z, int n) const {
+    auto even = czt_even(z, (n+1)/2);
+    auto odd = mulx(z).czt_even(z, n/2);
+    vector<Field> ans(n);
+    for(int i = 0; i < n/2; i++) {
+      ans[2*i] = even[i];
+      ans[2*i+1] = odd[i];
+    }
+    if(n&1) {
+      ans.back() = even.back();
+    }
+    return ans;
+  }
   static type power(const type &a, long long n, const int mod) {
     return math::generic_power<type>(a, n, DefaultPowerOp<type>(mod));
   }

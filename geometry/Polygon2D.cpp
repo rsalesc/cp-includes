@@ -220,7 +220,7 @@ struct ConvexPolygon : public Polygon<T, Large> {
   typedef Segment<T, Large> segment;
   typedef Line<T, Large> line;
   typedef Circle<T, Large> circle;
-  typedef AngleComparator<T, Large> angle_comparator;
+  typedef AngleComparator<PointDirection<point>, T, Large> angle_comparator;
   using Polygon<T, Large>::p;
   int top;
   ConvexPolygon(const vector<point> &p) : Polygon<T, Large>(p) { normalize(); }
@@ -401,7 +401,7 @@ struct ConvexPolygon : public Polygon<T, Large> {
       for (int i = 0; i < poly.size(); i++)
         vectors.push_back(poly[i + 1] - poly[i]);
     }
-    angle_comparator::sortByAngle(vectors.begin(), vectors.end(), point());
+    angle_comparator::sortByAngle(vectors.begin(), vectors.end());
     auto last = point();
     if (!vectors.empty()) {
       last = vectors.back();

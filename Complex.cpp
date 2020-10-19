@@ -9,6 +9,8 @@ template <typename T> struct Complex {
   Complex(T a = T(), T b = T()) : re(a), im(b) {}
   T real() const { return re; }
   T imag() const { return im; }
+  template<typename G>
+  operator Complex<G>() const { return Complex<G>(re, im); }
   Complex conj() const { return Complex(re, -im); }
   void operator+=(const Complex<T> &rhs) { re += rhs.re, im += rhs.im; }
   void operator-=(const Complex<T> &rhs) { re -= rhs.re, im -= rhs.im; }
