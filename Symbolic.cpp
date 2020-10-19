@@ -4,7 +4,7 @@
 
 namespace lib {
 using namespace std;
-int g_VAR_PTR = 0;
+static int g_VAR_PTR = 0;
 
 enum Operation { variable, literal, sum };
 
