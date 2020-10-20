@@ -20,7 +20,7 @@ struct Comparator {
   }
 };
 
-TEST_CASE("note construction") {
+TEST_CASE("note construction", "[note]") {
     SECTION("default constructor") {
         Note<std::vector<int>, int> with_note;
         Note<std::vector<int>> without_note;
@@ -63,7 +63,7 @@ TEST_CASE("note construction") {
     }
 }
 
-TEST_CASE("comparator polymorphism") {
+TEST_CASE("comparator polymorphism", "[note]") {
     SECTION("operator<") {
         auto note_a = make_note<string, int>("abc", 5);
         auto note_b = make_note<string, int>("cde", 2);

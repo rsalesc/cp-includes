@@ -4,6 +4,6 @@
 
 using namespace lib::traits;
 
-TEST_CASE("find_first", "[tuple traits]") {
+TEST_CASE("find_first", "[traits]") {
   REQUIRE(find_first<std::tuple<char, int>, int>::value == 1);
 }

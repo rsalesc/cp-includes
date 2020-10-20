@@ -3,7 +3,7 @@
 
 using namespace lib;
 
-TEST_CASE("eval symbolic expression") {
+TEST_CASE("eval symbolic expression", "[symbolic]") {
   auto a = Variable<int>::get_variable();
   auto b = Variable<int>::get_variable();
   auto c = Variable<int>::get_variable();

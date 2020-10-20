@@ -3,7 +3,7 @@
 
 using namespace lib;
 
-TEST_CASE("simplex maximization") {
+TEST_CASE("simplex maximization", "[simplex]") {
   auto a = Variable<double>::get_variable();
   auto b = Variable<double>::get_variable();
   auto c = Variable<double>::get_variable();
@@ -17,7 +17,7 @@ TEST_CASE("simplex maximization") {
   REQUIRE(result[c] == Approx(10.0));
 }
 
-TEST_CASE("simplex minimization") {
+TEST_CASE("simplex minimization", "[simplex]") {
   auto a = Variable<double>::get_exp_variable();
   auto b = Variable<double>::get_exp_variable();
   auto c = Variable<double>::get_exp_variable();

@@ -9,7 +9,7 @@ using namespace lib;
 using namespace lib::math;
 using namespace lib::linalg;
 
-TEST_CASE("fast multipoint evaluation") {
+TEST_CASE("fast multipoint evaluation", "[polynomial]") {
   using Field = Mint64<(int)1e9 + 7>;
   using Poly = Polynomial<Field, SafeMultiplication, poly::DefaultDivmod>;
   Poly p = {0, 1, 3};
@@ -26,7 +26,7 @@ TEST_CASE("fast multipoint evaluation") {
   REQUIRE_THAT(res, Catch::Equals(naive_res));
 }
 
-TEST_CASE("Polynomial<double> fast multiplicaton") {
+TEST_CASE("Polynomial<double> fast multiplicaton", "[polynomial]") {
   using Poly = Polynomial<double, FFTMultiplication>;
   Poly p = {0, 1, 3, 5, 7, 9, 11};
   Poly q = {1, 3, 5, 11, 13};
@@ -42,7 +42,7 @@ TEST_CASE("Polynomial<double> fast multiplicaton") {
   REQUIRE_THAT(r1.p, Catch::Approx(r2.p).margin(1e-9));
 }
 
-TEST_CASE("chirp-z transform") {
+TEST_CASE("chirp-z transform", "[polynomial]") {
   using Field = Mint32<(int)1e9+7>;
   using Poly = Polynomial<Field, NaiveMultiplication>;
 

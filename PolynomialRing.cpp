@@ -109,6 +109,10 @@ struct Polynomial {
     return true;
   }
 
+  const vector<Field>& data() const {
+    return p;
+  }
+
   inline Field operator[](const int i) const {
     if (i >= size())
       return 0;
