@@ -1,0 +1,99 @@
+Performing C++ SOURCE FILE Test HAVE_CXX_FLAG_WSHORTEN_64_TO_32 failed with the following output:
+Change Dir: /home/roberto/CP/cp-includes/tests/benchmark/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_a1fab/fast && /usr/bin/make  -f CMakeFiles/cmTC_a1fab.dir/build.make CMakeFiles/cmTC_a1fab.dir/build
+make[1]: Entering directory '/home/roberto/CP/cp-includes/tests/benchmark/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_a1fab.dir/src.cxx.o
+/usr/bin/c++   -std=c++11  -Wall  -Wextra  -Wshadow -DHAVE_CXX_FLAG_WSHORTEN_64_TO_32  -Wshorten-64-to-32   -Wshorten-64-to-32 -o CMakeFiles/cmTC_a1fab.dir/src.cxx.o -c /home/roberto/CP/cp-includes/tests/benchmark/build/CMakeFiles/CMakeTmp/src.cxx
+c++: error: unrecognized command line option '-Wshorten-64-to-32'
+c++: error: unrecognized command line option '-Wshorten-64-to-32'
+CMakeFiles/cmTC_a1fab.dir/build.make:84: recipe for target 'CMakeFiles/cmTC_a1fab.dir/src.cxx.o' failed
+make[1]: *** [CMakeFiles/cmTC_a1fab.dir/src.cxx.o] Error 1
+make[1]: Leaving directory '/home/roberto/CP/cp-includes/tests/benchmark/build/CMakeFiles/CMakeTmp'
+Makefile:140: recipe for target 'cmTC_a1fab/fast' failed
+make: *** [cmTC_a1fab/fast] Error 2
+
+
+Source file was:
+int main() { return 0; }
+Performing C++ SOURCE FILE Test HAVE_CXX_FLAG_WD654 failed with the following output:
+Change Dir: /home/roberto/CP/cp-includes/tests/benchmark/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_e70ba/fast && /usr/bin/make  -f CMakeFiles/cmTC_e70ba.dir/build.make CMakeFiles/cmTC_e70ba.dir/build
+make[1]: Entering directory '/home/roberto/CP/cp-includes/tests/benchmark/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_e70ba.dir/src.cxx.o
+/usr/bin/c++   -std=c++11  -Wall  -Wextra  -Wshadow  -fstrict-aliasing  -Wno-deprecated-declarations  -Wstrict-aliasing -DHAVE_CXX_FLAG_WD654  -wd654   -wd654 -o CMakeFiles/cmTC_e70ba.dir/src.cxx.o -c /home/roberto/CP/cp-includes/tests/benchmark/build/CMakeFiles/CMakeTmp/src.cxx
+c++: error: unrecognized command line option '-wd654'
+c++: error: unrecognized command line option '-wd654'
+CMakeFiles/cmTC_e70ba.dir/build.make:84: recipe for target 'CMakeFiles/cmTC_e70ba.dir/src.cxx.o' failed
+make[1]: *** [CMakeFiles/cmTC_e70ba.dir/src.cxx.o] Error 1
+make[1]: Leaving directory '/home/roberto/CP/cp-includes/tests/benchmark/build/CMakeFiles/CMakeTmp'
+Makefile:140: recipe for target 'cmTC_e70ba/fast' failed
+make: *** [cmTC_e70ba/fast] Error 2
+
+
+Source file was:
+int main() { return 0; }
+Performing C++ SOURCE FILE Test HAVE_CXX_FLAG_WTHREAD_SAFETY failed with the following output:
+Change Dir: /home/roberto/CP/cp-includes/tests/benchmark/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_20e23/fast && /usr/bin/make  -f CMakeFiles/cmTC_20e23.dir/build.make CMakeFiles/cmTC_20e23.dir/build
+make[1]: Entering directory '/home/roberto/CP/cp-includes/tests/benchmark/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_20e23.dir/src.cxx.o
+/usr/bin/c++   -std=c++11  -Wall  -Wextra  -Wshadow  -fstrict-aliasing  -Wno-deprecated-declarations  -Wstrict-aliasing -DHAVE_CXX_FLAG_WTHREAD_SAFETY  -Wthread-safety   -Wthread-safety -o CMakeFiles/cmTC_20e23.dir/src.cxx.o -c /home/roberto/CP/cp-includes/tests/benchmark/build/CMakeFiles/CMakeTmp/src.cxx
+c++: error: unrecognized command line option '-Wthread-safety'; did you mean '-fthread-jumps'?
+c++: error: unrecognized command line option '-Wthread-safety'; did you mean '-fthread-jumps'?
+CMakeFiles/cmTC_20e23.dir/build.make:84: recipe for target 'CMakeFiles/cmTC_20e23.dir/src.cxx.o' failed
+make[1]: *** [CMakeFiles/cmTC_20e23.dir/src.cxx.o] Error 1
+make[1]: Leaving directory '/home/roberto/CP/cp-includes/tests/benchmark/build/CMakeFiles/CMakeTmp'
+Makefile:140: recipe for target 'cmTC_20e23/fast' failed
+make: *** [cmTC_20e23/fast] Error 2
+
+
+Source file was:
+int main() { return 0; }
+Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
+Change Dir: /home/roberto/CP/cp-includes/tests/benchmark/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_6a16d/fast && /usr/bin/make  -f CMakeFiles/cmTC_6a16d.dir/build.make CMakeFiles/cmTC_6a16d.dir/build
+make[1]: Entering directory '/home/roberto/CP/cp-includes/tests/benchmark/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_6a16d.dir/src.c.o
+/usr/bin/cc   -DCMAKE_HAVE_LIBC_PTHREAD -o CMakeFiles/cmTC_6a16d.dir/src.c.o -c /home/roberto/CP/cp-includes/tests/benchmark/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_6a16d
+/snap/cmake/619/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6a16d.dir/link.txt --verbose=1
+/usr/bin/cc  -DCMAKE_HAVE_LIBC_PTHREAD CMakeFiles/cmTC_6a16d.dir/src.c.o -o cmTC_6a16d 
+CMakeFiles/cmTC_6a16d.dir/src.c.o: In function `main':
+src.c:(.text+0x3e): undefined reference to `pthread_create'
+src.c:(.text+0x4a): undefined reference to `pthread_detach'
+src.c:(.text+0x56): undefined reference to `pthread_cancel'
+src.c:(.text+0x67): undefined reference to `pthread_join'
+src.c:(.text+0x7b): undefined reference to `pthread_atfork'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_6a16d.dir/build.make:105: recipe for target 'cmTC_6a16d' failed
+make[1]: *** [cmTC_6a16d] Error 1
+make[1]: Leaving directory '/home/roberto/CP/cp-includes/tests/benchmark/build/CMakeFiles/CMakeTmp'
+Makefile:140: recipe for target 'cmTC_6a16d/fast' failed
+make: *** [cmTC_6a16d/fast] Error 2
+
+
+Source file was:
+#include <pthread.h>
+
+void* test_func(void* data)
+{
+  return data;
+}
+
+int main(void)
+{
+  pthread_t thread;
+  pthread_create(&thread, NULL, test_func, NULL);
+  pthread_detach(thread);
+  pthread_cancel(thread);
+  pthread_join(thread, NULL);
+  pthread_atfork(NULL, NULL, NULL);
+  pthread_exit(NULL);
+
+  return 0;
+}
+

@@ -10,9 +10,10 @@ namespace series {
 
 template <typename P> P ln(const P &p, int n);
 
-template <typename P> P inverse(const P &p, int n) {
+template <typename P> P inverse(P p, int n) {
   if (n == 1)
     return P(p[0].inverse());
+  p %= n;
   P q = inverse(p, (n + 1) >> 1);
   return q * (P(2) - p * q % n) % n;
 }
@@ -27,9 +28,10 @@ template <typename P> P ln(const P &p, int n) {
 }
 
 // p[0] must be null
-template <typename P> P exp(const P &p, int n) {
+template <typename P> P exp(P p, int n) {
   if (n == 1)
     return P(1);
+  p %= n;
   P q = exp(p, n >> 1);
   return q * (p - ln(q, n) + P(1)) % n;
 }
@@ -50,7 +52,7 @@ template <typename P> P exp(const P &p, int n) {
 template <typename P> P power(const P &p, long long k, int n) {
   if (n <= 0)
     return P();
-  return exp(ln(p, n) * P(k), n) * (p[0] ^ k);
+  return exp(ln(p, n) * k, n) * (p[0] ^ k);
 }
 } // namespace series
 } // namespace lib
