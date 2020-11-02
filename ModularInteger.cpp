@@ -27,6 +27,7 @@ template <typename T, T... Mods> struct ModularIntegerBase {
 
 template <typename T, T Mod> struct ModularIntegerBase<T, Mod> {
   typedef ModularIntegerBase<T, Mod> type;
+  constexpr static T mod = Mod;
 
   T x[1];
 
