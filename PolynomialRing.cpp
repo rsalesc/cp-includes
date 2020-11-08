@@ -292,16 +292,19 @@ struct Polynomial {
     return p == rhs.p;
   }
 
-  type inverse() const {
-    int sz = size();
-    if (sz == 0)
-      return type();
-    if (sz == 1) {
-      assert(!Epsilon<>().null(p[0]));
-      return type(p[0].inverse());
+  type inverse(int m) const {
+    if(null()) return *this;
+    type b = {Field(1) / p[0]};
+    b.p.reserve(2 * m);
+    while(b.size() < m) {
+      int n = 2 * b.size();
+      b = b * (type(2) - (*this) % n * b % n) % n;
     }
-    type q = (*this % ((sz + 1) / 2)).inverse();
-    return q * (type(2) - (*this) * q % sz) % sz;
+    return b % m;
+  }
+
+  type inverse() const {
+    return inverse(size());
   }
 
   type reciprocal() const {
@@ -360,17 +363,13 @@ struct Polynomial {
     int n = b.size();
     if (m < n)
       return {Polynomial(), a};
-    type ar = a.reciprocal();
-    type bri = (b.reciprocal() % (m - n + 1)).inverse();
-    type q = (ar * bri % (m - n + 1)).reciprocal();
+    int sz = m - n + 1;
+    type ar = a.reciprocal() % sz;
+    type br = b.reciprocal() % sz;
+    type q = (ar * br.inverse(sz) % sz).reciprocal();
     type r = a - b * q;
 
-    if (r.degree() >= b.degree()) {
-      q += divmod(r, b).first;
-      r = a - b * q;
-    }
-
-    return {q, r};
+    return {q, r % (n-1)};
   }
 
   static pair<type, type> naive_divmod(const type &a, const type &b) {
