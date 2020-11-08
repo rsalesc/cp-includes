@@ -105,6 +105,19 @@ static void BM_Polynomial_Interpolation(benchmark::State& state) {
     }
 }
 
+static void BM_Polynomial_Kmul(benchmark::State& state) {
+    const int n = state.range(0);
+    auto v1 = Array::random(n, MOD);
+    vector<Field> w(v1.begin(), v1.end());
+    vector<Poly> polys(n);
+    for(int i = 0; i < n; i++)
+        polys[i] = Poly::from_root(w[i]);
+
+    for(auto _ : state) {
+        benchmark::DoNotOptimize(kmul(polys));
+    }
+}
+
 BENCHMARK(BM_Polynomial_SafeMultiplication)
     ->Arg(100000)->Arg((int)1e6)
     ->Unit(benchmark::kMillisecond);
@@ -130,6 +143,10 @@ BENCHMARK(BM_Polynomial_MultipointEvaluation)
     ->Unit(benchmark::kMillisecond);
 
 BENCHMARK(BM_Polynomial_Interpolation)
+    ->Arg((int)1e5)
+    ->Unit(benchmark::kMillisecond);
+
+BENCHMARK(BM_Polynomial_Kmul)
     ->Arg((int)1e5)
     ->Unit(benchmark::kMillisecond);
 

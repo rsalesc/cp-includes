@@ -16,8 +16,9 @@ using traits::HasInputIterator;
 } // namespace
 template <typename Poly> struct MultipointEvaluation {
   using field = typename Poly::field;
-  vector<field> w, fw;
-  vector<Poly> t;
+  int n;
+  vector<field> w;
+  vector<Poly> up, down;
 
   template <
       typename Iterator,
@@ -26,6 +27,7 @@ template <typename Poly> struct MultipointEvaluation {
     int i = 0;
     for (auto it = begin; it != end; ++it, ++i)
       w[i] = *it;
+    n = w.size();
     build();
   }
 
@@ -35,50 +37,36 @@ template <typename Poly> struct MultipointEvaluation {
   MultipointEvaluation(const Container &container)
       : MultipointEvaluation(container.begin(), container.end()) {}
 
-  Poly build(int no, int l, int r) {
-    if(l == r) return t[no] = Poly::from_root(w[l]);
-    int mid = (l+r)/2;
-    return t[no] = build(2*no, l, mid) * build(2*no+1, mid+1, r);
-  }
-
   void build() {
     if(w.empty()) return;
-    t = vector<Poly>(4 * w.size());
-    build(1, 0, (int)w.size() - 1);
-  }
-
-  void eval(const Poly &p, int no, int l, int r) {
-    if (l == r) {
-      fw[l] = p[0];
-      return;
-    }
-    int mid = (l+r)/2;
-    eval(p % t[2*no], 2*no, l, mid);
-    eval(p % t[2*no+1], 2*no+1, mid+1, r);
+    up = vector<Poly>(2 * n);
+    down = vector<Poly>(2 * n);
+    for(int i = 0; i < n; i++)
+      up[i+n] = {-w[i], 1};
+    for(int i = n-1; i; i--)
+      up[i] = up[2*i] * up[2*i+1];
   }
 
   vector<field> eval(const Poly &p) {
-    fw = vector<field>(w.size());
-    eval(p, 1, 0, (int)w.size() - 1);
-    return fw;
-  }
-
-  Poly interp(const Poly& p, int no, int l, int r) {
-    if(l == r) return {fw[l] / p[0]};
-    int mid = (l+r)/2;
-    auto A = interp(p % t[2*no], 2*no, l, mid);
-    auto B = interp(p % t[2*no+1], 2*no+1, mid+1, r);
-    return A * t[2*no+1] + B * t[2*no];
+    down[1] = p % up[1];
+    for(int i = 2; i < 2*n; i++)
+      down[i] = down[i/2] % up[i];
+    vector<field> res(n);
+    for(int i = 0; i < n; i++)
+      res[i] = down[i+n][0];
+    return res;
   }
 
   template<typename Iterator>
   Poly interp(const Iterator& begin, const Iterator& end) {
-    fw = vector<field>(distance(begin, end));
-    assert(w.size() == fw.size());
-    int i = 0;
-    for (auto it = begin; it != end; ++it, ++i)
-      fw[i] = *it;
-    return interp(t[1].derivative(), 1, 0, (int)w.size() - 1);
+    assert(n == distance(begin, end));
+    vector<field> a = eval(up[1].derivative());
+    auto it = begin;
+    for(int i = 0; i < n; i++, ++it)
+      down[i+n] = {*it / a[i]};
+    for(int i = n-1; i; i--)
+      down[i] = down[i*2] * up[i*2+1] + down[i*2+1] * up[i*2];
+    return down[1];
   }
 };
 } // namespace math

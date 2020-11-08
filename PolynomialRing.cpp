@@ -4,6 +4,7 @@
 #include "Math.cpp"
 #include "ModularInteger.cpp"
 #include "Traits.cpp"
+#include "LongMultiplication.cpp"
 #include <bits/stdc++.h>
 
 namespace lib {
@@ -62,6 +63,7 @@ struct NaiveDivmod;
 
 template <typename Field, typename Mult, typename Divmod = DefaultDivmod>
 struct Polynomial {
+  constexpr static int Magic = 128;
   constexpr static bool NaiveMod = is_same<Divmod, NaiveDivmod>::value;
   typedef Polynomial<Field, Mult, Divmod> type;
   typedef Field field;
@@ -172,8 +174,14 @@ struct Polynomial {
     return *this;
   }
 
+  static vector<Field> multiply(const vector<Field>& a, const vector<Field>& b) {
+    if(min(a.size(), b.size()) < Magic)
+      return NaiveMultiplication()(a, b);
+    return Mult()(a, b);
+  }
+
   type &operator*=(const type &rhs) {
-    p = Mult()(p, rhs.p);
+    p = multiply(p, rhs.p);
     normalize();
     return *this;
   }
@@ -244,7 +252,7 @@ struct Polynomial {
     return res -= rhs;
   }
 
-  type operator*(const type &rhs) const { return type(Mult()(p, rhs.p)); }
+  type operator*(const type &rhs) const { return type(multiply(p, rhs.p)); }
 
   type operator*(const Field &rhs) const {
     type res = *this;
@@ -293,8 +301,7 @@ struct Polynomial {
       return type(p[0].inverse());
     }
     type q = (*this % ((sz + 1) / 2)).inverse();
-    q -= (*this * q % sz - type(1)) * q % sz;
-    return q % sz;
+    return q * (type(2) - (*this) * q % sz) % sz;
   }
 
   type reciprocal() const {
@@ -345,7 +352,7 @@ struct Polynomial {
     return res;
   }
   static pair<type, type> divmod(const type &a, const type &b) {
-    if (NaiveMod)
+    if (NaiveMod || min(a.size(), b.size()) < Magic)
       return naive_divmod(a, b);
     a.normalize();
     b.normalize();
