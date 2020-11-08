@@ -108,13 +108,18 @@ struct SegtreeImpl {
   inline int size() const { return R - L + 1; }
 
   void push(vnode no, int l, int r) {
-    if (!pushdown_fn.dirty(no))
+    if(!has_lazy) return;
+    if (!pushdown_fn.dirty(manager.ref(no)))
       return;
+    if(l == r) {
+      pushdown_fn(manager.ref(no), l, r, nullptr, nullptr);
+      return;
+    }
     manager.ensure_left(no);
     manager.ensure_right(no);
-    Node *left = l == r ? nullptr : manager.ptr(manager.left(no));
-    Node *right = l == r ? nullptr : manager.ptr(manager.right(no));
-    pushdown_fn(manager.ref(no), l, r, left, right);
+    vnode lno = manager.persist(manager.left(no));
+    vnode rno = manager.persist(manager.right(no));
+    pushdown_fn(manager.ref(no), l, r, manager.ptr(lno), manager.ptr(rno));
   }
 
   template <typename T, typename Folder>
@@ -123,8 +128,7 @@ struct SegtreeImpl {
       return folder();
     if (j < l || i > r)
       return folder();
-    if (has_lazy)
-      push(no, l, r);
+    push(no, l, r);
     if (i <= l && r <= j)
       return folder(manager.ref(no));
     int mid = split(l, r);
@@ -203,7 +207,7 @@ struct SegtreeImpl {
   SearchResult<T> bsearch_first(vnode no, int l, int r, int i, int j,
                                 const Folder &folder, const Checker &checker,
                                 T acc) {
-    if (manager.has(no) && has_lazy)
+    if (manager.has(no))
       push(no, l, r);
     if (j < l || i > r)
       return SearchResult<T>::not_found(folder());
