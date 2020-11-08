@@ -40,6 +40,7 @@ struct DFT {
 
   static void swap(vector<Ring> &buf) { std::swap(fa, buf); }
   static void _dft(Ring *p, int n) {
+    dft_rev(n);
     for (int i = 0; i < n; i++)
       if (i < rev[i])
         std::swap(p[i], p[rev[i]]);
@@ -68,15 +69,33 @@ struct DFT {
   }
 
   static int ensure(int a, int b = 0) {
-    int n = max(a, b);
-    n = next_power_of_two(n) << 1;
+    int n = a+b;
+    n = next_power_of_two(n);
     if ((int)fa.size() < n)
       fa.resize(n);
     return n;
   }
 
   static void clear(int n) { fill(fa.begin(), fa.begin() + n, 0); }
+
+  template<typename Iterator>
+  static void fill(Iterator begin, Iterator end) {
+    int n = ensure(distance(begin, end));
+    int i = 0;
+    for(auto it = begin; it != end; ++it) {
+      fa[i++] = *it;
+    }
+    for(;i < n; i++) fa[i] = Ring();
+  }
 };
+
+template<typename DF, typename U>
+static vector<U> retrieve(int n) {
+  assert(n <= DF::fa.size());
+  vector<U> res(n);
+  for(int i = 0; i < n; i++) res[i] = (U)DF::fa[i];
+  return res;
+}
 
 template<typename Ring, typename Provider>
 vector<int> DFT<Ring, Provider>::rev = vector<int>();

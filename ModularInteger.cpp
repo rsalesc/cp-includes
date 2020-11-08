@@ -282,6 +282,9 @@ using ModularInteger =
 template <int32_t... Mods> using Mint32 = ModularInteger<int32_t, Mods...>;
 
 template <int64_t... Mods> using Mint64 = ModularInteger<int64_t, Mods...>;
+
+using MintP = Mint32<(int32_t)1e9+7>;
+using MintNTT = Mint32<998244353>;
 } // namespace lib
 
 #endif

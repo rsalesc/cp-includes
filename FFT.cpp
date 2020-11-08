@@ -46,101 +46,97 @@ vector<Complex<T>> ComplexRootProvider<T>::w = vector<Complex<T>>();
 template<typename T>
 vector<Complex<long double>> ComplexRootProvider<T>::wl = vector<Complex<long double>>();
 
-template<typename T>
-using FFT = DFT<Complex<T>, ComplexRootProvider<T>>;
+template<typename T = double>
+struct FFT : public DFT<Complex<T>, ComplexRootProvider<T>> {
+  using Parent = DFT<Complex<T>, ComplexRootProvider<T>>;
+  using Parent::fa;
 
-template <typename T, typename U = double>
-void raw_fft(const vector<T> &a, const vector<T> &b) {
-  typedef Complex<U> cd;
-  int n = FFT<U>::ensure(a.size(), b.size());
-  for (size_t i = 0; i < (size_t)n; i++)
-    FFT<U>::fa[i] = cd(i < a.size() ? (U)a[i] : U(),
-                       i < b.size() ? (U)b[i] : U());
-  FFT<U>::dft_rev(n);
-  FFT<U>::dft(n);
-  for (int i = 0; i < n; i++)
-    FFT<U>::fa[i] *= FFT<U>::fa[i];
-  FFT<U>::idft(n);
-  for (int i = 0; i < n; i++)
-    FFT<U>::fa[i] = cd(FFT<U>::fa[i].imag() / 2, U());
-}
-
-template <typename T, typename U = double>
-vector<T> fft(const vector<T> &a, const vector<T> &b) {
-  raw_fft<T, U>(a, b);
-  vector<Complex<U>> &raw = FFT<U>::fa;
-  int sz = raw.size();
-  vector<T> res(sz);
-  for (int i = 0; i < sz; i++)
-    res[i] = raw[i].real();
-  return res;
-}
-
-template <typename T, typename U = double>
-vector<T> rounded_fft(const vector<T> &a, const vector<T> &b) {
-  raw_fft<T, U>(a, b);
-  vector<Complex<U>> &raw = FFT<U>::fa;
-  int sz = raw.size();
-  vector<T> res(sz);
-  for (int i = 0; i < sz; i++)
-    res[i] = (long long)(raw[i].real() + 0.5);
-  return res;
-}
-
-// TODO: use separate static buffers for this function
-template <typename M, typename U = double>
-vector<M> mod_split_fft(const vector<M> &a, const vector<M> &b) {
-  typedef typename M::type_int type_int;
-  typedef typename M::large_int large_int;
-  typedef Complex<U> cd;
-  typedef vector<cd> vcd;
-
-  static_assert(sizeof(M::mods) / sizeof(type_int) == 1,
-                "cant multiply with multiple mods");
-  type_int base = sqrtl(M::mods[0]) + 0.5;
-  M base_m = base;
-  int sza = a.size();
-  int szb = b.size();
-  int n = 1;
-  while (n <= sza + szb - 2)
-    n *= 2;
-  FFT<U>::dft_rev(n);
-
-  vector<M> res(n);
-
-  // establish buffers
-  vcd fa(n), fb(n), C1(n), C2(n);
-
-  for (int i = 0; i < n; i++)
-    fa[i] = i < sza ? cd((type_int)a[i] / base, (type_int)a[i] % base) : cd();
-  for (int i = 0; i < n; i++)
-    fb[i] = i < szb ? cd((type_int)b[i] / base, (type_int)b[i] % base) : cd();
-  FFT<U>::dft(fa, n);
-  FFT<U>::dft(fb, n);
-
-  for (int i = 0; i < n; i++) {
-    int j = i ? n - i : 0;
-    cd a1 = (fa[i] + fa[j].conj()) * cd(0.5, 0.0);
-    cd a2 = (fa[i] - fa[j].conj()) * cd(0.0, -0.5);
-    cd b1 = (fb[i] + fb[j].conj()) * cd(0.5, 0.0);
-    cd b2 = (fb[i] - fb[j].conj()) * cd(0.0, -0.5);
-    cd c11 = a1 * b1, c12 = a1 * b2;
-    cd c21 = a2 * b1, c22 = a2 * b2;
-    C1[j] = c11 + c12 * cd(0.0, 1.0);
-    C2[j] = c21 + c22 * cd(0.0, 1.0);
-  }
-  FFT<U>::idft(C1, n), FFT<U>::idft(C2, n);
-  for (int i = 0; i < n; i++) {
-    int j = i ? n - i : 0;
-    M x = large_int(C1[j].real() + 0.5);
-    M y1 = large_int(C1[j].imag() + 0.5);
-    M y2 = large_int(C2[j].real() + 0.5);
-    M z = large_int(C2[j].imag() + 0.5);
-    res[i] = x * base_m * base_m + (y1 + y2) * base_m + z;
+  template <typename U>
+  static void _convolve(const vector<U> &a, const vector<U> &b) {
+    typedef Complex<T> cd;
+    int n = Parent::ensure(a.size(), b.size());
+    for (size_t i = 0; i < (size_t)n; i++)
+      fa[i] = cd(i < a.size() ? (T)a[i] : T(),
+                 i < b.size() ? (T)b[i] : T());
+    Parent::dft(n);
+    for (int i = 0; i < n; i++)
+      fa[i] *= fa[i];
+    Parent::idft(n);
+    for (int i = 0; i < n; i++)
+      fa[i] = cd(fa[i].imag() / 2, T());
   }
 
-  return res;
-}
+  template<typename U>
+  static vector<U> convolve(const vector<U>& a, const vector<U>& b) {
+    int sz = (int)a.size() + b.size() - 1;
+    _convolve(a, b);
+    return retrieve<Parent, U>(sz);
+  }
+
+  template<typename U>
+  static vector<U> convolve_rounded(const vector<U>& a, const vector<U>& b) {
+    int sz = (int)a.size() + b.size() - 1;
+    _convolve(a, b);
+    vector<U> res(sz);
+    for(int i = 0; i < sz; i++) res[i] = (U)(long long)(fa[i].real() + 0.5);
+    return res;
+  }
+
+  // TODO: use separate static buffers for this function
+  template <typename M>
+  static vector<M> convolve_mod(const vector<M> &a, const vector<M> &b) {
+    typedef typename M::type_int type_int;
+    typedef typename M::large_int large_int;
+    typedef Complex<T> cd;
+    typedef vector<cd> vcd;
+
+    static_assert(sizeof(M::mods) / sizeof(type_int) == 1,
+                  "cant multiply with multiple mods");
+    type_int base = sqrtl(M::mods[0]) + 0.5;
+    M base_m = base;
+    int sza = a.size();
+    int szb = b.size();
+    int n = 1;
+    while (n <= sza + szb - 2)
+      n *= 2;
+    Parent::dft_rev(n);
+
+    vector<M> res(n);
+
+    // establish buffers
+    vcd fa(n), fb(n), C1(n), C2(n);
+
+    for (int i = 0; i < n; i++)
+      fa[i] = i < sza ? cd((type_int)a[i] / base, (type_int)a[i] % base) : cd();
+    for (int i = 0; i < n; i++)
+      fb[i] = i < szb ? cd((type_int)b[i] / base, (type_int)b[i] % base) : cd();
+    Parent::dft(fa, n);
+    Parent::dft(fb, n);
+
+    for (int i = 0; i < n; i++) {
+      int j = i ? n - i : 0;
+      cd a1 = (fa[i] + fa[j].conj()) * cd(0.5, 0.0);
+      cd a2 = (fa[i] - fa[j].conj()) * cd(0.0, -0.5);
+      cd b1 = (fb[i] + fb[j].conj()) * cd(0.5, 0.0);
+      cd b2 = (fb[i] - fb[j].conj()) * cd(0.0, -0.5);
+      cd c11 = a1 * b1, c12 = a1 * b2;
+      cd c21 = a2 * b1, c22 = a2 * b2;
+      C1[j] = c11 + c12 * cd(0.0, 1.0);
+      C2[j] = c21 + c22 * cd(0.0, 1.0);
+    }
+    Parent::idft(C1, n), Parent::idft(C2, n);
+    for (int i = 0; i < n; i++) {
+      int j = i ? n - i : 0;
+      M x = large_int(C1[j].real() + 0.5);
+      M y1 = large_int(C1[j].imag() + 0.5);
+      M y2 = large_int(C2[j].real() + 0.5);
+      M z = large_int(C2[j].imag() + 0.5);
+      res[i] = x * base_m * base_m + (y1 + y2) * base_m + z;
+    }
+
+    return res;
+  }
+};
 } // namespace linalg
 
 namespace math {
@@ -148,7 +144,7 @@ struct FastMultiplication {
   template <typename Field, typename U = double>
   vector<Field> operator()(const vector<Field> &a,
                            const vector<Field> &b) const {
-    return linalg::rounded_fft<Field, U>(a, b);
+    return linalg::FFT<U>::convolve_rounded(a, b);
   }
 };
 
@@ -156,7 +152,7 @@ struct FFTMultiplication {
   template <typename Field, typename U = double>
   vector<Field> operator()(const vector<Field> &a,
                            const vector<Field> &b) const {
-    return linalg::fft<Field, U>(a, b);
+    return linalg::FFT<U>::convolve(a, b);
   }
 };
 
@@ -164,7 +160,7 @@ struct SafeMultiplication {
   template <typename Field, typename U = double>
   vector<Field> operator()(const vector<Field> &a,
                            const vector<Field> &b) const {
-    return linalg::mod_split_fft<Field, U>(a, b);
+    return linalg::FFT<U>::convolve_mod(a, b);
   };
 };
 } // namespace math

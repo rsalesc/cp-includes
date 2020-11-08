@@ -17,7 +17,7 @@ using traits::HasInputIterator;
 template <typename Poly> struct MultipointEvaluation {
   using field = typename Poly::field;
   vector<field> w, fw;
-  vector<vector<Poly>> sub;
+  vector<Poly> t;
 
   template <
       typename Iterator,
@@ -35,47 +35,50 @@ template <typename Poly> struct MultipointEvaluation {
   MultipointEvaluation(const Container &container)
       : MultipointEvaluation(container.begin(), container.end()) {}
 
-  void build() {
-    if (w.size() <= 1)
-      return;
-    sub.emplace_back();
-    for (const auto &wi : w) {
-      sub.back().push_back(Poly::from_root(wi));
-    }
-
-    while (sub.back().size() > 2) {
-      sub.emplace_back();
-      vector<Poly> &nxt = sub.back();
-      vector<Poly> &old = sub[(int)sub.size() - 2];
-      for (int i = 0; 2 * i < old.size(); i++) {
-        if (2 * i + 1 >= old.size())
-          nxt.push_back(old[2 * i]);
-        else
-          nxt.push_back(old[2 * i] * old[2 * i + 1]);
-      }
-    }
+  Poly build(int no, int l, int r) {
+    if(l == r) return t[no] = Poly::from_root(w[l]);
+    int mid = (l+r)/2;
+    return t[no] = build(2*no, l, mid) * build(2*no+1, mid+1, r);
   }
 
-  void dc(const Poly &p, int L, int i) {
-    if (L == 0) {
-      fw[i] = p[0];
+  void build() {
+    if(w.empty()) return;
+    t = vector<Poly>(4 * w.size());
+    build(1, 0, (int)w.size() - 1);
+  }
+
+  void eval(const Poly &p, int no, int l, int r) {
+    if (l == r) {
+      fw[l] = p[0];
       return;
     }
-    dc(p % sub[L - 1][2 * i], L - 1, 2 * i);
-    if (2 * i + 1 < sub[L - 1].size())
-      dc(p % sub[L - 1][2 * i + 1], L - 1, 2 * i + 1);
+    int mid = (l+r)/2;
+    eval(p % t[2*no], 2*no, l, mid);
+    eval(p % t[2*no+1], 2*no+1, mid+1, r);
   }
 
   vector<field> eval(const Poly &p) {
-    if (w.size() <= 1) {
-      vector<field> res(w.size());
-      for (int i = 0; i < w.size(); i++)
-        res[i] = p(w[i]);
-      return res;
-    }
     fw = vector<field>(w.size());
-    dc(p, sub.size(), 0);
+    eval(p, 1, 0, (int)w.size() - 1);
     return fw;
+  }
+
+  Poly interp(const Poly& p, int no, int l, int r) {
+    if(l == r) return {fw[l] / p[0]};
+    int mid = (l+r)/2;
+    auto A = interp(p % t[2*no], 2*no, l, mid);
+    auto B = interp(p % t[2*no+1], 2*no+1, mid+1, r);
+    return A * t[2*no+1] + B * t[2*no];
+  }
+
+  template<typename Iterator>
+  Poly interp(const Iterator& begin, const Iterator& end) {
+    fw = vector<field>(distance(begin, end));
+    assert(w.size() == fw.size());
+    int i = 0;
+    for (auto it = begin; it != end; ++it, ++i)
+      fw[i] = *it;
+    return interp(t[1].derivative(), 1, 0, (int)w.size() - 1);
   }
 };
 } // namespace math

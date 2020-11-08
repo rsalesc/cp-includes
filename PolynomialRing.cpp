@@ -113,6 +113,16 @@ struct Polynomial {
     return p;
   }
 
+  Field eval(Field x) const {
+    Field pw = 1;
+    Field res = 0;
+    for(Field c : p) {
+      res += pw * c;
+      pw *= x;
+    }
+    return res;
+  }
+
   inline Field operator[](const int i) const {
     if (i >= size())
       return 0;
@@ -406,6 +416,15 @@ struct Polynomial {
       ans.back() = even.back();
     }
     return ans;
+  }
+  friend type kmul(const vector<type>& polys, int l, int r) {
+    if(l == r) return polys[l];
+    int mid = (l+r)/2;
+    return kmul(polys, l, mid) * kmul(polys, mid+1, r);
+  }
+  friend type kmul(const vector<type>& polys) {
+    if(polys.empty()) return type();
+    return kmul(polys, 0, (int)polys.size() - 1);
   }
   static type power(const type &a, long long n, const int mod) {
     return math::generic_power<type>(a, n, DefaultPowerOp<type>(mod));

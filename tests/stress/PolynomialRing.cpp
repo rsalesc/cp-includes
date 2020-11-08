@@ -1,6 +1,7 @@
 #include "../../ModularInteger.cpp"
 #include "../../PolynomialRing.cpp"
 #include "../../FFT.cpp"
+#include "../../NTT.cpp"
 #include "../../LongMultiplication.cpp"
 #include "../../polynomial/MultipointEvaluation.cpp"
 
@@ -19,6 +20,25 @@ TEST_CASE_METHOD(StressTestFixture, "multiplication with 1e9+7 mod", "[polynomia
 
     STRESS(10) {
         auto v = Array::random(n, MOD);
+        vector<Field> a(v.begin(), v.end());
+        Poly p = a;
+        Naive p_naive = a;
+
+        p *= p;
+        p_naive *= p_naive;
+
+        REQUIRE_THAT(p.data(), Catch::Equals(p_naive.data()));
+    }
+}
+
+TEST_CASE_METHOD(StressTestFixture, "multiplication with NTT mod", "[polynomial]") {
+    const static int n = (int)1e3;
+    using Field = MintNTT;
+    using Poly = Polynomial<Field, NTTMultiplication>;
+    using Naive = Polynomial<Field, NaiveMultiplication>;
+
+    STRESS(10) {
+        auto v = Array::random(n, int(Field::mod));
         vector<Field> a(v.begin(), v.end());
         Poly p = a;
         Naive p_naive = a;
@@ -72,5 +92,26 @@ TEST_CASE_METHOD(StressTestFixture, "multipoint evaluation with mod 1e9+7", "[po
             ans_naive[i] = p(z[i]);
 
         REQUIRE_THAT(ans, Catch::Equals(ans_naive));
+    }
+}
+
+TEST_CASE_METHOD(StressTestFixture, "interpolation with mod 1e9+7", "[polynomial]") {
+    const static int n = 500;
+    const static int K = 1000;
+    const static int MOD = (int)1e9+7;
+    using Field = Mint32<MOD>;
+    using Poly = Polynomial<Field, SafeMultiplication>;
+
+    STRESS(10) {
+        auto v = Array::random(n, MOD);
+        auto z = Array::random(K, MOD);
+        vector<Field> a(v.begin(), v.end());
+        Poly p = a;
+
+        MultipointEvaluation<Poly> me(z);
+        auto ans_mid = me.eval(p);
+        auto ans = me.interp(ans_mid.begin(), ans_mid.end());
+
+        REQUIRE_THAT(ans.p, Catch::Equals(a));
     }
 }

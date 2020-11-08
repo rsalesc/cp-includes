@@ -1,6 +1,7 @@
 #include "../../ModularInteger.cpp"
 #include "../../PolynomialRing.cpp"
 #include "../../FFT.cpp"
+#include "../../NTT.cpp"
 #include "../../LongMultiplication.cpp"
 #include "../../polynomial/MultipointEvaluation.cpp"
 #include "../../PowerSeries.cpp"
@@ -38,6 +39,18 @@ static void BM_Polynomial_FastMultiplication(benchmark::State& state) {
         benchmark::DoNotOptimize(p*p);
     }
 }
+
+static void BM_Polynomial_NTTMultiplication(benchmark::State& state) {
+    const int n = state.range(0);
+    auto v = Array::random(n, int(Field::mod));
+    vector<Field> a(v.begin(), v.end());
+    Polynomial<Field, NTTMultiplication> p = a;
+
+    for(auto _ : state) {
+        benchmark::DoNotOptimize(p*p);
+    }
+}
+
 
 static void BM_Polynomial_Power(benchmark::State& state) {
     const int n = state.range(0);
@@ -79,11 +92,28 @@ static void BM_Polynomial_MultipointEvaluation(benchmark::State& state) {
     }
 }
 
+static void BM_Polynomial_Interpolation(benchmark::State& state) {
+    const int n = state.range(0);
+    auto v1 = Array::random(n, MOD);
+    vector<Field> y(v1.begin(), v1.end());
+    vector<Field> x(n);
+    iota(x.begin(), x.end(), 0);
+    MultipointEvaluation<Poly> me(x);
+
+    for(auto _ : state) {
+        benchmark::DoNotOptimize(me.interp(y.begin(), y.end()));
+    }
+}
+
 BENCHMARK(BM_Polynomial_SafeMultiplication)
     ->Arg(100000)->Arg((int)1e6)
     ->Unit(benchmark::kMillisecond);
 
 BENCHMARK(BM_Polynomial_FastMultiplication)
+    ->Arg((int)1e5)->Arg((int)1e6)
+    ->Unit(benchmark::kMillisecond);
+
+BENCHMARK(BM_Polynomial_NTTMultiplication)
     ->Arg((int)1e5)->Arg((int)1e6)
     ->Unit(benchmark::kMillisecond);
 
@@ -97,6 +127,10 @@ BENCHMARK(BM_Polynomial_Division)
 
 BENCHMARK(BM_Polynomial_MultipointEvaluation)
     ->Args({100000, 100000})
+    ->Unit(benchmark::kMillisecond);
+
+BENCHMARK(BM_Polynomial_Interpolation)
+    ->Arg((int)1e5)
     ->Unit(benchmark::kMillisecond);
 
 }  // end namespace
