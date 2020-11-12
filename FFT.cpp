@@ -16,8 +16,8 @@ struct ComplexRootProvider {
   static vector<cd> w;
   static vector<cld> wl;
 
-  static Complex<long double> root(long double ang) {
-    return Complex<long double>(geo::trig::cos(ang), geo::trig::sin(ang));
+  static cld root(long double ang) {
+    return cld(geo::trig::cos(ang), geo::trig::sin(ang));
   }
 
   void operator()(int n) {
@@ -96,12 +96,9 @@ struct FFT : public DFT<Complex<T>, ComplexRootProvider<T>> {
     M base_m = base;
     int sza = a.size();
     int szb = b.size();
-    int n = 1;
-    while (n <= sza + szb - 2)
-      n *= 2;
+    int sz = sza+szb-1;
+    int n = next_power_of_two(sz);
     Parent::dft_rev(n);
-
-    vector<M> res(n);
 
     // establish buffers
     vcd fa(n), fb(n), C1(n), C2(n);
@@ -125,7 +122,9 @@ struct FFT : public DFT<Complex<T>, ComplexRootProvider<T>> {
       C2[j] = c21 + c22 * cd(0.0, 1.0);
     }
     Parent::idft(C1, n), Parent::idft(C2, n);
-    for (int i = 0; i < n; i++) {
+
+    vector<M> res(sz);
+    for (int i = 0; i < sz; i++) {
       int j = i ? n - i : 0;
       M x = large_int(C1[j].real() + 0.5);
       M y1 = large_int(C1[j].imag() + 0.5);
