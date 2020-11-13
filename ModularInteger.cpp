@@ -80,7 +80,7 @@ struct ModularIntegerImpl : ModularIntegerBase<T, Mods...> {
     return res;
   }
 
-  void normalize() {
+  inline void normalize() {
     for (size_t i = 0; i < sizeof...(Mods); i++)
       if ((x[i] %= mods[i]) < 0)
         x[i] += mods[i];
@@ -122,39 +122,40 @@ struct ModularIntegerImpl : ModularIntegerBase<T, Mods...> {
     return res;
   }
 
-  type &operator+=(const type &rhs) {
+  inline type &operator+=(const type &rhs) {
     for (size_t i = 0; i < sizeof...(Mods); i++)
-      (x[i] += rhs.x[i]) %= mods[i];
+      if ((x[i] += rhs.x[i]) >= mods[i])
+        x[i] -= mods[i];
     return *this;
   }
-  type &operator-=(const type &rhs) {
+  inline type &operator-=(const type &rhs) {
     for (size_t i = 0; i < sizeof...(Mods); i++)
       if ((x[i] -= rhs.x[i]) < 0)
         x[i] += mods[i];
     return *this;
   }
-  type &operator*=(const type &rhs) {
+  inline type &operator*=(const type &rhs) {
     for (size_t i = 0; i < sizeof...(Mods); i++)
       x[i] = multiply(x[i], rhs.x[i], mods[i]);
     return *this;
   }
-  type &operator/=(const type &rhs) {
+  inline type &operator/=(const type &rhs) {
     for (size_t i = 0; i < sizeof...(Mods); i++)
       x[i] = multiply(x[i], inv(rhs.x[i], mods[i]), mods[i]);
     return *this;
   }
 
-  type &operator+=(T rhs) {
+  inline type &operator+=(T rhs) {
     for (size_t i = 0; i < sizeof...(Mods); i++)
-      x[i] += rhs;
-    normalize();
+      if ((x[i] += rhs) >= mods[i])
+        x[i] -= mods[i];
     return *this;
   }
 
   type &operator-=(T rhs) {
     for (size_t i = 0; i < sizeof...(Mods); i++)
-      x[i] -= rhs;
-    normalize();
+      if ((x[i] -= rhs) < 0)
+        x[i] += mods[i];
     return *this;
   }
 
