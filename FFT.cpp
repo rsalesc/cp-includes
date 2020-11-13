@@ -20,6 +20,10 @@ struct ComplexRootProvider {
     return cld(geo::trig::cos(ang), geo::trig::sin(ang));
   }
 
+  cd operator()(int n, int k) {
+    long double ang = 2.0l * geo::trig::PI / (n / k);
+    return root(ang);
+  }
   void operator()(int n) {
     n = max(n, 2);
     int k = max((int)w.size(), 2);

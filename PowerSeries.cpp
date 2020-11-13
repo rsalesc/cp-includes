@@ -15,7 +15,8 @@ template <typename P> P inverse(P p, int n) {
     return P(p[0].inverse());
   p %= n;
   P q = inverse(p, (n + 1) >> 1);
-  return q * (P(2) - p * q % n) % n;
+  auto qq = q * q % n;
+  return (q * 2 - p * qq % n) % n;
 }
 
 namespace two { // functions for n = 2^k, k >= 0

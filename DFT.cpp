@@ -32,7 +32,7 @@ struct DFT {
         for (int j = 0; j < L / 2; j++) {
           Ring z = p[i + j + L / 2] * w[j + L / 2];
           p[i + j + L / 2] = p[i + j] - z;
-          p[i + j] = p[i + j] + z;
+          p[i + j] += z;
         }
       }
     }

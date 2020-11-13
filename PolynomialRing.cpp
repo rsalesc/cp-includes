@@ -298,7 +298,8 @@ struct Polynomial {
     b.p.reserve(2 * m);
     for(int i = 1; i < m; i *= 2) {
       int n = min(2 * i, m);
-      b = b * (type(2) - (*this) % n * b % n) % n;
+      auto bb = b * b % n;
+      b = (b * 2 - (*this) % n * bb % n) % n;
     }
     return b % m;
   }

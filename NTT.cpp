@@ -33,6 +33,9 @@ struct MintRootProvider {
     }
   }
 
+  T operator()(int n, int k) {
+    return power(g, (T::mod-1)/(n/k));
+  }
   void operator()(int n) {
     n = max(n, 2);
     int k = max((int)w.size(), 2);
@@ -69,7 +72,19 @@ struct NTT : public DFT<T, MintRootProvider<T>> {
   using Parent = DFT<T, MintRootProvider<T>>;
   using Parent::fa;
 
+  static void _convolve(const vector<T> &a) {
+    int n = Parent::ensure(a.size(), a.size());
+    for (size_t i = 0; i < (size_t)n; i++)
+      fa[i] = i < a.size() ? a[i] : T();
+    Parent::dft(n);
+    for (int i = 0; i < n; i++)
+      fa[i] *= fa[i];
+    Parent::idft(n);
+  }
+
   static void _convolve(const vector<T> &a, const vector<T> &b) {
+    if(std::addressof(a) == std::addressof(b))
+      return _convolve(a);
     int n = Parent::ensure(a.size(), b.size());
     for (size_t i = 0; i < (size_t)n; i++)
       fa[i] = i < a.size() ? a[i] : T();

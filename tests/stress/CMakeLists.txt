@@ -23,6 +23,7 @@ target_link_libraries(${PROJECT_NAME} Catch2::Catch2)
 target_compile_options(
   ${PROJECT_NAME}
   PRIVATE
+    -O3
     $<$<CXX_COMPILER_ID:MSVC>:/DCATCH_CONFIG_ENABLE_BENCHMARKING>
     $<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>>:-DCATCH_CONFIG_ENABLE_BENCHMARKING>
 )
