@@ -49,7 +49,7 @@ struct DFT {
   static void _idft(Ring *p, int n) {
     _dft(p, n);
     reverse(p + 1, p + n);
-    Ring inv = Ring(1) / n;
+    Ring inv = Provider().inverse(n);
     for (int i = 0; i < n; i++)
       p[i] *= inv;
   }

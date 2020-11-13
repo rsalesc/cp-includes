@@ -51,6 +51,10 @@ struct MintRootProvider {
   T operator[](int i) {
     return w[i];
   }
+
+  T inverse(int n) {
+    return T(1) / n;
+  }
 };
 
 template<typename T>

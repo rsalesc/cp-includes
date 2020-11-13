@@ -39,6 +39,9 @@ struct ComplexRootProvider {
   cd operator[](int i) {
     return w[i];
   }
+  cd inverse(int n) {
+    return cd(1.0 / n, 0.0);
+  }
 };
 
 template<typename T>
