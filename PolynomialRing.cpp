@@ -63,7 +63,7 @@ struct NaiveDivmod;
 
 template <typename Field, typename Mult, typename Divmod = DefaultDivmod>
 struct Polynomial {
-  constexpr static int Magic = 128;
+  constexpr static int Magic = 64;
   constexpr static bool NaiveMod = is_same<Divmod, NaiveDivmod>::value;
   typedef Polynomial<Field, Mult, Divmod> type;
   typedef Field field;
@@ -296,8 +296,8 @@ struct Polynomial {
     if(null()) return *this;
     type b = {Field(1) / p[0]};
     b.p.reserve(2 * m);
-    while(b.size() < m) {
-      int n = 2 * b.size();
+    for(int i = 1; i < m; i *= 2) {
+      int n = min(2 * i, m);
       b = b * (type(2) - (*this) % n * b % n) % n;
     }
     return b % m;
