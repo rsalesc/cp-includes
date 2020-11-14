@@ -11,12 +11,7 @@ namespace series {
 template <typename P> P ln(const P &p, int n);
 
 template <typename P> P inverse(P p, int n) {
-  if (n == 1)
-    return P(p[0].inverse());
-  p %= n;
-  P q = inverse(p, (n + 1) >> 1);
-  auto qq = q * q % n;
-  return (q * 2 - p * qq % n) % n;
+  return p.inverse(n);
 }
 
 namespace two { // functions for n = 2^k, k >= 0

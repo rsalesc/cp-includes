@@ -220,7 +220,7 @@ int32_t main(){
     for (int i = 0; i < n; i++) {
         cin >> a[i];
     }
-    auto c = series::exp(poly(a), n);
+    auto c = series::inverse(poly(a), n);
     for (int i = 0; i < n; i++) {
         cout << c[i] << " ";
     }

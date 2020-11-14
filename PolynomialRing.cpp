@@ -5,6 +5,7 @@
 #include "ModularInteger.cpp"
 #include "Traits.cpp"
 #include "LongMultiplication.cpp"
+#include "VectorN.cpp"
 #include <bits/stdc++.h>
 
 namespace lib {
@@ -18,6 +19,22 @@ using traits::IsInputIterator;
 /// keep caide
 using traits::HasInputIterator;
 } // namespace
+
+namespace detail{
+  template<class>
+  struct sfinae_true : std::true_type{};
+
+  template<class T, class Field, class Func>
+  static auto test_transform(int)
+      -> sfinae_true<decltype(
+    std::declval<T>().template on_transform<Field>(std::declval<int>(), std::declval<Func&>()))>;
+
+  template<class, class Field, class Func>
+  static auto test_transform(long) -> std::false_type;
+} // detail::
+
+template<class T, class Field, class Func = std::function<VectorN<Field>(int)>>
+struct has_transform : decltype(detail::test_transform<T, Field, Func>(0)){};
 
 template <typename P> struct DefaultPowerOp {
   int mod;
@@ -65,6 +82,14 @@ template <typename Field, typename Mult, typename Divmod = DefaultDivmod>
 struct Polynomial {
   constexpr static int Magic = 64;
   constexpr static bool NaiveMod = is_same<Divmod, NaiveDivmod>::value;
+  constexpr static bool HasTransform = has_transform<Mult, Field>::value;
+  template <
+    // Used in SFINAE.
+    typename U = Field,
+    enable_if_t<has_transform<Mult, U>::value>* = nullptr>
+  using Transform_ = typename Mult::template Transform<U>;
+  using Transform = Transform_<Field>;
+
   typedef Polynomial<Field, Mult, Divmod> type;
   typedef Field field;
   vector<Field> p;
@@ -292,16 +317,92 @@ struct Polynomial {
     return p == rhs.p;
   }
 
+  template <// Used in SFINAE.
+            typename U = Field,
+            enable_if_t<has_transform<Mult, U>::value>* = nullptr>
+  inline VectorN<U> transform(int n) {
+    return Mult().template transform<U>(n, p);
+  }
+
+  template <// Used in SFINAE.
+            typename U = Field,
+            enable_if_t<has_transform<Mult, U>::value>* = nullptr>
+  inline static type itransform(int n, const vector<U>& v) {
+    return Mult().template itransform<U>(n, v);
+  }
+
+  template <typename Functor,
+            // Used in SFINAE.
+            typename U = Field,
+            enable_if_t<has_transform<Mult, U>::value>* = nullptr,
+            typename ...Ts>
+  inline static type on_transform(
+    int n,
+    Functor f,        
+    const Ts&... vs) {
+    if(n < Magic)
+      return f(n, vs...);
+    return Mult().template on_transform<U>(n, f, vs.p...);
+  }
+
+  template <typename Functor,
+            // Used in SFINAE.
+            typename U = Field,
+            enable_if_t<!has_transform<Mult, U>::value>* = nullptr,
+            typename ...Ts>
+  inline static type on_transform(
+    int n,
+    Functor f,        
+    const Ts&... vs) {
+    return f(n, vs...);
+  }
+
+  template <
+    // Used in SFINAE.
+    typename U = Field,
+    enable_if_t<has_transform<Mult, U>::value>* = nullptr>
   type inverse(int m) const {
+    if(null()) return *this;
+    type r = {Field(1) / p[0]};
+    r.p.reserve(m);
+    for(int i = 1; i < m; i *= 2) {
+      int n = 2 * i;
+      vector<U> f = (*this % n).p; f.resize(n);
+      vector<U> g = r.p; g.resize(n);
+      Transform::dft(f, n);
+      Transform::dft(g, n);
+      for(int j = 0; j < n; j++) f[j] *= g[j];
+      Transform::idft(f, n);
+      for(int j = 0; j < i; j++) f[j] = 0;
+      Transform::dft(f, n);
+      for(int j = 0; j < n; j++) f[j] *= g[j];
+      Transform::idft(f, n);
+      for(int j = i; j < min(n, m); j++)
+        r[j] = -f[j];
+    }
+    return r;
+  }
+
+  type inverse_slow(int m) const {
     if(null()) return *this;
     type b = {Field(1) / p[0]};
     b.p.reserve(2 * m);
     for(int i = 1; i < m; i *= 2) {
       int n = min(2 * i, m);
       auto bb = b * b % n;
-      b = (b * 2 - (*this) % n * bb % n) % n;
+      b += b;
+      b -= *this % n * bb;
+      b %= n;
     }
     return b % m;
+  }
+
+  template <
+    // Used in SFINAE.
+    typename U = Field,
+    enable_if_t<!has_transform<Mult, U>::value>* = nullptr>
+  type inverse(int m) const {
+    return inverse_slow(m);
   }
 
   type inverse() const {

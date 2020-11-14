@@ -3,6 +3,7 @@
 #include <bits/stdc++.h>
 #include "DFT.cpp"
 #include "NumberTheory.cpp"
+#include "VectorN.cpp"
 
 namespace lib {
 using namespace std;
@@ -71,6 +72,8 @@ template<typename T>
 struct NTT : public DFT<T, MintRootProvider<T>> {
   using Parent = DFT<T, MintRootProvider<T>>;
   using Parent::fa;
+  using Parent::dft;
+  using Parent::idft;
 
   static void _convolve(const vector<T> &a) {
     int n = Parent::ensure(a.size(), a.size());
@@ -104,15 +107,52 @@ struct NTT : public DFT<T, MintRootProvider<T>> {
     _convolve(a, b);
     return retrieve<Parent, T>(sz);
   }
+  
+  static VectorN<T> transform(vector<T> a, int n) {
+    a.resize(n);
+    Parent::dft(a, n);
+    return a;
+  }
+
+  static vector<T> itransform(vector<T> a, int n) {
+    int sz = a.size();
+    Parent::idft(a, sz);
+    a.resize(min(n, sz));
+    return a;
+  }
 };
 }
 
 struct NTTMultiplication {
+  template<typename T>
+  using Transform = linalg::NTT<T>;
+
   template <typename Field>
   vector<Field> operator()(const vector<Field> &a,
                            const vector<Field> &b) const {
     return linalg::NTT<Field>::convolve(a, b);
   };
+
+  template<typename Field>
+  inline VectorN<Field> transform(int n, const vector<Field>& p) const {
+    int np = next_power_of_two(n);
+    return linalg::NTT<Field>::transform(p, np);
+  }
+
+  template<typename Field>
+  inline vector<Field> itransform(int n, const vector<Field>& p) const {
+    return linalg::NTT<Field>::itransform(p, n);
+  }
+
+  template <typename Field, typename Functor, typename ...Ts>
+  inline vector<Field> on_transform(
+    int n,
+    Functor& f,        
+    const vector<Ts>&... vs) const {
+    int np = next_power_of_two(n);
+    return linalg::NTT<Field>::itransform(
+      f(n, linalg::NTT<Field>::transform(vs, np)...), n);
+  }
 };
 } // namespace lib
 
