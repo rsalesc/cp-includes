@@ -7,7 +7,7 @@
 namespace lib {
 using namespace std;
 namespace series {
-  
+
 template <typename P> P ln(const P &p, int n);
 
 template <typename P> P inverse(P p, int n) {
@@ -36,9 +36,20 @@ template <typename P> P exp(P p, int n) {
 }
 
 template <typename P> P power(const P &p, long long k, int n) {
-  if (n <= 0)
-    return P();
-  return exp(ln(p, n) * k, n) * (p[0] ^ k);
+  int m = p.size();
+  for(int i = 0; i < m; i++) {
+    if(p[i] == 0) continue;
+    if(i > 0 && k > n / i) return {};
+    auto rev = typename P::field(1) / p[i];
+    auto D = (p * rev) >> i;
+    int sz = n - i * k;
+    D = exp(ln(D, sz) * k, sz) * (p[i] ^ k);
+    if(i == 0) return D % n;
+    long long S = k * i;
+    D <<= S;
+    return D % n;
+  }
+  return {};
 }
 } // namespace series
 } // namespace lib
