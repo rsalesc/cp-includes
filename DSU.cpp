@@ -16,6 +16,7 @@ struct DSU {
     p.emplace_back(i);
     ptime.emplace_back(0);
     sz.emplace_back(1);
+    return 1;
   }
 
   int get(int i, int at) const {
@@ -32,6 +33,36 @@ struct DSU {
       swap(u, v);
     p[v] = u;
     ptime[v] = ++tempo;
+    sz[u] += sz[v];
+    return 1;
+  }
+};
+
+struct CompressedDSU {
+  vector<int> p;
+  CompressedDSU(int n = 0) : p(n) { iota(p.begin(), p.end(), 0); }
+  int get(int i) {
+    return p[i] == i ? i : p[i] = get(p[i]);
+  }
+  int operator[](int i) { return get(i); }
+  int& parent(int i) { return p[i]; }
+};
+
+struct FastDSU {
+  vector<int> p, sz;
+  FastDSU(int n = 0) : p(n), sz(n, 1) { iota(p.begin(), p.end(), 0); }
+
+  int get(int i) {
+    return p[i] == i ? i : p[i] = get(p[i]);
+  }
+  int operator[](int i) { return get(i); }
+
+  int merge(int u, int v) {
+    u = get(u), v = get(v);
+    if(u == v) return 0;
+    if(sz[u] < sz[v])
+      swap(u, v);
+    p[v] = u;
     sz[u] += sz[v];
     return 1;
   }
