@@ -19,7 +19,6 @@ target_sources(${PROJECT_NAME} PRIVATE
     main.cpp
     Annotation.cpp
     LinearProgram.cpp
-    PolynomialRing.cpp
     Symbolic.cpp
     Traits.cpp
     VectorN.cpp
