@@ -22,6 +22,7 @@ target_sources(${PROJECT_NAME} PRIVATE
     Symbolic.cpp
     Traits.cpp
     VectorN.cpp
+    FastStd.cpp
 )
 target_link_libraries(${PROJECT_NAME} Catch2::Catch2)
 
