@@ -20,6 +20,14 @@ using IteratorCategoryOf = IteratorCategory<typename Container::iterator>;
 
 /// keep caide
 template <typename Iterator>
+using IteratorValue = typename iterator_traits<Iterator>::value_type;
+
+/// keep caide
+template <typename Container>
+using IteratorValueOf = IteratorValue<typename Container::iterator>;
+
+/// keep caide
+template <typename Iterator>
 using IsRandomIterator =
     is_base_of<random_access_iterator_tag, IteratorCategory<Iterator>>;
 
