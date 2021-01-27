@@ -8,6 +8,7 @@ using namespace std;
 struct DSU {
   vector<int> p, ptime, sz;
   int tempo = 0;
+  int merges = 0;
 
   DSU(int n = 0) : p(n), ptime(n), sz(n, 1) { iota(p.begin(), p.end(), 0); }
 
@@ -34,8 +35,11 @@ struct DSU {
     p[v] = u;
     ptime[v] = ++tempo;
     sz[u] += sz[v];
+    merges++;
     return 1;
   }
+
+  int n_comps() const { return (int)p.size() - merges; }
 };
 
 struct CompressedDSU {
@@ -50,6 +54,7 @@ struct CompressedDSU {
 
 struct FastDSU {
   vector<int> p, sz;
+  int merges = 0;
   FastDSU(int n = 0) : p(n), sz(n, 1) { iota(p.begin(), p.end(), 0); }
 
   int get(int i) {
@@ -64,8 +69,11 @@ struct FastDSU {
       swap(u, v);
     p[v] = u;
     sz[u] += sz[v];
+    merges++;
     return 1;
   }
+
+  int n_comps() const { return (int)p.size() - merges; }
 };
 } // namespace lib
 
