@@ -23,6 +23,7 @@ target_sources(${PROJECT_NAME} PRIVATE
     Traits.cpp
     VectorN.cpp
     FastStd.cpp
+    Lambda.cpp
 )
 target_link_libraries(${PROJECT_NAME} Catch2::Catch2)
 
