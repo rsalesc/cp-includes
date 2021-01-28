@@ -11,6 +11,7 @@ struct FastQueue {
   FastQueue(int cap) : v(cap) {}
 
   void push(const T& no) {
+    if(R >= v.size()) v.emplace_back();
     v[R++] = no;
   }
   T& front() {

@@ -1,2 +1,4 @@
 *.pre.cpp
 a.out
+test/
+in*
