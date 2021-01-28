@@ -51,7 +51,7 @@ struct FastAdj {
     typedef T *pointer;
     typedef std::forward_iterator_tag iterator_category;
     typedef int difference_type;
-    iterator(vector<int> *next, vector<T> *edges, int ptr = 0)
+    iterator(vector<int> *next, vector<T> *edges, int ptr)
         : next_(next), edges_(edges), ptr_(ptr) {}
     self_type operator++() {
       ptr_ = (*next_)[ptr_];
@@ -83,7 +83,7 @@ struct FastAdj {
     typedef T *pointer;
     typedef std::forward_iterator_tag iterator_category;
     typedef int difference_type;
-    const_iterator(vector<int> *next, vector<T> *edges, int ptr = 0)
+    const_iterator(vector<int> *next, vector<T> *edges, int ptr)
         : next_(next_), edges_(edges), ptr_(ptr) {}
     self_type operator++() {
       ptr_ = (*next_)[ptr_];
@@ -119,7 +119,7 @@ struct FastAdj {
     inline iterator end() { return iterator(next_, edges_, -1); }
 
     inline const_iterator cbegin() const {
-      return const_iterator(next_, edges_);
+      return const_iterator(next_, edges_, head_);
     }
     inline const_iterator cend() const {
       return const_iterator(next_, edges_, -1);
