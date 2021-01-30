@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
-#include "../../matroid/MatroidIntersection.cpp"
-#include "../../matroid/ColorMatroid.cpp"
-#include "../../matroid/GraphicMatroid.cpp"
+#include "../../matroid/v2/MatroidIntersection.cpp"
+#include "../../matroid/v2/ColorMatroid.cpp"
+#include "../../matroid/v2/GraphicMatroid.cpp"
 #define int long long
 
 using namespace std;
@@ -25,7 +25,8 @@ int32_t main() {
       edges.push_back({u, v, c});
     }
     ColorMatroid m_color(K, 1, [edges](int i) { return edges[i].color; });
-    GraphicMatroid m_graph(n, [edges](int i) -> pair<int, int> { return {edges[i].u, edges[i].v}; });
+    auto edge_fn = [edges](int i) -> pair<int, int> { return {edges[i].u, edges[i].v}; };
+    GraphicMatroid m_graph(n, edge_fn);
     auto mi = make_matroid_intersection(m, m_color, m_graph);
     auto res = mi->solve();
     cout << "Instancia " << ++it << endl;

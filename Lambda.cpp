@@ -9,6 +9,8 @@ namespace lambda {
   using namespace traits;
 
 const auto identity = [](int i) -> int { return i; };
+const auto all = [](int i) -> bool { return true; };
+const auto none = [](int i) -> bool { return false; };
 
 template<typename F>
 using ValueType = decltype(declval<F>()(0));
@@ -24,6 +26,8 @@ struct Map {
   }
 };
 
+struct Subset;
+
 template<typename T>
 struct SubsetMap : Map<T> {
   using Map<T>::operator();
@@ -34,6 +38,12 @@ struct SubsetMap : Map<T> {
   template<typename F>
   SubsetMap(int n, F && f_) : Map<T>(f_), n(n) {}
   int size() const { return n; }
+  int count() const {
+    int cnt = 0;
+    for(int i = 0; i < n; i++)
+      cnt += f(i) != 0;
+    return cnt;
+  }
   vector<T> operator()() const {
     vector<T> res(n);
     for(int i = 0; i < n; i++)
@@ -41,20 +51,45 @@ struct SubsetMap : Map<T> {
     return res;
   }
 
+  Subset as_subset() const;
+
   template<typename U = T,
            enable_if<is_same<U, bool>::value>* = nullptr>
   SubsetMap<T> operator!() const {
     auto g = f;
     return SubsetMap<T>(n, [g](int i) { return !g(i); });
   }
+
+  SubsetMap<T> operator+(const SubsetMap<T>& rhs) const {
+    int N = size() + rhs.size();
+    auto g = f;
+    auto h = rhs.f;
+    return SubsetMap<T>(N, [n, g, rhs.g](int i) {
+      return i >= n ? h(i - n) : g(i);
+    });
+  }
+
+  SubsetMap<T> operator*(const SubsetMap<T>& rhs) const {
+    auto g = f;
+    auto h = rhs.f;
+    return SubsetMap<T>(n, [g, h](int i) {
+      return g(h(i));
+    });
+  }
 };
 
 struct Subset {
   vector<int> map;
+  Subset() {}
+  Subset(const vector<int>& map_) : map(map_) {}
   void add(int i) {
     map.push_back(i);
   }
+  void pop() { map.pop_back(); }
+  void clear() { map.clear(); }
   int size() const { return map.size(); }
+  int operator()(int i) const { return map[i]; }
+  vector<int> items() const { return map; }
 
   template<typename F>
   SubsetMap<ValueType<F>> take_from(F && g) const {
@@ -63,6 +98,14 @@ struct Subset {
     return SubsetMap<T>(map.size(), [g, map_](int i) -> T {
       return g(map_[i]);
     });
+  }
+
+  Subset take_subset(const Subset& s) const {
+    vector<int> res;
+    for(int i : items()) {
+      res.push_back(s(i));
+    }
+    return Subset(res);
   }
 
   SubsetMap<int> take_indices() const {
@@ -128,11 +171,37 @@ struct Map<bool> {
     }
 };
 
-// template<>
-// Map<bool>::Map(Map<bool> && m) : f(move(m)) {}
+template<typename T>
+Subset SubsetMap<T>::as_subset() const {
+  Subset map;
+  for(int i = 0; i < n; i++)
+    if(f(i)) map.add(i);
+  return map;
+}
 
 using Filter = Map<bool>;
 using SubsetFilter = SubsetMap<bool>;
+
+template<typename T>
+SubsetMap<T> from_vector(const vector<T>& v) {
+  return SubsetMap<T>(v.size(), [v](int i) -> T {
+    return v[i];
+  });
+}
+
+template<typename T>
+SubsetFilter filter_from_vector(const vector<T>& v) {
+  return SubsetFilter(v.size(), [v](int i) -> bool {
+    return v[i];
+  });
+}
+
+template<typename T>
+SubsetFilter filter_from_sparse_vector(const vector<T>& v) {
+  return SubsetFilter(v.size(), [v](int i) -> bool {
+    return v[i];
+  });
+}
 } // namespace lambda
 } // namespace lib
 
