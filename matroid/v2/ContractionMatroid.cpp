@@ -1,8 +1,7 @@
-#ifndef _LIB_GRAPHIC_MATROID
-#define _LIB_GRAPHIC_MATROID
+#ifndef _LIB_CONTRACTION_MATROID
+#define _LIB_CONTRACTION_MATROID
 #include <bits/stdc++.h>
 #include "Matroid.cpp"
-#include "../../DSU.cpp"
 
 namespace lib {
   using namespace std;
@@ -48,6 +47,13 @@ struct ContractionMatroid : Matroid {
    return un - basis_sz;
   }
 };
+
+namespace matroid {
+template<typename M>
+ContractionMatroid<M> contraction(const M& m, const lambda::SubsetFilter& f) {
+  return ContractionMatroid<M>(m, f);
+}
+} // namespace matroid
 } // namespace lib
 
 #endif
