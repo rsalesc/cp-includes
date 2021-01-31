@@ -52,7 +52,7 @@ struct InversesTable {
   T v[n_inverses][n_mods];
   T max_x;
 
-  constexpr InversesTable() : v(), max_x(n_inverses) {
+  InversesTable() : v(), max_x(n_inverses) {
     for(int j = 0; j < sizeof...(Mods); j++)
       v[1][j] = 1, max_x = min(max_x, mods[j]);
     for(int i = 2; i < max_x; i++) {
