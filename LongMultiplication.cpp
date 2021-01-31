@@ -6,6 +6,9 @@ namespace lib {
 using namespace std;
 namespace math {
 struct NaiveMultiplication {
+  template<typename T>
+  using Transform = void;
+
   template <typename Field>
   vector<Field> operator()(const vector<Field> &a,
                            const vector<Field> &b) const {

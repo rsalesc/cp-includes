@@ -34,6 +34,9 @@ template <typename T> struct Complex {
     res *= rhs;
     return res;
   }
+  Complex<T> operator-() const {
+    return {-re, -im};
+  }
   void operator/=(const T x) { re /= x, im /= x; }
 };
 } // namespace lib

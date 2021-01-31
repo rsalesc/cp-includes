@@ -1,6 +1,9 @@
 #include <bits/stdc++.h>
 #include "ModularInteger.cpp"
-#include "FHT.cpp"
+#include "NTT.cpp"
+#include "PolynomialRing.cpp"
+#include "polynomial/MultipointEvaluation.cpp"
+#define int long long
 using namespace std;
  
 #define mp make_pair
@@ -203,31 +206,30 @@ struct Printer {
 
 using namespace lib;
 using mint = MintNTT;
+using poly = math::Polynomial<mint, NTTMultiplication>;
 
 int32_t main(){
-    Scanner sc(stdin);
-    Printer pr(stdout);
+    // Scanner sc(stdin);
+    // Printer pr(stdout);
+    iopt;
 
-    int n, m;
-    sc.read(n, m);
+    int n;
+    cin >> n;
 
-    V<mint> a(n);
+    V<mint> x(n);
     for (int i = 0; i < n; i++) {
-        int x;
-        sc.read(x);
-        a[i] = x;
+        cin >> x[i];
     }
-    V<mint> b(m);
-    for (int i = 0; i < m; i++) {
-        int x;
-        sc.read(x);
-        b[i] = x;
+    V<mint> y(n);
+    for (int i = 0; i < n; i++) {
+        cin >> y[i];
     }
-    auto c = FHTMultiplication()(a, b);
-    for (auto x: c) {
-        pr.write((int)x);
-        pr.write(' ');
-    }
-    pr.writeln();
+
+    auto me = math::MultipointEvaluation<poly>(x);
+    auto res = me.interp(y);
+
+    cout << res << endl;
+
+    cout << endl;
     return 0;
 }
