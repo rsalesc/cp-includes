@@ -56,24 +56,19 @@ struct SubsetMap : Map<T> {
   template<typename U = T,
            enable_if<is_same<U, bool>::value>* = nullptr>
   SubsetMap<T> operator!() const {
-    auto g = f;
-    return SubsetMap<T>(n, [g](int i) { return !g(i); });
+    return SubsetMap<T>(n, [f=f](int i) { return !f(i); });
   }
 
   SubsetMap<T> operator+(const SubsetMap<T>& rhs) const {
     int N = size() + rhs.size();
-    auto g = f;
-    auto h = rhs.f;
-    return SubsetMap<T>(N, [n, g, rhs.g](int i) {
-      return i >= n ? h(i - n) : g(i);
+    return SubsetMap<T>(N, [n=n, f=f, g=rhs.f](int i) {
+      return i >= n ? g(i - n) : f(i);
     });
   }
 
   SubsetMap<T> operator*(const SubsetMap<T>& rhs) const {
-    auto g = f;
-    auto h = rhs.f;
-    return SubsetMap<T>(n, [g, h](int i) {
-      return g(h(i));
+    return SubsetMap<T>(n, [f=f, g=rhs.f](int i) {
+      return f(g(i));
     });
   }
 };
