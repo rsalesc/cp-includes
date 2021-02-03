@@ -12,8 +12,12 @@ const auto identity = [](int i) -> int { return i; };
 const auto all = [](int i) -> bool { return true; };
 const auto none = [](int i) -> bool { return false; };
 
-template<typename F>
-using ValueType = decltype(declval<F>()(0));
+auto first_n(int n) {
+  return [n](int i) -> bool { return i < n; };
+}
+
+template<typename F, typename I = int>
+using ValueType = decltype(declval<F>()(declval<I>()));
 
 template<typename T>
 struct Map {
@@ -54,9 +58,15 @@ struct SubsetMap : Map<T> {
   Subset as_subset() const;
 
   template<typename U = T,
-           enable_if<is_same<U, bool>::value>* = nullptr>
+           enable_if_t<is_same<U, bool>::value>* = nullptr>
   SubsetMap<T> operator!() const {
     return SubsetMap<T>(n, [f=f](int i) { return !f(i); });
+  }
+
+  template<typename U = T,
+           enable_if_t<is_same<U, bool>::value>* = nullptr>
+  SubsetMap<T> operator|(const SubsetMap<T>& rhs) const {
+    return SubsetMap<T>(n, [f=f, g=rhs.f](int i) { return f(i) || g(i); });
   }
 
   SubsetMap<T> operator+(const SubsetMap<T>& rhs) const {
@@ -74,9 +84,10 @@ struct SubsetMap : Map<T> {
 };
 
 struct Subset {
-  vector<int> map;
+  mutable vector<int> map;
   Subset() {}
-  Subset(const vector<int>& map_) : map(map_) {}
+  Subset(const vector<int>& map_) : map(map_) {
+  }
   void add(int i) {
     map.push_back(i);
   }
@@ -117,6 +128,21 @@ struct Subset {
     return SubsetMap<int>(n, [inv](int i) -> int {
       return inv[i];
     });
+  }
+
+  void sort() const {
+    std::sort(map.begin(), map.end());
+  }
+
+  Subset operator|(const Subset& rhs) const {
+    sort();
+    rhs.sort();
+    vector<int> res;
+    res.reserve(size() + rhs.size());
+    merge(map.begin(), map.end(), rhs.map.begin(), rhs.map.end(), back_inserter(res));
+    auto it = unique(res.begin(), res.end());
+    res.resize(it - res.begin());
+    return res;
   }
 };
 
@@ -166,12 +192,30 @@ struct Map<bool> {
     }
 };
 
+namespace {
+template<typename T,
+         enable_if_t<is_same<T, bool>::value>* = nullptr>
+Subset as_subset_(const SubsetMap<T>& rhs) {
+  Subset map;
+  for(int i = 0; i < rhs.size(); i++)
+    if(rhs(i)) map.add(i);
+  return map;
+}
+template<typename T,
+         enable_if_t<!is_same<T, bool>::value>* = nullptr>
+Subset as_subset_(const SubsetMap<T>& rhs) {
+  Subset map;
+  for(int i = 0; i < rhs.size(); i++)
+    map.add(rhs(i));
+  return map;
+}
+}
+
+
 template<typename T>
 Subset SubsetMap<T>::as_subset() const {
-  Subset map;
-  for(int i = 0; i < n; i++)
-    if(f(i)) map.add(i);
-  return map;
+  return as_subset_(*this);
+  
 }
 
 using Filter = Map<bool>;
@@ -181,6 +225,13 @@ template<typename T>
 SubsetMap<T> from_vector(const vector<T>& v) {
   return SubsetMap<T>(v.size(), [v](int i) -> T {
     return v[i];
+  });
+}
+
+template<typename U, typename F, typename T = ValueType<F, U>>
+SubsetMap<T> map_from_vector(const vector<U>& v, const F& f) {
+  return SubsetMap<T>(v.size(), [v, f](int i) -> T {
+    return f(v[i]);
   });
 }
 

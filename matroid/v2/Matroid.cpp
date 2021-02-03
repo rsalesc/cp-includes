@@ -7,19 +7,10 @@ namespace lib {
   using namespace std;
 struct Matroid {
   int matroid_size_;
-  lambda::SubsetMap<int> ground_map_;
-  int F(int i) const { return ground_map_(i); }
-  const lambda::SubsetMap<int>& map() { return ground_map_; }
+  Matroid() {}
+  Matroid(int n) : matroid_size_(n) {}
+  void set_ground(int n) { matroid_size_ = n; }
   int size() const { return matroid_size_; }
-  void build(const lambda::SubsetMap<int>& s) {
-    matroid_size_ = s.size();
-    ground_map_ = s;
-    build_deps();
-  }
-  void build(int n) {
-    build(lambda::SubsetMap<int>(n, lambda::identity));
-  }
-  virtual void build_deps() {}
   virtual int rank(const lambda::Subset&, const lambda::SubsetFilter&) = 0;
   virtual void clear() = 0;
   virtual void add(int i) = 0;
