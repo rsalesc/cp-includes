@@ -24,9 +24,6 @@ data:
     title: polynomial/Transform.cpp
   _extendedRequiredBy:
   - icon: ':warning:'
-    path: tests/unit/PolynomialRing.cpp
-    title: tests/unit/PolynomialRing.cpp
-  - icon: ':warning:'
     path: tests/yosupo/convolution.cpp
     title: tests/yosupo/convolution.cpp
   - icon: ':warning:'
@@ -321,7 +318,6 @@ data:
   isVerificationFile: false
   path: FHT.cpp
   requiredBy:
-  - tests/unit/PolynomialRing.cpp
   - tests/yosupo/convolution.cpp
   - tests/yosupo/fps_power.cpp
   - tests/yosupo/kth_term_lr.cpp

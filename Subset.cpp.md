@@ -1,0 +1,101 @@
+---
+data:
+  _extendedDependsOn: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: tests/yosupo/subset_conv.cpp
+    title: tests/yosupo/subset_conv.cpp
+  _extendedVerifiedWith: []
+  _isVerificationFailed: false
+  _pathExtension: cpp
+  _verificationStatusIcon: ':warning:'
+  attributes:
+    links:
+    - https://github.com/NyaanNyaan/library/tree/master/set-function
+  bundledCode: "#line 1 \"Subset.cpp\"\n\n\n#include <bits/stdc++.h>\n\nnamespace\
+    \ lib {\nusing namespace std;\n// Source: https://github.com/NyaanNyaan/library/tree/master/set-function\n\
+    \ntemplate <typename T>\nvoid superset_zeta_transform(vector<T>& f) {\n  int n\
+    \ = f.size();\n  assert((n & (n - 1)) == 0);\n  for (int i = 1; i < n; i <<= 1)\
+    \ {\n    for (int j = 0; j < n; j++) {\n      if ((j & i) == 0) {\n        f[j]\
+    \ += f[j | i];\n      }\n    }\n  }\n}\n\ntemplate <typename T>\nvoid superset_mobius_transform(vector<T>&\
+    \ f) {\n  int n = f.size();\n  assert((n & (n - 1)) == 0);\n  for (int i = 1;\
+    \ i < n; i <<= 1) {\n    for (int j = 0; j < n; j++) {\n      if ((j & i) == 0)\
+    \ {\n        f[j] -= f[j | i];\n      }\n    }\n  }\n}\n\ntemplate <typename T>\n\
+    void subset_zeta_transform(vector<T>& f) {\n  int n = f.size();\n  assert((n &\
+    \ (n - 1)) == 0);\n  for (int i = 1; i < n; i <<= 1) {\n    for (int j = 0; j\
+    \ < n; j++) {\n      if ((j & i) == 0) {\n        f[j | i] += f[j];\n      }\n\
+    \    }\n  }\n}\n\ntemplate <typename T>\nvoid subset_mobius_transform(vector<T>&\
+    \ f) {\n  int n = f.size();\n  assert((n & (n - 1)) == 0);\n  for (int i = 1;\
+    \ i < n; i <<= 1) {\n    for (int j = 0; j < n; j++) {\n      if ((j & i) == 0)\
+    \ {\n        f[j | i] -= f[j];\n      }\n    }\n  }\n}\n\ntemplate <typename T>\n\
+    vector<T> or_convolution(vector<T> a, vector<T> b) {\n  assert(a.size() == b.size());\n\
+    \  subset_zeta_transform(a);\n  subset_zeta_transform(b);\n  for (int i = 0; i\
+    \ < (int)a.size(); i++) a[i] *= b[i];\n  subset_mobius_transform(a);\n  return\
+    \ a;\n}\n\ntemplate <typename T>\nvector<T> and_convolution(vector<T> a, vector<T>\
+    \ b) {\n  assert(a.size() == b.size());\n  superset_zeta_transform(a);\n  superset_zeta_transform(b);\n\
+    \  for (int i = 0; i < (int)a.size(); i++) a[i] *= b[i];\n  superset_mobius_transform(a);\n\
+    \  return a;\n}\n\ntemplate<typename T>\nvector<vector<T>> ranked_zeta_transform(const\
+    \ vector<T>& f) {\n  int N = f.size();\n  assert((N & (N-1)) == 0);\n  int R =\
+    \ __builtin_ctz(N);\n  vector<vector<T>> F(R + 1, vector<T>(N));\n  for(int i\
+    \ = 0; i < N; i++)\n    F[__builtin_popcount(i)][i] = f[i];\n  for(int i = 0;\
+    \ i <= R; i++)\n    subset_zeta_transform(F[i]);\n  return F;\n}\n\ntemplate<typename\
+    \ T>\nvector<T> subset_convolution(const vector<T>& a, const vector<T>& b, int\
+    \ offset = 0) {\n  int N = a.size();\n  assert(N == b.size());\n  assert((N &\
+    \ (N-1)) == 0);\n  int R = __builtin_ctz(N);\n\n  auto A = ranked_zeta_transform(a),\
+    \ B = ranked_zeta_transform(b);\n  auto C = vector<vector<T>>(R + 1, vector<T>(N));\n\
+    \n  for(int m = 0; m < N; m++) {\n    for(int i = 0; i <= R; i++) {\n      for(int\
+    \ j = offset; j <= i; j++) {\n        C[i][m] += A[j][m] * B[i + offset - j][m];\n\
+    \      }\n    }\n  }\n\n  for(int i = 0; i <= R; i++)\n    subset_mobius_transform(C[i]);\n\
+    \  vector<T> res(N);\n  for(int i = 0; i < N; i++)\n    res[i] = C[__builtin_popcount(i)][i];\n\
+    \  return res;\n}\n} // namespace lib\n\n\n"
+  code: "#ifndef _LIB_SUBSET\n#define _LIB_SUBSET\n#include <bits/stdc++.h>\n\nnamespace\
+    \ lib {\nusing namespace std;\n// Source: https://github.com/NyaanNyaan/library/tree/master/set-function\n\
+    \ntemplate <typename T>\nvoid superset_zeta_transform(vector<T>& f) {\n  int n\
+    \ = f.size();\n  assert((n & (n - 1)) == 0);\n  for (int i = 1; i < n; i <<= 1)\
+    \ {\n    for (int j = 0; j < n; j++) {\n      if ((j & i) == 0) {\n        f[j]\
+    \ += f[j | i];\n      }\n    }\n  }\n}\n\ntemplate <typename T>\nvoid superset_mobius_transform(vector<T>&\
+    \ f) {\n  int n = f.size();\n  assert((n & (n - 1)) == 0);\n  for (int i = 1;\
+    \ i < n; i <<= 1) {\n    for (int j = 0; j < n; j++) {\n      if ((j & i) == 0)\
+    \ {\n        f[j] -= f[j | i];\n      }\n    }\n  }\n}\n\ntemplate <typename T>\n\
+    void subset_zeta_transform(vector<T>& f) {\n  int n = f.size();\n  assert((n &\
+    \ (n - 1)) == 0);\n  for (int i = 1; i < n; i <<= 1) {\n    for (int j = 0; j\
+    \ < n; j++) {\n      if ((j & i) == 0) {\n        f[j | i] += f[j];\n      }\n\
+    \    }\n  }\n}\n\ntemplate <typename T>\nvoid subset_mobius_transform(vector<T>&\
+    \ f) {\n  int n = f.size();\n  assert((n & (n - 1)) == 0);\n  for (int i = 1;\
+    \ i < n; i <<= 1) {\n    for (int j = 0; j < n; j++) {\n      if ((j & i) == 0)\
+    \ {\n        f[j | i] -= f[j];\n      }\n    }\n  }\n}\n\ntemplate <typename T>\n\
+    vector<T> or_convolution(vector<T> a, vector<T> b) {\n  assert(a.size() == b.size());\n\
+    \  subset_zeta_transform(a);\n  subset_zeta_transform(b);\n  for (int i = 0; i\
+    \ < (int)a.size(); i++) a[i] *= b[i];\n  subset_mobius_transform(a);\n  return\
+    \ a;\n}\n\ntemplate <typename T>\nvector<T> and_convolution(vector<T> a, vector<T>\
+    \ b) {\n  assert(a.size() == b.size());\n  superset_zeta_transform(a);\n  superset_zeta_transform(b);\n\
+    \  for (int i = 0; i < (int)a.size(); i++) a[i] *= b[i];\n  superset_mobius_transform(a);\n\
+    \  return a;\n}\n\ntemplate<typename T>\nvector<vector<T>> ranked_zeta_transform(const\
+    \ vector<T>& f) {\n  int N = f.size();\n  assert((N & (N-1)) == 0);\n  int R =\
+    \ __builtin_ctz(N);\n  vector<vector<T>> F(R + 1, vector<T>(N));\n  for(int i\
+    \ = 0; i < N; i++)\n    F[__builtin_popcount(i)][i] = f[i];\n  for(int i = 0;\
+    \ i <= R; i++)\n    subset_zeta_transform(F[i]);\n  return F;\n}\n\ntemplate<typename\
+    \ T>\nvector<T> subset_convolution(const vector<T>& a, const vector<T>& b, int\
+    \ offset = 0) {\n  int N = a.size();\n  assert(N == b.size());\n  assert((N &\
+    \ (N-1)) == 0);\n  int R = __builtin_ctz(N);\n\n  auto A = ranked_zeta_transform(a),\
+    \ B = ranked_zeta_transform(b);\n  auto C = vector<vector<T>>(R + 1, vector<T>(N));\n\
+    \n  for(int m = 0; m < N; m++) {\n    for(int i = 0; i <= R; i++) {\n      for(int\
+    \ j = offset; j <= i; j++) {\n        C[i][m] += A[j][m] * B[i + offset - j][m];\n\
+    \      }\n    }\n  }\n\n  for(int i = 0; i <= R; i++)\n    subset_mobius_transform(C[i]);\n\
+    \  vector<T> res(N);\n  for(int i = 0; i < N; i++)\n    res[i] = C[__builtin_popcount(i)][i];\n\
+    \  return res;\n}\n} // namespace lib\n\n#endif\n"
+  dependsOn: []
+  isVerificationFile: false
+  path: Subset.cpp
+  requiredBy:
+  - tests/yosupo/subset_conv.cpp
+  timestamp: '2021-02-07 14:32:59-03:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
+documentation_of: Subset.cpp
+layout: document
+redirect_from:
+- /library/Subset.cpp
+- /library/Subset.cpp.html
+title: Subset.cpp
+---

@@ -23,33 +23,6 @@ data:
   - icon: ':warning:'
     path: SegtreeSplash.cpp
     title: SegtreeSplash.cpp
-  - icon: ':warning:'
-    path: tests/judge/child.cpp
-    title: tests/judge/child.cpp
-  - icon: ':warning:'
-    path: tests/judge/concat.cpp
-    title: tests/judge/concat.cpp
-  - icon: ':warning:'
-    path: tests/judge/gorgonzola.cpp
-    title: tests/judge/gorgonzola.cpp
-  - icon: ':warning:'
-    path: tests/judge/hld.cpp
-    title: tests/judge/hld.cpp
-  - icon: ':warning:'
-    path: tests/judge/horrible.cpp
-    title: tests/judge/horrible.cpp
-  - icon: ':warning:'
-    path: tests/judge/minimos.cpp
-    title: tests/judge/minimos.cpp
-  - icon: ':warning:'
-    path: tests/judge/mkthnum.cpp
-    title: tests/judge/mkthnum.cpp
-  - icon: ':warning:'
-    path: tests/judge/mkthnum_jonas.cpp
-    title: tests/judge/mkthnum_jonas.cpp
-  - icon: ':warning:'
-    path: tests/judge/psegtree.cpp
-    title: tests/judge/psegtree.cpp
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -181,15 +154,6 @@ data:
   - SegtreeFast.cpp
   - HLD.cpp
   - SegtreeNormal.cpp
-  - tests/judge/concat.cpp
-  - tests/judge/mkthnum.cpp
-  - tests/judge/minimos.cpp
-  - tests/judge/hld.cpp
-  - tests/judge/gorgonzola.cpp
-  - tests/judge/child.cpp
-  - tests/judge/psegtree.cpp
-  - tests/judge/mkthnum_jonas.cpp
-  - tests/judge/horrible.cpp
   timestamp: '2020-10-16 14:02:48-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

@@ -27,57 +27,6 @@ data:
     path: polynomial/MultipointEvaluation.cpp
     title: polynomial/MultipointEvaluation.cpp
   - icon: ':warning:'
-    path: tests/benchmark/PolynomialRing.cpp
-    title: tests/benchmark/PolynomialRing.cpp
-  - icon: ':warning:'
-    path: tests/benchmark/PowerSeries.cpp
-    title: tests/benchmark/PowerSeries.cpp
-  - icon: ':warning:'
-    path: tests/benchmark/main.cpp
-    title: tests/benchmark/main.cpp
-  - icon: ':warning:'
-    path: tests/judge/UCV2013A.cpp
-    title: tests/judge/UCV2013A.cpp
-  - icon: ':warning:'
-    path: tests/judge/fft.cpp
-    title: tests/judge/fft.cpp
-  - icon: ':warning:'
-    path: tests/judge/hash.cpp
-    title: tests/judge/hash.cpp
-  - icon: ':warning:'
-    path: tests/judge/kinv.cpp
-    title: tests/judge/kinv.cpp
-  - icon: ':warning:'
-    path: tests/judge/lagrange.cpp
-    title: tests/judge/lagrange.cpp
-  - icon: ':warning:'
-    path: tests/judge/linear.cpp
-    title: tests/judge/linear.cpp
-  - icon: ':warning:'
-    path: tests/judge/palindromes.cpp
-    title: tests/judge/palindromes.cpp
-  - icon: ':warning:'
-    path: tests/judge/polyeval.cpp
-    title: tests/judge/polyeval.cpp
-  - icon: ':warning:'
-    path: tests/judge/polymul.cpp
-    title: tests/judge/polymul.cpp
-  - icon: ':warning:'
-    path: tests/judge/watto.cpp
-    title: tests/judge/watto.cpp
-  - icon: ':warning:'
-    path: tests/stress/PolynomialRing.cpp
-    title: tests/stress/PolynomialRing.cpp
-  - icon: ':warning:'
-    path: tests/stress/PowerSeries.cpp
-    title: tests/stress/PowerSeries.cpp
-  - icon: ':warning:'
-    path: tests/stress/main.cpp
-    title: tests/stress/main.cpp
-  - icon: ':warning:'
-    path: tests/unit/PolynomialRing.cpp
-    title: tests/unit/PolynomialRing.cpp
-  - icon: ':warning:'
     path: tests/yosupo/convolution.cpp
     title: tests/yosupo/convolution.cpp
   - icon: ':warning:'
@@ -98,6 +47,9 @@ data:
   - icon: ':warning:'
     path: tests/yosupo/multipoint.cpp
     title: tests/yosupo/multipoint.cpp
+  - icon: ':warning:'
+    path: tests/yosupo/subset_conv.cpp
+    title: tests/yosupo/subset_conv.cpp
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -139,30 +91,14 @@ data:
   - FHT.cpp
   - RollingHash.cpp
   - NTT.cpp
-  - tests/unit/PolynomialRing.cpp
-  - tests/benchmark/PowerSeries.cpp
-  - tests/benchmark/PolynomialRing.cpp
-  - tests/benchmark/main.cpp
   - tests/yosupo/multipoint.cpp
   - tests/yosupo/convolution.cpp
+  - tests/yosupo/subset_conv.cpp
   - tests/yosupo/fps_power.cpp
   - tests/yosupo/interplation.cpp
   - tests/yosupo/fps_inv.cpp
   - tests/yosupo/kth_term_lr.cpp
   - tests/yosupo/lr.cpp
-  - tests/judge/UCV2013A.cpp
-  - tests/judge/polyeval.cpp
-  - tests/judge/watto.cpp
-  - tests/judge/fft.cpp
-  - tests/judge/kinv.cpp
-  - tests/judge/polymul.cpp
-  - tests/judge/linear.cpp
-  - tests/judge/hash.cpp
-  - tests/judge/lagrange.cpp
-  - tests/judge/palindromes.cpp
-  - tests/stress/PowerSeries.cpp
-  - tests/stress/PolynomialRing.cpp
-  - tests/stress/main.cpp
   - polynomial/MultipointEvaluation.cpp
   timestamp: '2020-11-07 21:20:50-03:00'
   verificationStatus: LIBRARY_NO_TESTS

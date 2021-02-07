@@ -13,16 +13,7 @@ data:
   - icon: ':warning:'
     path: Traits.cpp
     title: Traits.cpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: tests/judge/hash.cpp
-    title: tests/judge/hash.cpp
-  - icon: ':warning:'
-    path: tests/judge/palindromes.cpp
-    title: tests/judge/palindromes.cpp
-  - icon: ':warning:'
-    path: tests/judge/watto.cpp
-    title: tests/judge/watto.cpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -428,10 +419,7 @@ data:
   - Traits.cpp
   isVerificationFile: false
   path: RollingHash.cpp
-  requiredBy:
-  - tests/judge/watto.cpp
-  - tests/judge/hash.cpp
-  - tests/judge/palindromes.cpp
+  requiredBy: []
   timestamp: '2021-01-31 01:48:38-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

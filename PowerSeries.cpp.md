@@ -30,24 +30,6 @@ data:
     title: VectorN.cpp
   _extendedRequiredBy:
   - icon: ':warning:'
-    path: tests/benchmark/PolynomialRing.cpp
-    title: tests/benchmark/PolynomialRing.cpp
-  - icon: ':warning:'
-    path: tests/benchmark/PowerSeries.cpp
-    title: tests/benchmark/PowerSeries.cpp
-  - icon: ':warning:'
-    path: tests/benchmark/main.cpp
-    title: tests/benchmark/main.cpp
-  - icon: ':warning:'
-    path: tests/judge/fft.cpp
-    title: tests/judge/fft.cpp
-  - icon: ':warning:'
-    path: tests/stress/PowerSeries.cpp
-    title: tests/stress/PowerSeries.cpp
-  - icon: ':warning:'
-    path: tests/stress/main.cpp
-    title: tests/stress/main.cpp
-  - icon: ':warning:'
     path: tests/yosupo/fps_inv.cpp
     title: tests/yosupo/fps_inv.cpp
   - icon: ':warning:'
@@ -481,14 +463,8 @@ data:
   isVerificationFile: false
   path: PowerSeries.cpp
   requiredBy:
-  - tests/benchmark/PowerSeries.cpp
-  - tests/benchmark/PolynomialRing.cpp
-  - tests/benchmark/main.cpp
   - tests/yosupo/fps_power.cpp
   - tests/yosupo/fps_inv.cpp
-  - tests/judge/fft.cpp
-  - tests/stress/PowerSeries.cpp
-  - tests/stress/main.cpp
   timestamp: '2021-01-31 01:48:38-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

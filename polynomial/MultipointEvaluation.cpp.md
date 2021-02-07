@@ -30,27 +30,6 @@ data:
     title: VectorN.cpp
   _extendedRequiredBy:
   - icon: ':warning:'
-    path: tests/benchmark/PolynomialRing.cpp
-    title: tests/benchmark/PolynomialRing.cpp
-  - icon: ':warning:'
-    path: tests/benchmark/PowerSeries.cpp
-    title: tests/benchmark/PowerSeries.cpp
-  - icon: ':warning:'
-    path: tests/benchmark/main.cpp
-    title: tests/benchmark/main.cpp
-  - icon: ':warning:'
-    path: tests/stress/PolynomialRing.cpp
-    title: tests/stress/PolynomialRing.cpp
-  - icon: ':warning:'
-    path: tests/stress/PowerSeries.cpp
-    title: tests/stress/PowerSeries.cpp
-  - icon: ':warning:'
-    path: tests/stress/main.cpp
-    title: tests/stress/main.cpp
-  - icon: ':warning:'
-    path: tests/unit/PolynomialRing.cpp
-    title: tests/unit/PolynomialRing.cpp
-  - icon: ':warning:'
     path: tests/yosupo/interplation.cpp
     title: tests/yosupo/interplation.cpp
   - icon: ':warning:'
@@ -499,15 +478,8 @@ data:
   isVerificationFile: false
   path: polynomial/MultipointEvaluation.cpp
   requiredBy:
-  - tests/unit/PolynomialRing.cpp
-  - tests/benchmark/PowerSeries.cpp
-  - tests/benchmark/PolynomialRing.cpp
-  - tests/benchmark/main.cpp
   - tests/yosupo/multipoint.cpp
   - tests/yosupo/interplation.cpp
-  - tests/stress/PowerSeries.cpp
-  - tests/stress/PolynomialRing.cpp
-  - tests/stress/main.cpp
   timestamp: '2021-01-31 01:48:38-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

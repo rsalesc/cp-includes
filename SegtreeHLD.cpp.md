@@ -16,13 +16,7 @@ data:
   - icon: ':warning:'
     path: utils/Wrappers.cpp
     title: utils/Wrappers.cpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: tests/judge/concat.cpp
-    title: tests/judge/concat.cpp
-  - icon: ':warning:'
-    path: tests/judge/hld.cpp
-    title: tests/judge/hld.cpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -451,9 +445,7 @@ data:
   - Segtree.cpp
   isVerificationFile: false
   path: SegtreeHLD.cpp
-  requiredBy:
-  - tests/judge/concat.cpp
-  - tests/judge/hld.cpp
+  requiredBy: []
   timestamp: '2021-01-26 16:28:00-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

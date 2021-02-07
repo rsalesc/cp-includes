@@ -20,15 +20,6 @@ data:
   - icon: ':warning:'
     path: matroid/GraphicMatroid.cpp
     title: matroid/GraphicMatroid.cpp
-  - icon: ':warning:'
-    path: tests/judge/gopher.cpp
-    title: tests/judge/gopher.cpp
-  - icon: ':warning:'
-    path: tests/judge/matroid_matching.cpp
-    title: tests/judge/matroid_matching.cpp
-  - icon: ':warning:'
-    path: tests/judge/rainbow.cpp
-    title: tests/judge/rainbow.cpp
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -164,9 +155,6 @@ data:
   - matroid/Compose.cpp
   - matroid/ColorMatroid.cpp
   - matroid/CographicMatroid.cpp
-  - tests/judge/rainbow.cpp
-  - tests/judge/matroid_matching.cpp
-  - tests/judge/gopher.cpp
   timestamp: '2021-02-03 01:52:23-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

@@ -10,10 +10,7 @@ data:
   - icon: ':warning:'
     path: matroid/v2/Matroid.cpp
     title: matroid/v2/Matroid.cpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: tests/judge/matroid_xor.cpp
-    title: tests/judge/matroid_xor.cpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -179,8 +176,7 @@ data:
   - Traits.cpp
   isVerificationFile: false
   path: matroid/v2/ContractionMatroid.cpp
-  requiredBy:
-  - tests/judge/matroid_xor.cpp
+  requiredBy: []
   timestamp: '2021-02-03 01:52:23-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

@@ -8,24 +8,6 @@ data:
   - icon: ':warning:'
     path: Treap.cpp
     title: Treap.cpp
-  - icon: ':warning:'
-    path: tests/judge/gorgonzola.cpp
-    title: tests/judge/gorgonzola.cpp
-  - icon: ':warning:'
-    path: tests/judge/horrible.cpp
-    title: tests/judge/horrible.cpp
-  - icon: ':warning:'
-    path: tests/judge/minimos.cpp
-    title: tests/judge/minimos.cpp
-  - icon: ':warning:'
-    path: tests/judge/mkthnum.cpp
-    title: tests/judge/mkthnum.cpp
-  - icon: ':warning:'
-    path: tests/judge/psegtree.cpp
-    title: tests/judge/psegtree.cpp
-  - icon: ':warning:'
-    path: tests/stress/treap_insert.cpp
-    title: tests/stress/treap_insert.cpp
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -75,12 +57,6 @@ data:
   isVerificationFile: false
   path: SegtreeImplicit.cpp
   requiredBy:
-  - tests/judge/mkthnum.cpp
-  - tests/judge/minimos.cpp
-  - tests/judge/gorgonzola.cpp
-  - tests/judge/psegtree.cpp
-  - tests/judge/horrible.cpp
-  - tests/stress/treap_insert.cpp
   - Treap.cpp
   - SegtreePersistent.cpp
   timestamp: '2020-10-15 12:03:07-03:00'

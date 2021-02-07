@@ -17,9 +17,6 @@ data:
   - icon: ':warning:'
     path: geometry/Polygon2D.cpp
     title: geometry/Polygon2D.cpp
-  - icon: ':warning:'
-    path: tests/judge/gopher.cpp
-    title: tests/judge/gopher.cpp
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -70,7 +67,6 @@ data:
   - geometry/Polygon2D.cpp
   - geometry/Circle2D.cpp
   - geometry/Caliper.cpp
-  - tests/judge/gopher.cpp
   timestamp: '2020-10-15 12:03:07-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

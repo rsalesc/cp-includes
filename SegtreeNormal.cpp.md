@@ -7,22 +7,7 @@ data:
   - icon: ':warning:'
     path: SegtreeBeats.cpp
     title: SegtreeBeats.cpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: tests/judge/gorgonzola.cpp
-    title: tests/judge/gorgonzola.cpp
-  - icon: ':warning:'
-    path: tests/judge/minimos.cpp
-    title: tests/judge/minimos.cpp
-  - icon: ':warning:'
-    path: tests/judge/mkthnum.cpp
-    title: tests/judge/mkthnum.cpp
-  - icon: ':warning:'
-    path: tests/judge/mkthnum_jonas.cpp
-    title: tests/judge/mkthnum_jonas.cpp
-  - icon: ':warning:'
-    path: tests/judge/psegtree.cpp
-    title: tests/judge/psegtree.cpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -266,12 +251,7 @@ data:
   - Segtree.cpp
   isVerificationFile: false
   path: SegtreeNormal.cpp
-  requiredBy:
-  - tests/judge/mkthnum.cpp
-  - tests/judge/minimos.cpp
-  - tests/judge/gorgonzola.cpp
-  - tests/judge/psegtree.cpp
-  - tests/judge/mkthnum_jonas.cpp
+  requiredBy: []
   timestamp: '2020-11-07 21:20:14-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

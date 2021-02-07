@@ -13,34 +13,7 @@ data:
   - icon: ':warning:'
     path: geometry/Trigonometry.cpp
     title: geometry/Trigonometry.cpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: tests/benchmark/PolynomialRing.cpp
-    title: tests/benchmark/PolynomialRing.cpp
-  - icon: ':warning:'
-    path: tests/benchmark/PowerSeries.cpp
-    title: tests/benchmark/PowerSeries.cpp
-  - icon: ':warning:'
-    path: tests/benchmark/main.cpp
-    title: tests/benchmark/main.cpp
-  - icon: ':warning:'
-    path: tests/judge/kinv.cpp
-    title: tests/judge/kinv.cpp
-  - icon: ':warning:'
-    path: tests/judge/polyeval.cpp
-    title: tests/judge/polyeval.cpp
-  - icon: ':warning:'
-    path: tests/stress/PolynomialRing.cpp
-    title: tests/stress/PolynomialRing.cpp
-  - icon: ':warning:'
-    path: tests/stress/PowerSeries.cpp
-    title: tests/stress/PowerSeries.cpp
-  - icon: ':warning:'
-    path: tests/stress/main.cpp
-    title: tests/stress/main.cpp
-  - icon: ':warning:'
-    path: tests/unit/PolynomialRing.cpp
-    title: tests/unit/PolynomialRing.cpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -251,16 +224,7 @@ data:
   - geometry/Trigonometry.cpp
   isVerificationFile: false
   path: FFT.cpp
-  requiredBy:
-  - tests/unit/PolynomialRing.cpp
-  - tests/benchmark/PowerSeries.cpp
-  - tests/benchmark/PolynomialRing.cpp
-  - tests/benchmark/main.cpp
-  - tests/judge/polyeval.cpp
-  - tests/judge/kinv.cpp
-  - tests/stress/PowerSeries.cpp
-  - tests/stress/PolynomialRing.cpp
-  - tests/stress/main.cpp
+  requiredBy: []
   timestamp: '2021-01-30 22:31:25-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

@@ -5,12 +5,6 @@ data:
   - icon: ':warning:'
     path: pbds/TreeUpdater.cpp
     title: pbds/TreeUpdater.cpp
-  - icon: ':warning:'
-    path: tests/unit/PolicyTree.cpp
-    title: tests/unit/PolicyTree.cpp
-  - icon: ':warning:'
-    path: tests/unit/Traits.cpp
-    title: tests/unit/Traits.cpp
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -48,8 +42,6 @@ data:
   path: traits/Tuple.cpp
   requiredBy:
   - pbds/TreeUpdater.cpp
-  - tests/unit/PolicyTree.cpp
-  - tests/unit/Traits.cpp
   timestamp: '2020-10-15 12:03:07-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

@@ -5,9 +5,6 @@ data:
   - icon: ':warning:'
     path: LinearProgram.cpp
     title: LinearProgram.cpp
-  - icon: ':warning:'
-    path: tests/unit/LinearProgram.cpp
-    title: tests/unit/LinearProgram.cpp
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -89,7 +86,6 @@ data:
   path: Simplex.cpp
   requiredBy:
   - LinearProgram.cpp
-  - tests/unit/LinearProgram.cpp
   timestamp: '2020-10-15 12:03:07-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

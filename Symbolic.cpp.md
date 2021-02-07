@@ -5,12 +5,6 @@ data:
   - icon: ':warning:'
     path: LinearProgram.cpp
     title: LinearProgram.cpp
-  - icon: ':warning:'
-    path: tests/unit/LinearProgram.cpp
-    title: tests/unit/LinearProgram.cpp
-  - icon: ':warning:'
-    path: tests/unit/Symbolic.cpp
-    title: tests/unit/Symbolic.cpp
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -198,8 +192,6 @@ data:
   path: Symbolic.cpp
   requiredBy:
   - LinearProgram.cpp
-  - tests/unit/LinearProgram.cpp
-  - tests/unit/Symbolic.cpp
   timestamp: '2020-10-19 18:36:16-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

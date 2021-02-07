@@ -8,24 +8,6 @@ data:
   - icon: ':warning:'
     path: matroid/v2/MatroidIntersection.cpp
     title: matroid/v2/MatroidIntersection.cpp
-  - icon: ':warning:'
-    path: tests/judge/gopher.cpp
-    title: tests/judge/gopher.cpp
-  - icon: ':warning:'
-    path: tests/judge/honestidad.cpp
-    title: tests/judge/honestidad.cpp
-  - icon: ':warning:'
-    path: tests/judge/matroid_matching.cpp
-    title: tests/judge/matroid_matching.cpp
-  - icon: ':warning:'
-    path: tests/judge/matroid_xor.cpp
-    title: tests/judge/matroid_xor.cpp
-  - icon: ':warning:'
-    path: tests/judge/rainbow.cpp
-    title: tests/judge/rainbow.cpp
-  - icon: ':warning:'
-    path: tests/unit/FastStd.cpp
-    title: tests/unit/FastStd.cpp
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -54,12 +36,6 @@ data:
   requiredBy:
   - matroid/MatroidIntersection.cpp
   - matroid/v2/MatroidIntersection.cpp
-  - tests/unit/FastStd.cpp
-  - tests/judge/rainbow.cpp
-  - tests/judge/honestidad.cpp
-  - tests/judge/matroid_matching.cpp
-  - tests/judge/matroid_xor.cpp
-  - tests/judge/gopher.cpp
   timestamp: '2021-01-28 01:15:31-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

@@ -10,10 +10,7 @@ data:
   - icon: ':warning:'
     path: utils/Wrappers.cpp
     title: utils/Wrappers.cpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: tests/judge/bipartite_matching.cpp
-    title: tests/judge/bipartite_matching.cpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -246,8 +243,7 @@ data:
   - utils/Wrappers.cpp
   isVerificationFile: false
   path: Maxflow.cpp
-  requiredBy:
-  - tests/judge/bipartite_matching.cpp
+  requiredBy: []
   timestamp: '2021-01-26 16:28:00-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

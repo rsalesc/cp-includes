@@ -7,10 +7,7 @@ data:
   - icon: ':warning:'
     path: SegtreeImplicit.cpp
     title: SegtreeImplicit.cpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: tests/stress/treap_insert.cpp
-    title: tests/stress/treap_insert.cpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -173,8 +170,7 @@ data:
   - SegtreeImplicit.cpp
   isVerificationFile: false
   path: Treap.cpp
-  requiredBy:
-  - tests/stress/treap_insert.cpp
+  requiredBy: []
   timestamp: '2020-10-15 12:03:07-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

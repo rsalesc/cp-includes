@@ -26,12 +26,6 @@ data:
   - icon: ':warning:'
     path: matroid/v2/MatroidIntersection.cpp
     title: matroid/v2/MatroidIntersection.cpp
-  - icon: ':warning:'
-    path: tests/judge/honestidad.cpp
-    title: tests/judge/honestidad.cpp
-  - icon: ':warning:'
-    path: tests/judge/matroid_xor.cpp
-    title: tests/judge/matroid_xor.cpp
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -193,8 +187,6 @@ data:
   - matroid/v2/MatroidIntersection.cpp
   - matroid/v2/ColorMatroid.cpp
   - matroid/v2/BinaryMatroid.cpp
-  - tests/judge/honestidad.cpp
-  - tests/judge/matroid_xor.cpp
   timestamp: '2021-02-03 01:52:23-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

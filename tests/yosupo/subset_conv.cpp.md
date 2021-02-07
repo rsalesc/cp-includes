@@ -2,14 +2,14 @@
 data:
   _extendedDependsOn:
   - icon: ':warning:'
-    path: Lagrange.cpp
-    title: Lagrange.cpp
-  - icon: ':warning:'
     path: ModularInteger.cpp
     title: ModularInteger.cpp
   - icon: ':warning:'
     path: NumberTheory.cpp
     title: NumberTheory.cpp
+  - icon: ':warning:'
+    path: Subset.cpp
+    title: Subset.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -17,25 +17,9 @@ data:
   _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "#line 1 \"tests/judge/lagrange.cpp\"\n#include <bits/stdc++.h>\n#line\
-    \ 1 \"Lagrange.cpp\"\n\n\n#line 4 \"Lagrange.cpp\"\n\nnamespace lib {\nusing namespace\
-    \ std;\nnamespace linalg {\ntemplate <typename Field> struct PrefixLagrange {\n\
-    \  vector<Field> fat, ifat, pref, suf;\n  PrefixLagrange() {\n    fat = {1};\n\
-    \    ifat = {1};\n  }\n\n  void ensure(int n) {\n    int o = fat.size();\n   \
-    \ if (n + 1 <= o)\n      return;\n    fat.resize(n + 1), ifat.resize(n + 1);\n\
-    \    pref.resize(n + 5), suf.resize(n + 5);\n\n    for (int i = o; i <= n; i++)\n\
-    \      fat[i] = fat[i - 1] * i;\n\n    ifat.back() = Field(1) / fat.back();\n\
-    \    for (int i = n - 1; i >= o; i--)\n      ifat[i] = ifat[i + 1] * (i + 1);\n\
-    \  }\n\n  template <typename T> Field eval(const vector<Field> &v, T x) {\n  \
-    \  assert(!v.empty());\n    int d = (int)v.size() - 1;\n    if (x <= d)\n    \
-    \  return v[x];\n\n    ensure(d + 1);\n\n    pref[0] = suf[d] = 1;\n    for (int\
-    \ i = 0; i < d; i++)\n      pref[i + 1] = pref[i] * (x - i);\n    for (int i =\
-    \ d; i; i--)\n      suf[i - 1] = suf[i] * (x - i);\n\n    Field ans = 0;\n   \
-    \ for (int i = 0; i <= d; i++) {\n      Field l = pref[i] * suf[i] * ifat[i] *\
-    \ ifat[d - i];\n      if ((d + i) & 1)\n        l = -l;\n      ans += l * v[i];\n\
-    \    }\n    return ans;\n  }\n};\n} // namespace linalg\n} // namespace lib\n\n\
-    \n#line 1 \"ModularInteger.cpp\"\n\n\n#line 1 \"NumberTheory.cpp\"\n\n\n#line\
-    \ 4 \"NumberTheory.cpp\"\n\nnamespace lib {\nusing namespace std;\nnamespace nt\
+  bundledCode: "#line 1 \"tests/yosupo/subset_conv.cpp\"\n#include <bits/stdc++.h>\n\
+    #line 1 \"ModularInteger.cpp\"\n\n\n#line 1 \"NumberTheory.cpp\"\n\n\n#line 4\
+    \ \"NumberTheory.cpp\"\n\nnamespace lib {\nusing namespace std;\nnamespace nt\
     \ {\nint64_t inverse(int64_t a, int64_t b) {\n  long long b0 = b, t, q;\n  long\
     \ long x0 = 0, x1 = 1;\n  if (b == 1)\n    return 1;\n  while (a > 1) {\n    q\
     \ = a / b;\n    t = b, b = a % b, a = t;\n    t = x0, x0 = x1 - q * x0, x1 = t;\n\
@@ -152,42 +136,88 @@ data:
     \                       Mods...>;\n\ntemplate <int32_t... Mods> using Mint32 =\
     \ ModularInteger<int32_t, Mods...>;\n\ntemplate <int64_t... Mods> using Mint64\
     \ = ModularInteger<int64_t, Mods...>;\n\nusing MintP = Mint32<(int32_t)1e9+7>;\n\
-    using MintNTT = Mint32<998244353>;\n} // namespace lib\n\n\n#line 4 \"tests/judge/lagrange.cpp\"\
-    \n\nusing namespace std;\nconst int MOD = (int)1e9+7;\nusing Field = lib::Mint32<MOD>;\n\
-    \nlib::linalg::PrefixLagrange<Field> lagrange;\n\nconst int N = 3010;\nint n;\n\
-    Field dp[N][N];\nvector<int> adj[N];\n\nvoid dfs(int u) {\n  for(int i = 0; i\
-    \ <= n; i++) dp[u][i] = 1;\n  for(int v : adj[u]) {\n    dfs(v);\n    Field acc\
-    \ = 0;\n    for(int i = 0; i <= n; i++) {\n      acc += dp[v][i];\n      dp[u][i]\
-    \ *= acc;\n    }\n  }\n}\n\nint32_t main() {\n  int X;\n  cin >> n >> X;\n\n \
-    \ for(int i = 1; i < n; i++) {\n    int p; cin >> p;\n    --p;\n    adj[p].push_back(i);\n\
-    \  }\n\n  dfs(0);\n  vector<Field> p(n + 1);\n  p[0] = dp[0][0];\n  for(int i\
-    \ = 1; i <= n; i++) p[i] = p[i-1] + dp[0][i];\n  cout << lagrange.eval(p, --X)\
-    \ << endl;\n}\n"
-  code: "#include <bits/stdc++.h>\n#include \"../../Lagrange.cpp\"\n#include \"../../ModularInteger.cpp\"\
-    \n\nusing namespace std;\nconst int MOD = (int)1e9+7;\nusing Field = lib::Mint32<MOD>;\n\
-    \nlib::linalg::PrefixLagrange<Field> lagrange;\n\nconst int N = 3010;\nint n;\n\
-    Field dp[N][N];\nvector<int> adj[N];\n\nvoid dfs(int u) {\n  for(int i = 0; i\
-    \ <= n; i++) dp[u][i] = 1;\n  for(int v : adj[u]) {\n    dfs(v);\n    Field acc\
-    \ = 0;\n    for(int i = 0; i <= n; i++) {\n      acc += dp[v][i];\n      dp[u][i]\
-    \ *= acc;\n    }\n  }\n}\n\nint32_t main() {\n  int X;\n  cin >> n >> X;\n\n \
-    \ for(int i = 1; i < n; i++) {\n    int p; cin >> p;\n    --p;\n    adj[p].push_back(i);\n\
-    \  }\n\n  dfs(0);\n  vector<Field> p(n + 1);\n  p[0] = dp[0][0];\n  for(int i\
-    \ = 1; i <= n; i++) p[i] = p[i-1] + dp[0][i];\n  cout << lagrange.eval(p, --X)\
-    \ << endl;\n}\n"
+    using MintNTT = Mint32<998244353>;\n} // namespace lib\n\n\n#line 1 \"Subset.cpp\"\
+    \n\n\n#line 4 \"Subset.cpp\"\n\nnamespace lib {\nusing namespace std;\n// Source:\
+    \ https://github.com/NyaanNyaan/library/tree/master/set-function\n\ntemplate <typename\
+    \ T>\nvoid superset_zeta_transform(vector<T>& f) {\n  int n = f.size();\n  assert((n\
+    \ & (n - 1)) == 0);\n  for (int i = 1; i < n; i <<= 1) {\n    for (int j = 0;\
+    \ j < n; j++) {\n      if ((j & i) == 0) {\n        f[j] += f[j | i];\n      }\n\
+    \    }\n  }\n}\n\ntemplate <typename T>\nvoid superset_mobius_transform(vector<T>&\
+    \ f) {\n  int n = f.size();\n  assert((n & (n - 1)) == 0);\n  for (int i = 1;\
+    \ i < n; i <<= 1) {\n    for (int j = 0; j < n; j++) {\n      if ((j & i) == 0)\
+    \ {\n        f[j] -= f[j | i];\n      }\n    }\n  }\n}\n\ntemplate <typename T>\n\
+    void subset_zeta_transform(vector<T>& f) {\n  int n = f.size();\n  assert((n &\
+    \ (n - 1)) == 0);\n  for (int i = 1; i < n; i <<= 1) {\n    for (int j = 0; j\
+    \ < n; j++) {\n      if ((j & i) == 0) {\n        f[j | i] += f[j];\n      }\n\
+    \    }\n  }\n}\n\ntemplate <typename T>\nvoid subset_mobius_transform(vector<T>&\
+    \ f) {\n  int n = f.size();\n  assert((n & (n - 1)) == 0);\n  for (int i = 1;\
+    \ i < n; i <<= 1) {\n    for (int j = 0; j < n; j++) {\n      if ((j & i) == 0)\
+    \ {\n        f[j | i] -= f[j];\n      }\n    }\n  }\n}\n\ntemplate <typename T>\n\
+    vector<T> or_convolution(vector<T> a, vector<T> b) {\n  assert(a.size() == b.size());\n\
+    \  subset_zeta_transform(a);\n  subset_zeta_transform(b);\n  for (int i = 0; i\
+    \ < (int)a.size(); i++) a[i] *= b[i];\n  subset_mobius_transform(a);\n  return\
+    \ a;\n}\n\ntemplate <typename T>\nvector<T> and_convolution(vector<T> a, vector<T>\
+    \ b) {\n  assert(a.size() == b.size());\n  superset_zeta_transform(a);\n  superset_zeta_transform(b);\n\
+    \  for (int i = 0; i < (int)a.size(); i++) a[i] *= b[i];\n  superset_mobius_transform(a);\n\
+    \  return a;\n}\n\ntemplate<typename T>\nvector<vector<T>> ranked_zeta_transform(const\
+    \ vector<T>& f) {\n  int N = f.size();\n  assert((N & (N-1)) == 0);\n  int R =\
+    \ __builtin_ctz(N);\n  vector<vector<T>> F(R + 1, vector<T>(N));\n  for(int i\
+    \ = 0; i < N; i++)\n    F[__builtin_popcount(i)][i] = f[i];\n  for(int i = 0;\
+    \ i <= R; i++)\n    subset_zeta_transform(F[i]);\n  return F;\n}\n\ntemplate<typename\
+    \ T>\nvector<T> subset_convolution(const vector<T>& a, const vector<T>& b, int\
+    \ offset = 0) {\n  int N = a.size();\n  assert(N == b.size());\n  assert((N &\
+    \ (N-1)) == 0);\n  int R = __builtin_ctz(N);\n\n  auto A = ranked_zeta_transform(a),\
+    \ B = ranked_zeta_transform(b);\n  auto C = vector<vector<T>>(R + 1, vector<T>(N));\n\
+    \n  for(int m = 0; m < N; m++) {\n    for(int i = 0; i <= R; i++) {\n      for(int\
+    \ j = offset; j <= i; j++) {\n        C[i][m] += A[j][m] * B[i + offset - j][m];\n\
+    \      }\n    }\n  }\n\n  for(int i = 0; i <= R; i++)\n    subset_mobius_transform(C[i]);\n\
+    \  vector<T> res(N);\n  for(int i = 0; i < N; i++)\n    res[i] = C[__builtin_popcount(i)][i];\n\
+    \  return res;\n}\n} // namespace lib\n\n\n#line 4 \"tests/yosupo/subset_conv.cpp\"\
+    \n#define int long long\nusing namespace std;\n \n#define mp make_pair\n#define\
+    \ mt make_tuple\n#define pb push_back\n#define ms(v, x) memset((v), (x), sizeof(v))\n\
+    #define all(v) (v).begin(), (v).end()\n#define ff first\n#define ss second\n#define\
+    \ iopt ios::sync_with_stdio(false); cin.tie(0)\n#define untie(p, a, b) decltype(p.first)\
+    \ a = p.first, decltype(p.second) b = p.second\n \nint gcd(int a, int b) { return\
+    \ b == 0 ? a : gcd(b, a%b); }\nint power(int x, int p, int MOD) {\n    if(p ==\
+    \ 0) return 1%MOD;\n    if(p == 1) return x%MOD;\n    int res = power(x, p/2,\
+    \ MOD);\n    res = (long long)res*res%MOD;\n    if(p&1) res = (long long)res*x%MOD;\n\
+    \    return res;\n}\n \ntypedef pair<int, int> ii;\ntypedef long double LD;\n\
+    typedef vector<int> vi;\n\nusing namespace lib;\nusing mint = MintNTT;\n\nint32_t\
+    \ main(){\n    // Scanner sc(stdin);\n    // Printer pr(stdout);\n    iopt;\n\n\
+    \    int N; cin >> N;\n    N = 1 << N;\n    vector<mint> A(N), B(N);\n    for(int\
+    \ i = 0; i < N; i++)\n      cin >> A[i];\n    for(int i = 0; i < N; i++)\n   \
+    \   cin >> B[i];\n    auto res = subset_convolution(A, B);\n    for(int i = 0;\
+    \ i < N; i++) cout << res[i] << \" \";\n    cout << endl;\n    return 0;\n}\n"
+  code: "#include <bits/stdc++.h>\n#include \"ModularInteger.cpp\"\n#include \"Subset.cpp\"\
+    \n#define int long long\nusing namespace std;\n \n#define mp make_pair\n#define\
+    \ mt make_tuple\n#define pb push_back\n#define ms(v, x) memset((v), (x), sizeof(v))\n\
+    #define all(v) (v).begin(), (v).end()\n#define ff first\n#define ss second\n#define\
+    \ iopt ios::sync_with_stdio(false); cin.tie(0)\n#define untie(p, a, b) decltype(p.first)\
+    \ a = p.first, decltype(p.second) b = p.second\n \nint gcd(int a, int b) { return\
+    \ b == 0 ? a : gcd(b, a%b); }\nint power(int x, int p, int MOD) {\n    if(p ==\
+    \ 0) return 1%MOD;\n    if(p == 1) return x%MOD;\n    int res = power(x, p/2,\
+    \ MOD);\n    res = (long long)res*res%MOD;\n    if(p&1) res = (long long)res*x%MOD;\n\
+    \    return res;\n}\n \ntypedef pair<int, int> ii;\ntypedef long double LD;\n\
+    typedef vector<int> vi;\n\nusing namespace lib;\nusing mint = MintNTT;\n\nint32_t\
+    \ main(){\n    // Scanner sc(stdin);\n    // Printer pr(stdout);\n    iopt;\n\n\
+    \    int N; cin >> N;\n    N = 1 << N;\n    vector<mint> A(N), B(N);\n    for(int\
+    \ i = 0; i < N; i++)\n      cin >> A[i];\n    for(int i = 0; i < N; i++)\n   \
+    \   cin >> B[i];\n    auto res = subset_convolution(A, B);\n    for(int i = 0;\
+    \ i < N; i++) cout << res[i] << \" \";\n    cout << endl;\n    return 0;\n}\n"
   dependsOn:
-  - Lagrange.cpp
   - ModularInteger.cpp
   - NumberTheory.cpp
+  - Subset.cpp
   isVerificationFile: false
-  path: tests/judge/lagrange.cpp
+  path: tests/yosupo/subset_conv.cpp
   requiredBy: []
-  timestamp: '2021-01-31 01:48:38-03:00'
+  timestamp: '2021-02-07 14:32:59-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: tests/judge/lagrange.cpp
+documentation_of: tests/yosupo/subset_conv.cpp
 layout: document
 redirect_from:
-- /library/tests/judge/lagrange.cpp
-- /library/tests/judge/lagrange.cpp.html
-title: tests/judge/lagrange.cpp
+- /library/tests/yosupo/subset_conv.cpp
+- /library/tests/yosupo/subset_conv.cpp.html
+title: tests/yosupo/subset_conv.cpp
 ---

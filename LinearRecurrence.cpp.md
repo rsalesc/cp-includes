@@ -27,9 +27,6 @@ data:
     title: VectorN.cpp
   _extendedRequiredBy:
   - icon: ':warning:'
-    path: tests/judge/linear.cpp
-    title: tests/judge/linear.cpp
-  - icon: ':warning:'
     path: tests/yosupo/kth_term_lr.cpp
     title: tests/yosupo/kth_term_lr.cpp
   - icon: ':warning:'
@@ -551,7 +548,6 @@ data:
   requiredBy:
   - tests/yosupo/kth_term_lr.cpp
   - tests/yosupo/lr.cpp
-  - tests/judge/linear.cpp
   timestamp: '2021-02-06 22:48:25-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

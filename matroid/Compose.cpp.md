@@ -10,10 +10,7 @@ data:
   - icon: ':warning:'
     path: matroid/Matroid.cpp
     title: matroid/Matroid.cpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: tests/judge/rainbow.cpp
-    title: tests/judge/rainbow.cpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -167,8 +164,7 @@ data:
   - Traits.cpp
   isVerificationFile: false
   path: matroid/Compose.cpp
-  requiredBy:
-  - tests/judge/rainbow.cpp
+  requiredBy: []
   timestamp: '2021-02-03 01:52:23-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

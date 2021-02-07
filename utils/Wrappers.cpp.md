@@ -17,15 +17,6 @@ data:
   - icon: ':warning:'
     path: TwoSat.cpp
     title: TwoSat.cpp
-  - icon: ':warning:'
-    path: tests/judge/bipartite_matching.cpp
-    title: tests/judge/bipartite_matching.cpp
-  - icon: ':warning:'
-    path: tests/judge/concat.cpp
-    title: tests/judge/concat.cpp
-  - icon: ':warning:'
-    path: tests/judge/hld.cpp
-    title: tests/judge/hld.cpp
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -52,9 +43,6 @@ data:
   - TwoSat.cpp
   - Maxflow.cpp
   - HLD.cpp
-  - tests/judge/concat.cpp
-  - tests/judge/hld.cpp
-  - tests/judge/bipartite_matching.cpp
   - Graph.cpp
   timestamp: '2020-10-15 12:03:07-03:00'
   verificationStatus: LIBRARY_NO_TESTS

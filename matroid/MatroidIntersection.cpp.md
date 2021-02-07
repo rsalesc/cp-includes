@@ -13,16 +13,7 @@ data:
   - icon: ':warning:'
     path: utils/FastQueue.cpp
     title: utils/FastQueue.cpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: tests/judge/gopher.cpp
-    title: tests/judge/gopher.cpp
-  - icon: ':warning:'
-    path: tests/judge/matroid_matching.cpp
-    title: tests/judge/matroid_matching.cpp
-  - icon: ':warning:'
-    path: tests/judge/rainbow.cpp
-    title: tests/judge/rainbow.cpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -307,10 +298,7 @@ data:
   - Traits.cpp
   isVerificationFile: false
   path: matroid/MatroidIntersection.cpp
-  requiredBy:
-  - tests/judge/rainbow.cpp
-  - tests/judge/matroid_matching.cpp
-  - tests/judge/gopher.cpp
+  requiredBy: []
   timestamp: '2021-02-03 01:52:23-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

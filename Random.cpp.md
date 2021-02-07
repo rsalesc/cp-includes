@@ -8,33 +8,6 @@ data:
   - icon: ':warning:'
     path: Treap.cpp
     title: Treap.cpp
-  - icon: ':warning:'
-    path: tests/judge/hash.cpp
-    title: tests/judge/hash.cpp
-  - icon: ':warning:'
-    path: tests/judge/palindromes.cpp
-    title: tests/judge/palindromes.cpp
-  - icon: ':warning:'
-    path: tests/judge/rng.cpp
-    title: tests/judge/rng.cpp
-  - icon: ':warning:'
-    path: tests/judge/watto.cpp
-    title: tests/judge/watto.cpp
-  - icon: ':warning:'
-    path: tests/stress/PolynomialRing.cpp
-    title: tests/stress/PolynomialRing.cpp
-  - icon: ':warning:'
-    path: tests/stress/PowerSeries.cpp
-    title: tests/stress/PowerSeries.cpp
-  - icon: ':warning:'
-    path: tests/stress/main.cpp
-    title: tests/stress/main.cpp
-  - icon: ':warning:'
-    path: tests/stress/stress.cpp
-    title: tests/stress/stress.cpp
-  - icon: ':warning:'
-    path: tests/stress/treap_insert.cpp
-    title: tests/stress/treap_insert.cpp
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -82,15 +55,6 @@ data:
   path: Random.cpp
   requiredBy:
   - RollingHash.cpp
-  - tests/judge/rng.cpp
-  - tests/judge/watto.cpp
-  - tests/judge/hash.cpp
-  - tests/judge/palindromes.cpp
-  - tests/stress/PowerSeries.cpp
-  - tests/stress/treap_insert.cpp
-  - tests/stress/PolynomialRing.cpp
-  - tests/stress/main.cpp
-  - tests/stress/stress.cpp
   - Treap.cpp
   timestamp: '2020-10-15 12:03:07-03:00'
   verificationStatus: LIBRARY_NO_TESTS

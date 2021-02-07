@@ -7,10 +7,7 @@ data:
   - icon: ':warning:'
     path: SegtreeBeats.cpp
     title: SegtreeBeats.cpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: tests/judge/horrible.cpp
-    title: tests/judge/horrible.cpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -224,8 +221,7 @@ data:
   - Segtree.cpp
   isVerificationFile: false
   path: SegtreeLazy.cpp
-  requiredBy:
-  - tests/judge/horrible.cpp
+  requiredBy: []
   timestamp: '2020-11-07 21:20:14-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

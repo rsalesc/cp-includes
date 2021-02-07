@@ -11,9 +11,6 @@ data:
   - icon: ':warning:'
     path: geometry/Polygon2D.cpp
     title: geometry/Polygon2D.cpp
-  - icon: ':warning:'
-    path: tests/unit/Annotation.cpp
-    title: tests/unit/Annotation.cpp
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -53,7 +50,6 @@ data:
   - geometry/Polygon2D.cpp
   - geometry/Circle2D.cpp
   - geometry/Caliper.cpp
-  - tests/unit/Annotation.cpp
   timestamp: '2020-10-19 01:04:40-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

@@ -1,13 +1,7 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: tests/benchmark/HashMap.cpp
-    title: tests/benchmark/HashMap.cpp
-  - icon: ':warning:'
-    path: tests/judge/table.cpp
-    title: tests/judge/table.cpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -133,9 +127,7 @@ data:
   dependsOn: []
   isVerificationFile: false
   path: HashMap.cpp
-  requiredBy:
-  - tests/benchmark/HashMap.cpp
-  - tests/judge/table.cpp
+  requiredBy: []
   timestamp: '2020-10-15 12:03:07-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

@@ -11,18 +11,6 @@ data:
   - icon: ':warning:'
     path: matroid/MatroidIntersection.cpp
     title: matroid/MatroidIntersection.cpp
-  - icon: ':warning:'
-    path: tests/judge/gopher.cpp
-    title: tests/judge/gopher.cpp
-  - icon: ':warning:'
-    path: tests/judge/matroid_matching.cpp
-    title: tests/judge/matroid_matching.cpp
-  - icon: ':warning:'
-    path: tests/judge/rainbow.cpp
-    title: tests/judge/rainbow.cpp
-  - icon: ':warning:'
-    path: tests/unit/FastStd.cpp
-    title: tests/unit/FastStd.cpp
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -129,10 +117,6 @@ data:
   - matroid/GraphicMatroid.cpp
   - matroid/MatroidIntersection.cpp
   - matroid/CographicMatroid.cpp
-  - tests/unit/FastStd.cpp
-  - tests/judge/rainbow.cpp
-  - tests/judge/matroid_matching.cpp
-  - tests/judge/gopher.cpp
   timestamp: '2021-01-27 21:58:35-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

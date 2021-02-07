@@ -1,10 +1,7 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: tests/unit/MontgomeryInteger.cpp
-    title: tests/unit/MontgomeryInteger.cpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -120,8 +117,7 @@ data:
   dependsOn: []
   isVerificationFile: false
   path: MontgomeryInteger.cpp
-  requiredBy:
-  - tests/unit/MontgomeryInteger.cpp
+  requiredBy: []
   timestamp: '2020-11-16 01:15:04-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

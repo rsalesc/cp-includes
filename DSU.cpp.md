@@ -8,9 +8,6 @@ data:
   - icon: ':warning:'
     path: matroid/v2/GraphicMatroid.cpp
     title: matroid/v2/GraphicMatroid.cpp
-  - icon: ':warning:'
-    path: tests/judge/honestidad.cpp
-    title: tests/judge/honestidad.cpp
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -66,7 +63,6 @@ data:
   path: DSU.cpp
   requiredBy:
   - matroid/v2/GraphicMatroid.cpp
-  - tests/judge/honestidad.cpp
   - OfflineRMQ.cpp
   timestamp: '2021-01-27 17:15:40-03:00'
   verificationStatus: LIBRARY_NO_TESTS

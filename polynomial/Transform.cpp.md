@@ -6,9 +6,6 @@ data:
     path: FHT.cpp
     title: FHT.cpp
   - icon: ':warning:'
-    path: tests/unit/PolynomialRing.cpp
-    title: tests/unit/PolynomialRing.cpp
-  - icon: ':warning:'
     path: tests/yosupo/convolution.cpp
     title: tests/yosupo/convolution.cpp
   - icon: ':warning:'
@@ -60,7 +57,6 @@ data:
   path: polynomial/Transform.cpp
   requiredBy:
   - FHT.cpp
-  - tests/unit/PolynomialRing.cpp
   - tests/yosupo/convolution.cpp
   - tests/yosupo/fps_power.cpp
   - tests/yosupo/kth_term_lr.cpp

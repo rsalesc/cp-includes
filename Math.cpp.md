@@ -15,39 +15,6 @@ data:
     path: polynomial/MultipointEvaluation.cpp
     title: polynomial/MultipointEvaluation.cpp
   - icon: ':warning:'
-    path: tests/benchmark/PolynomialRing.cpp
-    title: tests/benchmark/PolynomialRing.cpp
-  - icon: ':warning:'
-    path: tests/benchmark/PowerSeries.cpp
-    title: tests/benchmark/PowerSeries.cpp
-  - icon: ':warning:'
-    path: tests/benchmark/main.cpp
-    title: tests/benchmark/main.cpp
-  - icon: ':warning:'
-    path: tests/judge/fft.cpp
-    title: tests/judge/fft.cpp
-  - icon: ':warning:'
-    path: tests/judge/linear.cpp
-    title: tests/judge/linear.cpp
-  - icon: ':warning:'
-    path: tests/judge/polyeval.cpp
-    title: tests/judge/polyeval.cpp
-  - icon: ':warning:'
-    path: tests/judge/polymul.cpp
-    title: tests/judge/polymul.cpp
-  - icon: ':warning:'
-    path: tests/stress/PolynomialRing.cpp
-    title: tests/stress/PolynomialRing.cpp
-  - icon: ':warning:'
-    path: tests/stress/PowerSeries.cpp
-    title: tests/stress/PowerSeries.cpp
-  - icon: ':warning:'
-    path: tests/stress/main.cpp
-    title: tests/stress/main.cpp
-  - icon: ':warning:'
-    path: tests/unit/PolynomialRing.cpp
-    title: tests/unit/PolynomialRing.cpp
-  - icon: ':warning:'
     path: tests/yosupo/fps_inv.cpp
     title: tests/yosupo/fps_inv.cpp
   - icon: ':warning:'
@@ -101,23 +68,12 @@ data:
   - PowerSeries.cpp
   - LinearRecurrence.cpp
   - PolynomialRing.cpp
-  - tests/unit/PolynomialRing.cpp
-  - tests/benchmark/PowerSeries.cpp
-  - tests/benchmark/PolynomialRing.cpp
-  - tests/benchmark/main.cpp
   - tests/yosupo/multipoint.cpp
   - tests/yosupo/fps_power.cpp
   - tests/yosupo/interplation.cpp
   - tests/yosupo/fps_inv.cpp
   - tests/yosupo/kth_term_lr.cpp
   - tests/yosupo/lr.cpp
-  - tests/judge/polyeval.cpp
-  - tests/judge/fft.cpp
-  - tests/judge/polymul.cpp
-  - tests/judge/linear.cpp
-  - tests/stress/PowerSeries.cpp
-  - tests/stress/PolynomialRing.cpp
-  - tests/stress/main.cpp
   - polynomial/MultipointEvaluation.cpp
   timestamp: '2020-10-15 12:03:07-03:00'
   verificationStatus: LIBRARY_NO_TESTS

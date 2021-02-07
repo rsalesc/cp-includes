@@ -1,10 +1,7 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: tests/judge/lagrange.cpp
-    title: tests/judge/lagrange.cpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -48,8 +45,7 @@ data:
   dependsOn: []
   isVerificationFile: false
   path: Lagrange.cpp
-  requiredBy:
-  - tests/judge/lagrange.cpp
+  requiredBy: []
   timestamp: '2020-10-15 12:03:07-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

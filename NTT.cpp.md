@@ -21,24 +21,6 @@ data:
     path: FHT.cpp
     title: FHT.cpp
   - icon: ':warning:'
-    path: tests/benchmark/PolynomialRing.cpp
-    title: tests/benchmark/PolynomialRing.cpp
-  - icon: ':warning:'
-    path: tests/benchmark/main.cpp
-    title: tests/benchmark/main.cpp
-  - icon: ':warning:'
-    path: tests/stress/PolynomialRing.cpp
-    title: tests/stress/PolynomialRing.cpp
-  - icon: ':warning:'
-    path: tests/stress/main.cpp
-    title: tests/stress/main.cpp
-  - icon: ':warning:'
-    path: tests/unit/PolynomialRing.cpp
-    title: tests/unit/PolynomialRing.cpp
-  - icon: ':warning:'
-    path: tests/unit/PolynomialRing.cpp
-    title: tests/unit/PolynomialRing.cpp
-  - icon: ':warning:'
     path: tests/yosupo/convolution.cpp
     title: tests/yosupo/convolution.cpp
   - icon: ':warning:'
@@ -268,10 +250,6 @@ data:
   path: NTT.cpp
   requiredBy:
   - FHT.cpp
-  - tests/unit/PolynomialRing.cpp
-  - tests/unit/PolynomialRing.cpp
-  - tests/benchmark/PolynomialRing.cpp
-  - tests/benchmark/main.cpp
   - tests/yosupo/multipoint.cpp
   - tests/yosupo/convolution.cpp
   - tests/yosupo/fps_power.cpp
@@ -279,8 +257,6 @@ data:
   - tests/yosupo/fps_inv.cpp
   - tests/yosupo/kth_term_lr.cpp
   - tests/yosupo/lr.cpp
-  - tests/stress/PolynomialRing.cpp
-  - tests/stress/main.cpp
   timestamp: '2021-01-30 22:33:20-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

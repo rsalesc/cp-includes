@@ -1,10 +1,7 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: tests/judge/bitset.cpp
-    title: tests/judge/bitset.cpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -176,8 +173,7 @@ data:
   dependsOn: []
   isVerificationFile: false
   path: Bitset.cpp
-  requiredBy:
-  - tests/judge/bitset.cpp
+  requiredBy: []
   timestamp: '2021-02-03 01:52:23-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
