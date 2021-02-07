@@ -18,10 +18,29 @@ template <typename P> P ln(const P &p, int n) {
   return (p.derivative() * inverse(p, n) % n).integral() % n;
 }
 
+// \sum ln(1 + x^K), where K are elements of v.
+template<typename P, typename I>
+P ln_1px(const vector<I>& v, int n) {
+  using Field = typename P::field;
+  vector<I> h(n);
+  vector<Field> res(n);
+  for(auto x : v) if(x < n) h[x]++;
+  res[0] = h[0];
+  for(int i = 1; i < n; i++) {
+    if(!h[i]) continue;
+    for(int j = 0, k = i; k < n; k += i, j++) {
+      Field c = Field(1) / Field(j + 1);
+      if(j&1) c = -c;
+      res[k] += c * h[i];
+    }
+  }
+  return P(res);
+}
+
 template<typename P> pair<P, P> exp2(P p, int n) {
   assert(p[0] == 0);
   P f{1}, g{1};
-  for(int i = 1; i < n; i*=2) {
+  for(int i = 1; i <= n; i*=2) {
     g = g * 2 - (g*g%i*f)%i;
     P q = (p % i).derivative();
     q += g * (f.derivative() - f * q) % (2 * i - 1);
