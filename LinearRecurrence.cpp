@@ -143,6 +143,45 @@ template <typename P> struct BMSolver {
 
   field_type compute(long long K) { return compute(K, 1)[0]; }
 };
+
+template<typename Poly>
+struct LinearRecurrence {
+  typedef LinearRecurrence<Poly> type;
+  typedef typename Poly::field field_type;
+  typedef Poly poly_type;
+
+  poly_type P, Q;
+
+  LinearRecurrence(const vector<field_type>& base, vector<field_type> T) {
+    assert(base.size() == T.size());
+    assert(T.back() == field_type());
+    for(auto& x : T) x = -x;
+    T.insert(T.begin(), field_type(1));
+    Q = poly_type(T);
+    P = poly_type(base) % T.size() * Q % ((int)T.size() - 1);
+  }
+
+  template<typename I>
+  field_type compute(I N) {
+    auto P1 = P;
+    auto Q1 = Q;
+    while(N) {
+      auto Q2 = Q1;
+      for(int i = 1; i < Q2.size(); i += 2) Q2[i] = -Q2[i];
+      auto U = P1 * Q2;
+      P1 = poly_type();
+      for(int i = N % 2, j = 0; j < Q.degree(); j++, i += 2)
+        P1[j] = U[i];
+      auto A = Q1 * Q2;
+      Q1 = poly_type();
+      for(int i = 0, j = 0; j <= Q.degree(); j++, i += 2)
+        Q1[j] = A[i];
+      N /= 2;
+      if(N < P.size()) break;
+    }
+    return (P1 * Q1.inverse())[N];
+  }
+};
 } // namespace linalg
 } // namespace lib
 
