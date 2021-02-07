@@ -1,14 +1,11 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: tests/yosupo/subset_conv.cpp
-    title: tests/yosupo/subset_conv.cpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links:
     - https://github.com/NyaanNyaan/library/tree/master/set-function
@@ -87,10 +84,9 @@ data:
   dependsOn: []
   isVerificationFile: false
   path: Subset.cpp
-  requiredBy:
-  - tests/yosupo/subset_conv.cpp
+  requiredBy: []
   timestamp: '2021-02-07 14:32:59-03:00'
-  verificationStatus: LIBRARY_NO_TESTS
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith: []
 documentation_of: Subset.cpp
 layout: document

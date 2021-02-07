@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: ModularInteger.cpp
     title: ModularInteger.cpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: NumberTheory.cpp
     title: NumberTheory.cpp
   - icon: ':warning:'

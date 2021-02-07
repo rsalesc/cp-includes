@@ -10,10 +10,10 @@ data:
   - icon: ':warning:'
     path: Math.cpp
     title: Math.cpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: ModularInteger.cpp
     title: ModularInteger.cpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: NumberTheory.cpp
     title: NumberTheory.cpp
   - icon: ':warning:'
@@ -25,13 +25,7 @@ data:
   - icon: ':warning:'
     path: VectorN.cpp
     title: VectorN.cpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: tests/yosupo/kth_term_lr.cpp
-    title: tests/yosupo/kth_term_lr.cpp
-  - icon: ':warning:'
-    path: tests/yosupo/lr.cpp
-    title: tests/yosupo/lr.cpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -545,9 +539,7 @@ data:
   - VectorN.cpp
   isVerificationFile: false
   path: LinearRecurrence.cpp
-  requiredBy:
-  - tests/yosupo/kth_term_lr.cpp
-  - tests/yosupo/lr.cpp
+  requiredBy: []
   timestamp: '2021-02-06 22:48:25-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

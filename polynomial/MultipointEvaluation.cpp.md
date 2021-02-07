@@ -10,10 +10,10 @@ data:
   - icon: ':warning:'
     path: Math.cpp
     title: Math.cpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: ModularInteger.cpp
     title: ModularInteger.cpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: NumberTheory.cpp
     title: NumberTheory.cpp
   - icon: ':warning:'
@@ -28,13 +28,7 @@ data:
   - icon: ':warning:'
     path: VectorN.cpp
     title: VectorN.cpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: tests/yosupo/interplation.cpp
-    title: tests/yosupo/interplation.cpp
-  - icon: ':warning:'
-    path: tests/yosupo/multipoint.cpp
-    title: tests/yosupo/multipoint.cpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -477,9 +471,7 @@ data:
   - Traits.cpp
   isVerificationFile: false
   path: polynomial/MultipointEvaluation.cpp
-  requiredBy:
-  - tests/yosupo/multipoint.cpp
-  - tests/yosupo/interplation.cpp
+  requiredBy: []
   timestamp: '2021-01-31 01:48:38-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
