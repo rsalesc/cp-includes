@@ -36,7 +36,7 @@ data:
     - icon: ':warning:'
       path: Fenwick.cpp
       title: Fenwick.cpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: Graph.cpp
       title: Graph.cpp
     - icon: ':warning:'
@@ -144,7 +144,7 @@ data:
     - icon: ':warning:'
       path: Treap.cpp
       title: Treap.cpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: TwoSat.cpp
       title: TwoSat.cpp
     - icon: ':heavy_check_mark:'
@@ -242,12 +242,15 @@ data:
     - icon: ':warning:'
       path: utils/FastQueue.cpp
       title: utils/FastQueue.cpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: utils/Wrappers.cpp
       title: utils/Wrappers.cpp
   verificationCategories:
   - name: tests/yosupo
     pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/yosupo/2sat.test.cpp
+      title: tests/yosupo/2sat.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/yosupo/fht-convolution.test.cpp
       title: tests/yosupo/fht-convolution.test.cpp
@@ -269,5 +272,8 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/yosupo/subset-convolution.test.cpp
       title: tests/yosupo/subset-convolution.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/yosupo/subset-sum.test.cpp
+      title: tests/yosupo/subset-sum.test.cpp
 layout: toppage
 ---

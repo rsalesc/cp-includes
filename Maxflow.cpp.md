@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: Graph.cpp
     title: Graph.cpp
   - icon: ':heavy_check_mark:'
     path: Traits.cpp
     title: Traits.cpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: utils/Wrappers.cpp
     title: utils/Wrappers.cpp
   _extendedRequiredBy: []

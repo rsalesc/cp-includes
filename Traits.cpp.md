@@ -5,7 +5,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: FHT.cpp
     title: FHT.cpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: Graph.cpp
     title: Graph.cpp
   - icon: ':warning:'
@@ -35,7 +35,7 @@ data:
   - icon: ':warning:'
     path: SegtreeHLD.cpp
     title: SegtreeHLD.cpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: TwoSat.cpp
     title: TwoSat.cpp
   - icon: ':heavy_check_mark:'
@@ -91,6 +91,9 @@ data:
     title: polynomial/MultipointEvaluation.cpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tests/yosupo/2sat.test.cpp
+    title: tests/yosupo/2sat.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/yosupo/fht-convolution.test.cpp
     title: tests/yosupo/fht-convolution.test.cpp
   - icon: ':heavy_check_mark:'
@@ -111,6 +114,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/multipoint.test.cpp
     title: tests/yosupo/multipoint.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/subset-sum.test.cpp
+    title: tests/yosupo/subset-sum.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -193,9 +199,11 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/yosupo/fht-convolution.test.cpp
+  - tests/yosupo/2sat.test.cpp
   - tests/yosupo/multipoint.test.cpp
   - tests/yosupo/multipoint.test.cpp
   - tests/yosupo/find-lr.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
   - tests/yosupo/kth-term-lr.test.cpp
   - tests/yosupo/fps-inv.test.cpp
   - tests/yosupo/fps-power.test.cpp

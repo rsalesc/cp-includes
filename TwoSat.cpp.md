@@ -1,20 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: Graph.cpp
     title: Graph.cpp
   - icon: ':heavy_check_mark:'
     path: Traits.cpp
     title: Traits.cpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: utils/Wrappers.cpp
     title: utils/Wrappers.cpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/2sat.test.cpp
+    title: tests/yosupo/2sat.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"TwoSat.cpp\"\n\n\n#line 1 \"Graph.cpp\"\n\n\n#line 1 \"\
@@ -147,49 +150,51 @@ data:
     \ i++)\n    if (!vis[i])\n      dfs_rooted_forest(res, graph, i, vis);\n  return\
     \ res;\n}\n} // namespace\n} // namespace builders\n} // namespace graph\n} //\
     \ namespace lib\n\n\n#line 5 \"TwoSat.cpp\"\n\nnamespace lib {\nusing namespace\
-    \ std;\nnamespace graph {\n#define POS(x) (2*(x))\n#define NEG(x) (2*(x)+1)\n\n\
-    // TODO: reuse graph structure and extract tarjan\nstruct TwoSat {\n  int n, sz;\n\
-    \  vector<vector<int>> adj;\n  \n  int tempo, cnt;\n  vector<int> low, vis, from;\n\
-    \  stack<int> st;\n  vector<bool> res;\n\n  TwoSat(int n) : n(n), adj(2*n){}\n\
-    \n  int add_dummy() { \n    int res = adj.size();\n    for(int i = 0; i < 2; i++)\n\
-    \      adj.push_back(vector<int>());\n    return res;\n  }\n\n  int convert(int\
-    \ x) const { return 2*x; }\n  void add_edge(int a, int b) { adj[a].push_back(b);\
-    \ }\n  void or_clause(int a, int b){\n    add_edge(a^1, b);\n    add_edge(b^1,\
-    \ a);\n  }\n\n  void implication_clause(int a, int b){\n    or_clause(a^1, b);\n\
-    \  }\n\n  void literal_clause(int x) { or_clause(x, x); }\n  void and_clause(int\
-    \ a, int b){\n    literal_clause(a);\n    literal_clause(b);\n  }\n\n  void xor_clause(int\
-    \ a, int b){\n    or_clause(a, b);\n    or_clause(a^1, b^1);\n  }\n\n  void nand_clause(int\
-    \ a, int b){\n    or_clause(a^1, b^1);\n  }\n\n  void nor_clause(int a, int b){\n\
-    \    literal_clause(a^1);\n    literal_clause(b^1);\n  }\n\n  void equals(int\
-    \ a, int b){\n    implication_clause(a, b);\n    implication_clause(b, a);\n \
-    \ }\n\n  void max_one_clause(const vector<int> & v){\n    vector<int> p;\n   \
-    \ for(int i = 0; i < v.size(); i++)\n      p.push_back(add_dummy());\n\n    for(int\
-    \ i = 0; i < v.size(); i++){\n      implication_clause(v[i], p[i]);\n      if(i+1\
-    \ < v.size()){\n        implication_clause(p[i], p[i+1]);\n        implication_clause(p[i],\
-    \ v[i+1]^1);\n      }\n    }\n  }\n\n  void clear(){\n    for(int i = 0; i < adj.size();\
-    \ i++) \n      adj[i].clear();\n  }\n\n  void tarjan(int u){\n    low[u] = vis[u]\
-    \ = ++tempo;\n    st.push(u);\n\n    for(int v : adj[u]){\n      if(!vis[v]){\n\
-    \        tarjan(v);\n        low[u] = min(low[u], low[v]);\n      } else if(vis[v]\
-    \ > 0)\n        low[u] = min(low[u], vis[v]);\n    }\n\n    if(low[u] == vis[u]){\n\
-    \      int k;\n      do{\n        k = st.top();\n        st.pop();\n        from[k]\
-    \ = cnt;\n        vis[k] = -1;\n      } while(k != u);\n      cnt++;\n    }\n\
-    \  }\n\n  bool solve(){\n    sz = adj.size();\n    assert(sz%2 == 0);\n\n    low.assign(sz,\
-    \ 0);\n    vis.assign(sz, 0);\n    tempo = 0;\n    cnt = 0;\n    from.assign(sz,\
-    \ -1);\n    st = stack<int>();\n    \n    res.assign(n, true);\n\n    for(int\
-    \ i = 0; i < sz; i++)\n      if(!vis[i])\n        tarjan(i);\n\n    for(int i\
-    \ = 0; i < sz; i += 2){\n      if(from[i] == from[i^1]) return false;\n      else\
-    \ if(from[i] > from[i^1] && (i>>1) < n)\n        res[i>>1] = false;\n    }\n\n\
-    \    return true;\n  }\n\n  bool get(int i) const { return res[i]; }\n};\n} //\
-    \ namespace graph\n} // namespace lib\n\n\n"
-  code: "#ifndef _LIB_TWO_SAT\n#define _LIB_TWO_SAT\n#include \"Graph.cpp\"\n#include\
-    \ <bits/stdc++.h>\n\nnamespace lib {\nusing namespace std;\nnamespace graph {\n\
-    #define POS(x) (2*(x))\n#define NEG(x) (2*(x)+1)\n\n// TODO: reuse graph structure\
+    \ std;\nnamespace graph {\n#define POS(x) (2*(x))\n#define NEG(x) (2*(x)+1)\n\
+    #define VAR(x) ((x) < 0 ? NEG(-(x)) : POS(x))\n\n// TODO: reuse graph structure\
     \ and extract tarjan\nstruct TwoSat {\n  int n, sz;\n  vector<vector<int>> adj;\n\
     \  \n  int tempo, cnt;\n  vector<int> low, vis, from;\n  stack<int> st;\n  vector<bool>\
     \ res;\n\n  TwoSat(int n) : n(n), adj(2*n){}\n\n  int add_dummy() { \n    int\
     \ res = adj.size();\n    for(int i = 0; i < 2; i++)\n      adj.push_back(vector<int>());\n\
     \    return res;\n  }\n\n  int convert(int x) const { return 2*x; }\n  void add_edge(int\
     \ a, int b) { adj[a].push_back(b); }\n  void or_clause(int a, int b){\n    add_edge(a^1,\
+    \ b);\n    add_edge(b^1, a);\n  }\n\n  void implication_clause(int a, int b){\n\
+    \    or_clause(a^1, b);\n  }\n\n  void literal_clause(int x) { or_clause(x, x);\
+    \ }\n  void and_clause(int a, int b){\n    literal_clause(a);\n    literal_clause(b);\n\
+    \  }\n\n  void xor_clause(int a, int b){\n    or_clause(a, b);\n    or_clause(a^1,\
+    \ b^1);\n  }\n\n  void nand_clause(int a, int b){\n    or_clause(a^1, b^1);\n\
+    \  }\n\n  void nor_clause(int a, int b){\n    literal_clause(a^1);\n    literal_clause(b^1);\n\
+    \  }\n\n  void equals(int a, int b){\n    implication_clause(a, b);\n    implication_clause(b,\
+    \ a);\n  }\n\n  void max_one_clause(const vector<int> & v){\n    vector<int> p;\n\
+    \    for(int i = 0; i < v.size(); i++)\n      p.push_back(add_dummy());\n\n  \
+    \  for(int i = 0; i < v.size(); i++){\n      implication_clause(v[i], p[i]);\n\
+    \      if(i+1 < v.size()){\n        implication_clause(p[i], p[i+1]);\n      \
+    \  implication_clause(p[i], v[i+1]^1);\n      }\n    }\n  }\n\n  void clear(){\n\
+    \    for(int i = 0; i < adj.size(); i++) \n      adj[i].clear();\n  }\n\n  void\
+    \ tarjan(int u){\n    low[u] = vis[u] = ++tempo;\n    st.push(u);\n\n    for(int\
+    \ v : adj[u]){\n      if(!vis[v]){\n        tarjan(v);\n        low[u] = min(low[u],\
+    \ low[v]);\n      } else if(vis[v] > 0)\n        low[u] = min(low[u], vis[v]);\n\
+    \    }\n\n    if(low[u] == vis[u]){\n      int k;\n      do{\n        k = st.top();\n\
+    \        st.pop();\n        from[k] = cnt;\n        vis[k] = -1;\n      } while(k\
+    \ != u);\n      cnt++;\n    }\n  }\n\n  bool solve(){\n    sz = adj.size();\n\
+    \    assert(sz%2 == 0);\n\n    low.assign(sz, 0);\n    vis.assign(sz, 0);\n  \
+    \  tempo = 0;\n    cnt = 0;\n    from.assign(sz, -1);\n    st = stack<int>();\n\
+    \    \n    res.assign(n, true);\n\n    for(int i = 0; i < sz; i++)\n      if(!vis[i])\n\
+    \        tarjan(i);\n\n    for(int i = 0; i < sz; i += 2){\n      if(from[i] ==\
+    \ from[i^1]) return false;\n      else if(from[i] > from[i^1] && (i>>1) < n)\n\
+    \        res[i>>1] = false;\n    }\n\n    return true;\n  }\n\n  bool get(int\
+    \ i) const { return res[i]; }\n};\n} // namespace graph\n} // namespace lib\n\n\
+    \n"
+  code: "#ifndef _LIB_TWO_SAT\n#define _LIB_TWO_SAT\n#include \"Graph.cpp\"\n#include\
+    \ <bits/stdc++.h>\n\nnamespace lib {\nusing namespace std;\nnamespace graph {\n\
+    #define POS(x) (2*(x))\n#define NEG(x) (2*(x)+1)\n#define VAR(x) ((x) < 0 ? NEG(-(x))\
+    \ : POS(x))\n\n// TODO: reuse graph structure and extract tarjan\nstruct TwoSat\
+    \ {\n  int n, sz;\n  vector<vector<int>> adj;\n  \n  int tempo, cnt;\n  vector<int>\
+    \ low, vis, from;\n  stack<int> st;\n  vector<bool> res;\n\n  TwoSat(int n) :\
+    \ n(n), adj(2*n){}\n\n  int add_dummy() { \n    int res = adj.size();\n    for(int\
+    \ i = 0; i < 2; i++)\n      adj.push_back(vector<int>());\n    return res;\n \
+    \ }\n\n  int convert(int x) const { return 2*x; }\n  void add_edge(int a, int\
+    \ b) { adj[a].push_back(b); }\n  void or_clause(int a, int b){\n    add_edge(a^1,\
     \ b);\n    add_edge(b^1, a);\n  }\n\n  void implication_clause(int a, int b){\n\
     \    or_clause(a^1, b);\n  }\n\n  void literal_clause(int x) { or_clause(x, x);\
     \ }\n  void and_clause(int a, int b){\n    literal_clause(a);\n    literal_clause(b);\n\
@@ -224,9 +229,10 @@ data:
   isVerificationFile: false
   path: TwoSat.cpp
   requiredBy: []
-  timestamp: '2021-01-26 16:28:00-03:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2021-02-07 18:43:33-03:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/yosupo/2sat.test.cpp
 documentation_of: TwoSat.cpp
 layout: document
 redirect_from:

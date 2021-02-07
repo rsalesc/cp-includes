@@ -590,65 +590,71 @@ data:
     \ series {\n\ntemplate <typename P> P ln(const P &p, int n);\n\ntemplate <typename\
     \ P> P inverse(P p, int n) {\n  return p.inverse(n);\n}\n\ntemplate <typename\
     \ P> P ln(const P &p, int n) {\n  return (p.derivative() * inverse(p, n) % n).integral()\
-    \ % n;\n}\n\ntemplate<typename P> pair<P, P> exp2(P p, int n) {\n  assert(p[0]\
-    \ == 0);\n  P f{1}, g{1};\n  for(int i = 1; i < n; i*=2) {\n    g = g * 2 - (g*g%i*f)%i;\n\
-    \    P q = (p % i).derivative();\n    q += g * (f.derivative() - f * q) % (2 *\
-    \ i - 1);\n    f += f * (p % (2 * i) - q.integral()) % (2 * i);\n  }\n  return\
-    \ {f % n, g % n};\n}\n\n// p[0] must be null\ntemplate <typename P> P exp(P p,\
-    \ int n) {\n  return exp2(p, n).first;\n}\n\ntemplate <typename P> P power(const\
-    \ P &p, long long k, int n) {\n  int m = p.size();\n  for(int i = 0; i < m; i++)\
-    \ {\n    if(p[i] == 0) continue;\n    if(i > 0 && k > n / i) return {};\n    auto\
-    \ rev = typename P::field(1) / p[i];\n    auto D = (p * rev) >> i;\n    int sz\
-    \ = n - i * k;\n    D = exp(ln(D, sz) * k, sz) * (p[i] ^ k);\n    if(i == 0) return\
-    \ D % n;\n    long long S = k * i;\n    D <<= S;\n    return D % n;\n  }\n  return\
-    \ {};\n}\n} // namespace series\n} // namespace lib\n\n\n#line 8 \"tests/yosupo/fps-inv.test.cpp\"\
-    \n#define int long long\nusing namespace std;\n \n#define mp make_pair\n#define\
-    \ mt make_tuple\n#define pb push_back\n#define ms(v, x) memset((v), (x), sizeof(v))\n\
-    #define all(v) (v).begin(), (v).end()\n#define ff first\n#define ss second\n#define\
-    \ iopt ios::sync_with_stdio(false); cin.tie(0)\n#define untie(p, a, b) decltype(p.first)\
-    \ a = p.first, decltype(p.second) b = p.second\n \nint gcd(int a, int b) { return\
-    \ b == 0 ? a : gcd(b, a%b); }\nint power(int x, int p, int MOD) {\n    if(p ==\
-    \ 0) return 1%MOD;\n    if(p == 1) return x%MOD;\n    int res = power(x, p/2,\
-    \ MOD);\n    res = (long long)res*res%MOD;\n    if(p&1) res = (long long)res*x%MOD;\n\
-    \    return res;\n}\n \ntypedef pair<int, int> ii;\ntypedef long double LD;\n\
-    typedef vector<int> vi;\n\n#pragma region template\n\nusing ll = long long;\n\
-    using ull = unsigned long long;\nconstexpr ll TEN(int n) { return (n == 0) ? 1\
-    \ : 10 * TEN(n - 1); }\ntemplate <class T> using V = vector<T>;\ntemplate <class\
-    \ T> using VV = V<V<T>>;\n\n#ifdef LOCAL\nstruct PrettyOS {\n    ostream& os;\n\
-    \    bool first;\n    template <class T> auto operator<<(T&& x) {\n        if\
-    \ (!first) os << \", \";\n        first = false;\n        os << x;\n        return\
-    \ *this;\n    }\n};\ntemplate <class... T> void dbg0(T&&... t) {\n    (PrettyOS{cerr,\
-    \ true} << ... << t);\n}\n#define dbg(...)                                   \
-    \         \\\n    do {                                                    \\\n\
-    \        cerr << __LINE__ << \" : \" << #__VA_ARGS__ << \" = \"; \\\n        dbg0(__VA_ARGS__);\
-    \                                  \\\n        cerr << endl;                 \
-    \                      \\\n    } while (false);\n#else\n#define dbg(...)\n#endif\n\
-    \ntemplate <class T, class U>\nostream& operator<<(ostream& os, const pair<T,\
-    \ U>& p) {\n    return os << \"P(\" << p.first << \", \" << p.second << \")\"\
-    ;\n}\n\ntemplate <class T> ostream& operator<<(ostream& os, const V<T>& v) {\n\
-    \    os << \"[\";\n    for (auto d : v) os << d << \", \";\n    return os << \"\
-    ]\";\n}\n\nstruct Scanner {\n    FILE* fp = nullptr;\n    char line[1 << 15];\n\
-    \    size_t st = 0, ed = 0;\n    void reread() {\n        memmove(line, line +\
-    \ st, ed - st);\n        ed -= st;\n        st = 0;\n        ed += fread(line\
-    \ + ed, 1, (1 << 15) - ed, fp);\n    }\n    bool succ() {\n        while (true)\
-    \ {\n            if (st == ed) {\n                reread();\n                if\
-    \ (st == ed) return false;\n            }\n            while (st != ed && isspace(line[st]))\
-    \ st++;\n            if (st != ed) break;\n        }\n        if (ed - st <= 50)\
-    \ reread();\n        return true;\n    }\n    template <class T, enable_if_t<is_same<T,\
-    \ string>::value, int> = 0>\n    bool read_single(T& ref) {\n        if (!succ())\
-    \ return false;\n        while (true) {\n            succ();\n            size_t\
-    \ sz = 1;\n            while (st + sz < ed && !isspace(line[st + sz])) sz++;\n\
-    \            ref.append(line + st, sz);\n            st += sz;\n            if\
-    \ (st != ed) break;\n        }\n        return true;\n    }\n    template <class\
-    \ T, enable_if_t<is_integral<T>::value, int> = 0>\n    bool read_single(T& ref)\
-    \ {\n        if (!succ()) return false;\n        bool neg = false;\n        if\
-    \ (line[st] == '-') {\n            neg = true;\n            st++;\n        }\n\
-    \        ref = T(0);\n        while (isdigit(line[st])) {\n            ref = 10\
-    \ * ref + (line[st++] - '0');\n        }\n        if (neg) ref = -ref;\n     \
-    \   return true;\n    }\n    template <class T> bool read_single(V<T>& ref) {\n\
-    \        for (auto& d : ref) {\n            if (!read_single(d)) return false;\n\
-    \        }\n        return true;\n    }\n    void read() {}\n    template <class\
-    \ H, class... T> void read(H& h, T&... t) {\n        bool f = read_single(h);\n\
+    \ % n;\n}\n\n// \\sum ln(1 + x^K), where K are elements of v.\ntemplate<typename\
+    \ P, typename I>\nP ln_1px(const vector<I>& v, int n) {\n  using Field = typename\
+    \ P::field;\n  vector<I> h(n);\n  vector<Field> res(n);\n  for(auto x : v) if(x\
+    \ < n) h[x]++;\n  res[0] = h[0];\n  for(int i = 1; i < n; i++) {\n    if(!h[i])\
+    \ continue;\n    for(int j = 0, k = i; k < n; k += i, j++) {\n      Field c =\
+    \ Field(1) / Field(j + 1);\n      if(j&1) c = -c;\n      res[k] += c * h[i];\n\
+    \    }\n  }\n  return P(res);\n}\n\ntemplate<typename P> pair<P, P> exp2(P p,\
+    \ int n) {\n  assert(p[0] == 0);\n  P f{1}, g{1};\n  for(int i = 1; i <= n; i*=2)\
+    \ {\n    g = g * 2 - (g*g%i*f)%i;\n    P q = (p % i).derivative();\n    q += g\
+    \ * (f.derivative() - f * q) % (2 * i - 1);\n    f += f * (p % (2 * i) - q.integral())\
+    \ % (2 * i);\n  }\n  return {f % n, g % n};\n}\n\n// p[0] must be null\ntemplate\
+    \ <typename P> P exp(P p, int n) {\n  return exp2(p, n).first;\n}\n\ntemplate\
+    \ <typename P> P power(const P &p, long long k, int n) {\n  int m = p.size();\n\
+    \  for(int i = 0; i < m; i++) {\n    if(p[i] == 0) continue;\n    if(i > 0 &&\
+    \ k > n / i) return {};\n    auto rev = typename P::field(1) / p[i];\n    auto\
+    \ D = (p * rev) >> i;\n    int sz = n - i * k;\n    D = exp(ln(D, sz) * k, sz)\
+    \ * (p[i] ^ k);\n    if(i == 0) return D % n;\n    long long S = k * i;\n    D\
+    \ <<= S;\n    return D % n;\n  }\n  return {};\n}\n} // namespace series\n} //\
+    \ namespace lib\n\n\n#line 8 \"tests/yosupo/fps-inv.test.cpp\"\n#define int long\
+    \ long\nusing namespace std;\n \n#define mp make_pair\n#define mt make_tuple\n\
+    #define pb push_back\n#define ms(v, x) memset((v), (x), sizeof(v))\n#define all(v)\
+    \ (v).begin(), (v).end()\n#define ff first\n#define ss second\n#define iopt ios::sync_with_stdio(false);\
+    \ cin.tie(0)\n#define untie(p, a, b) decltype(p.first) a = p.first, decltype(p.second)\
+    \ b = p.second\n \nint gcd(int a, int b) { return b == 0 ? a : gcd(b, a%b); }\n\
+    int power(int x, int p, int MOD) {\n    if(p == 0) return 1%MOD;\n    if(p ==\
+    \ 1) return x%MOD;\n    int res = power(x, p/2, MOD);\n    res = (long long)res*res%MOD;\n\
+    \    if(p&1) res = (long long)res*x%MOD;\n    return res;\n}\n \ntypedef pair<int,\
+    \ int> ii;\ntypedef long double LD;\ntypedef vector<int> vi;\n\n#pragma region\
+    \ template\n\nusing ll = long long;\nusing ull = unsigned long long;\nconstexpr\
+    \ ll TEN(int n) { return (n == 0) ? 1 : 10 * TEN(n - 1); }\ntemplate <class T>\
+    \ using V = vector<T>;\ntemplate <class T> using VV = V<V<T>>;\n\n#ifdef LOCAL\n\
+    struct PrettyOS {\n    ostream& os;\n    bool first;\n    template <class T> auto\
+    \ operator<<(T&& x) {\n        if (!first) os << \", \";\n        first = false;\n\
+    \        os << x;\n        return *this;\n    }\n};\ntemplate <class... T> void\
+    \ dbg0(T&&... t) {\n    (PrettyOS{cerr, true} << ... << t);\n}\n#define dbg(...)\
+    \                                            \\\n    do {                    \
+    \                                \\\n        cerr << __LINE__ << \" : \" << #__VA_ARGS__\
+    \ << \" = \"; \\\n        dbg0(__VA_ARGS__);                                 \
+    \ \\\n        cerr << endl;                                       \\\n    } while\
+    \ (false);\n#else\n#define dbg(...)\n#endif\n\ntemplate <class T, class U>\nostream&\
+    \ operator<<(ostream& os, const pair<T, U>& p) {\n    return os << \"P(\" << p.first\
+    \ << \", \" << p.second << \")\";\n}\n\ntemplate <class T> ostream& operator<<(ostream&\
+    \ os, const V<T>& v) {\n    os << \"[\";\n    for (auto d : v) os << d << \",\
+    \ \";\n    return os << \"]\";\n}\n\nstruct Scanner {\n    FILE* fp = nullptr;\n\
+    \    char line[1 << 15];\n    size_t st = 0, ed = 0;\n    void reread() {\n  \
+    \      memmove(line, line + st, ed - st);\n        ed -= st;\n        st = 0;\n\
+    \        ed += fread(line + ed, 1, (1 << 15) - ed, fp);\n    }\n    bool succ()\
+    \ {\n        while (true) {\n            if (st == ed) {\n                reread();\n\
+    \                if (st == ed) return false;\n            }\n            while\
+    \ (st != ed && isspace(line[st])) st++;\n            if (st != ed) break;\n  \
+    \      }\n        if (ed - st <= 50) reread();\n        return true;\n    }\n\
+    \    template <class T, enable_if_t<is_same<T, string>::value, int> = 0>\n   \
+    \ bool read_single(T& ref) {\n        if (!succ()) return false;\n        while\
+    \ (true) {\n            succ();\n            size_t sz = 1;\n            while\
+    \ (st + sz < ed && !isspace(line[st + sz])) sz++;\n            ref.append(line\
+    \ + st, sz);\n            st += sz;\n            if (st != ed) break;\n      \
+    \  }\n        return true;\n    }\n    template <class T, enable_if_t<is_integral<T>::value,\
+    \ int> = 0>\n    bool read_single(T& ref) {\n        if (!succ()) return false;\n\
+    \        bool neg = false;\n        if (line[st] == '-') {\n            neg =\
+    \ true;\n            st++;\n        }\n        ref = T(0);\n        while (isdigit(line[st]))\
+    \ {\n            ref = 10 * ref + (line[st++] - '0');\n        }\n        if (neg)\
+    \ ref = -ref;\n        return true;\n    }\n    template <class T> bool read_single(V<T>&\
+    \ ref) {\n        for (auto& d : ref) {\n            if (!read_single(d)) return\
+    \ false;\n        }\n        return true;\n    }\n    void read() {}\n    template\
+    \ <class H, class... T> void read(H& h, T&... t) {\n        bool f = read_single(h);\n\
     \        assert(f);\n        read(t...);\n    }\n    Scanner(FILE* _fp) : fp(_fp)\
     \ {}\n};\n\nstruct Printer {\n  public:\n    template <bool F = false> void write()\
     \ {}\n    template <bool F = false, class H, class... T>\n    void write(const\
@@ -778,7 +784,7 @@ data:
   isVerificationFile: true
   path: tests/yosupo/fps-inv.test.cpp
   requiredBy: []
-  timestamp: '2021-02-07 15:54:15-03:00'
+  timestamp: '2021-02-07 18:44:07-03:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/yosupo/fps-inv.test.cpp

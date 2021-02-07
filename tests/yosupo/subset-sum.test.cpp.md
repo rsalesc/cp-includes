@@ -5,8 +5,14 @@ data:
     path: BitTricks.cpp
     title: BitTricks.cpp
   - icon: ':heavy_check_mark:'
+    path: DFT.cpp
+    title: DFT.cpp
+  - icon: ':heavy_check_mark:'
     path: Epsilon.cpp
     title: Epsilon.cpp
+  - icon: ':heavy_check_mark:'
+    path: FHT.cpp
+    title: FHT.cpp
   - icon: ':heavy_check_mark:'
     path: LongMultiplication.cpp
     title: LongMultiplication.cpp
@@ -17,45 +23,56 @@ data:
     path: ModularInteger.cpp
     title: ModularInteger.cpp
   - icon: ':heavy_check_mark:'
+    path: ModularInteger.cpp
+    title: ModularInteger.cpp
+  - icon: ':heavy_check_mark:'
+    path: NTT.cpp
+    title: NTT.cpp
+  - icon: ':heavy_check_mark:'
     path: NumberTheory.cpp
     title: NumberTheory.cpp
   - icon: ':heavy_check_mark:'
     path: PolynomialRing.cpp
     title: PolynomialRing.cpp
   - icon: ':heavy_check_mark:'
+    path: PolynomialRing.cpp
+    title: PolynomialRing.cpp
+  - icon: ':heavy_check_mark:'
+    path: PowerSeries.cpp
+    title: PowerSeries.cpp
+  - icon: ':heavy_check_mark:'
     path: Traits.cpp
     title: Traits.cpp
   - icon: ':heavy_check_mark:'
     path: VectorN.cpp
     title: VectorN.cpp
+  - icon: ':heavy_check_mark:'
+    path: polynomial/Transform.cpp
+    title: polynomial/Transform.cpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: tests/yosupo/fps-inv.test.cpp
-    title: tests/yosupo/fps-inv.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/yosupo/fps-power.test.cpp
-    title: tests/yosupo/fps-power.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/yosupo/subset-sum.test.cpp
-    title: tests/yosupo/subset-sum.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "#line 1 \"PowerSeries.cpp\"\n\n\n#line 1 \"BitTricks.cpp\"\n\n\n#include\
-    \ <bits/stdc++.h>\n\nnamespace lib {\nlong long next_power_of_two(long long n)\
-    \ {\n  return 1LL << (sizeof(long long) * 8 - 1 - __builtin_clzll(n) +\n     \
-    \            ((n & (n - 1LL)) != 0));\n}\n} // namespace lib\n\n\n#line 1 \"PolynomialRing.cpp\"\
-    \n\n\n#line 1 \"Epsilon.cpp\"\n\n\n#line 4 \"Epsilon.cpp\"\n\nnamespace lib {\n\
-    using namespace std;\n\ntemplate <typename T = double> struct Epsilon {\n  T eps;\n\
-    \  constexpr Epsilon(T eps = 1e-9) : eps(eps) {}\n\n  template <typename G,\n\
-    \            typename enable_if<is_floating_point<G>::value>::type * = nullptr>\n\
-    \  int operator()(G a, G b = 0) const {\n    return a + eps < b ? -1 : (b + eps\
-    \ < a ? 1 : 0);\n  }\n\n  template <typename G,\n            typename enable_if<!is_floating_point<G>::value>::type\
-    \ * = nullptr>\n  int operator()(G a, G b = 0) const {\n    return a < b ? -1\
-    \ : (a > b ? 1 : 0);\n  }\n\n  template <typename G,\n            typename enable_if<is_floating_point<G>::value>::type\
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://judge.yosupo.jp/problem/sharp_p_subset_sum
+    links:
+    - https://judge.yosupo.jp/problem/sharp_p_subset_sum
+  bundledCode: "#line 1 \"tests/yosupo/subset-sum.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/sharp_p_subset_sum\"\
+    \n\n#include <bits/stdc++.h>\n#line 1 \"PowerSeries.cpp\"\n\n\n#line 1 \"BitTricks.cpp\"\
+    \n\n\n#line 4 \"BitTricks.cpp\"\n\nnamespace lib {\nlong long next_power_of_two(long\
+    \ long n) {\n  return 1LL << (sizeof(long long) * 8 - 1 - __builtin_clzll(n) +\n\
+    \                 ((n & (n - 1LL)) != 0));\n}\n} // namespace lib\n\n\n#line 1\
+    \ \"PolynomialRing.cpp\"\n\n\n#line 1 \"Epsilon.cpp\"\n\n\n#line 4 \"Epsilon.cpp\"\
+    \n\nnamespace lib {\nusing namespace std;\n\ntemplate <typename T = double> struct\
+    \ Epsilon {\n  T eps;\n  constexpr Epsilon(T eps = 1e-9) : eps(eps) {}\n\n  template\
+    \ <typename G,\n            typename enable_if<is_floating_point<G>::value>::type\
+    \ * = nullptr>\n  int operator()(G a, G b = 0) const {\n    return a + eps < b\
+    \ ? -1 : (b + eps < a ? 1 : 0);\n  }\n\n  template <typename G,\n            typename\
+    \ enable_if<!is_floating_point<G>::value>::type * = nullptr>\n  int operator()(G\
+    \ a, G b = 0) const {\n    return a < b ? -1 : (a > b ? 1 : 0);\n  }\n\n  template\
+    \ <typename G,\n            typename enable_if<is_floating_point<G>::value>::type\
     \ * = nullptr>\n  bool null(G a) const {\n    return (*this)(a) == 0;\n  }\n\n\
     \  template <typename G,\n            typename enable_if<!is_floating_point<G>::value>::type\
     \ * = nullptr>\n  bool null(G a) const {\n    return a == 0;\n  }\n};\n} // namespace\
@@ -440,32 +457,197 @@ data:
     \    auto D = (p * rev) >> i;\n    int sz = n - i * k;\n    D = exp(ln(D, sz)\
     \ * k, sz) * (p[i] ^ k);\n    if(i == 0) return D % n;\n    long long S = k *\
     \ i;\n    D <<= S;\n    return D % n;\n  }\n  return {};\n}\n} // namespace series\n\
-    } // namespace lib\n\n\n"
-  code: "#ifndef _LIB_POWER_SERIES\n#define _LIB_POWER_SERIES\n#include \"BitTricks.cpp\"\
-    \n#include \"PolynomialRing.cpp\"\n#include <bits/stdc++.h>\n\nnamespace lib {\n\
-    using namespace std;\nnamespace series {\n\ntemplate <typename P> P ln(const P\
-    \ &p, int n);\n\ntemplate <typename P> P inverse(P p, int n) {\n  return p.inverse(n);\n\
-    }\n\ntemplate <typename P> P ln(const P &p, int n) {\n  return (p.derivative()\
-    \ * inverse(p, n) % n).integral() % n;\n}\n\n// \\sum ln(1 + x^K), where K are\
-    \ elements of v.\ntemplate<typename P, typename I>\nP ln_1px(const vector<I>&\
-    \ v, int n) {\n  using Field = typename P::field;\n  vector<I> h(n);\n  vector<Field>\
-    \ res(n);\n  for(auto x : v) if(x < n) h[x]++;\n  res[0] = h[0];\n  for(int i\
-    \ = 1; i < n; i++) {\n    if(!h[i]) continue;\n    for(int j = 0, k = i; k < n;\
-    \ k += i, j++) {\n      Field c = Field(1) / Field(j + 1);\n      if(j&1) c =\
-    \ -c;\n      res[k] += c * h[i];\n    }\n  }\n  return P(res);\n}\n\ntemplate<typename\
-    \ P> pair<P, P> exp2(P p, int n) {\n  assert(p[0] == 0);\n  P f{1}, g{1};\n  for(int\
-    \ i = 1; i <= n; i*=2) {\n    g = g * 2 - (g*g%i*f)%i;\n    P q = (p % i).derivative();\n\
-    \    q += g * (f.derivative() - f * q) % (2 * i - 1);\n    f += f * (p % (2 *\
-    \ i) - q.integral()) % (2 * i);\n  }\n  return {f % n, g % n};\n}\n\n// p[0] must\
-    \ be null\ntemplate <typename P> P exp(P p, int n) {\n  return exp2(p, n).first;\n\
-    }\n\ntemplate <typename P> P power(const P &p, long long k, int n) {\n  int m\
-    \ = p.size();\n  for(int i = 0; i < m; i++) {\n    if(p[i] == 0) continue;\n \
-    \   if(i > 0 && k > n / i) return {};\n    auto rev = typename P::field(1) / p[i];\n\
-    \    auto D = (p * rev) >> i;\n    int sz = n - i * k;\n    D = exp(ln(D, sz)\
-    \ * k, sz) * (p[i] ^ k);\n    if(i == 0) return D % n;\n    long long S = k *\
-    \ i;\n    D <<= S;\n    return D % n;\n  }\n  return {};\n}\n} // namespace series\n\
-    } // namespace lib\n\n#endif\n"
+    } // namespace lib\n\n\n#line 1 \"FHT.cpp\"\n\n\n#line 1 \"NTT.cpp\"\n\n\n#line\
+    \ 1 \"DFT.cpp\"\n\n\n#line 5 \"DFT.cpp\"\n\nnamespace lib {\nusing namespace std;\n\
+    namespace linalg {\ntemplate <typename Ring, typename Provider>\nstruct DFT {\n\
+    \  static vector<int> rev;\n  static vector<Ring> fa;\n\n  // function used to\
+    \ precompute rev for fixed size fft (n is a power of two)\n  static void dft_rev(int\
+    \ n) {\n    Provider()(n);\n    int lbn = __builtin_ctz(n);\n    if ((int)rev.size()\
+    \ < (1 << lbn))\n      rev.resize(1 << lbn);\n    int h = -1;\n    for (int i\
+    \ = 1; i < n; i++) {\n      if ((i & (i - 1)) == 0)\n        h++;\n      rev[i]\
+    \ = rev[i ^ (1 << h)] | (1 << (lbn - h - 1));\n    }\n  }\n\n  static void dft_iter(Ring\
+    \ *p, int n) {\n    Provider w;\n    for (int L = 2; L <= n; L <<= 1) {\n    \
+    \  for (int i = 0; i < n; i += L) {\n        for (int j = 0; j < L / 2; j++) {\n\
+    \          Ring z = p[i + j + L / 2] * w[j + L / 2];\n          p[i + j + L /\
+    \ 2] = p[i + j] - z;\n          p[i + j] += z;\n        }\n      }\n    }\n  }\n\
+    \n  static void swap(vector<Ring> &buf) { std::swap(fa, buf); }\n  static void\
+    \ _dft(Ring *p, int n) {\n    dft_rev(n);\n    for (int i = 0; i < n; i++)\n \
+    \     if (i < rev[i])\n        std::swap(p[i], p[rev[i]]);\n    dft_iter(p, n);\n\
+    \  }\n  static void _idft(Ring *p, int n) {\n    _dft(p, n);\n    reverse(p +\
+    \ 1, p + n);\n    Ring inv = Provider().inverse(n);\n    for (int i = 0; i < n;\
+    \ i++)\n      p[i] *= inv;\n  }\n\n  static void dft(int n) { _dft(fa.data(),\
+    \ n); }\n\n  static void idft(int n) { _idft(fa.data(), n); }\n\n  static void\
+    \ dft(vector<Ring> &v, int n) {\n    swap(v);\n    dft(n);\n    swap(v);\n  }\n\
+    \  static void idft(vector<Ring> &v, int n) {\n    swap(v);\n    idft(n);\n  \
+    \  swap(v);\n  }\n\n  static int ensure(int a, int b = 0) {\n    int n = a+b;\n\
+    \    n = next_power_of_two(n);\n    if ((int)fa.size() < n)\n      fa.resize(n);\n\
+    \    return n;\n  }\n\n  static void clear(int n) { fill(fa.begin(), fa.begin()\
+    \ + n, 0); }\n\n  template<typename Iterator>\n  static void fill(Iterator begin,\
+    \ Iterator end) {\n    int n = ensure(distance(begin, end));\n    int i = 0;\n\
+    \    for(auto it = begin; it != end; ++it) {\n      fa[i++] = *it;\n    }\n  \
+    \  for(;i < n; i++) fa[i] = Ring();\n  }\n};\n\ntemplate<typename DF, typename\
+    \ U>\nstatic vector<U> retrieve(int n) {\n  assert(n <= DF::fa.size());\n  vector<U>\
+    \ res(n);\n  for(int i = 0; i < n; i++) res[i] = (U)DF::fa[i];\n  return res;\n\
+    }\n\ntemplate<typename Ring, typename Provider>\nvector<int> DFT<Ring, Provider>::rev\
+    \ = vector<int>();\n\ntemplate<typename Ring, typename Provider>\nvector<Ring>\
+    \ DFT<Ring, Provider>::fa = vector<Ring>();\n}\n} // namespace lib\n\n\n#line\
+    \ 7 \"NTT.cpp\"\n\nnamespace lib {\nusing namespace std;\nnamespace linalg {\n\
+    template<typename T>\nstruct MintRootProvider {\n  static size_t max_sz;\n  static\
+    \ T g;\n  static vector<T> w;\n\n  MintRootProvider() {\n    if(g == 0) {\n  \
+    \    auto acc = T::mod-1;\n      while(acc % 2 == 0) acc /= 2, max_sz++;\n\n \
+    \     auto factors = nt::factors(T::mod - 1);\n      for(g = 2; (typename T::type_int)g\
+    \ < T::mod; g++) {\n        bool ok = true;\n        for(auto f : factors) {\n\
+    \          if(power(g, (T::mod-1)/f) == 1) {\n            ok = false;\n      \
+    \      break;\n          }\n        }\n        if(ok) break;\n      }\n      assert(g\
+    \ != 0);\n    }\n  }\n\n  pair<T, T> roots(int num, int den) {\n    auto p = g\
+    \ ^ ((long long)(T::mod - 1) / den * num);\n    return {p, p.inverse()};\n  }\n\
+    \n  T operator()(int n, int k) {\n    return power(g, (T::mod-1)/(n/k));\n  }\n\
+    \  void operator()(int n) {\n    n = max(n, 2);\n    int k = max((int)w.size(),\
+    \ 2);\n    assert(n <= (1LL << max_sz));\n    if ((int)w.size() < n)\n      w.resize(n);\n\
+    \    else\n      return;\n    w[0] = w[1] = 1;\n    for (; k < n; k *= 2) {\n\
+    \      T step = power(g, (T::mod-1)/(2*k));\n      for(int i = k; i < 2*k; i++)\n\
+    \        w[i] = (i&1) ? w[i/2] * step : w[i/2];\n    }\n  }\n  T operator[](int\
+    \ i) {\n    return w[i];\n  }\n\n  T inverse(int n) {\n    return T(1) / n;\n\
+    \  }\n};\n\ntemplate<typename T>\nsize_t MintRootProvider<T>::max_sz = 1;\ntemplate<typename\
+    \ T>\nT MintRootProvider<T>::g = T();\ntemplate<typename T>\nvector<T> MintRootProvider<T>::w\
+    \ = vector<T>();\n\ntemplate<typename T>\nstruct NTT : public DFT<T, MintRootProvider<T>>\
+    \ {\n  using Parent = DFT<T, MintRootProvider<T>>;\n  using Parent::fa;\n  using\
+    \ Parent::dft;\n  using Parent::idft;\n\n  static void _convolve(const vector<T>\
+    \ &a) {\n    int n = Parent::ensure(a.size(), a.size());\n    for (size_t i =\
+    \ 0; i < (size_t)n; i++)\n      fa[i] = i < a.size() ? a[i] : T();\n    Parent::dft(n);\n\
+    \    for (int i = 0; i < n; i++)\n      fa[i] *= fa[i];\n    Parent::idft(n);\n\
+    \  }\n\n  static void _convolve(const vector<T> &a, const vector<T> &b) {\n  \
+    \  if(std::addressof(a) == std::addressof(b))\n      return _convolve(a);\n  \
+    \  int n = Parent::ensure(a.size(), b.size());\n    for (size_t i = 0; i < (size_t)n;\
+    \ i++)\n      fa[i] = i < a.size() ? a[i] : T();\n    Parent::dft(n);\n    //\
+    \ TODO: have a buffer for this\n    auto fb = retrieve<Parent, T>(n);\n    for(size_t\
+    \ i = 0; i < (size_t)n; i++)\n      fa[i] = i < b.size() ? b[i] : T();\n    Parent::dft(n);\n\
+    \    for (int i = 0; i < n; i++)\n      fa[i] *= fb[i];\n    Parent::idft(n);\n\
+    \  }\n\n  static vector<T> convolve(const vector<T>& a, const vector<T>& b) {\n\
+    \    int sz = (int)a.size() + b.size() - 1;\n    _convolve(a, b);\n    return\
+    \ retrieve<Parent, T>(sz);\n  }\n  \n  static VectorN<T> transform(vector<T> a,\
+    \ int n) {\n    a.resize(n);\n    Parent::dft(a, n);\n    return a;\n  }\n\n \
+    \ static vector<T> itransform(vector<T> a, int n) {\n    int sz = a.size();\n\
+    \    Parent::idft(a, sz);\n    a.resize(min(n, sz));\n    return a;\n  }\n};\n\
+    }\n\nstruct NTTMultiplication {\n  template<typename T>\n  using Transform = linalg::NTT<T>;\n\
+    \n  template <typename Field>\n  vector<Field> operator()(const vector<Field>\
+    \ &a,\n                           const vector<Field> &b) const {\n    return\
+    \ linalg::NTT<Field>::convolve(a, b);\n  };\n\n  template<typename Field>\n  inline\
+    \ VectorN<Field> transform(int n, const vector<Field>& p) const {\n    int np\
+    \ = next_power_of_two(n);\n    return linalg::NTT<Field>::transform(p, np);\n\
+    \  }\n\n  template<typename Field>\n  inline vector<Field> itransform(int n, const\
+    \ vector<Field>& p) const {\n    return linalg::NTT<Field>::itransform(p, n);\n\
+    \  }\n\n  template <typename Field, typename Functor, typename ...Ts>\n  inline\
+    \ vector<Field> on_transform(\n    int n,\n    Functor& f,        \n    const\
+    \ vector<Ts>&... vs) const {\n    int np = next_power_of_two(n);\n    return linalg::NTT<Field>::itransform(\n\
+    \      f(n, linalg::NTT<Field>::transform(vs, np)...), n);\n  }\n};\n} // namespace\
+    \ lib\n\n\n#line 1 \"polynomial/Transform.cpp\"\n\n\n#line 4 \"polynomial/Transform.cpp\"\
+    \n\nnamespace lib {\nusing namespace std;\ntemplate<template <class> class T>\n\
+    struct TransformMultiplication {\n  template<typename Field>\n  using Transform\
+    \ = T<Field>;\n\n  template <typename Field>\n  vector<Field> operator()(const\
+    \ vector<Field> &a,\n                           const vector<Field> &b) const\
+    \ {\n    return T<Field>::convolve(a, b);\n  };\n\n  template<typename Field>\n\
+    \  inline VectorN<Field> transform(int n, const vector<Field>& p) const {\n  \
+    \  int np = next_power_of_two(n);\n    return T<Field>::transform(p, np);\n  }\n\
+    \n  template<typename Field>\n  inline vector<Field> itransform(int n, const vector<Field>&\
+    \ p) const {\n    return T<Field>::itransform(p, n);\n  }\n\n  template <typename\
+    \ Field, typename Functor, typename ...Ts>\n  inline vector<Field> on_transform(\n\
+    \    int n,\n    Functor& f,        \n    const vector<Ts>&... vs) const {\n \
+    \   int np = next_power_of_two(n);\n    return T<Field>::itransform(\n      f(n,\
+    \ T<Field>::transform(vs, np)...), n);\n  }\n};\n} // namespace lib\n\n\n#line\
+    \ 7 \"FHT.cpp\"\n\nnamespace lib {\nusing namespace std;\nnamespace linalg {\n\
+    template <typename Ring>\nstruct FHT {\n  using Provider = MintRootProvider<Ring>;\n\
+    \  using T = Ring;\n  using U = make_unsigned_t<typename Ring::type_int>;\n  using\
+    \ U64 = make_unsigned_t<typename Ring::large_int>;\n  static vector<Ring> fa;\n\
+    \  static const int MAX_LG_N = 30;\n  static vector<Ring> g, ig;\n  \n  static\
+    \ void precompute() {\n    if(!g.empty()) return;\n    Provider();\n    g.resize(MAX_LG_N);\n\
+    \    ig.resize(MAX_LG_N);\n    for(int i = 0; i < MAX_LG_N; i++) {\n      Ring\
+    \ w = Provider::g ^ (((Ring::mod-1) >> (i + 2)) * 3);\n      w = -w;\n      Ring\
+    \ iw = w.inverse();\n      g[i] = w;\n      ig[i] = iw;\n    }\n  }\n\n  static\
+    \ inline U& v(Ring& p) {\n    return (U&)p.data();\n  }\n\n  static inline U v(const\
+    \ Ring& p) {\n    return (U)p.data();\n  }\n\n  static void dft_iter(Ring *p,\
+    \ int n) {\n    // decimation-in-time\n    // natural to reverse ordering\n  \
+    \  for (int B = n >> 1; B; B >>= 1) {\n      Ring w = 1;\n      for (int i = 0,\
+    \ twiddle = 0; i < n; i += B * 2) {\n        for (int j = i; j < i + B; j++) {\n\
+    \          Ring z = p[j + B] * w;\n          p[j + B] = p[j] - z;\n          p[j]\
+    \ += z;\n        }\n        w *= g[__builtin_ctz(++twiddle)];\n      }\n    }\n\
+    \  }\n\n  static void idft_iter(Ring *p, int n) {\n    // decimation-in-frequency\n\
+    \    // reverse to natural ordering\n    for (int B = 1; B < n; B <<= 1) {\n \
+    \     Ring w = 1;\n      for (int i = 0, twiddle = 0; i < n; i += B * 2) {\n \
+    \       for (int j = i; j < i + B; j++) {\n          Ring z = (p[j] - p[j + B])\
+    \ * w;\n          p[j] += p[j + B];\n          p[j + B] = z;\n        }\n    \
+    \    w *= ig[__builtin_ctz(++twiddle)];\n      }\n    }\n  }\n\n  static void\
+    \ swap(vector<Ring> &buf) { std::swap(fa, buf); }\n  static void _dft(Ring *p,\
+    \ int n) {\n    precompute();\n    dft_iter(p, n);\n  }\n  static void _idft(Ring\
+    \ *p, int n) {\n    precompute();\n    idft_iter(p, n);\n    Ring inv = Provider().inverse(n);\n\
+    \    for (int i = 0; i < n; i++)\n      p[i] *= inv;\n  }\n\n  static void dft(int\
+    \ n) { _dft(fa.data(), n); }\n\n  static void idft(int n) { _idft(fa.data(), n);\
+    \ }\n\n  static void dft(vector<Ring> &v, int n) {\n    swap(v);\n    dft(n);\n\
+    \    swap(v);\n  }\n  static void idft(vector<Ring> &v, int n) {\n    swap(v);\n\
+    \    idft(n);\n    swap(v);\n  }\n\n  static int ensure(int a, int b = 0) {\n\
+    \    int n = a+b;\n    n = next_power_of_two(n);\n    if ((int)fa.size() < n)\n\
+    \      fa.resize(n);\n    return n;\n  }\n\n  static void clear(int n) { fill(fa.begin(),\
+    \ fa.begin() + n, 0); }\n\n  template<typename Iterator>\n  static void fill(Iterator\
+    \ begin, Iterator end) {\n    int n = ensure(distance(begin, end));\n    int i\
+    \ = 0;\n    for(auto it = begin; it != end; ++it) {\n      fa[i++] = *it;\n  \
+    \  }\n    for(;i < n; i++) fa[i] = Ring();\n  }\n\n  static void _convolve(const\
+    \ vector<T> &a) {\n    int n = ensure(a.size(), a.size());\n    for (size_t i\
+    \ = 0; i < (size_t)n; i++)\n      fa[i] = i < a.size() ? a[i] : T();\n    dft(n);\n\
+    \    for (int i = 0; i < n; i++)\n      fa[i] *= fa[i];\n    idft(n);\n  }\n\n\
+    \  static void _convolve(const vector<T> &a, const vector<T> &b) {\n    if(std::addressof(a)\
+    \ == std::addressof(b))\n      return _convolve(a);\n    int n = ensure(a.size(),\
+    \ b.size());\n    for (size_t i = 0; i < (size_t)n; i++)\n      fa[i] = i < a.size()\
+    \ ? a[i] : T();\n    dft(n);\n    // TODO: have a buffer for this\n    auto fb\
+    \ = retrieve<FHT<T>, T>(n);\n    for(size_t i = 0; i < (size_t)n; i++)\n     \
+    \ fa[i] = i < b.size() ? b[i] : T();\n    dft(n);\n    for (int i = 0; i < n;\
+    \ i++)\n      fa[i] *= fb[i];\n    idft(n);\n  }\n\n  static vector<T> convolve(const\
+    \ vector<T>& a, const vector<T>& b) {\n    int sz = (int)a.size() + b.size() -\
+    \ 1;\n    _convolve(a, b);\n    return retrieve<FHT<T>, T>(sz);\n  }\n  \n  static\
+    \ VectorN<T> transform(vector<T> a, int n) {\n    a.resize(n);\n    dft(a, n);\n\
+    \    return a;\n  }\n\n  static vector<T> itransform(vector<T> a, int n) {\n \
+    \   int sz = a.size();\n    idft(a, sz);\n    a.resize(min(n, sz));\n    return\
+    \ a;\n  }\n};\n\ntemplate<typename Ring>\nvector<Ring> FHT<Ring>::fa = vector<Ring>();\n\
+    template<typename Ring>\nvector<Ring> FHT<Ring>::g = vector<Ring>();\ntemplate<typename\
+    \ Ring>\nvector<Ring> FHT<Ring>::ig = vector<Ring>();\n}\n\nusing FHTMultiplication\
+    \ = TransformMultiplication<linalg::FHT>;\n} // namespace lib\n\n\n#line 8 \"\
+    tests/yosupo/subset-sum.test.cpp\"\n#define int long long\nusing namespace std;\n\
+    \ \n#define mp make_pair\n#define mt make_tuple\n#define pb push_back\n#define\
+    \ ms(v, x) memset((v), (x), sizeof(v))\n#define all(v) (v).begin(), (v).end()\n\
+    #define ff first\n#define ss second\n#define iopt ios::sync_with_stdio(false);\
+    \ cin.tie(0)\n#define untie(p, a, b) decltype(p.first) a = p.first, decltype(p.second)\
+    \ b = p.second\n \nint gcd(int a, int b) { return b == 0 ? a : gcd(b, a%b); }\n\
+    int power(int x, int p, int MOD) {\n    if(p == 0) return 1%MOD;\n    if(p ==\
+    \ 1) return x%MOD;\n    int res = power(x, p/2, MOD);\n    res = (long long)res*res%MOD;\n\
+    \    if(p&1) res = (long long)res*x%MOD;\n    return res;\n}\n \ntypedef pair<int,\
+    \ int> ii;\ntypedef long double LD;\ntypedef vector<int> vi;\n\nusing namespace\
+    \ lib;\nusing mint = MintNTT;\nusing poly = math::Polynomial<mint, FHTMultiplication>;\n\
+    \nint32_t main(){\n    // Scanner sc(stdin);\n    // Printer pr(stdout);\n   \
+    \ iopt;\n\n    int n, T;\n    cin >> n >> T;\n    vector<int> v;\n    for(int\
+    \ i = 0; i < n; i++) {\n      int x; cin >> x;\n      v.pb(x);\n    }\n\n    poly\
+    \ p = series::ln_1px<poly>(v, T + 1);\n    \n    p = series::exp(p, T + 1);\n\
+    \    for(int i = 1; i <= T; i++) cout << p[i] << \" \";\n    cout << endl;\n \
+    \   return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/sharp_p_subset_sum\"\n\n\
+    #include <bits/stdc++.h>\n#include \"PowerSeries.cpp\"\n#include \"PolynomialRing.cpp\"\
+    \n#include \"ModularInteger.cpp\"\n#include \"FHT.cpp\"\n#define int long long\n\
+    using namespace std;\n \n#define mp make_pair\n#define mt make_tuple\n#define\
+    \ pb push_back\n#define ms(v, x) memset((v), (x), sizeof(v))\n#define all(v) (v).begin(),\
+    \ (v).end()\n#define ff first\n#define ss second\n#define iopt ios::sync_with_stdio(false);\
+    \ cin.tie(0)\n#define untie(p, a, b) decltype(p.first) a = p.first, decltype(p.second)\
+    \ b = p.second\n \nint gcd(int a, int b) { return b == 0 ? a : gcd(b, a%b); }\n\
+    int power(int x, int p, int MOD) {\n    if(p == 0) return 1%MOD;\n    if(p ==\
+    \ 1) return x%MOD;\n    int res = power(x, p/2, MOD);\n    res = (long long)res*res%MOD;\n\
+    \    if(p&1) res = (long long)res*x%MOD;\n    return res;\n}\n \ntypedef pair<int,\
+    \ int> ii;\ntypedef long double LD;\ntypedef vector<int> vi;\n\nusing namespace\
+    \ lib;\nusing mint = MintNTT;\nusing poly = math::Polynomial<mint, FHTMultiplication>;\n\
+    \nint32_t main(){\n    // Scanner sc(stdin);\n    // Printer pr(stdout);\n   \
+    \ iopt;\n\n    int n, T;\n    cin >> n >> T;\n    vector<int> v;\n    for(int\
+    \ i = 0; i < n; i++) {\n      int x; cin >> x;\n      v.pb(x);\n    }\n\n    poly\
+    \ p = series::ln_1px<poly>(v, T + 1);\n    \n    p = series::exp(p, T + 1);\n\
+    \    for(int i = 1; i <= T; i++) cout << p[i] << \" \";\n    cout << endl;\n \
+    \   return 0;\n}\n"
   dependsOn:
+  - PowerSeries.cpp
   - BitTricks.cpp
   - PolynomialRing.cpp
   - Epsilon.cpp
@@ -475,19 +657,22 @@ data:
   - Traits.cpp
   - LongMultiplication.cpp
   - VectorN.cpp
-  isVerificationFile: false
-  path: PowerSeries.cpp
+  - PolynomialRing.cpp
+  - ModularInteger.cpp
+  - FHT.cpp
+  - NTT.cpp
+  - DFT.cpp
+  - polynomial/Transform.cpp
+  isVerificationFile: true
+  path: tests/yosupo/subset-sum.test.cpp
   requiredBy: []
   timestamp: '2021-02-07 18:44:07-03:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - tests/yosupo/subset-sum.test.cpp
-  - tests/yosupo/fps-inv.test.cpp
-  - tests/yosupo/fps-power.test.cpp
-documentation_of: PowerSeries.cpp
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: tests/yosupo/subset-sum.test.cpp
 layout: document
 redirect_from:
-- /library/PowerSeries.cpp
-- /library/PowerSeries.cpp.html
-title: PowerSeries.cpp
+- /verify/tests/yosupo/subset-sum.test.cpp
+- /verify/tests/yosupo/subset-sum.test.cpp.html
+title: tests/yosupo/subset-sum.test.cpp
 ---

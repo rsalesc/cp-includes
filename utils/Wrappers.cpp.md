@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: Graph.cpp
     title: Graph.cpp
   - icon: ':warning:'
@@ -14,13 +14,16 @@ data:
   - icon: ':warning:'
     path: SegtreeHLD.cpp
     title: SegtreeHLD.cpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: TwoSat.cpp
     title: TwoSat.cpp
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/2sat.test.cpp
+    title: tests/yosupo/2sat.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"utils/Wrappers.cpp\"\n\n\n#include <bits/stdc++.h>\n\nnamespace\
@@ -45,8 +48,9 @@ data:
   - HLD.cpp
   - Graph.cpp
   timestamp: '2020-10-15 12:03:07-03:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/yosupo/2sat.test.cpp
 documentation_of: utils/Wrappers.cpp
 layout: document
 redirect_from:

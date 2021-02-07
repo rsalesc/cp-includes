@@ -21,6 +21,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/kth-term-lr.test.cpp
     title: tests/yosupo/kth-term-lr.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/subset-sum.test.cpp
+    title: tests/yosupo/subset-sum.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -65,6 +68,7 @@ data:
   verifiedWith:
   - tests/yosupo/fht-convolution.test.cpp
   - tests/yosupo/find-lr.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
   - tests/yosupo/kth-term-lr.test.cpp
   - tests/yosupo/fps-inv.test.cpp
   - tests/yosupo/fps-power.test.cpp

@@ -63,6 +63,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/multipoint.test.cpp
     title: tests/yosupo/multipoint.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/subset-sum.test.cpp
+    title: tests/yosupo/subset-sum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/subset-sum.test.cpp
+    title: tests/yosupo/subset-sum.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -641,6 +647,8 @@ data:
   - tests/yosupo/multipoint.test.cpp
   - tests/yosupo/find-lr.test.cpp
   - tests/yosupo/find-lr.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
   - tests/yosupo/kth-term-lr.test.cpp
   - tests/yosupo/kth-term-lr.test.cpp
   - tests/yosupo/fps-inv.test.cpp
