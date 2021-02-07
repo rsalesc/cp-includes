@@ -1,3 +1,8 @@
 {
+"tests/yosupo/fht-convolution.test.cpp": "2021-02-07 15:54:15 -0300",
+"tests/yosupo/find-lr.test.cpp": "2021-02-07 15:54:15 -0300",
+"tests/yosupo/fps-inv.test.cpp": "2021-02-07 15:54:15 -0300",
+"tests/yosupo/fps-power.test.cpp": "2021-02-07 15:54:15 -0300",
+"tests/yosupo/multipoint.test.cpp": "2021-02-07 15:54:15 -0300",
 "tests/yosupo/subset-convolution.test.cpp": "2021-02-07 15:36:07 -0300"
 }
