@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: Epsilon.cpp
     title: Epsilon.cpp
   - icon: ':warning:'

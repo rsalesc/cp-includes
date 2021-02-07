@@ -1,25 +1,25 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: BitTricks.cpp
     title: BitTricks.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: DFT.cpp
     title: DFT.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: NTT.cpp
     title: NTT.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: NumberTheory.cpp
     title: NumberTheory.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: Traits.cpp
     title: Traits.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: VectorN.cpp
     title: VectorN.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: polynomial/Transform.cpp
     title: polynomial/Transform.cpp
   _extendedRequiredBy: []
@@ -36,12 +36,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/fps-power.test.cpp
     title: tests/yosupo/fps-power.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/yosupo/kth-term-lr.test.cpp
     title: tests/yosupo/kth-term-lr.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"FHT.cpp\"\n\n\n#include <bits/stdc++.h>\n#line 1 \"BitTricks.cpp\"\
@@ -322,7 +322,7 @@ data:
   path: FHT.cpp
   requiredBy: []
   timestamp: '2021-01-30 22:33:20-03:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/yosupo/fht-convolution.test.cpp
   - tests/yosupo/find-lr.test.cpp

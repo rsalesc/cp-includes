@@ -2,19 +2,19 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: FHT.cpp
     title: FHT.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: LinearRecurrence.cpp
     title: LinearRecurrence.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: ModularInteger.cpp
     title: ModularInteger.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: NTT.cpp
     title: NTT.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: PolynomialRing.cpp
     title: PolynomialRing.cpp
   - icon: ':heavy_check_mark:'
@@ -39,7 +39,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/fps-power.test.cpp
     title: tests/yosupo/fps-power.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/yosupo/kth-term-lr.test.cpp
     title: tests/yosupo/kth-term-lr.test.cpp
   - icon: ':heavy_check_mark:'
@@ -48,9 +48,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/subset-convolution.test.cpp
     title: tests/yosupo/subset-convolution.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"NumberTheory.cpp\"\n\n\n#include <bits/stdc++.h>\n\nnamespace\
@@ -90,7 +90,7 @@ data:
   - NTT.cpp
   - polynomial/MultipointEvaluation.cpp
   timestamp: '2020-11-07 21:20:50-03:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/yosupo/fht-convolution.test.cpp
   - tests/yosupo/multipoint.test.cpp

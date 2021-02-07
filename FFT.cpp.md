@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: BitTricks.cpp
     title: BitTricks.cpp
   - icon: ':warning:'
     path: Complex.cpp
     title: Complex.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: DFT.cpp
     title: DFT.cpp
   - icon: ':warning:'

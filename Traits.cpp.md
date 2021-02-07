@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: FHT.cpp
     title: FHT.cpp
   - icon: ':warning:'
@@ -14,16 +14,16 @@ data:
   - icon: ':warning:'
     path: Lambda.cpp
     title: Lambda.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: LinearRecurrence.cpp
     title: LinearRecurrence.cpp
   - icon: ':warning:'
     path: Maxflow.cpp
     title: Maxflow.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: NTT.cpp
     title: NTT.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: PolynomialRing.cpp
     title: PolynomialRing.cpp
   - icon: ':heavy_check_mark:'
@@ -38,7 +38,7 @@ data:
   - icon: ':warning:'
     path: TwoSat.cpp
     title: TwoSat.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: VectorN.cpp
     title: VectorN.cpp
   - icon: ':warning:'
@@ -102,7 +102,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/fps-power.test.cpp
     title: tests/yosupo/fps-power.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/yosupo/kth-term-lr.test.cpp
     title: tests/yosupo/kth-term-lr.test.cpp
   - icon: ':heavy_check_mark:'
@@ -111,9 +111,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/multipoint.test.cpp
     title: tests/yosupo/multipoint.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"Traits.cpp\"\n\n\n#include <bits/stdc++.h>\n\nnamespace\
@@ -190,7 +190,7 @@ data:
   - polynomial/MultipointEvaluation.cpp
   - Graph.cpp
   timestamp: '2021-01-26 16:28:00-03:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/yosupo/fht-convolution.test.cpp
   - tests/yosupo/multipoint.test.cpp

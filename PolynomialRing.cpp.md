@@ -1,29 +1,29 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: Epsilon.cpp
     title: Epsilon.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: LongMultiplication.cpp
     title: LongMultiplication.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: Math.cpp
     title: Math.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: ModularInteger.cpp
     title: ModularInteger.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: NumberTheory.cpp
     title: NumberTheory.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: Traits.cpp
     title: Traits.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: VectorN.cpp
     title: VectorN.cpp
   _extendedRequiredBy:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: LinearRecurrence.cpp
     title: LinearRecurrence.cpp
   - icon: ':heavy_check_mark:'
@@ -51,10 +51,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/fps-power.test.cpp
     title: tests/yosupo/fps-power.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/yosupo/kth-term-lr.test.cpp
     title: tests/yosupo/kth-term-lr.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/yosupo/kth-term-lr.test.cpp
     title: tests/yosupo/kth-term-lr.test.cpp
   - icon: ':heavy_check_mark:'
@@ -63,9 +63,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/multipoint.test.cpp
     title: tests/yosupo/multipoint.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"PolynomialRing.cpp\"\n\n\n#line 1 \"Epsilon.cpp\"\n\n\n\
@@ -635,7 +635,7 @@ data:
   - LinearRecurrence.cpp
   - polynomial/MultipointEvaluation.cpp
   timestamp: '2021-01-31 01:48:38-03:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/yosupo/multipoint.test.cpp
   - tests/yosupo/multipoint.test.cpp

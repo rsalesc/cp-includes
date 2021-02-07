@@ -1,59 +1,59 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: BitTricks.cpp
     title: BitTricks.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: DFT.cpp
     title: DFT.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: Epsilon.cpp
     title: Epsilon.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: FHT.cpp
     title: FHT.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: LinearRecurrence.cpp
     title: LinearRecurrence.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: LongMultiplication.cpp
     title: LongMultiplication.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: Math.cpp
     title: Math.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: ModularInteger.cpp
     title: ModularInteger.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: ModularInteger.cpp
     title: ModularInteger.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: NTT.cpp
     title: NTT.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: NumberTheory.cpp
     title: NumberTheory.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: PolynomialRing.cpp
     title: PolynomialRing.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: PolynomialRing.cpp
     title: PolynomialRing.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: Traits.cpp
     title: Traits.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: VectorN.cpp
     title: VectorN.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: polynomial/Transform.cpp
     title: polynomial/Transform.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/kth_term_of_linearly_recurrent_sequence
@@ -637,7 +637,7 @@ data:
     \ }\n};\n\ntemplate<typename Poly>\nstruct LinearRecurrence {\n  typedef LinearRecurrence<Poly>\
     \ type;\n  typedef typename Poly::field field_type;\n  typedef Poly poly_type;\n\
     \n  poly_type P, Q;\n\n  LinearRecurrence(const vector<field_type>& base, vector<field_type>\
-    \ T) {\n    assert(base.size() == T.size());\n    assert(T.back() == field_type());\n\
+    \ T) {\n    assert(base.size() == T.size());\n    assert(T.back() != field_type());\n\
     \    for(auto& x : T) x = -x;\n    T.insert(T.begin(), field_type(1));\n    Q\
     \ = poly_type(T);\n    P = poly_type(base) % T.size() * Q % ((int)T.size() - 1);\n\
     \  }\n\n  template<typename I>\n  field_type compute(I N) {\n    auto P1 = P;\n\
@@ -703,8 +703,8 @@ data:
   isVerificationFile: true
   path: tests/yosupo/kth-term-lr.test.cpp
   requiredBy: []
-  timestamp: '2021-02-07 15:54:15-03:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2021-02-07 16:15:33-03:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/yosupo/kth-term-lr.test.cpp
 layout: document

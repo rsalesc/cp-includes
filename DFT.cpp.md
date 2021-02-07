@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: BitTricks.cpp
     title: BitTricks.cpp
   _extendedRequiredBy:
   - icon: ':warning:'
     path: FFT.cpp
     title: FFT.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: FHT.cpp
     title: FHT.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: NTT.cpp
     title: NTT.cpp
   _extendedVerifiedWith:
@@ -27,15 +27,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/fps-power.test.cpp
     title: tests/yosupo/fps-power.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/yosupo/kth-term-lr.test.cpp
     title: tests/yosupo/kth-term-lr.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/multipoint.test.cpp
     title: tests/yosupo/multipoint.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"DFT.cpp\"\n\n\n#include <bits/stdc++.h>\n#line 1 \"BitTricks.cpp\"\
@@ -118,7 +118,7 @@ data:
   - NTT.cpp
   - FFT.cpp
   timestamp: '2020-11-13 13:50:32-03:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/yosupo/fht-convolution.test.cpp
   - tests/yosupo/multipoint.test.cpp

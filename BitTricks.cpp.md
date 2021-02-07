@@ -5,16 +5,16 @@ data:
   - icon: ':warning:'
     path: Combinatorics.cpp
     title: Combinatorics.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: DFT.cpp
     title: DFT.cpp
   - icon: ':warning:'
     path: FFT.cpp
     title: FFT.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: FHT.cpp
     title: FHT.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: NTT.cpp
     title: NTT.cpp
   - icon: ':heavy_check_mark:'
@@ -33,15 +33,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/fps-power.test.cpp
     title: tests/yosupo/fps-power.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/yosupo/kth-term-lr.test.cpp
     title: tests/yosupo/kth-term-lr.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/multipoint.test.cpp
     title: tests/yosupo/multipoint.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"BitTricks.cpp\"\n\n\n#include <bits/stdc++.h>\n\nnamespace\
@@ -63,7 +63,7 @@ data:
   - DFT.cpp
   - Combinatorics.cpp
   timestamp: '2020-10-15 12:03:07-03:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/yosupo/fht-convolution.test.cpp
   - tests/yosupo/multipoint.test.cpp

@@ -3,7 +3,7 @@ data:
   libraryCategories:
   - name: .
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: BitTricks.cpp
       title: BitTricks.cpp
     - icon: ':warning:'
@@ -15,13 +15,13 @@ data:
     - icon: ':warning:'
       path: Complex.cpp
       title: Complex.cpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: DFT.cpp
       title: DFT.cpp
     - icon: ':warning:'
       path: DSU.cpp
       title: DSU.cpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: Epsilon.cpp
       title: Epsilon.cpp
     - icon: ':warning:'
@@ -30,7 +30,7 @@ data:
     - icon: ':warning:'
       path: FFT.cpp
       title: FFT.cpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: FHT.cpp
       title: FHT.cpp
     - icon: ':warning:'
@@ -57,13 +57,13 @@ data:
     - icon: ':warning:'
       path: LinearProgram.cpp
       title: LinearProgram.cpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: LinearRecurrence.cpp
       title: LinearRecurrence.cpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: LongMultiplication.cpp
       title: LongMultiplication.cpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: Math.cpp
       title: Math.cpp
     - icon: ':warning:'
@@ -72,22 +72,22 @@ data:
     - icon: ':warning:'
       path: Maxflow.cpp
       title: Maxflow.cpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: ModularInteger.cpp
       title: ModularInteger.cpp
     - icon: ':warning:'
       path: MontgomeryInteger.cpp
       title: MontgomeryInteger.cpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: NTT.cpp
       title: NTT.cpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: NumberTheory.cpp
       title: NumberTheory.cpp
     - icon: ':warning:'
       path: OfflineRMQ.cpp
       title: OfflineRMQ.cpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: PolynomialRing.cpp
       title: PolynomialRing.cpp
     - icon: ':heavy_check_mark:'
@@ -138,7 +138,7 @@ data:
     - icon: ':warning:'
       path: Symbolic.cpp
       title: Symbolic.cpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: Traits.cpp
       title: Traits.cpp
     - icon: ':warning:'
@@ -147,7 +147,7 @@ data:
     - icon: ':warning:'
       path: TwoSat.cpp
       title: TwoSat.cpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: VectorN.cpp
       title: VectorN.cpp
   - name: geometry
@@ -223,7 +223,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: polynomial/MultipointEvaluation.cpp
       title: polynomial/MultipointEvaluation.cpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: polynomial/Transform.cpp
       title: polynomial/Transform.cpp
   - name: traits
@@ -260,7 +260,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/yosupo/fps-power.test.cpp
       title: tests/yosupo/fps-power.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/yosupo/kth-term-lr.test.cpp
       title: tests/yosupo/kth-term-lr.test.cpp
     - icon: ':heavy_check_mark:'

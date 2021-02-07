@@ -1,52 +1,52 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: BitTricks.cpp
     title: BitTricks.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: DFT.cpp
     title: DFT.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: Epsilon.cpp
     title: Epsilon.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: FHT.cpp
     title: FHT.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: LongMultiplication.cpp
     title: LongMultiplication.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: Math.cpp
     title: Math.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: ModularInteger.cpp
     title: ModularInteger.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: ModularInteger.cpp
     title: ModularInteger.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: NTT.cpp
     title: NTT.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: NumberTheory.cpp
     title: NumberTheory.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: PolynomialRing.cpp
     title: PolynomialRing.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: PolynomialRing.cpp
     title: PolynomialRing.cpp
   - icon: ':heavy_check_mark:'
     path: PowerSeries.cpp
     title: PowerSeries.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: Traits.cpp
     title: Traits.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: VectorN.cpp
     title: VectorN.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: polynomial/Transform.cpp
     title: polynomial/Transform.cpp
   _extendedRequiredBy: []

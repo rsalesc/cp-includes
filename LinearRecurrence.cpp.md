@@ -1,28 +1,28 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: Epsilon.cpp
     title: Epsilon.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: LongMultiplication.cpp
     title: LongMultiplication.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: Math.cpp
     title: Math.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: ModularInteger.cpp
     title: ModularInteger.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: NumberTheory.cpp
     title: NumberTheory.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: PolynomialRing.cpp
     title: PolynomialRing.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: Traits.cpp
     title: Traits.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: VectorN.cpp
     title: VectorN.cpp
   _extendedRequiredBy: []
@@ -30,12 +30,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/find-lr.test.cpp
     title: tests/yosupo/find-lr.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/yosupo/kth-term-lr.test.cpp
     title: tests/yosupo/kth-term-lr.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"LinearRecurrence.cpp\"\n\n\n#line 1 \"PolynomialRing.cpp\"\
@@ -460,7 +460,7 @@ data:
     \ }\n};\n\ntemplate<typename Poly>\nstruct LinearRecurrence {\n  typedef LinearRecurrence<Poly>\
     \ type;\n  typedef typename Poly::field field_type;\n  typedef Poly poly_type;\n\
     \n  poly_type P, Q;\n\n  LinearRecurrence(const vector<field_type>& base, vector<field_type>\
-    \ T) {\n    assert(base.size() == T.size());\n    assert(T.back() == field_type());\n\
+    \ T) {\n    assert(base.size() == T.size());\n    assert(T.back() != field_type());\n\
     \    for(auto& x : T) x = -x;\n    T.insert(T.begin(), field_type(1));\n    Q\
     \ = poly_type(T);\n    P = poly_type(base) % T.size() * Q % ((int)T.size() - 1);\n\
     \  }\n\n  template<typename I>\n  field_type compute(I N) {\n    auto P1 = P;\n\
@@ -523,7 +523,7 @@ data:
     \ }\n};\n\ntemplate<typename Poly>\nstruct LinearRecurrence {\n  typedef LinearRecurrence<Poly>\
     \ type;\n  typedef typename Poly::field field_type;\n  typedef Poly poly_type;\n\
     \n  poly_type P, Q;\n\n  LinearRecurrence(const vector<field_type>& base, vector<field_type>\
-    \ T) {\n    assert(base.size() == T.size());\n    assert(T.back() == field_type());\n\
+    \ T) {\n    assert(base.size() == T.size());\n    assert(T.back() != field_type());\n\
     \    for(auto& x : T) x = -x;\n    T.insert(T.begin(), field_type(1));\n    Q\
     \ = poly_type(T);\n    P = poly_type(base) % T.size() * Q % ((int)T.size() - 1);\n\
     \  }\n\n  template<typename I>\n  field_type compute(I N) {\n    auto P1 = P;\n\
@@ -546,8 +546,8 @@ data:
   isVerificationFile: false
   path: LinearRecurrence.cpp
   requiredBy: []
-  timestamp: '2021-02-06 22:48:25-03:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2021-02-07 16:15:33-03:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/yosupo/find-lr.test.cpp
   - tests/yosupo/kth-term-lr.test.cpp

@@ -7,7 +7,7 @@ data:
   - icon: ':warning:'
     path: Lambda.cpp
     title: Lambda.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: Traits.cpp
     title: Traits.cpp
   - icon: ':warning:'
