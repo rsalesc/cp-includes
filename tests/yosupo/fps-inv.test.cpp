@@ -1,6 +1,11 @@
+#define PROBLEM "https://judge.yosupo.jp/problem/inv_of_formal_power_series"
+
 #include <bits/stdc++.h>
 #include "ModularInteger.cpp"
 #include "FHT.cpp"
+#include "PolynomialRing.cpp"
+#include "PowerSeries.cpp"
+#define int long long
 using namespace std;
  
 #define mp make_pair
@@ -203,31 +208,24 @@ struct Printer {
 
 using namespace lib;
 using mint = MintNTT;
+using poly = math::Polynomial<mint, FHTMultiplication>;
 
 int32_t main(){
-    Scanner sc(stdin);
-    Printer pr(stdout);
+    // Scanner sc(stdin);
+    // Printer pr(stdout);
+    iopt;
 
-    int n, m;
-    sc.read(n, m);
+    int n;
+    cin >> n;
 
     V<mint> a(n);
     for (int i = 0; i < n; i++) {
-        int x;
-        sc.read(x);
-        a[i] = x;
+        cin >> a[i];
     }
-    V<mint> b(m);
-    for (int i = 0; i < m; i++) {
-        int x;
-        sc.read(x);
-        b[i] = x;
+    auto c = series::inverse(poly(a), n);
+    for (int i = 0; i < n; i++) {
+        cout << c[i] << " ";
     }
-    auto c = FHTMultiplication()(a, b);
-    for (auto x: c) {
-        pr.write((int)x);
-        pr.write(' ');
-    }
-    pr.writeln();
+    cout << endl;
     return 0;
 }

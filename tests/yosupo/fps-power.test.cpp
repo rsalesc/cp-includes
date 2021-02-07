@@ -1,6 +1,8 @@
+#define PROBLEM "https://judge.yosupo.jp/problem/pow_of_formal_power_series"
+
 #include <bits/stdc++.h>
 #include "ModularInteger.cpp"
-#include "NTT.cpp"
+#include "FHT.cpp"
 #include "PolynomialRing.cpp"
 #include "PowerSeries.cpp"
 #define int long long
@@ -206,21 +208,21 @@ struct Printer {
 
 using namespace lib;
 using mint = MintNTT;
-using poly = math::Polynomial<mint, NTTMultiplication>;
+using poly = math::Polynomial<mint, FHTMultiplication>;
 
 int32_t main(){
     // Scanner sc(stdin);
     // Printer pr(stdout);
     iopt;
 
-    int n;
-    cin >> n;
+    int n, m;
+    cin >> n >> m;
 
     V<mint> a(n);
     for (int i = 0; i < n; i++) {
         cin >> a[i];
     }
-    auto c = series::ln(poly(a), n);
+    auto c = series::power(poly(a), m, n);
     for (int i = 0; i < n; i++) {
         cout << c[i] << " ";
     }

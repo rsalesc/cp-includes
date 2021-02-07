@@ -1,3 +1,5 @@
+#define PROBLEM "https://judge.yosupo.jp/problem/kth_term_of_linearly_recurrent_sequence"
+
 #include <bits/stdc++.h>
 #include "ModularInteger.cpp"
 #include "FHT.cpp"
@@ -39,18 +41,20 @@ int32_t main(){
     // Printer pr(stdout);
     iopt;
 
-    int n; cin >> n;
-    vector<mint> b;
+    int d, K;
+    cin >> d >> K;
+    vector<mint> b, T;
 
-    for(int i = 0; i < n; i++) {
+    for(int i = 0; i < d; i++) {
       mint x; cin >> x;
       b.pb(x);
     }
+    for(int i = 0; i < d; i++) {
+      mint x; cin >> x;
+      T.pb(x);
+    }
 
-    linalg::BMSolver<poly> lr;
-    lr.solve(b);
-    cout << lr.T.size() << endl;
-    for(mint x : lr.T) cout << x << " ";
-    cout << endl;
+    linalg::LinearRecurrence<poly> lr(b, T);
+    cout << lr.compute(K) << endl;
     return 0;
 }

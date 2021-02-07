@@ -1,3 +1,5 @@
+#define PROBLEM "https://judge.yosupo.jp/problem/find_linear_recurrence"
+
 #include <bits/stdc++.h>
 #include "ModularInteger.cpp"
 #include "FHT.cpp"
@@ -39,20 +41,18 @@ int32_t main(){
     // Printer pr(stdout);
     iopt;
 
-    int d, K;
-    cin >> d >> K;
-    vector<mint> b, T;
+    int n; cin >> n;
+    vector<mint> b;
 
-    for(int i = 0; i < d; i++) {
+    for(int i = 0; i < n; i++) {
       mint x; cin >> x;
       b.pb(x);
     }
-    for(int i = 0; i < d; i++) {
-      mint x; cin >> x;
-      T.pb(x);
-    }
 
-    linalg::LinearRecurrence<poly> lr(b, T);
-    cout << lr.compute(K) << endl;
+    linalg::BMSolver<poly> lr;
+    lr.solve(b);
+    cout << lr.T.size() << endl;
+    for(mint x : lr.T) cout << x << " ";
+    cout << endl;
     return 0;
 }
