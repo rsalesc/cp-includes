@@ -154,7 +154,7 @@ struct LinearRecurrence {
 
   LinearRecurrence(const vector<field_type>& base, vector<field_type> T) {
     assert(base.size() == T.size());
-    assert(T.back() == field_type());
+    assert(T.back() != field_type());
     for(auto& x : T) x = -x;
     T.insert(T.begin(), field_type(1));
     Q = poly_type(T);
