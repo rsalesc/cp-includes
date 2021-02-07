@@ -2,7 +2,10 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/subset-convolution.test.cpp
+    title: tests/yosupo/subset-convolution.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -87,7 +90,8 @@ data:
   requiredBy: []
   timestamp: '2021-02-07 14:32:59-03:00'
   verificationStatus: LIBRARY_ALL_AC
-  verifiedWith: []
+  verifiedWith:
+  - tests/yosupo/subset-convolution.test.cpp
 documentation_of: Subset.cpp
 layout: document
 redirect_from:

@@ -28,7 +28,13 @@ data:
   - icon: ':warning:'
     path: VectorN.cpp
     title: VectorN.cpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: tests/yosupo/fps_inv.cpp
+    title: tests/yosupo/fps_inv.cpp
+  - icon: ':warning:'
+    path: tests/yosupo/fps_power.cpp
+    title: tests/yosupo/fps_power.cpp
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -456,7 +462,9 @@ data:
   - VectorN.cpp
   isVerificationFile: false
   path: PowerSeries.cpp
-  requiredBy: []
+  requiredBy:
+  - tests/yosupo/fps_power.cpp
+  - tests/yosupo/fps_inv.cpp
   timestamp: '2021-01-31 01:48:38-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

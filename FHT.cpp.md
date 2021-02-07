@@ -22,7 +22,19 @@ data:
   - icon: ':warning:'
     path: polynomial/Transform.cpp
     title: polynomial/Transform.cpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: tests/yosupo/convolution.cpp
+    title: tests/yosupo/convolution.cpp
+  - icon: ':warning:'
+    path: tests/yosupo/fps_power.cpp
+    title: tests/yosupo/fps_power.cpp
+  - icon: ':warning:'
+    path: tests/yosupo/kth_term_lr.cpp
+    title: tests/yosupo/kth_term_lr.cpp
+  - icon: ':warning:'
+    path: tests/yosupo/lr.cpp
+    title: tests/yosupo/lr.cpp
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -305,7 +317,11 @@ data:
   - polynomial/Transform.cpp
   isVerificationFile: false
   path: FHT.cpp
-  requiredBy: []
+  requiredBy:
+  - tests/yosupo/convolution.cpp
+  - tests/yosupo/fps_power.cpp
+  - tests/yosupo/kth_term_lr.cpp
+  - tests/yosupo/lr.cpp
   timestamp: '2021-01-30 22:33:20-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

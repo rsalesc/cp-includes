@@ -6,7 +6,6 @@ exclude:
 - tests/judge
 - tests/unit
 - tests/stress
-- tests/yosupo
 - tests/catch.hpp
 - tests/jngen.h
 - .vscode

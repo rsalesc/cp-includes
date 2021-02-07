@@ -2,8 +2,20 @@
 data:
   _extendedDependsOn:
   - icon: ':warning:'
+    path: BitTricks.cpp
+    title: BitTricks.cpp
+  - icon: ':warning:'
+    path: DFT.cpp
+    title: DFT.cpp
+  - icon: ':warning:'
     path: Epsilon.cpp
     title: Epsilon.cpp
+  - icon: ':warning:'
+    path: FHT.cpp
+    title: FHT.cpp
+  - icon: ':warning:'
+    path: LinearRecurrence.cpp
+    title: LinearRecurrence.cpp
   - icon: ':warning:'
     path: LongMultiplication.cpp
     title: LongMultiplication.cpp
@@ -14,8 +26,17 @@ data:
     path: ModularInteger.cpp
     title: ModularInteger.cpp
   - icon: ':heavy_check_mark:'
+    path: ModularInteger.cpp
+    title: ModularInteger.cpp
+  - icon: ':warning:'
+    path: NTT.cpp
+    title: NTT.cpp
+  - icon: ':heavy_check_mark:'
     path: NumberTheory.cpp
     title: NumberTheory.cpp
+  - icon: ':warning:'
+    path: PolynomialRing.cpp
+    title: PolynomialRing.cpp
   - icon: ':warning:'
     path: PolynomialRing.cpp
     title: PolynomialRing.cpp
@@ -25,61 +46,36 @@ data:
   - icon: ':warning:'
     path: VectorN.cpp
     title: VectorN.cpp
-  _extendedRequiredBy:
   - icon: ':warning:'
-    path: tests/yosupo/kth_term_lr.cpp
-    title: tests/yosupo/kth_term_lr.cpp
-  - icon: ':warning:'
-    path: tests/yosupo/lr.cpp
-    title: tests/yosupo/lr.cpp
+    path: polynomial/Transform.cpp
+    title: polynomial/Transform.cpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "#line 1 \"LinearRecurrence.cpp\"\n\n\n#line 1 \"PolynomialRing.cpp\"\
-    \n\n\n#line 1 \"Epsilon.cpp\"\n\n\n#include <bits/stdc++.h>\n\nnamespace lib {\n\
-    using namespace std;\n\ntemplate <typename T = double> struct Epsilon {\n  T eps;\n\
-    \  constexpr Epsilon(T eps = 1e-9) : eps(eps) {}\n\n  template <typename G,\n\
-    \            typename enable_if<is_floating_point<G>::value>::type * = nullptr>\n\
-    \  int operator()(G a, G b = 0) const {\n    return a + eps < b ? -1 : (b + eps\
-    \ < a ? 1 : 0);\n  }\n\n  template <typename G,\n            typename enable_if<!is_floating_point<G>::value>::type\
-    \ * = nullptr>\n  int operator()(G a, G b = 0) const {\n    return a < b ? -1\
-    \ : (a > b ? 1 : 0);\n  }\n\n  template <typename G,\n            typename enable_if<is_floating_point<G>::value>::type\
-    \ * = nullptr>\n  bool null(G a) const {\n    return (*this)(a) == 0;\n  }\n\n\
-    \  template <typename G,\n            typename enable_if<!is_floating_point<G>::value>::type\
-    \ * = nullptr>\n  bool null(G a) const {\n    return a == 0;\n  }\n};\n} // namespace\
-    \ lib\n\n\n#line 1 \"Math.cpp\"\n\n\n#line 4 \"Math.cpp\"\n\nnamespace lib {\n\
-    using namespace std;\nnamespace math {\n\n/// caide keep\ntemplate <typename Type>\
-    \ struct DefaultPowerOp {\n  Type operator()() const { return Type(1); }\n  Type\
-    \ operator()(const Type &a) const { return a; }\n  void operator()(Type &x, const\
-    \ Type &a, long long cur) const {\n    x *= x;\n    if (cur & 1)\n      x *= a;\n\
-    \  }\n};\n\ntemplate <typename Type, typename Op>\nType generic_power(const Type\
-    \ &a, long long n, Op op) {\n  if (n == 0)\n    return op();\n  Type res = op(a);\n\
-    \  int hi = 63 - __builtin_clzll(n);\n  for (int i = hi - 1; ~i; i--) {\n    op(res,\
-    \ a, n >> i);\n  }\n  return res;\n}\n\ntemplate <typename Type> Type generic_power(const\
-    \ Type &a, long long n) {\n  return generic_power(a, n, DefaultPowerOp<Type>());\n\
-    }\n} // namespace math\n} // namespace lib\n\n\n#line 1 \"ModularInteger.cpp\"\
-    \n\n\n#line 1 \"NumberTheory.cpp\"\n\n\n#line 4 \"NumberTheory.cpp\"\n\nnamespace\
-    \ lib {\nusing namespace std;\nnamespace nt {\nint64_t inverse(int64_t a, int64_t\
-    \ b) {\n  long long b0 = b, t, q;\n  long long x0 = 0, x1 = 1;\n  if (b == 1)\n\
-    \    return 1;\n  while (a > 1) {\n    q = a / b;\n    t = b, b = a % b, a = t;\n\
-    \    t = x0, x0 = x1 - q * x0, x1 = t;\n  }\n  if (x1 < 0)\n    x1 += b0;\n  return\
-    \ x1;\n}\ntemplate<typename T, typename U>\nT powmod (T a, U b, U p) {\n    int\
-    \ res = 1;\n    while (b)\n        if (b & 1)\n            res = int (res * 1ll\
-    \ * a % p),  --b;\n        else\n            a = int (a * 1ll * a % p),  b >>=\
-    \ 1;\n    return res;\n}\ntemplate<typename T>\nvector<T> factors(T n) {\n  vector<T>\
-    \ f;\n  for(T i = 2; i*i <= n; i++) {\n    if(n % i == 0) f.push_back(i);\n  \
-    \  while(n % i == 0) n /= i;\n  }\n  if(n > 1) f.push_back(n);\n  return f;\n\
-    }\n} // namespace nt\n} // namespace lib\n\n\n#line 5 \"ModularInteger.cpp\"\n\
-    \n#if __cplusplus < 201300\n#error required(c++14)\n#endif\n\nnamespace lib {\n\
-    using namespace std;\nnamespace {\ntemplate <typename T, T... Mods> struct ModularIntegerBase\
-    \ {\n  typedef ModularIntegerBase<T, Mods...> type;\n\n  T x[sizeof...(Mods)];\n\
-    \  friend ostream &operator<<(ostream &output, const type &var) {\n    output\
-    \ << \"(\";\n    for (int i = 0; i < sizeof...(Mods); i++) {\n      if (i)\n \
-    \       output << \", \";\n      output << var.x[i];\n    }\n    return output\
-    \ << \")\";\n  }\n};\n\ntemplate <typename T, T Mod> struct ModularIntegerBase<T,\
+  bundledCode: "#line 1 \"tests/yosupo/lr.cpp\"\n#include <bits/stdc++.h>\n#line 1\
+    \ \"ModularInteger.cpp\"\n\n\n#line 1 \"NumberTheory.cpp\"\n\n\n#line 4 \"NumberTheory.cpp\"\
+    \n\nnamespace lib {\nusing namespace std;\nnamespace nt {\nint64_t inverse(int64_t\
+    \ a, int64_t b) {\n  long long b0 = b, t, q;\n  long long x0 = 0, x1 = 1;\n  if\
+    \ (b == 1)\n    return 1;\n  while (a > 1) {\n    q = a / b;\n    t = b, b = a\
+    \ % b, a = t;\n    t = x0, x0 = x1 - q * x0, x1 = t;\n  }\n  if (x1 < 0)\n   \
+    \ x1 += b0;\n  return x1;\n}\ntemplate<typename T, typename U>\nT powmod (T a,\
+    \ U b, U p) {\n    int res = 1;\n    while (b)\n        if (b & 1)\n         \
+    \   res = int (res * 1ll * a % p),  --b;\n        else\n            a = int (a\
+    \ * 1ll * a % p),  b >>= 1;\n    return res;\n}\ntemplate<typename T>\nvector<T>\
+    \ factors(T n) {\n  vector<T> f;\n  for(T i = 2; i*i <= n; i++) {\n    if(n %\
+    \ i == 0) f.push_back(i);\n    while(n % i == 0) n /= i;\n  }\n  if(n > 1) f.push_back(n);\n\
+    \  return f;\n}\n} // namespace nt\n} // namespace lib\n\n\n#line 5 \"ModularInteger.cpp\"\
+    \n\n#if __cplusplus < 201300\n#error required(c++14)\n#endif\n\nnamespace lib\
+    \ {\nusing namespace std;\nnamespace {\ntemplate <typename T, T... Mods> struct\
+    \ ModularIntegerBase {\n  typedef ModularIntegerBase<T, Mods...> type;\n\n  T\
+    \ x[sizeof...(Mods)];\n  friend ostream &operator<<(ostream &output, const type\
+    \ &var) {\n    output << \"(\";\n    for (int i = 0; i < sizeof...(Mods); i++)\
+    \ {\n      if (i)\n        output << \", \";\n      output << var.x[i];\n    }\n\
+    \    return output << \")\";\n  }\n};\n\ntemplate <typename T, T Mod> struct ModularIntegerBase<T,\
     \ Mod> {\n  typedef ModularIntegerBase<T, Mod> type;\n  constexpr static T mod\
     \ = Mod;\n\n  T x[1];\n\n  T& data() { return this->x[0]; }\n  T data() const\
     \ { return this->x[0]; }\n  explicit operator int() const { return this->x[0];\
@@ -179,19 +175,55 @@ data:
     \                       Mods...>;\n\ntemplate <int32_t... Mods> using Mint32 =\
     \ ModularInteger<int32_t, Mods...>;\n\ntemplate <int64_t... Mods> using Mint64\
     \ = ModularInteger<int64_t, Mods...>;\n\nusing MintP = Mint32<(int32_t)1e9+7>;\n\
-    using MintNTT = Mint32<998244353>;\n} // namespace lib\n\n\n#line 1 \"Traits.cpp\"\
-    \n\n\n#line 4 \"Traits.cpp\"\n\nnamespace lib {\nusing namespace std;\nnamespace\
-    \ traits {\n\ntemplate <typename...> struct make_void { using type = void; };\n\
-    \ntemplate <typename... T> using void_t = typename make_void<T...>::type;\n\n\
-    /// keep caide\ntemplate <typename Iterator>\nusing IteratorCategory = typename\
-    \ iterator_traits<Iterator>::iterator_category;\n\n/// keep caide\ntemplate <typename\
-    \ Container>\nusing IteratorCategoryOf = IteratorCategory<typename Container::iterator>;\n\
-    \n/// keep caide\ntemplate <typename Iterator>\nusing IteratorValue = typename\
-    \ iterator_traits<Iterator>::value_type;\n\n/// keep caide\ntemplate <typename\
-    \ Container>\nusing IteratorValueOf = IteratorValue<typename Container::iterator>;\n\
-    \n/// keep caide\ntemplate <typename Iterator>\nusing IsRandomIterator =\n   \
-    \ is_base_of<random_access_iterator_tag, IteratorCategory<Iterator>>;\n\n/// keep\
-    \ caide\ntemplate <typename Iterator>\nusing IsInputIterator =\n    is_base_of<input_iterator_tag,\
+    using MintNTT = Mint32<998244353>;\n} // namespace lib\n\n\n#line 1 \"FHT.cpp\"\
+    \n\n\n#line 1 \"BitTricks.cpp\"\n\n\n#line 4 \"BitTricks.cpp\"\n\nnamespace lib\
+    \ {\nlong long next_power_of_two(long long n) {\n  return 1LL << (sizeof(long\
+    \ long) * 8 - 1 - __builtin_clzll(n) +\n                 ((n & (n - 1LL)) != 0));\n\
+    }\n} // namespace lib\n\n\n#line 1 \"NTT.cpp\"\n\n\n#line 1 \"DFT.cpp\"\n\n\n\
+    #line 5 \"DFT.cpp\"\n\nnamespace lib {\nusing namespace std;\nnamespace linalg\
+    \ {\ntemplate <typename Ring, typename Provider>\nstruct DFT {\n  static vector<int>\
+    \ rev;\n  static vector<Ring> fa;\n\n  // function used to precompute rev for\
+    \ fixed size fft (n is a power of two)\n  static void dft_rev(int n) {\n    Provider()(n);\n\
+    \    int lbn = __builtin_ctz(n);\n    if ((int)rev.size() < (1 << lbn))\n    \
+    \  rev.resize(1 << lbn);\n    int h = -1;\n    for (int i = 1; i < n; i++) {\n\
+    \      if ((i & (i - 1)) == 0)\n        h++;\n      rev[i] = rev[i ^ (1 << h)]\
+    \ | (1 << (lbn - h - 1));\n    }\n  }\n\n  static void dft_iter(Ring *p, int n)\
+    \ {\n    Provider w;\n    for (int L = 2; L <= n; L <<= 1) {\n      for (int i\
+    \ = 0; i < n; i += L) {\n        for (int j = 0; j < L / 2; j++) {\n         \
+    \ Ring z = p[i + j + L / 2] * w[j + L / 2];\n          p[i + j + L / 2] = p[i\
+    \ + j] - z;\n          p[i + j] += z;\n        }\n      }\n    }\n  }\n\n  static\
+    \ void swap(vector<Ring> &buf) { std::swap(fa, buf); }\n  static void _dft(Ring\
+    \ *p, int n) {\n    dft_rev(n);\n    for (int i = 0; i < n; i++)\n      if (i\
+    \ < rev[i])\n        std::swap(p[i], p[rev[i]]);\n    dft_iter(p, n);\n  }\n \
+    \ static void _idft(Ring *p, int n) {\n    _dft(p, n);\n    reverse(p + 1, p +\
+    \ n);\n    Ring inv = Provider().inverse(n);\n    for (int i = 0; i < n; i++)\n\
+    \      p[i] *= inv;\n  }\n\n  static void dft(int n) { _dft(fa.data(), n); }\n\
+    \n  static void idft(int n) { _idft(fa.data(), n); }\n\n  static void dft(vector<Ring>\
+    \ &v, int n) {\n    swap(v);\n    dft(n);\n    swap(v);\n  }\n  static void idft(vector<Ring>\
+    \ &v, int n) {\n    swap(v);\n    idft(n);\n    swap(v);\n  }\n\n  static int\
+    \ ensure(int a, int b = 0) {\n    int n = a+b;\n    n = next_power_of_two(n);\n\
+    \    if ((int)fa.size() < n)\n      fa.resize(n);\n    return n;\n  }\n\n  static\
+    \ void clear(int n) { fill(fa.begin(), fa.begin() + n, 0); }\n\n  template<typename\
+    \ Iterator>\n  static void fill(Iterator begin, Iterator end) {\n    int n = ensure(distance(begin,\
+    \ end));\n    int i = 0;\n    for(auto it = begin; it != end; ++it) {\n      fa[i++]\
+    \ = *it;\n    }\n    for(;i < n; i++) fa[i] = Ring();\n  }\n};\n\ntemplate<typename\
+    \ DF, typename U>\nstatic vector<U> retrieve(int n) {\n  assert(n <= DF::fa.size());\n\
+    \  vector<U> res(n);\n  for(int i = 0; i < n; i++) res[i] = (U)DF::fa[i];\n  return\
+    \ res;\n}\n\ntemplate<typename Ring, typename Provider>\nvector<int> DFT<Ring,\
+    \ Provider>::rev = vector<int>();\n\ntemplate<typename Ring, typename Provider>\n\
+    vector<Ring> DFT<Ring, Provider>::fa = vector<Ring>();\n}\n} // namespace lib\n\
+    \n\n#line 1 \"VectorN.cpp\"\n\n\n#line 1 \"Traits.cpp\"\n\n\n#line 4 \"Traits.cpp\"\
+    \n\nnamespace lib {\nusing namespace std;\nnamespace traits {\n\ntemplate <typename...>\
+    \ struct make_void { using type = void; };\n\ntemplate <typename... T> using void_t\
+    \ = typename make_void<T...>::type;\n\n/// keep caide\ntemplate <typename Iterator>\n\
+    using IteratorCategory = typename iterator_traits<Iterator>::iterator_category;\n\
+    \n/// keep caide\ntemplate <typename Container>\nusing IteratorCategoryOf = IteratorCategory<typename\
+    \ Container::iterator>;\n\n/// keep caide\ntemplate <typename Iterator>\nusing\
+    \ IteratorValue = typename iterator_traits<Iterator>::value_type;\n\n/// keep\
+    \ caide\ntemplate <typename Container>\nusing IteratorValueOf = IteratorValue<typename\
+    \ Container::iterator>;\n\n/// keep caide\ntemplate <typename Iterator>\nusing\
+    \ IsRandomIterator =\n    is_base_of<random_access_iterator_tag, IteratorCategory<Iterator>>;\n\
+    \n/// keep caide\ntemplate <typename Iterator>\nusing IsInputIterator =\n    is_base_of<input_iterator_tag,\
     \ IteratorCategory<Iterator>>;\n\n/// keep caide\ntemplate <typename Iterator>\n\
     using IsBidirectionalIterator =\n    is_base_of<bidirectional_iterator_tag, IteratorCategory<Iterator>>;\n\
     \n/// keep caide\ntemplate <typename Container>\nusing HasRandomIterator =\n \
@@ -199,7 +231,170 @@ data:
     /// keep caide\ntemplate <typename Container>\nusing HasInputIterator =\n    is_base_of<input_iterator_tag,\
     \ IteratorCategoryOf<Container>>;\n\n/// keep caide\ntemplate <typename Container>\n\
     using HasBidirectionalIterator =\n    is_base_of<bidirectional_iterator_tag, IteratorCategoryOf<Container>>;\n\
-    } // namespace traits\n} // namespace lib\n\n\n#line 1 \"LongMultiplication.cpp\"\
+    } // namespace traits\n} // namespace lib\n\n\n#line 5 \"VectorN.cpp\"\n\n#define\
+    \ VEC_CONST_OP(op, typ) \\\n  type operator op(const typ rhs) const { \\\n   \
+    \ auto res = *this; \\\n    return res op##= rhs; \\\n  }\n\n#define VEC_BIN_OP(op)\
+    \ \\\n  type& operator op##=(const type& rhs) { \\\n    if(rhs.size() > this->size())\
+    \ \\\n      this->resize(rhs.size()); \\\n    int sz = this->size(); \\\n    for(int\
+    \ i = 0; i < (int)rhs.size(); i++) \\\n      (*this)[i] op##= rhs[i]; \\\n   \
+    \ for(int i = rhs.size(); i < sz; i++) \\\n      (*this)[i] op##= 0; \\\n    return\
+    \ *this; \\\n  } \\\n  VEC_CONST_OP(op, type)\n\n#define VEC_SINGLE_OP(op, typ)\
+    \ \\\n  type& operator op##=(const typ rhs) { \\\n    for(auto& x : *this) \\\n\
+    \      x op##= rhs; \\\n    return *this; \\\n  } \\\n  VEC_CONST_OP(op, typ)\n\
+    \  \n\nnamespace lib {\nusing namespace std;\ntemplate<typename T>\nstruct VectorN\
+    \ : vector<T> {\n  using type = VectorN<T>;\n\n  template <\n      typename Container,\n\
+    \      typename enable_if<traits::HasInputIterator<Container>::value>::type *\
+    \ = nullptr>\n  VectorN(const Container &container)\n      : vector<T>(container.begin(),\
+    \ container.end()) {}\n\n  VectorN(const initializer_list<T> &v)\n      : vector<T>(v.begin(),\
+    \ v.end()) {}\n\n  template<typename... Args>\n  VectorN( Args&&... args ) \n\
+    \      : vector<T>(std::forward<Args>(args)...) {}\n\n  VEC_BIN_OP(+)\n  VEC_BIN_OP(-)\n\
+    \  VEC_BIN_OP(*)\n\n  VEC_SINGLE_OP(+, T&)\n  VEC_SINGLE_OP(-, T&)\n  VEC_SINGLE_OP(*,\
+    \ T&)\n  VEC_SINGLE_OP(/, T&)\n  VEC_SINGLE_OP(^, int64_t)\n\n  type operator-()\
+    \ const {\n    auto res = *this;\n    for(auto& x : res) x = -x;\n    return res;\n\
+    \  }\n\n  type operator%(int n) const {\n    // TODO: get rid of this\n    //\
+    \ return *const_cast<type*>(this);\n    return *this;\n  }\n};\n} // namespace\
+    \ lib\n\n\n#line 7 \"NTT.cpp\"\n\nnamespace lib {\nusing namespace std;\nnamespace\
+    \ linalg {\ntemplate<typename T>\nstruct MintRootProvider {\n  static size_t max_sz;\n\
+    \  static T g;\n  static vector<T> w;\n\n  MintRootProvider() {\n    if(g == 0)\
+    \ {\n      auto acc = T::mod-1;\n      while(acc % 2 == 0) acc /= 2, max_sz++;\n\
+    \n      auto factors = nt::factors(T::mod - 1);\n      for(g = 2; (typename T::type_int)g\
+    \ < T::mod; g++) {\n        bool ok = true;\n        for(auto f : factors) {\n\
+    \          if(power(g, (T::mod-1)/f) == 1) {\n            ok = false;\n      \
+    \      break;\n          }\n        }\n        if(ok) break;\n      }\n      assert(g\
+    \ != 0);\n    }\n  }\n\n  pair<T, T> roots(int num, int den) {\n    auto p = g\
+    \ ^ ((long long)(T::mod - 1) / den * num);\n    return {p, p.inverse()};\n  }\n\
+    \n  T operator()(int n, int k) {\n    return power(g, (T::mod-1)/(n/k));\n  }\n\
+    \  void operator()(int n) {\n    n = max(n, 2);\n    int k = max((int)w.size(),\
+    \ 2);\n    assert(n <= (1LL << max_sz));\n    if ((int)w.size() < n)\n      w.resize(n);\n\
+    \    else\n      return;\n    w[0] = w[1] = 1;\n    for (; k < n; k *= 2) {\n\
+    \      T step = power(g, (T::mod-1)/(2*k));\n      for(int i = k; i < 2*k; i++)\n\
+    \        w[i] = (i&1) ? w[i/2] * step : w[i/2];\n    }\n  }\n  T operator[](int\
+    \ i) {\n    return w[i];\n  }\n\n  T inverse(int n) {\n    return T(1) / n;\n\
+    \  }\n};\n\ntemplate<typename T>\nsize_t MintRootProvider<T>::max_sz = 1;\ntemplate<typename\
+    \ T>\nT MintRootProvider<T>::g = T();\ntemplate<typename T>\nvector<T> MintRootProvider<T>::w\
+    \ = vector<T>();\n\ntemplate<typename T>\nstruct NTT : public DFT<T, MintRootProvider<T>>\
+    \ {\n  using Parent = DFT<T, MintRootProvider<T>>;\n  using Parent::fa;\n  using\
+    \ Parent::dft;\n  using Parent::idft;\n\n  static void _convolve(const vector<T>\
+    \ &a) {\n    int n = Parent::ensure(a.size(), a.size());\n    for (size_t i =\
+    \ 0; i < (size_t)n; i++)\n      fa[i] = i < a.size() ? a[i] : T();\n    Parent::dft(n);\n\
+    \    for (int i = 0; i < n; i++)\n      fa[i] *= fa[i];\n    Parent::idft(n);\n\
+    \  }\n\n  static void _convolve(const vector<T> &a, const vector<T> &b) {\n  \
+    \  if(std::addressof(a) == std::addressof(b))\n      return _convolve(a);\n  \
+    \  int n = Parent::ensure(a.size(), b.size());\n    for (size_t i = 0; i < (size_t)n;\
+    \ i++)\n      fa[i] = i < a.size() ? a[i] : T();\n    Parent::dft(n);\n    //\
+    \ TODO: have a buffer for this\n    auto fb = retrieve<Parent, T>(n);\n    for(size_t\
+    \ i = 0; i < (size_t)n; i++)\n      fa[i] = i < b.size() ? b[i] : T();\n    Parent::dft(n);\n\
+    \    for (int i = 0; i < n; i++)\n      fa[i] *= fb[i];\n    Parent::idft(n);\n\
+    \  }\n\n  static vector<T> convolve(const vector<T>& a, const vector<T>& b) {\n\
+    \    int sz = (int)a.size() + b.size() - 1;\n    _convolve(a, b);\n    return\
+    \ retrieve<Parent, T>(sz);\n  }\n  \n  static VectorN<T> transform(vector<T> a,\
+    \ int n) {\n    a.resize(n);\n    Parent::dft(a, n);\n    return a;\n  }\n\n \
+    \ static vector<T> itransform(vector<T> a, int n) {\n    int sz = a.size();\n\
+    \    Parent::idft(a, sz);\n    a.resize(min(n, sz));\n    return a;\n  }\n};\n\
+    }\n\nstruct NTTMultiplication {\n  template<typename T>\n  using Transform = linalg::NTT<T>;\n\
+    \n  template <typename Field>\n  vector<Field> operator()(const vector<Field>\
+    \ &a,\n                           const vector<Field> &b) const {\n    return\
+    \ linalg::NTT<Field>::convolve(a, b);\n  };\n\n  template<typename Field>\n  inline\
+    \ VectorN<Field> transform(int n, const vector<Field>& p) const {\n    int np\
+    \ = next_power_of_two(n);\n    return linalg::NTT<Field>::transform(p, np);\n\
+    \  }\n\n  template<typename Field>\n  inline vector<Field> itransform(int n, const\
+    \ vector<Field>& p) const {\n    return linalg::NTT<Field>::itransform(p, n);\n\
+    \  }\n\n  template <typename Field, typename Functor, typename ...Ts>\n  inline\
+    \ vector<Field> on_transform(\n    int n,\n    Functor& f,        \n    const\
+    \ vector<Ts>&... vs) const {\n    int np = next_power_of_two(n);\n    return linalg::NTT<Field>::itransform(\n\
+    \      f(n, linalg::NTT<Field>::transform(vs, np)...), n);\n  }\n};\n} // namespace\
+    \ lib\n\n\n#line 1 \"polynomial/Transform.cpp\"\n\n\n#line 4 \"polynomial/Transform.cpp\"\
+    \n\nnamespace lib {\nusing namespace std;\ntemplate<template <class> class T>\n\
+    struct TransformMultiplication {\n  template<typename Field>\n  using Transform\
+    \ = T<Field>;\n\n  template <typename Field>\n  vector<Field> operator()(const\
+    \ vector<Field> &a,\n                           const vector<Field> &b) const\
+    \ {\n    return T<Field>::convolve(a, b);\n  };\n\n  template<typename Field>\n\
+    \  inline VectorN<Field> transform(int n, const vector<Field>& p) const {\n  \
+    \  int np = next_power_of_two(n);\n    return T<Field>::transform(p, np);\n  }\n\
+    \n  template<typename Field>\n  inline vector<Field> itransform(int n, const vector<Field>&\
+    \ p) const {\n    return T<Field>::itransform(p, n);\n  }\n\n  template <typename\
+    \ Field, typename Functor, typename ...Ts>\n  inline vector<Field> on_transform(\n\
+    \    int n,\n    Functor& f,        \n    const vector<Ts>&... vs) const {\n \
+    \   int np = next_power_of_two(n);\n    return T<Field>::itransform(\n      f(n,\
+    \ T<Field>::transform(vs, np)...), n);\n  }\n};\n} // namespace lib\n\n\n#line\
+    \ 7 \"FHT.cpp\"\n\nnamespace lib {\nusing namespace std;\nnamespace linalg {\n\
+    template <typename Ring>\nstruct FHT {\n  using Provider = MintRootProvider<Ring>;\n\
+    \  using T = Ring;\n  using U = make_unsigned_t<typename Ring::type_int>;\n  using\
+    \ U64 = make_unsigned_t<typename Ring::large_int>;\n  static vector<Ring> fa;\n\
+    \  static const int MAX_LG_N = 30;\n  static vector<Ring> g, ig;\n  \n  static\
+    \ void precompute() {\n    if(!g.empty()) return;\n    Provider();\n    g.resize(MAX_LG_N);\n\
+    \    ig.resize(MAX_LG_N);\n    for(int i = 0; i < MAX_LG_N; i++) {\n      Ring\
+    \ w = Provider::g ^ (((Ring::mod-1) >> (i + 2)) * 3);\n      w = -w;\n      Ring\
+    \ iw = w.inverse();\n      g[i] = w;\n      ig[i] = iw;\n    }\n  }\n\n  static\
+    \ inline U& v(Ring& p) {\n    return (U&)p.data();\n  }\n\n  static inline U v(const\
+    \ Ring& p) {\n    return (U)p.data();\n  }\n\n  static void dft_iter(Ring *p,\
+    \ int n) {\n    // decimation-in-time\n    // natural to reverse ordering\n  \
+    \  for (int B = n >> 1; B; B >>= 1) {\n      Ring w = 1;\n      for (int i = 0,\
+    \ twiddle = 0; i < n; i += B * 2) {\n        for (int j = i; j < i + B; j++) {\n\
+    \          Ring z = p[j + B] * w;\n          p[j + B] = p[j] - z;\n          p[j]\
+    \ += z;\n        }\n        w *= g[__builtin_ctz(++twiddle)];\n      }\n    }\n\
+    \  }\n\n  static void idft_iter(Ring *p, int n) {\n    // decimation-in-frequency\n\
+    \    // reverse to natural ordering\n    for (int B = 1; B < n; B <<= 1) {\n \
+    \     Ring w = 1;\n      for (int i = 0, twiddle = 0; i < n; i += B * 2) {\n \
+    \       for (int j = i; j < i + B; j++) {\n          Ring z = (p[j] - p[j + B])\
+    \ * w;\n          p[j] += p[j + B];\n          p[j + B] = z;\n        }\n    \
+    \    w *= ig[__builtin_ctz(++twiddle)];\n      }\n    }\n  }\n\n  static void\
+    \ swap(vector<Ring> &buf) { std::swap(fa, buf); }\n  static void _dft(Ring *p,\
+    \ int n) {\n    precompute();\n    dft_iter(p, n);\n  }\n  static void _idft(Ring\
+    \ *p, int n) {\n    precompute();\n    idft_iter(p, n);\n    Ring inv = Provider().inverse(n);\n\
+    \    for (int i = 0; i < n; i++)\n      p[i] *= inv;\n  }\n\n  static void dft(int\
+    \ n) { _dft(fa.data(), n); }\n\n  static void idft(int n) { _idft(fa.data(), n);\
+    \ }\n\n  static void dft(vector<Ring> &v, int n) {\n    swap(v);\n    dft(n);\n\
+    \    swap(v);\n  }\n  static void idft(vector<Ring> &v, int n) {\n    swap(v);\n\
+    \    idft(n);\n    swap(v);\n  }\n\n  static int ensure(int a, int b = 0) {\n\
+    \    int n = a+b;\n    n = next_power_of_two(n);\n    if ((int)fa.size() < n)\n\
+    \      fa.resize(n);\n    return n;\n  }\n\n  static void clear(int n) { fill(fa.begin(),\
+    \ fa.begin() + n, 0); }\n\n  template<typename Iterator>\n  static void fill(Iterator\
+    \ begin, Iterator end) {\n    int n = ensure(distance(begin, end));\n    int i\
+    \ = 0;\n    for(auto it = begin; it != end; ++it) {\n      fa[i++] = *it;\n  \
+    \  }\n    for(;i < n; i++) fa[i] = Ring();\n  }\n\n  static void _convolve(const\
+    \ vector<T> &a) {\n    int n = ensure(a.size(), a.size());\n    for (size_t i\
+    \ = 0; i < (size_t)n; i++)\n      fa[i] = i < a.size() ? a[i] : T();\n    dft(n);\n\
+    \    for (int i = 0; i < n; i++)\n      fa[i] *= fa[i];\n    idft(n);\n  }\n\n\
+    \  static void _convolve(const vector<T> &a, const vector<T> &b) {\n    if(std::addressof(a)\
+    \ == std::addressof(b))\n      return _convolve(a);\n    int n = ensure(a.size(),\
+    \ b.size());\n    for (size_t i = 0; i < (size_t)n; i++)\n      fa[i] = i < a.size()\
+    \ ? a[i] : T();\n    dft(n);\n    // TODO: have a buffer for this\n    auto fb\
+    \ = retrieve<FHT<T>, T>(n);\n    for(size_t i = 0; i < (size_t)n; i++)\n     \
+    \ fa[i] = i < b.size() ? b[i] : T();\n    dft(n);\n    for (int i = 0; i < n;\
+    \ i++)\n      fa[i] *= fb[i];\n    idft(n);\n  }\n\n  static vector<T> convolve(const\
+    \ vector<T>& a, const vector<T>& b) {\n    int sz = (int)a.size() + b.size() -\
+    \ 1;\n    _convolve(a, b);\n    return retrieve<FHT<T>, T>(sz);\n  }\n  \n  static\
+    \ VectorN<T> transform(vector<T> a, int n) {\n    a.resize(n);\n    dft(a, n);\n\
+    \    return a;\n  }\n\n  static vector<T> itransform(vector<T> a, int n) {\n \
+    \   int sz = a.size();\n    idft(a, sz);\n    a.resize(min(n, sz));\n    return\
+    \ a;\n  }\n};\n\ntemplate<typename Ring>\nvector<Ring> FHT<Ring>::fa = vector<Ring>();\n\
+    template<typename Ring>\nvector<Ring> FHT<Ring>::g = vector<Ring>();\ntemplate<typename\
+    \ Ring>\nvector<Ring> FHT<Ring>::ig = vector<Ring>();\n}\n\nusing FHTMultiplication\
+    \ = TransformMultiplication<linalg::FHT>;\n} // namespace lib\n\n\n#line 1 \"\
+    PolynomialRing.cpp\"\n\n\n#line 1 \"Epsilon.cpp\"\n\n\n#line 4 \"Epsilon.cpp\"\
+    \n\nnamespace lib {\nusing namespace std;\n\ntemplate <typename T = double> struct\
+    \ Epsilon {\n  T eps;\n  constexpr Epsilon(T eps = 1e-9) : eps(eps) {}\n\n  template\
+    \ <typename G,\n            typename enable_if<is_floating_point<G>::value>::type\
+    \ * = nullptr>\n  int operator()(G a, G b = 0) const {\n    return a + eps < b\
+    \ ? -1 : (b + eps < a ? 1 : 0);\n  }\n\n  template <typename G,\n            typename\
+    \ enable_if<!is_floating_point<G>::value>::type * = nullptr>\n  int operator()(G\
+    \ a, G b = 0) const {\n    return a < b ? -1 : (a > b ? 1 : 0);\n  }\n\n  template\
+    \ <typename G,\n            typename enable_if<is_floating_point<G>::value>::type\
+    \ * = nullptr>\n  bool null(G a) const {\n    return (*this)(a) == 0;\n  }\n\n\
+    \  template <typename G,\n            typename enable_if<!is_floating_point<G>::value>::type\
+    \ * = nullptr>\n  bool null(G a) const {\n    return a == 0;\n  }\n};\n} // namespace\
+    \ lib\n\n\n#line 1 \"Math.cpp\"\n\n\n#line 4 \"Math.cpp\"\n\nnamespace lib {\n\
+    using namespace std;\nnamespace math {\n\n/// caide keep\ntemplate <typename Type>\
+    \ struct DefaultPowerOp {\n  Type operator()() const { return Type(1); }\n  Type\
+    \ operator()(const Type &a) const { return a; }\n  void operator()(Type &x, const\
+    \ Type &a, long long cur) const {\n    x *= x;\n    if (cur & 1)\n      x *= a;\n\
+    \  }\n};\n\ntemplate <typename Type, typename Op>\nType generic_power(const Type\
+    \ &a, long long n, Op op) {\n  if (n == 0)\n    return op();\n  Type res = op(a);\n\
+    \  int hi = 63 - __builtin_clzll(n);\n  for (int i = hi - 1; ~i; i--) {\n    op(res,\
+    \ a, n >> i);\n  }\n  return res;\n}\n\ntemplate <typename Type> Type generic_power(const\
+    \ Type &a, long long n) {\n  return generic_power(a, n, DefaultPowerOp<Type>());\n\
+    }\n} // namespace math\n} // namespace lib\n\n\n#line 1 \"LongMultiplication.cpp\"\
     \n\n\n#line 4 \"LongMultiplication.cpp\"\n\nnamespace lib {\nusing namespace std;\n\
     namespace math {\nstruct NaiveMultiplication {\n  template<typename T>\n  using\
     \ Transform = void;\n\n  template <typename Field>\n  vector<Field> operator()(const\
@@ -211,58 +406,36 @@ data:
     \ b) {\n  if (b.empty())\n    return {};\n  reverse(b.begin(), b.end());\n  int\
     \ n = a.size();\n  int m = b.size();\n\n  auto res = Mult()(a, b);\n  return vector<Field>(res.begin()\
     \ + m - 1, res.end());\n}\n} // namespace math\n} // namespace lib\n\n\n#line\
-    \ 1 \"VectorN.cpp\"\n\n\n#line 5 \"VectorN.cpp\"\n\n#define VEC_CONST_OP(op, typ)\
-    \ \\\n  type operator op(const typ rhs) const { \\\n    auto res = *this; \\\n\
-    \    return res op##= rhs; \\\n  }\n\n#define VEC_BIN_OP(op) \\\n  type& operator\
-    \ op##=(const type& rhs) { \\\n    if(rhs.size() > this->size()) \\\n      this->resize(rhs.size());\
-    \ \\\n    int sz = this->size(); \\\n    for(int i = 0; i < (int)rhs.size(); i++)\
-    \ \\\n      (*this)[i] op##= rhs[i]; \\\n    for(int i = rhs.size(); i < sz; i++)\
-    \ \\\n      (*this)[i] op##= 0; \\\n    return *this; \\\n  } \\\n  VEC_CONST_OP(op,\
-    \ type)\n\n#define VEC_SINGLE_OP(op, typ) \\\n  type& operator op##=(const typ\
-    \ rhs) { \\\n    for(auto& x : *this) \\\n      x op##= rhs; \\\n    return *this;\
-    \ \\\n  } \\\n  VEC_CONST_OP(op, typ)\n  \n\nnamespace lib {\nusing namespace\
-    \ std;\ntemplate<typename T>\nstruct VectorN : vector<T> {\n  using type = VectorN<T>;\n\
-    \n  template <\n      typename Container,\n      typename enable_if<traits::HasInputIterator<Container>::value>::type\
-    \ * = nullptr>\n  VectorN(const Container &container)\n      : vector<T>(container.begin(),\
-    \ container.end()) {}\n\n  VectorN(const initializer_list<T> &v)\n      : vector<T>(v.begin(),\
-    \ v.end()) {}\n\n  template<typename... Args>\n  VectorN( Args&&... args ) \n\
-    \      : vector<T>(std::forward<Args>(args)...) {}\n\n  VEC_BIN_OP(+)\n  VEC_BIN_OP(-)\n\
-    \  VEC_BIN_OP(*)\n\n  VEC_SINGLE_OP(+, T&)\n  VEC_SINGLE_OP(-, T&)\n  VEC_SINGLE_OP(*,\
-    \ T&)\n  VEC_SINGLE_OP(/, T&)\n  VEC_SINGLE_OP(^, int64_t)\n\n  type operator-()\
-    \ const {\n    auto res = *this;\n    for(auto& x : res) x = -x;\n    return res;\n\
-    \  }\n\n  type operator%(int n) const {\n    // TODO: get rid of this\n    //\
-    \ return *const_cast<type*>(this);\n    return *this;\n  }\n};\n} // namespace\
-    \ lib\n\n\n#line 10 \"PolynomialRing.cpp\"\n\nnamespace lib {\nusing namespace\
-    \ std;\nnamespace math {\nnamespace poly {\n\nnamespace {\n/// keep caide\nusing\
-    \ traits::IsInputIterator;\n/// keep caide\nusing traits::HasInputIterator;\n\
-    } // namespace\n\nnamespace detail {\n  template<class>\n  struct sfinae_true\
-    \ : std::true_type{};\n\n  template<class T, class Field, class Func>\n  static\
-    \ auto test_transform(int)\n      -> sfinae_true<decltype(\n    std::declval<T>().template\
-    \ on_transform<Field>(std::declval<int>(), std::declval<Func&>()))>;\n\n  template<class,\
-    \ class Field, class Func>\n  static auto test_transform(long) -> std::false_type;\n\
-    } // detail::\n\ntemplate<class T, class Field, class Func = std::function<VectorN<Field>(int)>>\n\
-    struct has_transform : decltype(detail::test_transform<T, Field, Func>(0)){};\n\
-    \ntemplate <typename P> struct DefaultPowerOp {\n  int mod;\n  DefaultPowerOp(int\
-    \ mod) : mod(mod) {}\n  P operator()() const { return P(1); }\n  P operator()(const\
-    \ P &a) const { return a % mod; }\n  void operator()(P &x, const P &a, long long\
-    \ cur) const {\n    (x *= x) %= mod;\n    if (cur & 1)\n      (x *= a) %= mod;\n\
-    \  }\n};\n\ntemplate <typename P> struct ModPowerOp {\n  const P &mod;\n  ModPowerOp(const\
-    \ P &p) : mod(p) {}\n  P operator()() const { return P(1); }\n  P operator()(const\
-    \ P &a) { return a % mod; }\n  void operator()(P &x, const P &a, long long cur)\
-    \ const {\n    (x *= x) %= mod;\n    if (cur & 1)\n      (x *= a) %= mod;\n  }\n\
-    };\n\ntemplate <typename P> struct ModShiftPowerOp {\n  const P &mod;\n  ModShiftPowerOp(const\
-    \ P &p) : mod(p) {}\n  P operator()() const { return P(1); }\n  P operator()(const\
-    \ P &a) { return a % mod; }\n  void operator()(P &x, const P &a, long long cur)\
-    \ const {\n    // if(cur < mod.degree())\n    // x = P::kth(cur);\n    if (cur\
-    \ & 1)\n      (x *= (x << 1)) %= mod;\n    else\n      (x *= x) %= mod;\n  }\n\
-    };\n\nstruct DefaultDivmod;\nstruct NaiveDivmod;\n\ntemplate <typename Field,\
-    \ typename Mult, typename Divmod = DefaultDivmod>\nstruct Polynomial {\n  constexpr\
-    \ static int Magic = 64;\n  constexpr static bool NaiveMod = is_same<Divmod, NaiveDivmod>::value;\n\
-    \  constexpr static bool HasTransform = has_transform<Mult, Field>::value;\n \
-    \ using Transform =  typename Mult::template Transform<Field>;\n\n  typedef Polynomial<Field,\
-    \ Mult, Divmod> type;\n  typedef Field field;\n  vector<Field> p;\n\n  Polynomial()\
-    \ : p(0) {}\n  explicit Polynomial(Field x) : p(1, x) {}\n\n  template <\n   \
-    \   typename Iterator,\n      typename enable_if<IsInputIterator<Iterator>::value>::type\
+    \ 10 \"PolynomialRing.cpp\"\n\nnamespace lib {\nusing namespace std;\nnamespace\
+    \ math {\nnamespace poly {\n\nnamespace {\n/// keep caide\nusing traits::IsInputIterator;\n\
+    /// keep caide\nusing traits::HasInputIterator;\n} // namespace\n\nnamespace detail\
+    \ {\n  template<class>\n  struct sfinae_true : std::true_type{};\n\n  template<class\
+    \ T, class Field, class Func>\n  static auto test_transform(int)\n      -> sfinae_true<decltype(\n\
+    \    std::declval<T>().template on_transform<Field>(std::declval<int>(), std::declval<Func&>()))>;\n\
+    \n  template<class, class Field, class Func>\n  static auto test_transform(long)\
+    \ -> std::false_type;\n} // detail::\n\ntemplate<class T, class Field, class Func\
+    \ = std::function<VectorN<Field>(int)>>\nstruct has_transform : decltype(detail::test_transform<T,\
+    \ Field, Func>(0)){};\n\ntemplate <typename P> struct DefaultPowerOp {\n  int\
+    \ mod;\n  DefaultPowerOp(int mod) : mod(mod) {}\n  P operator()() const { return\
+    \ P(1); }\n  P operator()(const P &a) const { return a % mod; }\n  void operator()(P\
+    \ &x, const P &a, long long cur) const {\n    (x *= x) %= mod;\n    if (cur &\
+    \ 1)\n      (x *= a) %= mod;\n  }\n};\n\ntemplate <typename P> struct ModPowerOp\
+    \ {\n  const P &mod;\n  ModPowerOp(const P &p) : mod(p) {}\n  P operator()() const\
+    \ { return P(1); }\n  P operator()(const P &a) { return a % mod; }\n  void operator()(P\
+    \ &x, const P &a, long long cur) const {\n    (x *= x) %= mod;\n    if (cur &\
+    \ 1)\n      (x *= a) %= mod;\n  }\n};\n\ntemplate <typename P> struct ModShiftPowerOp\
+    \ {\n  const P &mod;\n  ModShiftPowerOp(const P &p) : mod(p) {}\n  P operator()()\
+    \ const { return P(1); }\n  P operator()(const P &a) { return a % mod; }\n  void\
+    \ operator()(P &x, const P &a, long long cur) const {\n    // if(cur < mod.degree())\n\
+    \    // x = P::kth(cur);\n    if (cur & 1)\n      (x *= (x << 1)) %= mod;\n  \
+    \  else\n      (x *= x) %= mod;\n  }\n};\n\nstruct DefaultDivmod;\nstruct NaiveDivmod;\n\
+    \ntemplate <typename Field, typename Mult, typename Divmod = DefaultDivmod>\n\
+    struct Polynomial {\n  constexpr static int Magic = 64;\n  constexpr static bool\
+    \ NaiveMod = is_same<Divmod, NaiveDivmod>::value;\n  constexpr static bool HasTransform\
+    \ = has_transform<Mult, Field>::value;\n  using Transform =  typename Mult::template\
+    \ Transform<Field>;\n\n  typedef Polynomial<Field, Mult, Divmod> type;\n  typedef\
+    \ Field field;\n  vector<Field> p;\n\n  Polynomial() : p(0) {}\n  explicit Polynomial(Field\
+    \ x) : p(1, x) {}\n\n  template <\n      typename Iterator,\n      typename enable_if<IsInputIterator<Iterator>::value>::type\
     \ * = nullptr>\n  Polynomial(Iterator begin, Iterator end) : p(distance(begin,\
     \ end)) {\n    int i = 0;\n    for (auto it = begin; it != end; ++it, ++i)\n \
     \     p[i] = *it;\n    normalize();\n  }\n\n  template <\n      typename Container,\n\
@@ -409,15 +582,15 @@ data:
     \ << \"[\";\n    int sz = var.size();\n    for (int i = sz - 1; i >= 0; i--) {\n\
     \      output << var[i];\n      if (i)\n        output << \" \";\n    }\n    return\
     \ output << \"]\";\n  }\n};\n} // namespace poly\n/// keep caide\nusing poly::Polynomial;\n\
-    } // namespace math\n} // namespace lib\n\n\n#line 6 \"LinearRecurrence.cpp\"\n\
-    \nnamespace lib {\nusing namespace std;\nnamespace linalg {\nnamespace {\nusing\
-    \ traits::HasRandomIterator;\nusing traits::IsRandomIterator;\n} // namespace\n\
-    \ntemplate <typename P> struct BMSolver {\n  typedef BMSolver<P> type;\n  typedef\
-    \ typename P::field field_type;\n  typedef P poly_type;\n\n  vector<field_type>\
-    \ base;\n  vector<field_type> T;\n\n  template <\n      typename Iterator,\n \
-    \     typename enable_if<IsRandomIterator<Iterator>::value>::type * = nullptr>\n\
-    \  void solve(Iterator begin, Iterator end) {\n    auto get = [begin](int i) {\
-    \ return *(begin + i); };\n\n    int n = distance(begin, end);\n\n    vector<field_type>\
+    } // namespace math\n} // namespace lib\n\n\n#line 1 \"LinearRecurrence.cpp\"\n\
+    \n\n#line 6 \"LinearRecurrence.cpp\"\n\nnamespace lib {\nusing namespace std;\n\
+    namespace linalg {\nnamespace {\nusing traits::HasRandomIterator;\nusing traits::IsRandomIterator;\n\
+    } // namespace\n\ntemplate <typename P> struct BMSolver {\n  typedef BMSolver<P>\
+    \ type;\n  typedef typename P::field field_type;\n  typedef P poly_type;\n\n \
+    \ vector<field_type> base;\n  vector<field_type> T;\n\n  template <\n      typename\
+    \ Iterator,\n      typename enable_if<IsRandomIterator<Iterator>::value>::type\
+    \ * = nullptr>\n  void solve(Iterator begin, Iterator end) {\n    auto get = [begin](int\
+    \ i) { return *(begin + i); };\n\n    int n = distance(begin, end);\n\n    vector<field_type>\
     \ C = {1}, B = {1};\n    field_type b = 1;\n    int L = 0;\n\n    for (int i =\
     \ 0, x = 1; i < n; i++, x++) {\n      // evaluate new element\n      field_type\
     \ d = 0;\n      for (size_t j = 0; j < C.size(); j++)\n        d += get(i - j)\
@@ -470,91 +643,67 @@ data:
     \ U[i];\n      auto A = Q1 * Q2;\n      Q1 = poly_type();\n      for(int i = 0,\
     \ j = 0; j <= Q.degree(); j++, i += 2)\n        Q1[j] = A[i];\n      N /= 2;\n\
     \      if(N < P.size()) break;\n    }\n    return (P1 * Q1.inverse())[N];\n  }\n\
-    };\n} // namespace linalg\n} // namespace lib\n\n\n"
-  code: "#ifndef _LIB_LINEAR_RECURRENCE\n#define _LIB_LINEAR_RECURRENCE\n#include\
-    \ \"PolynomialRing.cpp\"\n#include \"Traits.cpp\"\n#include <bits/stdc++.h>\n\n\
-    namespace lib {\nusing namespace std;\nnamespace linalg {\nnamespace {\nusing\
-    \ traits::HasRandomIterator;\nusing traits::IsRandomIterator;\n} // namespace\n\
-    \ntemplate <typename P> struct BMSolver {\n  typedef BMSolver<P> type;\n  typedef\
-    \ typename P::field field_type;\n  typedef P poly_type;\n\n  vector<field_type>\
-    \ base;\n  vector<field_type> T;\n\n  template <\n      typename Iterator,\n \
-    \     typename enable_if<IsRandomIterator<Iterator>::value>::type * = nullptr>\n\
-    \  void solve(Iterator begin, Iterator end) {\n    auto get = [begin](int i) {\
-    \ return *(begin + i); };\n\n    int n = distance(begin, end);\n\n    vector<field_type>\
-    \ C = {1}, B = {1};\n    field_type b = 1;\n    int L = 0;\n\n    for (int i =\
-    \ 0, x = 1; i < n; i++, x++) {\n      // evaluate new element\n      field_type\
-    \ d = 0;\n      for (size_t j = 0; j < C.size(); j++)\n        d += get(i - j)\
-    \ * C[j];\n      if (d == 0)\n        continue;\n      if (2 * L <= i) {\n   \
-    \     auto tmp = C;\n        if (C.size() < B.size() + x)\n          C.resize(B.size()\
-    \ + x);\n        field_type coef = d / b;\n        for (size_t j = 0; j < B.size();\
-    \ j++)\n          C[j + x] -= coef * B[j];\n        L = i + 1 - L;\n        B\
-    \ = tmp;\n        b = d;\n        x = 0;\n      } else {\n        if (C.size()\
-    \ < B.size() + x)\n          C.resize(B.size() + x);\n        field_type coef\
-    \ = d / b;\n        for (size_t j = 0; j < B.size(); j++)\n          C[j + x]\
-    \ -= coef * B[j];\n      }\n    }\n\n    T = vector<field_type>((int)C.size()\
-    \ - 1);\n    for (size_t i = 0; i < T.size(); i++)\n      T[i] = -C[i + 1];\n\
-    \    base = vector<field_type>(begin, end);\n  }\n\n  template <\n      typename\
-    \ Container,\n      typename enable_if<HasRandomIterator<Container>::value>::type\
-    \ * = nullptr>\n  void solve(const Container &container) {\n    solve(container.begin(),\
-    \ container.end());\n  }\n\n  void solve(const initializer_list<field_type> &l)\
-    \ {\n    solve(l.begin(), l.end());\n  }\n\n  bool solved() const { return T.size()\
-    \ > 0 && base.size() >= T.size(); }\n\n  void ensure(int nsz) const {\n    auto\
-    \ *self = const_cast<type *>(this);\n    for (int j = base.size(); j < nsz; j++)\
-    \ {\n      field_type acc = 0;\n      for (int i = 0; i < (int)T.size(); i++)\n\
-    \        acc += base[j - i - 1] * T[i];\n      self->base.push_back(acc);\n  \
-    \  }\n  }\n\n  poly_type mod_function() const {\n    poly_type res;\n    int m\
-    \ = T.size();\n    res[m] = 1;\n    for (int i = 0; i < m; i++)\n      res[i]\
-    \ = -T[m - i - 1];\n    return res;\n  }\n\n  vector<field_type> compute(long\
-    \ long K, int n) {\n    assert(n > 0);\n    assert(solved());\n    vector<field_type>\
-    \ res;\n    int N = T.size();\n    int cons = min(n, N);\n\n    if (K < (int)base.size())\
-    \ {\n      for (int j = 0; j < n && K + j < (int)base.size(); j++)\n        res.push_back({base[K\
-    \ + j]});\n\n      while ((int)res.size() < cons) {\n        field_type acc =\
-    \ 0;\n        int sz = res.size();\n        int mid = min(sz, N);\n        for\
-    \ (int i = 0; i < mid; i++)\n          acc += res[sz - i - 1] * T[i];\n      \
-    \  sz = base.size();\n        for (int i = mid; i < N; i++)\n          acc +=\
-    \ base[sz - 1 - (i - mid)] * T[i];\n        res.push_back(acc);\n      }\n   \
-    \ } else {\n      ensure(cons + N - 1);\n\n      poly_type x = poly_type::kth(K,\
-    \ mod_function());\n\n      for (int j = 0; j < cons; j++) {\n        field_type\
-    \ acc = 0;\n        for (int i = 0; i < N; i++)\n          acc += x[i] * base[i\
-    \ + j];\n        res.push_back(acc);\n      }\n    }\n\n    for (int j = res.size();\
-    \ j < n; j++) {\n      field_type acc = 0;\n      for (int i = 0; i < N; i++)\n\
-    \        acc += res[j - i - 1] * T[i];\n      res.push_back(acc);\n    }\n   \
-    \ return res;\n  }\n\n  field_type compute(long long K) { return compute(K, 1)[0];\
-    \ }\n};\n\ntemplate<typename Poly>\nstruct LinearRecurrence {\n  typedef LinearRecurrence<Poly>\
-    \ type;\n  typedef typename Poly::field field_type;\n  typedef Poly poly_type;\n\
-    \n  poly_type P, Q;\n\n  LinearRecurrence(const vector<field_type>& base, vector<field_type>\
-    \ T) {\n    assert(base.size() == T.size());\n    assert(T.back() == field_type());\n\
-    \    for(auto& x : T) x = -x;\n    T.insert(T.begin(), field_type(1));\n    Q\
-    \ = poly_type(T);\n    P = poly_type(base) % T.size() * Q % ((int)T.size() - 1);\n\
-    \  }\n\n  template<typename I>\n  field_type compute(I N) {\n    auto P1 = P;\n\
-    \    auto Q1 = Q;\n    while(N) {\n      auto Q2 = Q1;\n      for(int i = 1; i\
-    \ < Q2.size(); i += 2) Q2[i] = -Q2[i];\n      auto U = P1 * Q2;\n      P1 = poly_type();\n\
-    \      for(int i = N % 2, j = 0; j < Q.degree(); j++, i += 2)\n        P1[j] =\
-    \ U[i];\n      auto A = Q1 * Q2;\n      Q1 = poly_type();\n      for(int i = 0,\
-    \ j = 0; j <= Q.degree(); j++, i += 2)\n        Q1[j] = A[i];\n      N /= 2;\n\
-    \      if(N < P.size()) break;\n    }\n    return (P1 * Q1.inverse())[N];\n  }\n\
-    };\n} // namespace linalg\n} // namespace lib\n\n#endif\n"
+    };\n} // namespace linalg\n} // namespace lib\n\n\n#line 6 \"tests/yosupo/lr.cpp\"\
+    \n#define int long long\nusing namespace std;\n \n#define mp make_pair\n#define\
+    \ mt make_tuple\n#define pb push_back\n#define ms(v, x) memset((v), (x), sizeof(v))\n\
+    #define all(v) (v).begin(), (v).end()\n#define ff first\n#define ss second\n#define\
+    \ iopt ios::sync_with_stdio(false); cin.tie(0)\n#define untie(p, a, b) decltype(p.first)\
+    \ a = p.first, decltype(p.second) b = p.second\n \nint gcd(int a, int b) { return\
+    \ b == 0 ? a : gcd(b, a%b); }\nint power(int x, int p, int MOD) {\n    if(p ==\
+    \ 0) return 1%MOD;\n    if(p == 1) return x%MOD;\n    int res = power(x, p/2,\
+    \ MOD);\n    res = (long long)res*res%MOD;\n    if(p&1) res = (long long)res*x%MOD;\n\
+    \    return res;\n}\n \ntypedef pair<int, int> ii;\ntypedef long double LD;\n\
+    typedef vector<int> vi;\n\nusing namespace lib;\nusing mint = MintNTT;\nusing\
+    \ poly = math::Polynomial<mint, FHTMultiplication>;\n\nint32_t main(){\n    //\
+    \ Scanner sc(stdin);\n    // Printer pr(stdout);\n    iopt;\n\n    int n; cin\
+    \ >> n;\n    vector<mint> b;\n\n    for(int i = 0; i < n; i++) {\n      mint x;\
+    \ cin >> x;\n      b.pb(x);\n    }\n\n    linalg::BMSolver<poly> lr;\n    lr.solve(b);\n\
+    \    cout << lr.T.size() << endl;\n    for(mint x : lr.T) cout << x << \" \";\n\
+    \    cout << endl;\n    return 0;\n}\n"
+  code: "#include <bits/stdc++.h>\n#include \"ModularInteger.cpp\"\n#include \"FHT.cpp\"\
+    \n#include \"PolynomialRing.cpp\"\n#include \"LinearRecurrence.cpp\"\n#define\
+    \ int long long\nusing namespace std;\n \n#define mp make_pair\n#define mt make_tuple\n\
+    #define pb push_back\n#define ms(v, x) memset((v), (x), sizeof(v))\n#define all(v)\
+    \ (v).begin(), (v).end()\n#define ff first\n#define ss second\n#define iopt ios::sync_with_stdio(false);\
+    \ cin.tie(0)\n#define untie(p, a, b) decltype(p.first) a = p.first, decltype(p.second)\
+    \ b = p.second\n \nint gcd(int a, int b) { return b == 0 ? a : gcd(b, a%b); }\n\
+    int power(int x, int p, int MOD) {\n    if(p == 0) return 1%MOD;\n    if(p ==\
+    \ 1) return x%MOD;\n    int res = power(x, p/2, MOD);\n    res = (long long)res*res%MOD;\n\
+    \    if(p&1) res = (long long)res*x%MOD;\n    return res;\n}\n \ntypedef pair<int,\
+    \ int> ii;\ntypedef long double LD;\ntypedef vector<int> vi;\n\nusing namespace\
+    \ lib;\nusing mint = MintNTT;\nusing poly = math::Polynomial<mint, FHTMultiplication>;\n\
+    \nint32_t main(){\n    // Scanner sc(stdin);\n    // Printer pr(stdout);\n   \
+    \ iopt;\n\n    int n; cin >> n;\n    vector<mint> b;\n\n    for(int i = 0; i <\
+    \ n; i++) {\n      mint x; cin >> x;\n      b.pb(x);\n    }\n\n    linalg::BMSolver<poly>\
+    \ lr;\n    lr.solve(b);\n    cout << lr.T.size() << endl;\n    for(mint x : lr.T)\
+    \ cout << x << \" \";\n    cout << endl;\n    return 0;\n}\n"
   dependsOn:
+  - ModularInteger.cpp
+  - NumberTheory.cpp
+  - FHT.cpp
+  - BitTricks.cpp
+  - NTT.cpp
+  - DFT.cpp
+  - VectorN.cpp
+  - Traits.cpp
+  - polynomial/Transform.cpp
   - PolynomialRing.cpp
   - Epsilon.cpp
   - Math.cpp
   - ModularInteger.cpp
-  - NumberTheory.cpp
-  - Traits.cpp
   - LongMultiplication.cpp
-  - VectorN.cpp
+  - LinearRecurrence.cpp
+  - PolynomialRing.cpp
   isVerificationFile: false
-  path: LinearRecurrence.cpp
-  requiredBy:
-  - tests/yosupo/kth_term_lr.cpp
-  - tests/yosupo/lr.cpp
+  path: tests/yosupo/lr.cpp
+  requiredBy: []
   timestamp: '2021-02-06 22:48:25-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: LinearRecurrence.cpp
+documentation_of: tests/yosupo/lr.cpp
 layout: document
 redirect_from:
-- /library/LinearRecurrence.cpp
-- /library/LinearRecurrence.cpp.html
-title: LinearRecurrence.cpp
+- /library/tests/yosupo/lr.cpp
+- /library/tests/yosupo/lr.cpp.html
+title: tests/yosupo/lr.cpp
 ---

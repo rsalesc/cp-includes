@@ -32,6 +32,42 @@ data:
   - icon: ':warning:'
     path: polynomial/MultipointEvaluation.cpp
     title: polynomial/MultipointEvaluation.cpp
+  - icon: ':warning:'
+    path: tests/yosupo/fps_inv.cpp
+    title: tests/yosupo/fps_inv.cpp
+  - icon: ':warning:'
+    path: tests/yosupo/fps_inv.cpp
+    title: tests/yosupo/fps_inv.cpp
+  - icon: ':warning:'
+    path: tests/yosupo/fps_power.cpp
+    title: tests/yosupo/fps_power.cpp
+  - icon: ':warning:'
+    path: tests/yosupo/fps_power.cpp
+    title: tests/yosupo/fps_power.cpp
+  - icon: ':warning:'
+    path: tests/yosupo/interplation.cpp
+    title: tests/yosupo/interplation.cpp
+  - icon: ':warning:'
+    path: tests/yosupo/interplation.cpp
+    title: tests/yosupo/interplation.cpp
+  - icon: ':warning:'
+    path: tests/yosupo/kth_term_lr.cpp
+    title: tests/yosupo/kth_term_lr.cpp
+  - icon: ':warning:'
+    path: tests/yosupo/kth_term_lr.cpp
+    title: tests/yosupo/kth_term_lr.cpp
+  - icon: ':warning:'
+    path: tests/yosupo/lr.cpp
+    title: tests/yosupo/lr.cpp
+  - icon: ':warning:'
+    path: tests/yosupo/lr.cpp
+    title: tests/yosupo/lr.cpp
+  - icon: ':warning:'
+    path: tests/yosupo/multipoint.cpp
+    title: tests/yosupo/multipoint.cpp
+  - icon: ':warning:'
+    path: tests/yosupo/multipoint.cpp
+    title: tests/yosupo/multipoint.cpp
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -603,6 +639,18 @@ data:
   requiredBy:
   - PowerSeries.cpp
   - LinearRecurrence.cpp
+  - tests/yosupo/multipoint.cpp
+  - tests/yosupo/multipoint.cpp
+  - tests/yosupo/fps_power.cpp
+  - tests/yosupo/fps_power.cpp
+  - tests/yosupo/interplation.cpp
+  - tests/yosupo/interplation.cpp
+  - tests/yosupo/fps_inv.cpp
+  - tests/yosupo/fps_inv.cpp
+  - tests/yosupo/kth_term_lr.cpp
+  - tests/yosupo/kth_term_lr.cpp
+  - tests/yosupo/lr.cpp
+  - tests/yosupo/lr.cpp
   - polynomial/MultipointEvaluation.cpp
   timestamp: '2021-01-31 01:48:38-03:00'
   verificationStatus: LIBRARY_NO_TESTS

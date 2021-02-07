@@ -28,7 +28,13 @@ data:
   - icon: ':warning:'
     path: VectorN.cpp
     title: VectorN.cpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: tests/yosupo/interplation.cpp
+    title: tests/yosupo/interplation.cpp
+  - icon: ':warning:'
+    path: tests/yosupo/multipoint.cpp
+    title: tests/yosupo/multipoint.cpp
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
@@ -471,7 +477,9 @@ data:
   - Traits.cpp
   isVerificationFile: false
   path: polynomial/MultipointEvaluation.cpp
-  requiredBy: []
+  requiredBy:
+  - tests/yosupo/multipoint.cpp
+  - tests/yosupo/interplation.cpp
   timestamp: '2021-01-31 01:48:38-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

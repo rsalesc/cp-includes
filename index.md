@@ -226,6 +226,29 @@ data:
     - icon: ':warning:'
       path: polynomial/Transform.cpp
       title: polynomial/Transform.cpp
+  - name: tests/yosupo
+    pages:
+    - icon: ':warning:'
+      path: tests/yosupo/convolution.cpp
+      title: tests/yosupo/convolution.cpp
+    - icon: ':warning:'
+      path: tests/yosupo/fps_inv.cpp
+      title: tests/yosupo/fps_inv.cpp
+    - icon: ':warning:'
+      path: tests/yosupo/fps_power.cpp
+      title: tests/yosupo/fps_power.cpp
+    - icon: ':warning:'
+      path: tests/yosupo/interplation.cpp
+      title: tests/yosupo/interplation.cpp
+    - icon: ':warning:'
+      path: tests/yosupo/kth_term_lr.cpp
+      title: tests/yosupo/kth_term_lr.cpp
+    - icon: ':warning:'
+      path: tests/yosupo/lr.cpp
+      title: tests/yosupo/lr.cpp
+    - icon: ':warning:'
+      path: tests/yosupo/multipoint.cpp
+      title: tests/yosupo/multipoint.cpp
   - name: traits
     pages:
     - icon: ':warning:'
@@ -245,6 +268,11 @@ data:
     - icon: ':warning:'
       path: utils/Wrappers.cpp
       title: utils/Wrappers.cpp
-  verificationCategories: []
+  verificationCategories:
+  - name: tests/yosupo
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/yosupo/subset-convolution.test.cpp
+      title: tests/yosupo/subset-convolution.test.cpp
 layout: toppage
 ---
