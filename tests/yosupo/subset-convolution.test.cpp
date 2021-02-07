@@ -1,3 +1,5 @@
+#define PROBLEM "https://judge.yosupo.jp/problem/subset_convolution"
+
 #include <bits/stdc++.h>
 #include "ModularInteger.cpp"
 #include "Subset.cpp"
