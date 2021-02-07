@@ -1,3 +1,6 @@
+[![Actions Status](https://github.com/rsalesc/cp-includes/workflows/verify/badge.svg)](https://github.com/rsalesc/cp-includes/actions)
+[![GitHub Pages](https://img.shields.io/static/v1?label=GitHub+Pages&message=+&color=brightgreen&logo=github)](https://rsalesc.github.io/cp-includes/)
+
 ### Guidelines
 
 - There will be no `class` usage in this library, only `struct` usages.
