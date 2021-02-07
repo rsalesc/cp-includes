@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':question:'
     path: BitTricks.cpp
     title: BitTricks.cpp
   _extendedRequiredBy: []

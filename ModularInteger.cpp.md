@@ -1,71 +1,65 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: NumberTheory.cpp
     title: NumberTheory.cpp
   _extendedRequiredBy:
-  - icon: ':warning:'
+  - icon: ':question:'
     path: LinearRecurrence.cpp
     title: LinearRecurrence.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: PolynomialRing.cpp
     title: PolynomialRing.cpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: PowerSeries.cpp
     title: PowerSeries.cpp
   - icon: ':warning:'
     path: RollingHash.cpp
     title: RollingHash.cpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: polynomial/MultipointEvaluation.cpp
     title: polynomial/MultipointEvaluation.cpp
-  - icon: ':warning:'
-    path: tests/yosupo/convolution.cpp
-    title: tests/yosupo/convolution.cpp
-  - icon: ':warning:'
-    path: tests/yosupo/fps_inv.cpp
-    title: tests/yosupo/fps_inv.cpp
-  - icon: ':warning:'
-    path: tests/yosupo/fps_inv.cpp
-    title: tests/yosupo/fps_inv.cpp
-  - icon: ':warning:'
-    path: tests/yosupo/fps_power.cpp
-    title: tests/yosupo/fps_power.cpp
-  - icon: ':warning:'
-    path: tests/yosupo/fps_power.cpp
-    title: tests/yosupo/fps_power.cpp
-  - icon: ':warning:'
-    path: tests/yosupo/interplation.cpp
-    title: tests/yosupo/interplation.cpp
-  - icon: ':warning:'
-    path: tests/yosupo/interplation.cpp
-    title: tests/yosupo/interplation.cpp
-  - icon: ':warning:'
-    path: tests/yosupo/kth_term_lr.cpp
-    title: tests/yosupo/kth_term_lr.cpp
-  - icon: ':warning:'
-    path: tests/yosupo/kth_term_lr.cpp
-    title: tests/yosupo/kth_term_lr.cpp
-  - icon: ':warning:'
-    path: tests/yosupo/lr.cpp
-    title: tests/yosupo/lr.cpp
-  - icon: ':warning:'
-    path: tests/yosupo/lr.cpp
-    title: tests/yosupo/lr.cpp
-  - icon: ':warning:'
-    path: tests/yosupo/multipoint.cpp
-    title: tests/yosupo/multipoint.cpp
-  - icon: ':warning:'
-    path: tests/yosupo/multipoint.cpp
-    title: tests/yosupo/multipoint.cpp
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/fht-convolution.test.cpp
+    title: tests/yosupo/fht-convolution.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/find-lr.test.cpp
+    title: tests/yosupo/find-lr.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/find-lr.test.cpp
+    title: tests/yosupo/find-lr.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/fps-inv.test.cpp
+    title: tests/yosupo/fps-inv.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/fps-inv.test.cpp
+    title: tests/yosupo/fps-inv.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/fps-power.test.cpp
+    title: tests/yosupo/fps-power.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/fps-power.test.cpp
+    title: tests/yosupo/fps-power.test.cpp
+  - icon: ':x:'
+    path: tests/yosupo/kth-term-lr.test.cpp
+    title: tests/yosupo/kth-term-lr.test.cpp
+  - icon: ':x:'
+    path: tests/yosupo/kth-term-lr.test.cpp
+    title: tests/yosupo/kth-term-lr.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/multipoint.test.cpp
+    title: tests/yosupo/multipoint.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/multipoint.test.cpp
+    title: tests/yosupo/multipoint.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/subset-convolution.test.cpp
     title: tests/yosupo/subset-convolution.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"ModularInteger.cpp\"\n\n\n#line 1 \"NumberTheory.cpp\"\n\
@@ -304,24 +298,22 @@ data:
   - LinearRecurrence.cpp
   - PolynomialRing.cpp
   - RollingHash.cpp
-  - tests/yosupo/multipoint.cpp
-  - tests/yosupo/multipoint.cpp
-  - tests/yosupo/convolution.cpp
-  - tests/yosupo/fps_power.cpp
-  - tests/yosupo/fps_power.cpp
-  - tests/yosupo/interplation.cpp
-  - tests/yosupo/interplation.cpp
-  - tests/yosupo/fps_inv.cpp
-  - tests/yosupo/fps_inv.cpp
-  - tests/yosupo/kth_term_lr.cpp
-  - tests/yosupo/kth_term_lr.cpp
-  - tests/yosupo/lr.cpp
-  - tests/yosupo/lr.cpp
   - polynomial/MultipointEvaluation.cpp
   timestamp: '2021-01-31 01:48:38-03:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
+  - tests/yosupo/fht-convolution.test.cpp
+  - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/find-lr.test.cpp
+  - tests/yosupo/find-lr.test.cpp
+  - tests/yosupo/kth-term-lr.test.cpp
+  - tests/yosupo/kth-term-lr.test.cpp
+  - tests/yosupo/fps-inv.test.cpp
+  - tests/yosupo/fps-inv.test.cpp
   - tests/yosupo/subset-convolution.test.cpp
+  - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/fps-power.test.cpp
 documentation_of: ModularInteger.cpp
 layout: document
 redirect_from:

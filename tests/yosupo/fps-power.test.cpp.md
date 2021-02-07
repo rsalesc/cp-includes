@@ -1,76 +1,79 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':question:'
     path: BitTricks.cpp
     title: BitTricks.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: DFT.cpp
     title: DFT.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: Epsilon.cpp
     title: Epsilon.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: FHT.cpp
     title: FHT.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: LongMultiplication.cpp
     title: LongMultiplication.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: Math.cpp
     title: Math.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: ModularInteger.cpp
     title: ModularInteger.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: ModularInteger.cpp
     title: ModularInteger.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: NTT.cpp
     title: NTT.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: NumberTheory.cpp
     title: NumberTheory.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: PolynomialRing.cpp
     title: PolynomialRing.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: PolynomialRing.cpp
     title: PolynomialRing.cpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: PowerSeries.cpp
     title: PowerSeries.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: Traits.cpp
     title: Traits.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: VectorN.cpp
     title: VectorN.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: polynomial/Transform.cpp
     title: polynomial/Transform.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "#line 1 \"tests/yosupo/fps_power.cpp\"\n#include <bits/stdc++.h>\n\
-    #line 1 \"ModularInteger.cpp\"\n\n\n#line 1 \"NumberTheory.cpp\"\n\n\n#line 4\
-    \ \"NumberTheory.cpp\"\n\nnamespace lib {\nusing namespace std;\nnamespace nt\
-    \ {\nint64_t inverse(int64_t a, int64_t b) {\n  long long b0 = b, t, q;\n  long\
-    \ long x0 = 0, x1 = 1;\n  if (b == 1)\n    return 1;\n  while (a > 1) {\n    q\
-    \ = a / b;\n    t = b, b = a % b, a = t;\n    t = x0, x0 = x1 - q * x0, x1 = t;\n\
-    \  }\n  if (x1 < 0)\n    x1 += b0;\n  return x1;\n}\ntemplate<typename T, typename\
-    \ U>\nT powmod (T a, U b, U p) {\n    int res = 1;\n    while (b)\n        if\
-    \ (b & 1)\n            res = int (res * 1ll * a % p),  --b;\n        else\n  \
-    \          a = int (a * 1ll * a % p),  b >>= 1;\n    return res;\n}\ntemplate<typename\
-    \ T>\nvector<T> factors(T n) {\n  vector<T> f;\n  for(T i = 2; i*i <= n; i++)\
-    \ {\n    if(n % i == 0) f.push_back(i);\n    while(n % i == 0) n /= i;\n  }\n\
-    \  if(n > 1) f.push_back(n);\n  return f;\n}\n} // namespace nt\n} // namespace\
-    \ lib\n\n\n#line 5 \"ModularInteger.cpp\"\n\n#if __cplusplus < 201300\n#error\
-    \ required(c++14)\n#endif\n\nnamespace lib {\nusing namespace std;\nnamespace\
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://judge.yosupo.jp/problem/pow_of_formal_power_series
+    links:
+    - https://judge.yosupo.jp/problem/pow_of_formal_power_series
+  bundledCode: "#line 1 \"tests/yosupo/fps-power.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/pow_of_formal_power_series\"\
+    \n\n#include <bits/stdc++.h>\n#line 1 \"ModularInteger.cpp\"\n\n\n#line 1 \"NumberTheory.cpp\"\
+    \n\n\n#line 4 \"NumberTheory.cpp\"\n\nnamespace lib {\nusing namespace std;\n\
+    namespace nt {\nint64_t inverse(int64_t a, int64_t b) {\n  long long b0 = b, t,\
+    \ q;\n  long long x0 = 0, x1 = 1;\n  if (b == 1)\n    return 1;\n  while (a >\
+    \ 1) {\n    q = a / b;\n    t = b, b = a % b, a = t;\n    t = x0, x0 = x1 - q\
+    \ * x0, x1 = t;\n  }\n  if (x1 < 0)\n    x1 += b0;\n  return x1;\n}\ntemplate<typename\
+    \ T, typename U>\nT powmod (T a, U b, U p) {\n    int res = 1;\n    while (b)\n\
+    \        if (b & 1)\n            res = int (res * 1ll * a % p),  --b;\n      \
+    \  else\n            a = int (a * 1ll * a % p),  b >>= 1;\n    return res;\n}\n\
+    template<typename T>\nvector<T> factors(T n) {\n  vector<T> f;\n  for(T i = 2;\
+    \ i*i <= n; i++) {\n    if(n % i == 0) f.push_back(i);\n    while(n % i == 0)\
+    \ n /= i;\n  }\n  if(n > 1) f.push_back(n);\n  return f;\n}\n} // namespace nt\n\
+    } // namespace lib\n\n\n#line 5 \"ModularInteger.cpp\"\n\n#if __cplusplus < 201300\n\
+    #error required(c++14)\n#endif\n\nnamespace lib {\nusing namespace std;\nnamespace\
     \ {\ntemplate <typename T, T... Mods> struct ModularIntegerBase {\n  typedef ModularIntegerBase<T,\
     \ Mods...> type;\n\n  T x[sizeof...(Mods)];\n  friend ostream &operator<<(ostream\
     \ &output, const type &var) {\n    output << \"(\";\n    for (int i = 0; i < sizeof...(Mods);\
@@ -598,7 +601,7 @@ data:
     \ rev = typename P::field(1) / p[i];\n    auto D = (p * rev) >> i;\n    int sz\
     \ = n - i * k;\n    D = exp(ln(D, sz) * k, sz) * (p[i] ^ k);\n    if(i == 0) return\
     \ D % n;\n    long long S = k * i;\n    D <<= S;\n    return D % n;\n  }\n  return\
-    \ {};\n}\n} // namespace series\n} // namespace lib\n\n\n#line 6 \"tests/yosupo/fps_power.cpp\"\
+    \ {};\n}\n} // namespace series\n} // namespace lib\n\n\n#line 8 \"tests/yosupo/fps-power.test.cpp\"\
     \n#define int long long\nusing namespace std;\n \n#define mp make_pair\n#define\
     \ mt make_tuple\n#define pb push_back\n#define ms(v, x) memset((v), (x), sizeof(v))\n\
     #define all(v) (v).begin(), (v).end()\n#define ff first\n#define ss second\n#define\
@@ -676,7 +679,8 @@ data:
     \ cin >> a[i];\n    }\n    auto c = series::power(poly(a), m, n);\n    for (int\
     \ i = 0; i < n; i++) {\n        cout << c[i] << \" \";\n    }\n    cout << endl;\n\
     \    return 0;\n}\n"
-  code: "#include <bits/stdc++.h>\n#include \"ModularInteger.cpp\"\n#include \"FHT.cpp\"\
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/pow_of_formal_power_series\"\
+    \n\n#include <bits/stdc++.h>\n#include \"ModularInteger.cpp\"\n#include \"FHT.cpp\"\
     \n#include \"PolynomialRing.cpp\"\n#include \"PowerSeries.cpp\"\n#define int long\
     \ long\nusing namespace std;\n \n#define mp make_pair\n#define mt make_tuple\n\
     #define pb push_back\n#define ms(v, x) memset((v), (x), sizeof(v))\n#define all(v)\
@@ -771,16 +775,16 @@ data:
   - LongMultiplication.cpp
   - PowerSeries.cpp
   - PolynomialRing.cpp
-  isVerificationFile: false
-  path: tests/yosupo/fps_power.cpp
+  isVerificationFile: true
+  path: tests/yosupo/fps-power.test.cpp
   requiredBy: []
-  timestamp: '2021-01-31 01:48:38-03:00'
-  verificationStatus: LIBRARY_NO_TESTS
+  timestamp: '2021-02-07 15:54:15-03:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/yosupo/fps_power.cpp
+documentation_of: tests/yosupo/fps-power.test.cpp
 layout: document
 redirect_from:
-- /library/tests/yosupo/fps_power.cpp
-- /library/tests/yosupo/fps_power.cpp.html
-title: tests/yosupo/fps_power.cpp
+- /verify/tests/yosupo/fps-power.test.cpp
+- /verify/tests/yosupo/fps-power.test.cpp.html
+title: tests/yosupo/fps-power.test.cpp
 ---

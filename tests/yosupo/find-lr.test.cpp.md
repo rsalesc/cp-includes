@@ -1,101 +1,110 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':question:'
     path: BitTricks.cpp
     title: BitTricks.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: DFT.cpp
     title: DFT.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: Epsilon.cpp
     title: Epsilon.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
+    path: FHT.cpp
+    title: FHT.cpp
+  - icon: ':question:'
+    path: LinearRecurrence.cpp
+    title: LinearRecurrence.cpp
+  - icon: ':question:'
     path: LongMultiplication.cpp
     title: LongMultiplication.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: Math.cpp
     title: Math.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: ModularInteger.cpp
     title: ModularInteger.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: ModularInteger.cpp
     title: ModularInteger.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: NTT.cpp
     title: NTT.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: NumberTheory.cpp
     title: NumberTheory.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: PolynomialRing.cpp
     title: PolynomialRing.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: PolynomialRing.cpp
     title: PolynomialRing.cpp
-  - icon: ':warning:'
-    path: PowerSeries.cpp
-    title: PowerSeries.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: Traits.cpp
     title: Traits.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: VectorN.cpp
     title: VectorN.cpp
+  - icon: ':question:'
+    path: polynomial/Transform.cpp
+    title: polynomial/Transform.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "#line 1 \"tests/yosupo/fps_inv.cpp\"\n#include <bits/stdc++.h>\n#line\
-    \ 1 \"ModularInteger.cpp\"\n\n\n#line 1 \"NumberTheory.cpp\"\n\n\n#line 4 \"NumberTheory.cpp\"\
-    \n\nnamespace lib {\nusing namespace std;\nnamespace nt {\nint64_t inverse(int64_t\
-    \ a, int64_t b) {\n  long long b0 = b, t, q;\n  long long x0 = 0, x1 = 1;\n  if\
-    \ (b == 1)\n    return 1;\n  while (a > 1) {\n    q = a / b;\n    t = b, b = a\
-    \ % b, a = t;\n    t = x0, x0 = x1 - q * x0, x1 = t;\n  }\n  if (x1 < 0)\n   \
-    \ x1 += b0;\n  return x1;\n}\ntemplate<typename T, typename U>\nT powmod (T a,\
-    \ U b, U p) {\n    int res = 1;\n    while (b)\n        if (b & 1)\n         \
-    \   res = int (res * 1ll * a % p),  --b;\n        else\n            a = int (a\
-    \ * 1ll * a % p),  b >>= 1;\n    return res;\n}\ntemplate<typename T>\nvector<T>\
-    \ factors(T n) {\n  vector<T> f;\n  for(T i = 2; i*i <= n; i++) {\n    if(n %\
-    \ i == 0) f.push_back(i);\n    while(n % i == 0) n /= i;\n  }\n  if(n > 1) f.push_back(n);\n\
-    \  return f;\n}\n} // namespace nt\n} // namespace lib\n\n\n#line 5 \"ModularInteger.cpp\"\
-    \n\n#if __cplusplus < 201300\n#error required(c++14)\n#endif\n\nnamespace lib\
-    \ {\nusing namespace std;\nnamespace {\ntemplate <typename T, T... Mods> struct\
-    \ ModularIntegerBase {\n  typedef ModularIntegerBase<T, Mods...> type;\n\n  T\
-    \ x[sizeof...(Mods)];\n  friend ostream &operator<<(ostream &output, const type\
-    \ &var) {\n    output << \"(\";\n    for (int i = 0; i < sizeof...(Mods); i++)\
-    \ {\n      if (i)\n        output << \", \";\n      output << var.x[i];\n    }\n\
-    \    return output << \")\";\n  }\n};\n\ntemplate <typename T, T Mod> struct ModularIntegerBase<T,\
-    \ Mod> {\n  typedef ModularIntegerBase<T, Mod> type;\n  constexpr static T mod\
-    \ = Mod;\n\n  T x[1];\n\n  T& data() { return this->x[0]; }\n  T data() const\
-    \ { return this->x[0]; }\n  explicit operator int() const { return this->x[0];\
-    \ }\n  explicit operator int64_t() const { return this->x[0]; }\n  explicit operator\
-    \ long long() const { return this->x[0]; }\n  explicit operator double() const\
-    \ { return this->x[0]; }\n  explicit operator long double() const { return this->x[0];\
-    \ }\n  friend ostream &operator<<(ostream &output, const type &var) {\n    return\
-    \ output << var.x[0];\n  }\n};\n\ntemplate<typename T, typename U, T... Mods>\n\
-    struct InversesTable {\n  constexpr static size_t n_mods = sizeof...(Mods);\n\
-    \  constexpr static T mods[sizeof...(Mods)] = {Mods...};\n  constexpr static int\
-    \ n_inverses = 1e6 + 10;\n\n  T v[n_inverses][n_mods];\n  T max_x;\n\n  InversesTable()\
-    \ : v(), max_x(n_inverses) {\n    for(int j = 0; j < sizeof...(Mods); j++)\n \
-    \     v[1][j] = 1, max_x = min(max_x, mods[j]);\n    for(int i = 2; i < max_x;\
-    \ i++) {\n      for(int j = 0; j < sizeof...(Mods); j++) {\n        v[i][j] =\
-    \ mods[j] - (T)((U)(mods[j] / i) * v[mods[j] % i][j] % mods[j]);\n      }\n  \
-    \  }\n  }\n};\n\n// Make available for linkage.\ntemplate <typename T, class U,\
-    \ T... Mods>\nconstexpr T InversesTable<T, U, Mods...>::mods[];\n\ntemplate <typename\
-    \ T, class Enable, T... Mods>\nstruct ModularIntegerImpl : ModularIntegerBase<T,\
-    \ Mods...> {\n  typedef ModularIntegerImpl<T, Enable, Mods...> type;\n  typedef\
-    \ T type_int;\n  typedef uint64_t large_int;\n  constexpr static size_t n_mods\
-    \ = sizeof...(Mods);\n  constexpr static T mods[sizeof...(Mods)] = {Mods...};\n\
-    \  using ModularIntegerBase<T, Mods...>::x;\n  using Inverses = InversesTable<T,\
-    \ large_int, Mods...>;\n\n  struct Less {\n    bool operator()(const type &lhs,\
-    \ const type &rhs) const {\n      for (size_t i = 0; i < sizeof...(Mods); i++)\n\
-    \        if (lhs.x[i] != rhs.x[i])\n          return lhs.x[i] < rhs.x[i];\n  \
-    \    return false;\n    };\n  };\n  typedef Less less;\n\n\n  ModularIntegerImpl()\
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://judge.yosupo.jp/problem/find_linear_recurrence
+    links:
+    - https://judge.yosupo.jp/problem/find_linear_recurrence
+  bundledCode: "#line 1 \"tests/yosupo/find-lr.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/find_linear_recurrence\"\
+    \n\n#include <bits/stdc++.h>\n#line 1 \"ModularInteger.cpp\"\n\n\n#line 1 \"NumberTheory.cpp\"\
+    \n\n\n#line 4 \"NumberTheory.cpp\"\n\nnamespace lib {\nusing namespace std;\n\
+    namespace nt {\nint64_t inverse(int64_t a, int64_t b) {\n  long long b0 = b, t,\
+    \ q;\n  long long x0 = 0, x1 = 1;\n  if (b == 1)\n    return 1;\n  while (a >\
+    \ 1) {\n    q = a / b;\n    t = b, b = a % b, a = t;\n    t = x0, x0 = x1 - q\
+    \ * x0, x1 = t;\n  }\n  if (x1 < 0)\n    x1 += b0;\n  return x1;\n}\ntemplate<typename\
+    \ T, typename U>\nT powmod (T a, U b, U p) {\n    int res = 1;\n    while (b)\n\
+    \        if (b & 1)\n            res = int (res * 1ll * a % p),  --b;\n      \
+    \  else\n            a = int (a * 1ll * a % p),  b >>= 1;\n    return res;\n}\n\
+    template<typename T>\nvector<T> factors(T n) {\n  vector<T> f;\n  for(T i = 2;\
+    \ i*i <= n; i++) {\n    if(n % i == 0) f.push_back(i);\n    while(n % i == 0)\
+    \ n /= i;\n  }\n  if(n > 1) f.push_back(n);\n  return f;\n}\n} // namespace nt\n\
+    } // namespace lib\n\n\n#line 5 \"ModularInteger.cpp\"\n\n#if __cplusplus < 201300\n\
+    #error required(c++14)\n#endif\n\nnamespace lib {\nusing namespace std;\nnamespace\
+    \ {\ntemplate <typename T, T... Mods> struct ModularIntegerBase {\n  typedef ModularIntegerBase<T,\
+    \ Mods...> type;\n\n  T x[sizeof...(Mods)];\n  friend ostream &operator<<(ostream\
+    \ &output, const type &var) {\n    output << \"(\";\n    for (int i = 0; i < sizeof...(Mods);\
+    \ i++) {\n      if (i)\n        output << \", \";\n      output << var.x[i];\n\
+    \    }\n    return output << \")\";\n  }\n};\n\ntemplate <typename T, T Mod> struct\
+    \ ModularIntegerBase<T, Mod> {\n  typedef ModularIntegerBase<T, Mod> type;\n \
+    \ constexpr static T mod = Mod;\n\n  T x[1];\n\n  T& data() { return this->x[0];\
+    \ }\n  T data() const { return this->x[0]; }\n  explicit operator int() const\
+    \ { return this->x[0]; }\n  explicit operator int64_t() const { return this->x[0];\
+    \ }\n  explicit operator long long() const { return this->x[0]; }\n  explicit\
+    \ operator double() const { return this->x[0]; }\n  explicit operator long double()\
+    \ const { return this->x[0]; }\n  friend ostream &operator<<(ostream &output,\
+    \ const type &var) {\n    return output << var.x[0];\n  }\n};\n\ntemplate<typename\
+    \ T, typename U, T... Mods>\nstruct InversesTable {\n  constexpr static size_t\
+    \ n_mods = sizeof...(Mods);\n  constexpr static T mods[sizeof...(Mods)] = {Mods...};\n\
+    \  constexpr static int n_inverses = 1e6 + 10;\n\n  T v[n_inverses][n_mods];\n\
+    \  T max_x;\n\n  InversesTable() : v(), max_x(n_inverses) {\n    for(int j = 0;\
+    \ j < sizeof...(Mods); j++)\n      v[1][j] = 1, max_x = min(max_x, mods[j]);\n\
+    \    for(int i = 2; i < max_x; i++) {\n      for(int j = 0; j < sizeof...(Mods);\
+    \ j++) {\n        v[i][j] = mods[j] - (T)((U)(mods[j] / i) * v[mods[j] % i][j]\
+    \ % mods[j]);\n      }\n    }\n  }\n};\n\n// Make available for linkage.\ntemplate\
+    \ <typename T, class U, T... Mods>\nconstexpr T InversesTable<T, U, Mods...>::mods[];\n\
+    \ntemplate <typename T, class Enable, T... Mods>\nstruct ModularIntegerImpl :\
+    \ ModularIntegerBase<T, Mods...> {\n  typedef ModularIntegerImpl<T, Enable, Mods...>\
+    \ type;\n  typedef T type_int;\n  typedef uint64_t large_int;\n  constexpr static\
+    \ size_t n_mods = sizeof...(Mods);\n  constexpr static T mods[sizeof...(Mods)]\
+    \ = {Mods...};\n  using ModularIntegerBase<T, Mods...>::x;\n  using Inverses =\
+    \ InversesTable<T, large_int, Mods...>;\n\n  struct Less {\n    bool operator()(const\
+    \ type &lhs, const type &rhs) const {\n      for (size_t i = 0; i < sizeof...(Mods);\
+    \ i++)\n        if (lhs.x[i] != rhs.x[i])\n          return lhs.x[i] < rhs.x[i];\n\
+    \      return false;\n    };\n  };\n  typedef Less less;\n\n\n  ModularIntegerImpl()\
     \ {\n    for (size_t i = 0; i < sizeof...(Mods); i++)\n      x[i] = T();\n  }\n\
     \  ModularIntegerImpl(large_int y) {\n    for (size_t i = 0; i < sizeof...(Mods);\
     \ i++) {\n      x[i] = y % mods[i];\n      if (x[i] < 0)\n        x[i] += mods[i];\n\
@@ -169,45 +178,45 @@ data:
     \                       Mods...>;\n\ntemplate <int32_t... Mods> using Mint32 =\
     \ ModularInteger<int32_t, Mods...>;\n\ntemplate <int64_t... Mods> using Mint64\
     \ = ModularInteger<int64_t, Mods...>;\n\nusing MintP = Mint32<(int32_t)1e9+7>;\n\
-    using MintNTT = Mint32<998244353>;\n} // namespace lib\n\n\n#line 1 \"NTT.cpp\"\
-    \n\n\n#line 1 \"DFT.cpp\"\n\n\n#line 1 \"BitTricks.cpp\"\n\n\n#line 4 \"BitTricks.cpp\"\
-    \n\nnamespace lib {\nlong long next_power_of_two(long long n) {\n  return 1LL\
-    \ << (sizeof(long long) * 8 - 1 - __builtin_clzll(n) +\n                 ((n &\
-    \ (n - 1LL)) != 0));\n}\n} // namespace lib\n\n\n#line 5 \"DFT.cpp\"\n\nnamespace\
-    \ lib {\nusing namespace std;\nnamespace linalg {\ntemplate <typename Ring, typename\
-    \ Provider>\nstruct DFT {\n  static vector<int> rev;\n  static vector<Ring> fa;\n\
-    \n  // function used to precompute rev for fixed size fft (n is a power of two)\n\
-    \  static void dft_rev(int n) {\n    Provider()(n);\n    int lbn = __builtin_ctz(n);\n\
-    \    if ((int)rev.size() < (1 << lbn))\n      rev.resize(1 << lbn);\n    int h\
-    \ = -1;\n    for (int i = 1; i < n; i++) {\n      if ((i & (i - 1)) == 0)\n  \
-    \      h++;\n      rev[i] = rev[i ^ (1 << h)] | (1 << (lbn - h - 1));\n    }\n\
-    \  }\n\n  static void dft_iter(Ring *p, int n) {\n    Provider w;\n    for (int\
-    \ L = 2; L <= n; L <<= 1) {\n      for (int i = 0; i < n; i += L) {\n        for\
-    \ (int j = 0; j < L / 2; j++) {\n          Ring z = p[i + j + L / 2] * w[j + L\
-    \ / 2];\n          p[i + j + L / 2] = p[i + j] - z;\n          p[i + j] += z;\n\
-    \        }\n      }\n    }\n  }\n\n  static void swap(vector<Ring> &buf) { std::swap(fa,\
-    \ buf); }\n  static void _dft(Ring *p, int n) {\n    dft_rev(n);\n    for (int\
-    \ i = 0; i < n; i++)\n      if (i < rev[i])\n        std::swap(p[i], p[rev[i]]);\n\
-    \    dft_iter(p, n);\n  }\n  static void _idft(Ring *p, int n) {\n    _dft(p,\
-    \ n);\n    reverse(p + 1, p + n);\n    Ring inv = Provider().inverse(n);\n   \
-    \ for (int i = 0; i < n; i++)\n      p[i] *= inv;\n  }\n\n  static void dft(int\
-    \ n) { _dft(fa.data(), n); }\n\n  static void idft(int n) { _idft(fa.data(), n);\
-    \ }\n\n  static void dft(vector<Ring> &v, int n) {\n    swap(v);\n    dft(n);\n\
-    \    swap(v);\n  }\n  static void idft(vector<Ring> &v, int n) {\n    swap(v);\n\
-    \    idft(n);\n    swap(v);\n  }\n\n  static int ensure(int a, int b = 0) {\n\
-    \    int n = a+b;\n    n = next_power_of_two(n);\n    if ((int)fa.size() < n)\n\
-    \      fa.resize(n);\n    return n;\n  }\n\n  static void clear(int n) { fill(fa.begin(),\
-    \ fa.begin() + n, 0); }\n\n  template<typename Iterator>\n  static void fill(Iterator\
-    \ begin, Iterator end) {\n    int n = ensure(distance(begin, end));\n    int i\
-    \ = 0;\n    for(auto it = begin; it != end; ++it) {\n      fa[i++] = *it;\n  \
-    \  }\n    for(;i < n; i++) fa[i] = Ring();\n  }\n};\n\ntemplate<typename DF, typename\
-    \ U>\nstatic vector<U> retrieve(int n) {\n  assert(n <= DF::fa.size());\n  vector<U>\
-    \ res(n);\n  for(int i = 0; i < n; i++) res[i] = (U)DF::fa[i];\n  return res;\n\
-    }\n\ntemplate<typename Ring, typename Provider>\nvector<int> DFT<Ring, Provider>::rev\
-    \ = vector<int>();\n\ntemplate<typename Ring, typename Provider>\nvector<Ring>\
-    \ DFT<Ring, Provider>::fa = vector<Ring>();\n}\n} // namespace lib\n\n\n#line\
-    \ 1 \"VectorN.cpp\"\n\n\n#line 1 \"Traits.cpp\"\n\n\n#line 4 \"Traits.cpp\"\n\n\
-    namespace lib {\nusing namespace std;\nnamespace traits {\n\ntemplate <typename...>\
+    using MintNTT = Mint32<998244353>;\n} // namespace lib\n\n\n#line 1 \"FHT.cpp\"\
+    \n\n\n#line 1 \"BitTricks.cpp\"\n\n\n#line 4 \"BitTricks.cpp\"\n\nnamespace lib\
+    \ {\nlong long next_power_of_two(long long n) {\n  return 1LL << (sizeof(long\
+    \ long) * 8 - 1 - __builtin_clzll(n) +\n                 ((n & (n - 1LL)) != 0));\n\
+    }\n} // namespace lib\n\n\n#line 1 \"NTT.cpp\"\n\n\n#line 1 \"DFT.cpp\"\n\n\n\
+    #line 5 \"DFT.cpp\"\n\nnamespace lib {\nusing namespace std;\nnamespace linalg\
+    \ {\ntemplate <typename Ring, typename Provider>\nstruct DFT {\n  static vector<int>\
+    \ rev;\n  static vector<Ring> fa;\n\n  // function used to precompute rev for\
+    \ fixed size fft (n is a power of two)\n  static void dft_rev(int n) {\n    Provider()(n);\n\
+    \    int lbn = __builtin_ctz(n);\n    if ((int)rev.size() < (1 << lbn))\n    \
+    \  rev.resize(1 << lbn);\n    int h = -1;\n    for (int i = 1; i < n; i++) {\n\
+    \      if ((i & (i - 1)) == 0)\n        h++;\n      rev[i] = rev[i ^ (1 << h)]\
+    \ | (1 << (lbn - h - 1));\n    }\n  }\n\n  static void dft_iter(Ring *p, int n)\
+    \ {\n    Provider w;\n    for (int L = 2; L <= n; L <<= 1) {\n      for (int i\
+    \ = 0; i < n; i += L) {\n        for (int j = 0; j < L / 2; j++) {\n         \
+    \ Ring z = p[i + j + L / 2] * w[j + L / 2];\n          p[i + j + L / 2] = p[i\
+    \ + j] - z;\n          p[i + j] += z;\n        }\n      }\n    }\n  }\n\n  static\
+    \ void swap(vector<Ring> &buf) { std::swap(fa, buf); }\n  static void _dft(Ring\
+    \ *p, int n) {\n    dft_rev(n);\n    for (int i = 0; i < n; i++)\n      if (i\
+    \ < rev[i])\n        std::swap(p[i], p[rev[i]]);\n    dft_iter(p, n);\n  }\n \
+    \ static void _idft(Ring *p, int n) {\n    _dft(p, n);\n    reverse(p + 1, p +\
+    \ n);\n    Ring inv = Provider().inverse(n);\n    for (int i = 0; i < n; i++)\n\
+    \      p[i] *= inv;\n  }\n\n  static void dft(int n) { _dft(fa.data(), n); }\n\
+    \n  static void idft(int n) { _idft(fa.data(), n); }\n\n  static void dft(vector<Ring>\
+    \ &v, int n) {\n    swap(v);\n    dft(n);\n    swap(v);\n  }\n  static void idft(vector<Ring>\
+    \ &v, int n) {\n    swap(v);\n    idft(n);\n    swap(v);\n  }\n\n  static int\
+    \ ensure(int a, int b = 0) {\n    int n = a+b;\n    n = next_power_of_two(n);\n\
+    \    if ((int)fa.size() < n)\n      fa.resize(n);\n    return n;\n  }\n\n  static\
+    \ void clear(int n) { fill(fa.begin(), fa.begin() + n, 0); }\n\n  template<typename\
+    \ Iterator>\n  static void fill(Iterator begin, Iterator end) {\n    int n = ensure(distance(begin,\
+    \ end));\n    int i = 0;\n    for(auto it = begin; it != end; ++it) {\n      fa[i++]\
+    \ = *it;\n    }\n    for(;i < n; i++) fa[i] = Ring();\n  }\n};\n\ntemplate<typename\
+    \ DF, typename U>\nstatic vector<U> retrieve(int n) {\n  assert(n <= DF::fa.size());\n\
+    \  vector<U> res(n);\n  for(int i = 0; i < n; i++) res[i] = (U)DF::fa[i];\n  return\
+    \ res;\n}\n\ntemplate<typename Ring, typename Provider>\nvector<int> DFT<Ring,\
+    \ Provider>::rev = vector<int>();\n\ntemplate<typename Ring, typename Provider>\n\
+    vector<Ring> DFT<Ring, Provider>::fa = vector<Ring>();\n}\n} // namespace lib\n\
+    \n\n#line 1 \"VectorN.cpp\"\n\n\n#line 1 \"Traits.cpp\"\n\n\n#line 4 \"Traits.cpp\"\
+    \n\nnamespace lib {\nusing namespace std;\nnamespace traits {\n\ntemplate <typename...>\
     \ struct make_void { using type = void; };\n\ntemplate <typename... T> using void_t\
     \ = typename make_void<T...>::type;\n\n/// keep caide\ntemplate <typename Iterator>\n\
     using IteratorCategory = typename iterator_traits<Iterator>::iterator_category;\n\
@@ -297,10 +306,79 @@ data:
     \ vector<Field> on_transform(\n    int n,\n    Functor& f,        \n    const\
     \ vector<Ts>&... vs) const {\n    int np = next_power_of_two(n);\n    return linalg::NTT<Field>::itransform(\n\
     \      f(n, linalg::NTT<Field>::transform(vs, np)...), n);\n  }\n};\n} // namespace\
-    \ lib\n\n\n#line 1 \"PolynomialRing.cpp\"\n\n\n#line 1 \"Epsilon.cpp\"\n\n\n#line\
-    \ 4 \"Epsilon.cpp\"\n\nnamespace lib {\nusing namespace std;\n\ntemplate <typename\
-    \ T = double> struct Epsilon {\n  T eps;\n  constexpr Epsilon(T eps = 1e-9) :\
-    \ eps(eps) {}\n\n  template <typename G,\n            typename enable_if<is_floating_point<G>::value>::type\
+    \ lib\n\n\n#line 1 \"polynomial/Transform.cpp\"\n\n\n#line 4 \"polynomial/Transform.cpp\"\
+    \n\nnamespace lib {\nusing namespace std;\ntemplate<template <class> class T>\n\
+    struct TransformMultiplication {\n  template<typename Field>\n  using Transform\
+    \ = T<Field>;\n\n  template <typename Field>\n  vector<Field> operator()(const\
+    \ vector<Field> &a,\n                           const vector<Field> &b) const\
+    \ {\n    return T<Field>::convolve(a, b);\n  };\n\n  template<typename Field>\n\
+    \  inline VectorN<Field> transform(int n, const vector<Field>& p) const {\n  \
+    \  int np = next_power_of_two(n);\n    return T<Field>::transform(p, np);\n  }\n\
+    \n  template<typename Field>\n  inline vector<Field> itransform(int n, const vector<Field>&\
+    \ p) const {\n    return T<Field>::itransform(p, n);\n  }\n\n  template <typename\
+    \ Field, typename Functor, typename ...Ts>\n  inline vector<Field> on_transform(\n\
+    \    int n,\n    Functor& f,        \n    const vector<Ts>&... vs) const {\n \
+    \   int np = next_power_of_two(n);\n    return T<Field>::itransform(\n      f(n,\
+    \ T<Field>::transform(vs, np)...), n);\n  }\n};\n} // namespace lib\n\n\n#line\
+    \ 7 \"FHT.cpp\"\n\nnamespace lib {\nusing namespace std;\nnamespace linalg {\n\
+    template <typename Ring>\nstruct FHT {\n  using Provider = MintRootProvider<Ring>;\n\
+    \  using T = Ring;\n  using U = make_unsigned_t<typename Ring::type_int>;\n  using\
+    \ U64 = make_unsigned_t<typename Ring::large_int>;\n  static vector<Ring> fa;\n\
+    \  static const int MAX_LG_N = 30;\n  static vector<Ring> g, ig;\n  \n  static\
+    \ void precompute() {\n    if(!g.empty()) return;\n    Provider();\n    g.resize(MAX_LG_N);\n\
+    \    ig.resize(MAX_LG_N);\n    for(int i = 0; i < MAX_LG_N; i++) {\n      Ring\
+    \ w = Provider::g ^ (((Ring::mod-1) >> (i + 2)) * 3);\n      w = -w;\n      Ring\
+    \ iw = w.inverse();\n      g[i] = w;\n      ig[i] = iw;\n    }\n  }\n\n  static\
+    \ inline U& v(Ring& p) {\n    return (U&)p.data();\n  }\n\n  static inline U v(const\
+    \ Ring& p) {\n    return (U)p.data();\n  }\n\n  static void dft_iter(Ring *p,\
+    \ int n) {\n    // decimation-in-time\n    // natural to reverse ordering\n  \
+    \  for (int B = n >> 1; B; B >>= 1) {\n      Ring w = 1;\n      for (int i = 0,\
+    \ twiddle = 0; i < n; i += B * 2) {\n        for (int j = i; j < i + B; j++) {\n\
+    \          Ring z = p[j + B] * w;\n          p[j + B] = p[j] - z;\n          p[j]\
+    \ += z;\n        }\n        w *= g[__builtin_ctz(++twiddle)];\n      }\n    }\n\
+    \  }\n\n  static void idft_iter(Ring *p, int n) {\n    // decimation-in-frequency\n\
+    \    // reverse to natural ordering\n    for (int B = 1; B < n; B <<= 1) {\n \
+    \     Ring w = 1;\n      for (int i = 0, twiddle = 0; i < n; i += B * 2) {\n \
+    \       for (int j = i; j < i + B; j++) {\n          Ring z = (p[j] - p[j + B])\
+    \ * w;\n          p[j] += p[j + B];\n          p[j + B] = z;\n        }\n    \
+    \    w *= ig[__builtin_ctz(++twiddle)];\n      }\n    }\n  }\n\n  static void\
+    \ swap(vector<Ring> &buf) { std::swap(fa, buf); }\n  static void _dft(Ring *p,\
+    \ int n) {\n    precompute();\n    dft_iter(p, n);\n  }\n  static void _idft(Ring\
+    \ *p, int n) {\n    precompute();\n    idft_iter(p, n);\n    Ring inv = Provider().inverse(n);\n\
+    \    for (int i = 0; i < n; i++)\n      p[i] *= inv;\n  }\n\n  static void dft(int\
+    \ n) { _dft(fa.data(), n); }\n\n  static void idft(int n) { _idft(fa.data(), n);\
+    \ }\n\n  static void dft(vector<Ring> &v, int n) {\n    swap(v);\n    dft(n);\n\
+    \    swap(v);\n  }\n  static void idft(vector<Ring> &v, int n) {\n    swap(v);\n\
+    \    idft(n);\n    swap(v);\n  }\n\n  static int ensure(int a, int b = 0) {\n\
+    \    int n = a+b;\n    n = next_power_of_two(n);\n    if ((int)fa.size() < n)\n\
+    \      fa.resize(n);\n    return n;\n  }\n\n  static void clear(int n) { fill(fa.begin(),\
+    \ fa.begin() + n, 0); }\n\n  template<typename Iterator>\n  static void fill(Iterator\
+    \ begin, Iterator end) {\n    int n = ensure(distance(begin, end));\n    int i\
+    \ = 0;\n    for(auto it = begin; it != end; ++it) {\n      fa[i++] = *it;\n  \
+    \  }\n    for(;i < n; i++) fa[i] = Ring();\n  }\n\n  static void _convolve(const\
+    \ vector<T> &a) {\n    int n = ensure(a.size(), a.size());\n    for (size_t i\
+    \ = 0; i < (size_t)n; i++)\n      fa[i] = i < a.size() ? a[i] : T();\n    dft(n);\n\
+    \    for (int i = 0; i < n; i++)\n      fa[i] *= fa[i];\n    idft(n);\n  }\n\n\
+    \  static void _convolve(const vector<T> &a, const vector<T> &b) {\n    if(std::addressof(a)\
+    \ == std::addressof(b))\n      return _convolve(a);\n    int n = ensure(a.size(),\
+    \ b.size());\n    for (size_t i = 0; i < (size_t)n; i++)\n      fa[i] = i < a.size()\
+    \ ? a[i] : T();\n    dft(n);\n    // TODO: have a buffer for this\n    auto fb\
+    \ = retrieve<FHT<T>, T>(n);\n    for(size_t i = 0; i < (size_t)n; i++)\n     \
+    \ fa[i] = i < b.size() ? b[i] : T();\n    dft(n);\n    for (int i = 0; i < n;\
+    \ i++)\n      fa[i] *= fb[i];\n    idft(n);\n  }\n\n  static vector<T> convolve(const\
+    \ vector<T>& a, const vector<T>& b) {\n    int sz = (int)a.size() + b.size() -\
+    \ 1;\n    _convolve(a, b);\n    return retrieve<FHT<T>, T>(sz);\n  }\n  \n  static\
+    \ VectorN<T> transform(vector<T> a, int n) {\n    a.resize(n);\n    dft(a, n);\n\
+    \    return a;\n  }\n\n  static vector<T> itransform(vector<T> a, int n) {\n \
+    \   int sz = a.size();\n    idft(a, sz);\n    a.resize(min(n, sz));\n    return\
+    \ a;\n  }\n};\n\ntemplate<typename Ring>\nvector<Ring> FHT<Ring>::fa = vector<Ring>();\n\
+    template<typename Ring>\nvector<Ring> FHT<Ring>::g = vector<Ring>();\ntemplate<typename\
+    \ Ring>\nvector<Ring> FHT<Ring>::ig = vector<Ring>();\n}\n\nusing FHTMultiplication\
+    \ = TransformMultiplication<linalg::FHT>;\n} // namespace lib\n\n\n#line 1 \"\
+    PolynomialRing.cpp\"\n\n\n#line 1 \"Epsilon.cpp\"\n\n\n#line 4 \"Epsilon.cpp\"\
+    \n\nnamespace lib {\nusing namespace std;\n\ntemplate <typename T = double> struct\
+    \ Epsilon {\n  T eps;\n  constexpr Epsilon(T eps = 1e-9) : eps(eps) {}\n\n  template\
+    \ <typename G,\n            typename enable_if<is_floating_point<G>::value>::type\
     \ * = nullptr>\n  int operator()(G a, G b = 0) const {\n    return a + eps < b\
     \ ? -1 : (b + eps < a ? 1 : 0);\n  }\n\n  template <typename G,\n            typename\
     \ enable_if<!is_floating_point<G>::value>::type * = nullptr>\n  int operator()(G\
@@ -507,23 +585,68 @@ data:
     \ << \"[\";\n    int sz = var.size();\n    for (int i = sz - 1; i >= 0; i--) {\n\
     \      output << var[i];\n      if (i)\n        output << \" \";\n    }\n    return\
     \ output << \"]\";\n  }\n};\n} // namespace poly\n/// keep caide\nusing poly::Polynomial;\n\
-    } // namespace math\n} // namespace lib\n\n\n#line 1 \"PowerSeries.cpp\"\n\n\n\
-    #line 6 \"PowerSeries.cpp\"\n\nnamespace lib {\nusing namespace std;\nnamespace\
-    \ series {\n\ntemplate <typename P> P ln(const P &p, int n);\n\ntemplate <typename\
-    \ P> P inverse(P p, int n) {\n  return p.inverse(n);\n}\n\ntemplate <typename\
-    \ P> P ln(const P &p, int n) {\n  return (p.derivative() * inverse(p, n) % n).integral()\
-    \ % n;\n}\n\ntemplate<typename P> pair<P, P> exp2(P p, int n) {\n  assert(p[0]\
-    \ == 0);\n  P f{1}, g{1};\n  for(int i = 1; i < n; i*=2) {\n    g = g * 2 - (g*g%i*f)%i;\n\
-    \    P q = (p % i).derivative();\n    q += g * (f.derivative() - f * q) % (2 *\
-    \ i - 1);\n    f += f * (p % (2 * i) - q.integral()) % (2 * i);\n  }\n  return\
-    \ {f % n, g % n};\n}\n\n// p[0] must be null\ntemplate <typename P> P exp(P p,\
-    \ int n) {\n  return exp2(p, n).first;\n}\n\ntemplate <typename P> P power(const\
-    \ P &p, long long k, int n) {\n  int m = p.size();\n  for(int i = 0; i < m; i++)\
-    \ {\n    if(p[i] == 0) continue;\n    if(i > 0 && k > n / i) return {};\n    auto\
-    \ rev = typename P::field(1) / p[i];\n    auto D = (p * rev) >> i;\n    int sz\
-    \ = n - i * k;\n    D = exp(ln(D, sz) * k, sz) * (p[i] ^ k);\n    if(i == 0) return\
-    \ D % n;\n    long long S = k * i;\n    D <<= S;\n    return D % n;\n  }\n  return\
-    \ {};\n}\n} // namespace series\n} // namespace lib\n\n\n#line 6 \"tests/yosupo/fps_inv.cpp\"\
+    } // namespace math\n} // namespace lib\n\n\n#line 1 \"LinearRecurrence.cpp\"\n\
+    \n\n#line 6 \"LinearRecurrence.cpp\"\n\nnamespace lib {\nusing namespace std;\n\
+    namespace linalg {\nnamespace {\nusing traits::HasRandomIterator;\nusing traits::IsRandomIterator;\n\
+    } // namespace\n\ntemplate <typename P> struct BMSolver {\n  typedef BMSolver<P>\
+    \ type;\n  typedef typename P::field field_type;\n  typedef P poly_type;\n\n \
+    \ vector<field_type> base;\n  vector<field_type> T;\n\n  template <\n      typename\
+    \ Iterator,\n      typename enable_if<IsRandomIterator<Iterator>::value>::type\
+    \ * = nullptr>\n  void solve(Iterator begin, Iterator end) {\n    auto get = [begin](int\
+    \ i) { return *(begin + i); };\n\n    int n = distance(begin, end);\n\n    vector<field_type>\
+    \ C = {1}, B = {1};\n    field_type b = 1;\n    int L = 0;\n\n    for (int i =\
+    \ 0, x = 1; i < n; i++, x++) {\n      // evaluate new element\n      field_type\
+    \ d = 0;\n      for (size_t j = 0; j < C.size(); j++)\n        d += get(i - j)\
+    \ * C[j];\n      if (d == 0)\n        continue;\n      if (2 * L <= i) {\n   \
+    \     auto tmp = C;\n        if (C.size() < B.size() + x)\n          C.resize(B.size()\
+    \ + x);\n        field_type coef = d / b;\n        for (size_t j = 0; j < B.size();\
+    \ j++)\n          C[j + x] -= coef * B[j];\n        L = i + 1 - L;\n        B\
+    \ = tmp;\n        b = d;\n        x = 0;\n      } else {\n        if (C.size()\
+    \ < B.size() + x)\n          C.resize(B.size() + x);\n        field_type coef\
+    \ = d / b;\n        for (size_t j = 0; j < B.size(); j++)\n          C[j + x]\
+    \ -= coef * B[j];\n      }\n    }\n\n    T = vector<field_type>((int)C.size()\
+    \ - 1);\n    for (size_t i = 0; i < T.size(); i++)\n      T[i] = -C[i + 1];\n\
+    \    base = vector<field_type>(begin, end);\n  }\n\n  template <\n      typename\
+    \ Container,\n      typename enable_if<HasRandomIterator<Container>::value>::type\
+    \ * = nullptr>\n  void solve(const Container &container) {\n    solve(container.begin(),\
+    \ container.end());\n  }\n\n  void solve(const initializer_list<field_type> &l)\
+    \ {\n    solve(l.begin(), l.end());\n  }\n\n  bool solved() const { return T.size()\
+    \ > 0 && base.size() >= T.size(); }\n\n  void ensure(int nsz) const {\n    auto\
+    \ *self = const_cast<type *>(this);\n    for (int j = base.size(); j < nsz; j++)\
+    \ {\n      field_type acc = 0;\n      for (int i = 0; i < (int)T.size(); i++)\n\
+    \        acc += base[j - i - 1] * T[i];\n      self->base.push_back(acc);\n  \
+    \  }\n  }\n\n  poly_type mod_function() const {\n    poly_type res;\n    int m\
+    \ = T.size();\n    res[m] = 1;\n    for (int i = 0; i < m; i++)\n      res[i]\
+    \ = -T[m - i - 1];\n    return res;\n  }\n\n  vector<field_type> compute(long\
+    \ long K, int n) {\n    assert(n > 0);\n    assert(solved());\n    vector<field_type>\
+    \ res;\n    int N = T.size();\n    int cons = min(n, N);\n\n    if (K < (int)base.size())\
+    \ {\n      for (int j = 0; j < n && K + j < (int)base.size(); j++)\n        res.push_back({base[K\
+    \ + j]});\n\n      while ((int)res.size() < cons) {\n        field_type acc =\
+    \ 0;\n        int sz = res.size();\n        int mid = min(sz, N);\n        for\
+    \ (int i = 0; i < mid; i++)\n          acc += res[sz - i - 1] * T[i];\n      \
+    \  sz = base.size();\n        for (int i = mid; i < N; i++)\n          acc +=\
+    \ base[sz - 1 - (i - mid)] * T[i];\n        res.push_back(acc);\n      }\n   \
+    \ } else {\n      ensure(cons + N - 1);\n\n      poly_type x = poly_type::kth(K,\
+    \ mod_function());\n\n      for (int j = 0; j < cons; j++) {\n        field_type\
+    \ acc = 0;\n        for (int i = 0; i < N; i++)\n          acc += x[i] * base[i\
+    \ + j];\n        res.push_back(acc);\n      }\n    }\n\n    for (int j = res.size();\
+    \ j < n; j++) {\n      field_type acc = 0;\n      for (int i = 0; i < N; i++)\n\
+    \        acc += res[j - i - 1] * T[i];\n      res.push_back(acc);\n    }\n   \
+    \ return res;\n  }\n\n  field_type compute(long long K) { return compute(K, 1)[0];\
+    \ }\n};\n\ntemplate<typename Poly>\nstruct LinearRecurrence {\n  typedef LinearRecurrence<Poly>\
+    \ type;\n  typedef typename Poly::field field_type;\n  typedef Poly poly_type;\n\
+    \n  poly_type P, Q;\n\n  LinearRecurrence(const vector<field_type>& base, vector<field_type>\
+    \ T) {\n    assert(base.size() == T.size());\n    assert(T.back() == field_type());\n\
+    \    for(auto& x : T) x = -x;\n    T.insert(T.begin(), field_type(1));\n    Q\
+    \ = poly_type(T);\n    P = poly_type(base) % T.size() * Q % ((int)T.size() - 1);\n\
+    \  }\n\n  template<typename I>\n  field_type compute(I N) {\n    auto P1 = P;\n\
+    \    auto Q1 = Q;\n    while(N) {\n      auto Q2 = Q1;\n      for(int i = 1; i\
+    \ < Q2.size(); i += 2) Q2[i] = -Q2[i];\n      auto U = P1 * Q2;\n      P1 = poly_type();\n\
+    \      for(int i = N % 2, j = 0; j < Q.degree(); j++, i += 2)\n        P1[j] =\
+    \ U[i];\n      auto A = Q1 * Q2;\n      Q1 = poly_type();\n      for(int i = 0,\
+    \ j = 0; j <= Q.degree(); j++, i += 2)\n        Q1[j] = A[i];\n      N /= 2;\n\
+    \      if(N < P.size()) break;\n    }\n    return (P1 * Q1.inverse())[N];\n  }\n\
+    };\n} // namespace linalg\n} // namespace lib\n\n\n#line 8 \"tests/yosupo/find-lr.test.cpp\"\
     \n#define int long long\nusing namespace std;\n \n#define mp make_pair\n#define\
     \ mt make_tuple\n#define pb push_back\n#define ms(v, x) memset((v), (x), sizeof(v))\n\
     #define all(v) (v).begin(), (v).end()\n#define ff first\n#define ss second\n#define\
@@ -533,77 +656,17 @@ data:
     \ 0) return 1%MOD;\n    if(p == 1) return x%MOD;\n    int res = power(x, p/2,\
     \ MOD);\n    res = (long long)res*res%MOD;\n    if(p&1) res = (long long)res*x%MOD;\n\
     \    return res;\n}\n \ntypedef pair<int, int> ii;\ntypedef long double LD;\n\
-    typedef vector<int> vi;\n\n#pragma region template\n\nusing ll = long long;\n\
-    using ull = unsigned long long;\nconstexpr ll TEN(int n) { return (n == 0) ? 1\
-    \ : 10 * TEN(n - 1); }\ntemplate <class T> using V = vector<T>;\ntemplate <class\
-    \ T> using VV = V<V<T>>;\n\n#ifdef LOCAL\nstruct PrettyOS {\n    ostream& os;\n\
-    \    bool first;\n    template <class T> auto operator<<(T&& x) {\n        if\
-    \ (!first) os << \", \";\n        first = false;\n        os << x;\n        return\
-    \ *this;\n    }\n};\ntemplate <class... T> void dbg0(T&&... t) {\n    (PrettyOS{cerr,\
-    \ true} << ... << t);\n}\n#define dbg(...)                                   \
-    \         \\\n    do {                                                    \\\n\
-    \        cerr << __LINE__ << \" : \" << #__VA_ARGS__ << \" = \"; \\\n        dbg0(__VA_ARGS__);\
-    \                                  \\\n        cerr << endl;                 \
-    \                      \\\n    } while (false);\n#else\n#define dbg(...)\n#endif\n\
-    \ntemplate <class T, class U>\nostream& operator<<(ostream& os, const pair<T,\
-    \ U>& p) {\n    return os << \"P(\" << p.first << \", \" << p.second << \")\"\
-    ;\n}\n\ntemplate <class T> ostream& operator<<(ostream& os, const V<T>& v) {\n\
-    \    os << \"[\";\n    for (auto d : v) os << d << \", \";\n    return os << \"\
-    ]\";\n}\n\nstruct Scanner {\n    FILE* fp = nullptr;\n    char line[1 << 15];\n\
-    \    size_t st = 0, ed = 0;\n    void reread() {\n        memmove(line, line +\
-    \ st, ed - st);\n        ed -= st;\n        st = 0;\n        ed += fread(line\
-    \ + ed, 1, (1 << 15) - ed, fp);\n    }\n    bool succ() {\n        while (true)\
-    \ {\n            if (st == ed) {\n                reread();\n                if\
-    \ (st == ed) return false;\n            }\n            while (st != ed && isspace(line[st]))\
-    \ st++;\n            if (st != ed) break;\n        }\n        if (ed - st <= 50)\
-    \ reread();\n        return true;\n    }\n    template <class T, enable_if_t<is_same<T,\
-    \ string>::value, int> = 0>\n    bool read_single(T& ref) {\n        if (!succ())\
-    \ return false;\n        while (true) {\n            succ();\n            size_t\
-    \ sz = 1;\n            while (st + sz < ed && !isspace(line[st + sz])) sz++;\n\
-    \            ref.append(line + st, sz);\n            st += sz;\n            if\
-    \ (st != ed) break;\n        }\n        return true;\n    }\n    template <class\
-    \ T, enable_if_t<is_integral<T>::value, int> = 0>\n    bool read_single(T& ref)\
-    \ {\n        if (!succ()) return false;\n        bool neg = false;\n        if\
-    \ (line[st] == '-') {\n            neg = true;\n            st++;\n        }\n\
-    \        ref = T(0);\n        while (isdigit(line[st])) {\n            ref = 10\
-    \ * ref + (line[st++] - '0');\n        }\n        if (neg) ref = -ref;\n     \
-    \   return true;\n    }\n    template <class T> bool read_single(V<T>& ref) {\n\
-    \        for (auto& d : ref) {\n            if (!read_single(d)) return false;\n\
-    \        }\n        return true;\n    }\n    void read() {}\n    template <class\
-    \ H, class... T> void read(H& h, T&... t) {\n        bool f = read_single(h);\n\
-    \        assert(f);\n        read(t...);\n    }\n    Scanner(FILE* _fp) : fp(_fp)\
-    \ {}\n};\n\nstruct Printer {\n  public:\n    template <bool F = false> void write()\
-    \ {}\n    template <bool F = false, class H, class... T>\n    void write(const\
-    \ H& h, const T&... t) {\n        if (F) write_single(' ');\n        write_single(h);\n\
-    \        write<true>(t...);\n    }\n    template <class... T>\n    void writeln(const\
-    \ T&... t) {\n        write(t...);\n        write_single('\\n');\n    }\n\n  \
-    \  Printer(FILE* _fp) : fp(_fp) {}\n    ~Printer() { flush(); }\n\n  private:\n\
-    \    static constexpr size_t SIZE = 1 << 15;\n    FILE* fp;\n    char line[SIZE],\
-    \ small[50];\n    size_t pos = 0;\n    void flush() {\n        fwrite(line, 1,\
-    \ pos, fp);\n        pos = 0;\n    }\n    void write_single(const char& val) {\n\
-    \        if (pos == SIZE) flush();\n        line[pos++] = val;\n    }\n    template\
-    \ <class T, enable_if_t<is_same<T, string>::value, int> = 0>\n    void write_single(const\
-    \ T& val) {\n        for (char c : val) write_single(c);\n    }\n    template\
-    \ <class T, enable_if_t<is_integral<T>::value, int> = 0>\n    void write_single(T\
-    \ val) {\n        if (pos > (1 << 15) - 50) flush();\n        if (val == 0) {\n\
-    \            write_single('0');\n            return;\n        }\n        if (val\
-    \ < 0) {\n            write_single('-');\n            val = -val;  // todo min\n\
-    \        }\n        size_t len = 0;\n        while (val) {\n            small[len++]\
-    \ = char('0' + (val % 10));\n            val /= 10;\n        }\n        reverse(small,\
-    \ small + len);\n        memcpy(line + pos, small, len);\n        pos += len;\n\
-    \    }\n    template <class T> void write_single(const V<T>& val) {\n        auto\
-    \ n = val.size();\n        for (size_t i = 0; i < n; i++) {\n            if (i)\
-    \ write_single(' ');\n            write_single(val[i]);\n        }\n    }\n};\n\
-    \n#pragma endregion\n\nusing namespace lib;\nusing mint = MintNTT;\nusing poly\
-    \ = math::Polynomial<mint, NTTMultiplication>;\n\nint32_t main(){\n    // Scanner\
-    \ sc(stdin);\n    // Printer pr(stdout);\n    iopt;\n\n    int n;\n    cin >>\
-    \ n;\n\n    V<mint> a(n);\n    for (int i = 0; i < n; i++) {\n        cin >> a[i];\n\
-    \    }\n    auto c = series::ln(poly(a), n);\n    for (int i = 0; i < n; i++)\
-    \ {\n        cout << c[i] << \" \";\n    }\n    cout << endl;\n    return 0;\n\
-    }\n"
-  code: "#include <bits/stdc++.h>\n#include \"ModularInteger.cpp\"\n#include \"NTT.cpp\"\
-    \n#include \"PolynomialRing.cpp\"\n#include \"PowerSeries.cpp\"\n#define int long\
-    \ long\nusing namespace std;\n \n#define mp make_pair\n#define mt make_tuple\n\
+    typedef vector<int> vi;\n\nusing namespace lib;\nusing mint = MintNTT;\nusing\
+    \ poly = math::Polynomial<mint, FHTMultiplication>;\n\nint32_t main(){\n    //\
+    \ Scanner sc(stdin);\n    // Printer pr(stdout);\n    iopt;\n\n    int n; cin\
+    \ >> n;\n    vector<mint> b;\n\n    for(int i = 0; i < n; i++) {\n      mint x;\
+    \ cin >> x;\n      b.pb(x);\n    }\n\n    linalg::BMSolver<poly> lr;\n    lr.solve(b);\n\
+    \    cout << lr.T.size() << endl;\n    for(mint x : lr.T) cout << x << \" \";\n\
+    \    cout << endl;\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/find_linear_recurrence\"\
+    \n\n#include <bits/stdc++.h>\n#include \"ModularInteger.cpp\"\n#include \"FHT.cpp\"\
+    \n#include \"PolynomialRing.cpp\"\n#include \"LinearRecurrence.cpp\"\n#define\
+    \ int long long\nusing namespace std;\n \n#define mp make_pair\n#define mt make_tuple\n\
     #define pb push_back\n#define ms(v, x) memset((v), (x), sizeof(v))\n#define all(v)\
     \ (v).begin(), (v).end()\n#define ff first\n#define ss second\n#define iopt ios::sync_with_stdio(false);\
     \ cin.tie(0)\n#define untie(p, a, b) decltype(p.first) a = p.first, decltype(p.second)\
@@ -611,99 +674,40 @@ data:
     int power(int x, int p, int MOD) {\n    if(p == 0) return 1%MOD;\n    if(p ==\
     \ 1) return x%MOD;\n    int res = power(x, p/2, MOD);\n    res = (long long)res*res%MOD;\n\
     \    if(p&1) res = (long long)res*x%MOD;\n    return res;\n}\n \ntypedef pair<int,\
-    \ int> ii;\ntypedef long double LD;\ntypedef vector<int> vi;\n\n#pragma region\
-    \ template\n\nusing ll = long long;\nusing ull = unsigned long long;\nconstexpr\
-    \ ll TEN(int n) { return (n == 0) ? 1 : 10 * TEN(n - 1); }\ntemplate <class T>\
-    \ using V = vector<T>;\ntemplate <class T> using VV = V<V<T>>;\n\n#ifdef LOCAL\n\
-    struct PrettyOS {\n    ostream& os;\n    bool first;\n    template <class T> auto\
-    \ operator<<(T&& x) {\n        if (!first) os << \", \";\n        first = false;\n\
-    \        os << x;\n        return *this;\n    }\n};\ntemplate <class... T> void\
-    \ dbg0(T&&... t) {\n    (PrettyOS{cerr, true} << ... << t);\n}\n#define dbg(...)\
-    \                                            \\\n    do {                    \
-    \                                \\\n        cerr << __LINE__ << \" : \" << #__VA_ARGS__\
-    \ << \" = \"; \\\n        dbg0(__VA_ARGS__);                                 \
-    \ \\\n        cerr << endl;                                       \\\n    } while\
-    \ (false);\n#else\n#define dbg(...)\n#endif\n\ntemplate <class T, class U>\nostream&\
-    \ operator<<(ostream& os, const pair<T, U>& p) {\n    return os << \"P(\" << p.first\
-    \ << \", \" << p.second << \")\";\n}\n\ntemplate <class T> ostream& operator<<(ostream&\
-    \ os, const V<T>& v) {\n    os << \"[\";\n    for (auto d : v) os << d << \",\
-    \ \";\n    return os << \"]\";\n}\n\nstruct Scanner {\n    FILE* fp = nullptr;\n\
-    \    char line[1 << 15];\n    size_t st = 0, ed = 0;\n    void reread() {\n  \
-    \      memmove(line, line + st, ed - st);\n        ed -= st;\n        st = 0;\n\
-    \        ed += fread(line + ed, 1, (1 << 15) - ed, fp);\n    }\n    bool succ()\
-    \ {\n        while (true) {\n            if (st == ed) {\n                reread();\n\
-    \                if (st == ed) return false;\n            }\n            while\
-    \ (st != ed && isspace(line[st])) st++;\n            if (st != ed) break;\n  \
-    \      }\n        if (ed - st <= 50) reread();\n        return true;\n    }\n\
-    \    template <class T, enable_if_t<is_same<T, string>::value, int> = 0>\n   \
-    \ bool read_single(T& ref) {\n        if (!succ()) return false;\n        while\
-    \ (true) {\n            succ();\n            size_t sz = 1;\n            while\
-    \ (st + sz < ed && !isspace(line[st + sz])) sz++;\n            ref.append(line\
-    \ + st, sz);\n            st += sz;\n            if (st != ed) break;\n      \
-    \  }\n        return true;\n    }\n    template <class T, enable_if_t<is_integral<T>::value,\
-    \ int> = 0>\n    bool read_single(T& ref) {\n        if (!succ()) return false;\n\
-    \        bool neg = false;\n        if (line[st] == '-') {\n            neg =\
-    \ true;\n            st++;\n        }\n        ref = T(0);\n        while (isdigit(line[st]))\
-    \ {\n            ref = 10 * ref + (line[st++] - '0');\n        }\n        if (neg)\
-    \ ref = -ref;\n        return true;\n    }\n    template <class T> bool read_single(V<T>&\
-    \ ref) {\n        for (auto& d : ref) {\n            if (!read_single(d)) return\
-    \ false;\n        }\n        return true;\n    }\n    void read() {}\n    template\
-    \ <class H, class... T> void read(H& h, T&... t) {\n        bool f = read_single(h);\n\
-    \        assert(f);\n        read(t...);\n    }\n    Scanner(FILE* _fp) : fp(_fp)\
-    \ {}\n};\n\nstruct Printer {\n  public:\n    template <bool F = false> void write()\
-    \ {}\n    template <bool F = false, class H, class... T>\n    void write(const\
-    \ H& h, const T&... t) {\n        if (F) write_single(' ');\n        write_single(h);\n\
-    \        write<true>(t...);\n    }\n    template <class... T>\n    void writeln(const\
-    \ T&... t) {\n        write(t...);\n        write_single('\\n');\n    }\n\n  \
-    \  Printer(FILE* _fp) : fp(_fp) {}\n    ~Printer() { flush(); }\n\n  private:\n\
-    \    static constexpr size_t SIZE = 1 << 15;\n    FILE* fp;\n    char line[SIZE],\
-    \ small[50];\n    size_t pos = 0;\n    void flush() {\n        fwrite(line, 1,\
-    \ pos, fp);\n        pos = 0;\n    }\n    void write_single(const char& val) {\n\
-    \        if (pos == SIZE) flush();\n        line[pos++] = val;\n    }\n    template\
-    \ <class T, enable_if_t<is_same<T, string>::value, int> = 0>\n    void write_single(const\
-    \ T& val) {\n        for (char c : val) write_single(c);\n    }\n    template\
-    \ <class T, enable_if_t<is_integral<T>::value, int> = 0>\n    void write_single(T\
-    \ val) {\n        if (pos > (1 << 15) - 50) flush();\n        if (val == 0) {\n\
-    \            write_single('0');\n            return;\n        }\n        if (val\
-    \ < 0) {\n            write_single('-');\n            val = -val;  // todo min\n\
-    \        }\n        size_t len = 0;\n        while (val) {\n            small[len++]\
-    \ = char('0' + (val % 10));\n            val /= 10;\n        }\n        reverse(small,\
-    \ small + len);\n        memcpy(line + pos, small, len);\n        pos += len;\n\
-    \    }\n    template <class T> void write_single(const V<T>& val) {\n        auto\
-    \ n = val.size();\n        for (size_t i = 0; i < n; i++) {\n            if (i)\
-    \ write_single(' ');\n            write_single(val[i]);\n        }\n    }\n};\n\
-    \n#pragma endregion\n\nusing namespace lib;\nusing mint = MintNTT;\nusing poly\
-    \ = math::Polynomial<mint, NTTMultiplication>;\n\nint32_t main(){\n    // Scanner\
-    \ sc(stdin);\n    // Printer pr(stdout);\n    iopt;\n\n    int n;\n    cin >>\
-    \ n;\n\n    V<mint> a(n);\n    for (int i = 0; i < n; i++) {\n        cin >> a[i];\n\
-    \    }\n    auto c = series::ln(poly(a), n);\n    for (int i = 0; i < n; i++)\
-    \ {\n        cout << c[i] << \" \";\n    }\n    cout << endl;\n    return 0;\n\
-    }\n"
+    \ int> ii;\ntypedef long double LD;\ntypedef vector<int> vi;\n\nusing namespace\
+    \ lib;\nusing mint = MintNTT;\nusing poly = math::Polynomial<mint, FHTMultiplication>;\n\
+    \nint32_t main(){\n    // Scanner sc(stdin);\n    // Printer pr(stdout);\n   \
+    \ iopt;\n\n    int n; cin >> n;\n    vector<mint> b;\n\n    for(int i = 0; i <\
+    \ n; i++) {\n      mint x; cin >> x;\n      b.pb(x);\n    }\n\n    linalg::BMSolver<poly>\
+    \ lr;\n    lr.solve(b);\n    cout << lr.T.size() << endl;\n    for(mint x : lr.T)\
+    \ cout << x << \" \";\n    cout << endl;\n    return 0;\n}\n"
   dependsOn:
   - ModularInteger.cpp
   - NumberTheory.cpp
+  - FHT.cpp
+  - BitTricks.cpp
   - NTT.cpp
   - DFT.cpp
-  - BitTricks.cpp
   - VectorN.cpp
   - Traits.cpp
+  - polynomial/Transform.cpp
   - PolynomialRing.cpp
   - Epsilon.cpp
   - Math.cpp
   - ModularInteger.cpp
   - LongMultiplication.cpp
-  - PowerSeries.cpp
+  - LinearRecurrence.cpp
   - PolynomialRing.cpp
-  isVerificationFile: false
-  path: tests/yosupo/fps_inv.cpp
+  isVerificationFile: true
+  path: tests/yosupo/find-lr.test.cpp
   requiredBy: []
-  timestamp: '2021-01-31 01:48:38-03:00'
-  verificationStatus: LIBRARY_NO_TESTS
+  timestamp: '2021-02-07 15:54:15-03:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/yosupo/fps_inv.cpp
+documentation_of: tests/yosupo/find-lr.test.cpp
 layout: document
 redirect_from:
-- /library/tests/yosupo/fps_inv.cpp
-- /library/tests/yosupo/fps_inv.cpp.html
-title: tests/yosupo/fps_inv.cpp
+- /verify/tests/yosupo/find-lr.test.cpp
+- /verify/tests/yosupo/find-lr.test.cpp.html
+title: tests/yosupo/find-lr.test.cpp
 ---

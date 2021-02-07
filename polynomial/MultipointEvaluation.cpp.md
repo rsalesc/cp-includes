@@ -1,44 +1,41 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':question:'
     path: Epsilon.cpp
     title: Epsilon.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: LongMultiplication.cpp
     title: LongMultiplication.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: Math.cpp
     title: Math.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: ModularInteger.cpp
     title: ModularInteger.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: NumberTheory.cpp
     title: NumberTheory.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: PolynomialRing.cpp
     title: PolynomialRing.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: Traits.cpp
     title: Traits.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: Traits.cpp
     title: Traits.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: VectorN.cpp
     title: VectorN.cpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: tests/yosupo/interplation.cpp
-    title: tests/yosupo/interplation.cpp
-  - icon: ':warning:'
-    path: tests/yosupo/multipoint.cpp
-    title: tests/yosupo/multipoint.cpp
-  _extendedVerifiedWith: []
+  _extendedRequiredBy: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/multipoint.test.cpp
+    title: tests/yosupo/multipoint.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"polynomial/MultipointEvaluation.cpp\"\n\n\n#line 1 \"PolynomialRing.cpp\"\
@@ -477,12 +474,11 @@ data:
   - Traits.cpp
   isVerificationFile: false
   path: polynomial/MultipointEvaluation.cpp
-  requiredBy:
-  - tests/yosupo/multipoint.cpp
-  - tests/yosupo/interplation.cpp
+  requiredBy: []
   timestamp: '2021-01-31 01:48:38-03:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/yosupo/multipoint.test.cpp
 documentation_of: polynomial/MultipointEvaluation.cpp
 layout: document
 redirect_from:

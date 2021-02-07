@@ -1,41 +1,45 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':question:'
     path: BitTricks.cpp
     title: BitTricks.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: DFT.cpp
     title: DFT.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: FHT.cpp
     title: FHT.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: ModularInteger.cpp
     title: ModularInteger.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: NTT.cpp
     title: NTT.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: NumberTheory.cpp
     title: NumberTheory.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: Traits.cpp
     title: Traits.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: VectorN.cpp
     title: VectorN.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: polynomial/Transform.cpp
     title: polynomial/Transform.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "#line 1 \"tests/yosupo/convolution.cpp\"\n#include <bits/stdc++.h>\n\
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://judge.yosupo.jp/problem/convolution_mod
+    links:
+    - https://judge.yosupo.jp/problem/convolution_mod
+  bundledCode: "#line 1 \"tests/yosupo/fht-convolution.test.cpp\"\n#define PROBLEM\
+    \ \"https://judge.yosupo.jp/problem/convolution_mod\"\n\n#include <bits/stdc++.h>\n\
     #line 1 \"ModularInteger.cpp\"\n\n\n#line 1 \"NumberTheory.cpp\"\n\n\n#line 4\
     \ \"NumberTheory.cpp\"\n\nnamespace lib {\nusing namespace std;\nnamespace nt\
     \ {\nint64_t inverse(int64_t a, int64_t b) {\n  long long b0 = b, t, q;\n  long\
@@ -350,8 +354,8 @@ data:
     \ a;\n  }\n};\n\ntemplate<typename Ring>\nvector<Ring> FHT<Ring>::fa = vector<Ring>();\n\
     template<typename Ring>\nvector<Ring> FHT<Ring>::g = vector<Ring>();\ntemplate<typename\
     \ Ring>\nvector<Ring> FHT<Ring>::ig = vector<Ring>();\n}\n\nusing FHTMultiplication\
-    \ = TransformMultiplication<linalg::FHT>;\n} // namespace lib\n\n\n#line 4 \"\
-    tests/yosupo/convolution.cpp\"\nusing namespace std;\n \n#define mp make_pair\n\
+    \ = TransformMultiplication<linalg::FHT>;\n} // namespace lib\n\n\n#line 6 \"\
+    tests/yosupo/fht-convolution.test.cpp\"\nusing namespace std;\n \n#define mp make_pair\n\
     #define mt make_tuple\n#define pb push_back\n#define ms(v, x) memset((v), (x),\
     \ sizeof(v))\n#define all(v) (v).begin(), (v).end()\n#define ff first\n#define\
     \ ss second\n#define iopt ios::sync_with_stdio(false); cin.tie(0)\n#define untie(p,\
@@ -429,10 +433,11 @@ data:
     \    b[i] = x;\n    }\n    auto c = FHTMultiplication()(a, b);\n    for (auto\
     \ x: c) {\n        pr.write((int)x);\n        pr.write(' ');\n    }\n    pr.writeln();\n\
     \    return 0;\n}\n"
-  code: "#include <bits/stdc++.h>\n#include \"ModularInteger.cpp\"\n#include \"FHT.cpp\"\
-    \nusing namespace std;\n \n#define mp make_pair\n#define mt make_tuple\n#define\
-    \ pb push_back\n#define ms(v, x) memset((v), (x), sizeof(v))\n#define all(v) (v).begin(),\
-    \ (v).end()\n#define ff first\n#define ss second\n#define iopt ios::sync_with_stdio(false);\
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/convolution_mod\"\n\n#include\
+    \ <bits/stdc++.h>\n#include \"ModularInteger.cpp\"\n#include \"FHT.cpp\"\nusing\
+    \ namespace std;\n \n#define mp make_pair\n#define mt make_tuple\n#define pb push_back\n\
+    #define ms(v, x) memset((v), (x), sizeof(v))\n#define all(v) (v).begin(), (v).end()\n\
+    #define ff first\n#define ss second\n#define iopt ios::sync_with_stdio(false);\
     \ cin.tie(0)\n#define untie(p, a, b) decltype(p.first) a = p.first, decltype(p.second)\
     \ b = p.second\n \nint gcd(int a, int b) { return b == 0 ? a : gcd(b, a%b); }\n\
     int power(int x, int p, int MOD) {\n    if(p == 0) return 1%MOD;\n    if(p ==\
@@ -517,16 +522,16 @@ data:
   - VectorN.cpp
   - Traits.cpp
   - polynomial/Transform.cpp
-  isVerificationFile: false
-  path: tests/yosupo/convolution.cpp
+  isVerificationFile: true
+  path: tests/yosupo/fht-convolution.test.cpp
   requiredBy: []
-  timestamp: '2021-01-31 01:48:38-03:00'
-  verificationStatus: LIBRARY_NO_TESTS
+  timestamp: '2021-02-07 15:54:15-03:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/yosupo/convolution.cpp
+documentation_of: tests/yosupo/fht-convolution.test.cpp
 layout: document
 redirect_from:
-- /library/tests/yosupo/convolution.cpp
-- /library/tests/yosupo/convolution.cpp.html
-title: tests/yosupo/convolution.cpp
+- /verify/tests/yosupo/fht-convolution.test.cpp
+- /verify/tests/yosupo/fht-convolution.test.cpp.html
+title: tests/yosupo/fht-convolution.test.cpp
 ---

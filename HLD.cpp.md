@@ -7,7 +7,7 @@ data:
   - icon: ':warning:'
     path: Segtree.cpp
     title: Segtree.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: Traits.cpp
     title: Traits.cpp
   - icon: ':warning:'

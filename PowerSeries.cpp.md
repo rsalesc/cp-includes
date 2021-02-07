@@ -1,44 +1,44 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':question:'
     path: BitTricks.cpp
     title: BitTricks.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: Epsilon.cpp
     title: Epsilon.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: LongMultiplication.cpp
     title: LongMultiplication.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: Math.cpp
     title: Math.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: ModularInteger.cpp
     title: ModularInteger.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: NumberTheory.cpp
     title: NumberTheory.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: PolynomialRing.cpp
     title: PolynomialRing.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: Traits.cpp
     title: Traits.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: VectorN.cpp
     title: VectorN.cpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: tests/yosupo/fps_inv.cpp
-    title: tests/yosupo/fps_inv.cpp
-  - icon: ':warning:'
-    path: tests/yosupo/fps_power.cpp
-    title: tests/yosupo/fps_power.cpp
-  _extendedVerifiedWith: []
+  _extendedRequiredBy: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/fps-inv.test.cpp
+    title: tests/yosupo/fps-inv.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/fps-power.test.cpp
+    title: tests/yosupo/fps-power.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"PowerSeries.cpp\"\n\n\n#line 1 \"BitTricks.cpp\"\n\n\n#include\
@@ -462,12 +462,12 @@ data:
   - VectorN.cpp
   isVerificationFile: false
   path: PowerSeries.cpp
-  requiredBy:
-  - tests/yosupo/fps_power.cpp
-  - tests/yosupo/fps_inv.cpp
+  requiredBy: []
   timestamp: '2021-01-31 01:48:38-03:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/yosupo/fps-inv.test.cpp
+  - tests/yosupo/fps-power.test.cpp
 documentation_of: PowerSeries.cpp
 layout: document
 redirect_from:

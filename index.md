@@ -3,7 +3,7 @@ data:
   libraryCategories:
   - name: .
     pages:
-    - icon: ':warning:'
+    - icon: ':question:'
       path: BitTricks.cpp
       title: BitTricks.cpp
     - icon: ':warning:'
@@ -15,13 +15,13 @@ data:
     - icon: ':warning:'
       path: Complex.cpp
       title: Complex.cpp
-    - icon: ':warning:'
+    - icon: ':question:'
       path: DFT.cpp
       title: DFT.cpp
     - icon: ':warning:'
       path: DSU.cpp
       title: DSU.cpp
-    - icon: ':warning:'
+    - icon: ':question:'
       path: Epsilon.cpp
       title: Epsilon.cpp
     - icon: ':warning:'
@@ -30,7 +30,7 @@ data:
     - icon: ':warning:'
       path: FFT.cpp
       title: FFT.cpp
-    - icon: ':warning:'
+    - icon: ':question:'
       path: FHT.cpp
       title: FHT.cpp
     - icon: ':warning:'
@@ -57,13 +57,13 @@ data:
     - icon: ':warning:'
       path: LinearProgram.cpp
       title: LinearProgram.cpp
-    - icon: ':warning:'
+    - icon: ':question:'
       path: LinearRecurrence.cpp
       title: LinearRecurrence.cpp
-    - icon: ':warning:'
+    - icon: ':question:'
       path: LongMultiplication.cpp
       title: LongMultiplication.cpp
-    - icon: ':warning:'
+    - icon: ':question:'
       path: Math.cpp
       title: Math.cpp
     - icon: ':warning:'
@@ -72,25 +72,25 @@ data:
     - icon: ':warning:'
       path: Maxflow.cpp
       title: Maxflow.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: ModularInteger.cpp
       title: ModularInteger.cpp
     - icon: ':warning:'
       path: MontgomeryInteger.cpp
       title: MontgomeryInteger.cpp
-    - icon: ':warning:'
+    - icon: ':question:'
       path: NTT.cpp
       title: NTT.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: NumberTheory.cpp
       title: NumberTheory.cpp
     - icon: ':warning:'
       path: OfflineRMQ.cpp
       title: OfflineRMQ.cpp
-    - icon: ':warning:'
+    - icon: ':question:'
       path: PolynomialRing.cpp
       title: PolynomialRing.cpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: PowerSeries.cpp
       title: PowerSeries.cpp
     - icon: ':warning:'
@@ -138,7 +138,7 @@ data:
     - icon: ':warning:'
       path: Symbolic.cpp
       title: Symbolic.cpp
-    - icon: ':warning:'
+    - icon: ':question:'
       path: Traits.cpp
       title: Traits.cpp
     - icon: ':warning:'
@@ -147,7 +147,7 @@ data:
     - icon: ':warning:'
       path: TwoSat.cpp
       title: TwoSat.cpp
-    - icon: ':warning:'
+    - icon: ':question:'
       path: VectorN.cpp
       title: VectorN.cpp
   - name: geometry
@@ -220,35 +220,12 @@ data:
       title: pbds/TreeUpdater.cpp
   - name: polynomial
     pages:
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: polynomial/MultipointEvaluation.cpp
       title: polynomial/MultipointEvaluation.cpp
-    - icon: ':warning:'
+    - icon: ':question:'
       path: polynomial/Transform.cpp
       title: polynomial/Transform.cpp
-  - name: tests/yosupo
-    pages:
-    - icon: ':warning:'
-      path: tests/yosupo/convolution.cpp
-      title: tests/yosupo/convolution.cpp
-    - icon: ':warning:'
-      path: tests/yosupo/fps_inv.cpp
-      title: tests/yosupo/fps_inv.cpp
-    - icon: ':warning:'
-      path: tests/yosupo/fps_power.cpp
-      title: tests/yosupo/fps_power.cpp
-    - icon: ':warning:'
-      path: tests/yosupo/interplation.cpp
-      title: tests/yosupo/interplation.cpp
-    - icon: ':warning:'
-      path: tests/yosupo/kth_term_lr.cpp
-      title: tests/yosupo/kth_term_lr.cpp
-    - icon: ':warning:'
-      path: tests/yosupo/lr.cpp
-      title: tests/yosupo/lr.cpp
-    - icon: ':warning:'
-      path: tests/yosupo/multipoint.cpp
-      title: tests/yosupo/multipoint.cpp
   - name: traits
     pages:
     - icon: ':warning:'
@@ -271,6 +248,24 @@ data:
   verificationCategories:
   - name: tests/yosupo
     pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/yosupo/fht-convolution.test.cpp
+      title: tests/yosupo/fht-convolution.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/yosupo/find-lr.test.cpp
+      title: tests/yosupo/find-lr.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/yosupo/fps-inv.test.cpp
+      title: tests/yosupo/fps-inv.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/yosupo/fps-power.test.cpp
+      title: tests/yosupo/fps-power.test.cpp
+    - icon: ':x:'
+      path: tests/yosupo/kth-term-lr.test.cpp
+      title: tests/yosupo/kth-term-lr.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/yosupo/multipoint.test.cpp
+      title: tests/yosupo/multipoint.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/yosupo/subset-convolution.test.cpp
       title: tests/yosupo/subset-convolution.test.cpp

@@ -4,7 +4,7 @@ data:
   - icon: ':warning:'
     path: Graph.cpp
     title: Graph.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: Traits.cpp
     title: Traits.cpp
   - icon: ':warning:'

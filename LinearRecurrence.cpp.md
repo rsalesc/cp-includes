@@ -1,41 +1,41 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':question:'
     path: Epsilon.cpp
     title: Epsilon.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: LongMultiplication.cpp
     title: LongMultiplication.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: Math.cpp
     title: Math.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: ModularInteger.cpp
     title: ModularInteger.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: NumberTheory.cpp
     title: NumberTheory.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: PolynomialRing.cpp
     title: PolynomialRing.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: Traits.cpp
     title: Traits.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: VectorN.cpp
     title: VectorN.cpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: tests/yosupo/kth_term_lr.cpp
-    title: tests/yosupo/kth_term_lr.cpp
-  - icon: ':warning:'
-    path: tests/yosupo/lr.cpp
-    title: tests/yosupo/lr.cpp
-  _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _extendedRequiredBy: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/find-lr.test.cpp
+    title: tests/yosupo/find-lr.test.cpp
+  - icon: ':x:'
+    path: tests/yosupo/kth-term-lr.test.cpp
+    title: tests/yosupo/kth-term-lr.test.cpp
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"LinearRecurrence.cpp\"\n\n\n#line 1 \"PolynomialRing.cpp\"\
@@ -545,12 +545,12 @@ data:
   - VectorN.cpp
   isVerificationFile: false
   path: LinearRecurrence.cpp
-  requiredBy:
-  - tests/yosupo/kth_term_lr.cpp
-  - tests/yosupo/lr.cpp
+  requiredBy: []
   timestamp: '2021-02-06 22:48:25-03:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_SOME_WA
+  verifiedWith:
+  - tests/yosupo/find-lr.test.cpp
+  - tests/yosupo/kth-term-lr.test.cpp
 documentation_of: LinearRecurrence.cpp
 layout: document
 redirect_from:

@@ -2,13 +2,13 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':warning:'
+  - icon: ':question:'
     path: LinearRecurrence.cpp
     title: LinearRecurrence.cpp
-  - icon: ':warning:'
+  - icon: ':question:'
     path: PolynomialRing.cpp
     title: PolynomialRing.cpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: PowerSeries.cpp
     title: PowerSeries.cpp
   - icon: ':warning:'
@@ -26,31 +26,28 @@ data:
   - icon: ':warning:'
     path: geometry/Polygon2D.cpp
     title: geometry/Polygon2D.cpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: polynomial/MultipointEvaluation.cpp
     title: polynomial/MultipointEvaluation.cpp
-  - icon: ':warning:'
-    path: tests/yosupo/fps_inv.cpp
-    title: tests/yosupo/fps_inv.cpp
-  - icon: ':warning:'
-    path: tests/yosupo/fps_power.cpp
-    title: tests/yosupo/fps_power.cpp
-  - icon: ':warning:'
-    path: tests/yosupo/interplation.cpp
-    title: tests/yosupo/interplation.cpp
-  - icon: ':warning:'
-    path: tests/yosupo/kth_term_lr.cpp
-    title: tests/yosupo/kth_term_lr.cpp
-  - icon: ':warning:'
-    path: tests/yosupo/lr.cpp
-    title: tests/yosupo/lr.cpp
-  - icon: ':warning:'
-    path: tests/yosupo/multipoint.cpp
-    title: tests/yosupo/multipoint.cpp
-  _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/find-lr.test.cpp
+    title: tests/yosupo/find-lr.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/fps-inv.test.cpp
+    title: tests/yosupo/fps-inv.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/fps-power.test.cpp
+    title: tests/yosupo/fps-power.test.cpp
+  - icon: ':x:'
+    path: tests/yosupo/kth-term-lr.test.cpp
+    title: tests/yosupo/kth-term-lr.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/multipoint.test.cpp
+    title: tests/yosupo/multipoint.test.cpp
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"Epsilon.cpp\"\n\n\n#include <bits/stdc++.h>\n\nnamespace\
@@ -90,16 +87,15 @@ data:
   - geometry/GeometryEpsilon.cpp
   - geometry/Circle2D.cpp
   - geometry/Caliper.cpp
-  - tests/yosupo/multipoint.cpp
-  - tests/yosupo/fps_power.cpp
-  - tests/yosupo/interplation.cpp
-  - tests/yosupo/fps_inv.cpp
-  - tests/yosupo/kth_term_lr.cpp
-  - tests/yosupo/lr.cpp
   - polynomial/MultipointEvaluation.cpp
   timestamp: '2020-10-15 12:03:07-03:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_SOME_WA
+  verifiedWith:
+  - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/find-lr.test.cpp
+  - tests/yosupo/kth-term-lr.test.cpp
+  - tests/yosupo/fps-inv.test.cpp
+  - tests/yosupo/fps-power.test.cpp
 documentation_of: Epsilon.cpp
 layout: document
 redirect_from:
