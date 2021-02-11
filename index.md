@@ -97,6 +97,9 @@ data:
       path: Random.cpp
       title: Random.cpp
     - icon: ':warning:'
+      path: RangeDSU.cpp
+      title: RangeDSU.cpp
+    - icon: ':warning:'
       path: RollingHash.cpp
       title: RollingHash.cpp
     - icon: ':warning:'
@@ -251,6 +254,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/yosupo/2sat.test.cpp
       title: tests/yosupo/2sat.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/yosupo/and-convolution.test.cpp
+      title: tests/yosupo/and-convolution.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/yosupo/fht-convolution.test.cpp
       title: tests/yosupo/fht-convolution.test.cpp

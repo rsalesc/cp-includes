@@ -207,25 +207,35 @@ data:
     \ void operator()(Node &no) const {\n    no *= this->value;\n  }\n};\n\nstruct\
     \ EmptyPushdown {\n  template<typename Node>\n  inline bool dirty(const Node&\
     \ no) const { return false; }\n\n  template<typename Node>\n  inline void operator()(Node&\
-    \ no, int l, int r, \n                  Node* ln, Node* rn) const {}\n};\n}  //\
-    \ namespace seg\n}  // namespace lib\n\n\n#line 7 \"HLD.cpp\"\n\nnamespace lib\
-    \ {\nusing namespace std;\nnamespace graph {\nnamespace {\nvoid empty_lifter(int\
-    \ a, int b, bool inv) {}\n} // namespace\n\ntemplate <typename G> struct HLD {\n\
-    \  G graph;\n  vector<int> in, out, rin;\n  vector<int> L, sz, ch;\n  int tempo;\n\
-    \n  HLD(const G &g)\n      : graph(g), in(g.size()), out(g.size()), rin(g.size()),\
-    \ L(g.size()),\n        sz(g.size()), ch(g.size()) {\n    build();\n  }\n\n  inline\
-    \ int size() const { return graph.size(); }\n\n  void dfs0(int u) {\n    sz[u]\
-    \ = 1;\n    for (auto &k : graph.adj[u]) {\n      int v = graph.edge(k).to;\n\
-    \      L[v] = L[u] + 1;\n      dfs0(v);\n      if (sz[v] > sz[graph.edge(graph.adj[u][0]).to])\n\
-    \        swap(k, graph.adj[u][0]);\n      sz[u] += sz[v];\n    }\n  }\n\n  void\
-    \ dfs1(int u) {\n    in[u] = tempo++;\n    rin[in[u]] = u;\n\n    if (graph.adj[u].size()\
-    \ > 0) {\n      int v = graph.edge(graph.adj[u][0]).to;\n      ch[v] = ch[u];\n\
-    \      dfs1(v);\n      for (size_t i = 1; i < graph.adj[u].size(); i++) {\n  \
-    \      v = graph.edge(graph.adj[u][i]).to;\n        ch[v] = v;\n        dfs1(v);\n\
-    \      }\n    }\n    out[u] = tempo;\n  }\n\n  void build() {\n    vector<int>\
-    \ roots = graph.roots();\n    for (int i : roots)\n      dfs0(i);\n    tempo =\
-    \ 0;\n    for (int i : roots)\n      dfs1(i);\n  }\n\n  template <typename Lifter>\n\
-    \  inline void operate_on_subtree(int u, Lifter &lifter) {\n    lifter(in[u],\
+    \ no, int l, int r, \n                  Node* ln, Node* rn) const {}\n};\n\ntemplate<typename\
+    \ Node>\nstruct Active : public Node {\n  bool active_ = false;\n  Active& operator=(const\
+    \ Node& no) {\n    Node::operator=(no);\n    return *this;\n  }\n  bool is_active()\
+    \ const { return active_; }\n  Active& activate() {\n    active_ = true;\n   \
+    \ return *this;\n  }\n  Active& deactivate() {\n    active_ = false;\n    return\
+    \ *this;\n  }\n  void toggle() {\n    active_ = !active_;\n  }\n  friend Active<Node>\
+    \ operator+(const Active<Node>& a, const Active<Node>& b) {\n    if(!a.active_)\
+    \ return b;\n    else if(!b.active_) return a;\n    Active<Node> res;\n    res\
+    \ = Node(a) + Node(b);\n    return res.activate();\n  }\n};\n\ntemplate <typename\
+    \ T>\nstruct ActiveUpdater {\n  bool flag;\n\n  ActiveUpdater(bool f) : flag(f)\
+    \ {}\n\n  template <typename Node> inline void operator()(Node &no) const {\n\
+    \    no.active_ = flag;\n  }\n};\n}  // namespace seg\n}  // namespace lib\n\n\
+    \n#line 7 \"HLD.cpp\"\n\nnamespace lib {\nusing namespace std;\nnamespace graph\
+    \ {\nnamespace {\nvoid empty_lifter(int a, int b, bool inv) {}\n} // namespace\n\
+    \ntemplate <typename G> struct HLD {\n  G graph;\n  vector<int> in, out, rin;\n\
+    \  vector<int> L, sz, ch;\n  int tempo;\n\n  HLD(const G &g)\n      : graph(g),\
+    \ in(g.size()), out(g.size()), rin(g.size()), L(g.size()),\n        sz(g.size()),\
+    \ ch(g.size()) {\n    build();\n  }\n\n  inline int size() const { return graph.size();\
+    \ }\n\n  void dfs0(int u) {\n    sz[u] = 1;\n    for (auto &k : graph.adj[u])\
+    \ {\n      int v = graph.edge(k).to;\n      L[v] = L[u] + 1;\n      dfs0(v);\n\
+    \      if (sz[v] > sz[graph.edge(graph.adj[u][0]).to])\n        swap(k, graph.adj[u][0]);\n\
+    \      sz[u] += sz[v];\n    }\n  }\n\n  void dfs1(int u) {\n    in[u] = tempo++;\n\
+    \    rin[in[u]] = u;\n\n    if (graph.adj[u].size() > 0) {\n      int v = graph.edge(graph.adj[u][0]).to;\n\
+    \      ch[v] = ch[u];\n      dfs1(v);\n      for (size_t i = 1; i < graph.adj[u].size();\
+    \ i++) {\n        v = graph.edge(graph.adj[u][i]).to;\n        ch[v] = v;\n  \
+    \      dfs1(v);\n      }\n    }\n    out[u] = tempo;\n  }\n\n  void build() {\n\
+    \    vector<int> roots = graph.roots();\n    for (int i : roots)\n      dfs0(i);\n\
+    \    tempo = 0;\n    for (int i : roots)\n      dfs1(i);\n  }\n\n  template <typename\
+    \ Lifter>\n  inline void operate_on_subtree(int u, Lifter &lifter) {\n    lifter(in[u],\
     \ out[u] - 1, false);\n  }\n\n  template <typename T, typename QueryIssuer>\n\
     \  inline T query_on_subtree(int u, const QueryIssuer &issuer) {\n    return issuer(in[u],\
     \ out[u] - 1);\n  }\n\n  template <typename Lifter>\n  inline void operate_on_subtree_edges(int\
@@ -304,7 +314,7 @@ data:
   path: HLD.cpp
   requiredBy:
   - SegtreeHLD.cpp
-  timestamp: '2021-01-26 16:28:00-03:00'
+  timestamp: '2021-02-11 19:36:05-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: HLD.cpp

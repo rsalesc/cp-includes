@@ -4,6 +4,9 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tests/yosupo/and-convolution.test.cpp
+    title: tests/yosupo/and-convolution.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/yosupo/subset-convolution.test.cpp
     title: tests/yosupo/subset-convolution.test.cpp
   _isVerificationFailed: false
@@ -92,6 +95,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/yosupo/subset-convolution.test.cpp
+  - tests/yosupo/and-convolution.test.cpp
 documentation_of: Subset.cpp
 layout: document
 redirect_from:

@@ -231,19 +231,19 @@ data:
   isVerificationFile: false
   path: Lambda.cpp
   requiredBy:
-  - matroid/Matroid.cpp
-  - matroid/GraphicMatroid.cpp
-  - matroid/Compose.cpp
-  - matroid/MatroidIntersection.cpp
-  - matroid/ColorMatroid.cpp
-  - matroid/CographicMatroid.cpp
   - matroid/v2/EdgeFinder.cpp
-  - matroid/v2/Matroid.cpp
-  - matroid/v2/GraphicMatroid.cpp
   - matroid/v2/ContractionMatroid.cpp
-  - matroid/v2/MatroidIntersection.cpp
+  - matroid/v2/GraphicMatroid.cpp
   - matroid/v2/ColorMatroid.cpp
+  - matroid/v2/Matroid.cpp
+  - matroid/v2/MatroidIntersection.cpp
   - matroid/v2/BinaryMatroid.cpp
+  - matroid/GraphicMatroid.cpp
+  - matroid/ColorMatroid.cpp
+  - matroid/Compose.cpp
+  - matroid/Matroid.cpp
+  - matroid/CographicMatroid.cpp
+  - matroid/MatroidIntersection.cpp
   timestamp: '2021-02-03 01:52:23-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

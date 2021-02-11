@@ -22,6 +22,9 @@ data:
     title: polynomial/MultipointEvaluation.cpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tests/yosupo/and-convolution.test.cpp
+    title: tests/yosupo/and-convolution.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/yosupo/fht-convolution.test.cpp
     title: tests/yosupo/fht-convolution.test.cpp
   - icon: ':heavy_check_mark:'
@@ -300,28 +303,29 @@ data:
   isVerificationFile: false
   path: ModularInteger.cpp
   requiredBy:
-  - PowerSeries.cpp
-  - LinearRecurrence.cpp
   - PolynomialRing.cpp
   - RollingHash.cpp
+  - LinearRecurrence.cpp
   - polynomial/MultipointEvaluation.cpp
+  - PowerSeries.cpp
   timestamp: '2021-01-31 01:48:38-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/fps-power.test.cpp
   - tests/yosupo/fht-convolution.test.cpp
-  - tests/yosupo/multipoint.test.cpp
-  - tests/yosupo/multipoint.test.cpp
-  - tests/yosupo/find-lr.test.cpp
-  - tests/yosupo/find-lr.test.cpp
   - tests/yosupo/subset-sum.test.cpp
   - tests/yosupo/subset-sum.test.cpp
-  - tests/yosupo/kth-term-lr.test.cpp
-  - tests/yosupo/kth-term-lr.test.cpp
-  - tests/yosupo/fps-inv.test.cpp
-  - tests/yosupo/fps-inv.test.cpp
+  - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/multipoint.test.cpp
   - tests/yosupo/subset-convolution.test.cpp
-  - tests/yosupo/fps-power.test.cpp
-  - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/and-convolution.test.cpp
+  - tests/yosupo/kth-term-lr.test.cpp
+  - tests/yosupo/kth-term-lr.test.cpp
+  - tests/yosupo/fps-inv.test.cpp
+  - tests/yosupo/fps-inv.test.cpp
+  - tests/yosupo/find-lr.test.cpp
+  - tests/yosupo/find-lr.test.cpp
 documentation_of: ModularInteger.cpp
 layout: document
 redirect_from:

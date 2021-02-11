@@ -155,16 +155,18 @@ data:
     \ n = 0) : p(n) { iota(p.begin(), p.end(), 0); }\n  int get(int i) {\n    return\
     \ p[i] == i ? i : p[i] = get(p[i]);\n  }\n  int operator[](int i) { return get(i);\
     \ }\n  int& parent(int i) { return p[i]; }\n};\n\nstruct FastDSU {\n  vector<int>\
-    \ p, sz;\n  int merges = 0;\n  FastDSU(int n = 0) : p(n), sz(n, 1) { iota(p.begin(),\
-    \ p.end(), 0); }\n\n  int get(int i) {\n    return p[i] == i ? i : p[i] = get(p[i]);\n\
-    \  }\n  int operator[](int i) { return get(i); }\n\n  int merge(int u, int v)\
-    \ {\n    u = get(u), v = get(v);\n    if(u == v) return 0;\n    if(sz[u] < sz[v])\n\
-    \      swap(u, v);\n    p[v] = u;\n    sz[u] += sz[v];\n    merges++;\n    return\
-    \ 1;\n  }\n\n  int n_comps() const { return (int)p.size() - merges; }\n};\n} //\
-    \ namespace lib\n\n\n#line 6 \"matroid/v2/GraphicMatroid.cpp\"\n\nnamespace lib\
-    \ {\n  using namespace std;\nstruct GraphicMatroid : IncrementalMatroid {\n  using\
-    \ Edge = pair<int, int>;\n  FastDSU dsu;\n  int g_sz;\n  lambda::Map<pair<int,\
-    \ int>> edge_fn;\n  GraphicMatroid() {}\n  GraphicMatroid(int n, const lambda::SubsetMap<pair<int,\
+    \ p, sz;\n  int merges = 0;\n  pair<int, int> last_merge_ = {-1, -1};\n  FastDSU(int\
+    \ n = 0) : p(n), sz(n, 1) { iota(p.begin(), p.end(), 0); }\n\n  int get(int i)\
+    \ {\n    return p[i] == i ? i : p[i] = get(p[i]);\n  }\n  int operator[](int i)\
+    \ { return get(i); }\n\n  int merge(int u, int v) {\n    u = get(u), v = get(v);\n\
+    \    if(u == v) return 0;\n    if(sz[u] < sz[v])\n      swap(u, v);\n    p[v]\
+    \ = u;\n    sz[u] += sz[v];\n    merges++;\n    last_merge_ = {v, u};\n    return\
+    \ 1;\n  }\n  pair<int, int> last_merge() const {\n    return last_merge_;\n  }\n\
+    \  int n_comps() const { return (int)p.size() - merges; }\n};\n} // namespace\
+    \ lib\n\n\n#line 6 \"matroid/v2/GraphicMatroid.cpp\"\n\nnamespace lib {\n  using\
+    \ namespace std;\nstruct GraphicMatroid : IncrementalMatroid {\n  using Edge =\
+    \ pair<int, int>;\n  FastDSU dsu;\n  int g_sz;\n  lambda::Map<pair<int, int>>\
+    \ edge_fn;\n  GraphicMatroid() {}\n  GraphicMatroid(int n, const lambda::SubsetMap<pair<int,\
     \ int>>& fn) \n    : IncrementalMatroid(), g_sz(n), edge_fn(fn), dsu(n) {\n  \
     \    set_ground(fn.size());\n  }\n  void clear() override {\n    dsu = FastDSU(g_sz);\n\
     \  }\n  void add(int i) override {\n    auto p = edge_fn(i);\n    dsu.merge(p.first,\
@@ -190,7 +192,7 @@ data:
   isVerificationFile: false
   path: matroid/v2/GraphicMatroid.cpp
   requiredBy: []
-  timestamp: '2021-02-03 01:52:23-03:00'
+  timestamp: '2021-02-11 19:36:05-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: matroid/v2/GraphicMatroid.cpp

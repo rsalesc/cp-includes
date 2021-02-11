@@ -271,9 +271,9 @@ data:
   path: Graph.cpp
   requiredBy:
   - SegtreeHLD.cpp
-  - TwoSat.cpp
   - Maxflow.cpp
   - HLD.cpp
+  - TwoSat.cpp
   timestamp: '2021-01-26 16:28:00-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

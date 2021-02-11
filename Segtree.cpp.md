@@ -6,6 +6,9 @@ data:
     path: HLD.cpp
     title: HLD.cpp
   - icon: ':warning:'
+    path: RangeDSU.cpp
+    title: RangeDSU.cpp
+  - icon: ':warning:'
     path: SegtreeBeats.cpp
     title: SegtreeBeats.cpp
   - icon: ':warning:'
@@ -84,8 +87,19 @@ data:
     \ void operator()(Node &no) const {\n    no *= this->value;\n  }\n};\n\nstruct\
     \ EmptyPushdown {\n  template<typename Node>\n  inline bool dirty(const Node&\
     \ no) const { return false; }\n\n  template<typename Node>\n  inline void operator()(Node&\
-    \ no, int l, int r, \n                  Node* ln, Node* rn) const {}\n};\n}  //\
-    \ namespace seg\n}  // namespace lib\n\n\n"
+    \ no, int l, int r, \n                  Node* ln, Node* rn) const {}\n};\n\ntemplate<typename\
+    \ Node>\nstruct Active : public Node {\n  bool active_ = false;\n  Active& operator=(const\
+    \ Node& no) {\n    Node::operator=(no);\n    return *this;\n  }\n  bool is_active()\
+    \ const { return active_; }\n  Active& activate() {\n    active_ = true;\n   \
+    \ return *this;\n  }\n  Active& deactivate() {\n    active_ = false;\n    return\
+    \ *this;\n  }\n  void toggle() {\n    active_ = !active_;\n  }\n  friend Active<Node>\
+    \ operator+(const Active<Node>& a, const Active<Node>& b) {\n    if(!a.active_)\
+    \ return b;\n    else if(!b.active_) return a;\n    Active<Node> res;\n    res\
+    \ = Node(a) + Node(b);\n    return res.activate();\n  }\n};\n\ntemplate <typename\
+    \ T>\nstruct ActiveUpdater {\n  bool flag;\n\n  ActiveUpdater(bool f) : flag(f)\
+    \ {}\n\n  template <typename Node> inline void operator()(Node &no) const {\n\
+    \    no.active_ = flag;\n  }\n};\n}  // namespace seg\n}  // namespace lib\n\n\
+    \n"
   code: "#ifndef _LIB_SEGTREE\n#define _LIB_SEGTREE\n#include <bits/stdc++.h>\n\n\
     namespace lib {\nusing namespace std;\nnamespace seg {\nstruct LeafBuilder {\n\
     \  template <typename Node> void operator()(Node &no, int i) const {}\n  inline\
@@ -141,20 +155,32 @@ data:
     \ void operator()(Node &no) const {\n    no *= this->value;\n  }\n};\n\nstruct\
     \ EmptyPushdown {\n  template<typename Node>\n  inline bool dirty(const Node&\
     \ no) const { return false; }\n\n  template<typename Node>\n  inline void operator()(Node&\
-    \ no, int l, int r, \n                  Node* ln, Node* rn) const {}\n};\n}  //\
-    \ namespace seg\n}  // namespace lib\n\n#endif\n"
+    \ no, int l, int r, \n                  Node* ln, Node* rn) const {}\n};\n\ntemplate<typename\
+    \ Node>\nstruct Active : public Node {\n  bool active_ = false;\n  Active& operator=(const\
+    \ Node& no) {\n    Node::operator=(no);\n    return *this;\n  }\n  bool is_active()\
+    \ const { return active_; }\n  Active& activate() {\n    active_ = true;\n   \
+    \ return *this;\n  }\n  Active& deactivate() {\n    active_ = false;\n    return\
+    \ *this;\n  }\n  void toggle() {\n    active_ = !active_;\n  }\n  friend Active<Node>\
+    \ operator+(const Active<Node>& a, const Active<Node>& b) {\n    if(!a.active_)\
+    \ return b;\n    else if(!b.active_) return a;\n    Active<Node> res;\n    res\
+    \ = Node(a) + Node(b);\n    return res.activate();\n  }\n};\n\ntemplate <typename\
+    \ T>\nstruct ActiveUpdater {\n  bool flag;\n\n  ActiveUpdater(bool f) : flag(f)\
+    \ {}\n\n  template <typename Node> inline void operator()(Node &no) const {\n\
+    \    no.active_ = flag;\n  }\n};\n}  // namespace seg\n}  // namespace lib\n\n\
+    #endif\n"
   dependsOn: []
   isVerificationFile: false
   path: Segtree.cpp
   requiredBy:
+  - SegtreeFast.cpp
+  - RangeDSU.cpp
+  - SegtreeNormal.cpp
   - SegtreeHLD.cpp
+  - SegtreeSplash.cpp
+  - HLD.cpp
   - SegtreeLazy.cpp
   - SegtreeBeats.cpp
-  - SegtreeSplash.cpp
-  - SegtreeFast.cpp
-  - HLD.cpp
-  - SegtreeNormal.cpp
-  timestamp: '2020-10-16 14:02:48-03:00'
+  timestamp: '2021-02-11 19:36:05-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: Segtree.cpp

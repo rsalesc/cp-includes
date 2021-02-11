@@ -120,9 +120,9 @@ data:
   isVerificationFile: false
   path: geometry/Trigonometry.cpp
   requiredBy:
-  - geometry/Line2D.cpp
   - geometry/Polygon2D.cpp
   - geometry/Circle2D.cpp
+  - geometry/Line2D.cpp
   - geometry/Caliper.cpp
   - FFT.cpp
   timestamp: '2020-10-15 12:03:07-03:00'

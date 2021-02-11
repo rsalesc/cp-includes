@@ -27,14 +27,16 @@ data:
     \ iota(p.begin(), p.end(), 0); }\n  int get(int i) {\n    return p[i] == i ? i\
     \ : p[i] = get(p[i]);\n  }\n  int operator[](int i) { return get(i); }\n  int&\
     \ parent(int i) { return p[i]; }\n};\n\nstruct FastDSU {\n  vector<int> p, sz;\n\
-    \  int merges = 0;\n  FastDSU(int n = 0) : p(n), sz(n, 1) { iota(p.begin(), p.end(),\
-    \ 0); }\n\n  int get(int i) {\n    return p[i] == i ? i : p[i] = get(p[i]);\n\
-    \  }\n  int operator[](int i) { return get(i); }\n\n  int merge(int u, int v)\
-    \ {\n    u = get(u), v = get(v);\n    if(u == v) return 0;\n    if(sz[u] < sz[v])\n\
-    \      swap(u, v);\n    p[v] = u;\n    sz[u] += sz[v];\n    merges++;\n    return\
-    \ 1;\n  }\n\n  int n_comps() const { return (int)p.size() - merges; }\n};\n} //\
-    \ namespace lib\n\n\n#line 5 \"OfflineRMQ.cpp\"\n\nnamespace lib {\nusing namespace\
-    \ std;\n\n// O(n + qlogn)\ntemplate<typename T, typename U = T>\nvector<T> offline_rmq(const\
+    \  int merges = 0;\n  pair<int, int> last_merge_ = {-1, -1};\n  FastDSU(int n\
+    \ = 0) : p(n), sz(n, 1) { iota(p.begin(), p.end(), 0); }\n\n  int get(int i) {\n\
+    \    return p[i] == i ? i : p[i] = get(p[i]);\n  }\n  int operator[](int i) {\
+    \ return get(i); }\n\n  int merge(int u, int v) {\n    u = get(u), v = get(v);\n\
+    \    if(u == v) return 0;\n    if(sz[u] < sz[v])\n      swap(u, v);\n    p[v]\
+    \ = u;\n    sz[u] += sz[v];\n    merges++;\n    last_merge_ = {v, u};\n    return\
+    \ 1;\n  }\n  pair<int, int> last_merge() const {\n    return last_merge_;\n  }\n\
+    \  int n_comps() const { return (int)p.size() - merges; }\n};\n} // namespace\
+    \ lib\n\n\n#line 5 \"OfflineRMQ.cpp\"\n\nnamespace lib {\nusing namespace std;\n\
+    \n// O(n + qlogn)\ntemplate<typename T, typename U = T>\nvector<T> offline_rmq(const\
     \ vector<T>& v, const vector<pair<U, U>>& qrs) {\n  int n = v.size();\n  vector<vector<pair<U,\
     \ int>>> cont(n);\n  for(int i = 0; i < (int)qrs.size(); i++) {\n    auto p =\
     \ qrs[i];\n    cont[p.second].push_back({p.first, i});\n  }\n  vector<T> ans(qrs.size());\n\
@@ -59,7 +61,7 @@ data:
   isVerificationFile: false
   path: OfflineRMQ.cpp
   requiredBy: []
-  timestamp: '2021-01-27 17:15:40-03:00'
+  timestamp: '2021-02-11 19:36:05-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: OfflineRMQ.cpp

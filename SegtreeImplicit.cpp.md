@@ -57,8 +57,8 @@ data:
   isVerificationFile: false
   path: SegtreeImplicit.cpp
   requiredBy:
-  - Treap.cpp
   - SegtreePersistent.cpp
+  - Treap.cpp
   timestamp: '2020-10-15 12:03:07-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

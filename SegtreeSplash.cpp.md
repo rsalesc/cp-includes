@@ -70,50 +70,60 @@ data:
     \ void operator()(Node &no) const {\n    no *= this->value;\n  }\n};\n\nstruct\
     \ EmptyPushdown {\n  template<typename Node>\n  inline bool dirty(const Node&\
     \ no) const { return false; }\n\n  template<typename Node>\n  inline void operator()(Node&\
-    \ no, int l, int r, \n                  Node* ln, Node* rn) const {}\n};\n}  //\
-    \ namespace seg\n}  // namespace lib\n\n\n#line 5 \"SegtreeBeats.cpp\"\n\nnamespace\
-    \ lib {\nusing namespace std;\nnamespace seg {\nstruct DefaultBreakCond {\n  template\
-    \ <typename Node>\n  inline bool operator()(const Node &no, int l, int r, int\
-    \ i, int j) const {\n    return i > r || j < l;\n  }\n};\n\nstruct DefaultTagCond\
-    \ {\n  template <typename Node>\n  inline bool operator()(const Node &no, int\
-    \ l, int r, int i, int j) const {\n    return i <= l && r <= j;\n  }\n};\n\ntemplate\
-    \ <typename T> struct SearchResult {\n  bool found;\n  int pos;\n  T value;\n\n\
-    \  static SearchResult<T> not_found(T acc = T()) { return {false, 0, acc}; }\n\
-    };\n\nstruct PrefixSearch;\nstruct SuffixSearch;\n\ntemplate <typename Direction>\
-    \ using IsSuffix = is_same<Direction, SuffixSearch>;\n\ntemplate <typename Node>\
-    \ struct InMemoryNodeManager {\n  typedef int vnode;\n  vector<Node> t;\n\n  template\
-    \ <typename Builder> void initialize(const Builder &builder) {\n    int L, R;\n\
-    \    tie(L, R) = builder.range();\n    t = vector<Node>(4 * (R - L + 1));\n  }\n\
-    \n  inline bool has(vnode no) { return true; }\n  inline vnode root() { return\
-    \ 1; }\n  inline vnode new_root(vnode no) { return no; }\n  inline vnode left(vnode\
-    \ no) { return no << 1; }\n  inline vnode right(vnode no) { return no << 1 | 1;\
-    \ }\n  inline Node &ref(vnode no) { return t[no]; }\n  inline Node *ptr(vnode\
-    \ no) { return &t[no]; }\n  inline Node value(vnode no) { return t[no]; }\n\n\
-    \  inline vnode persist(vnode no) { return no; }\n  inline void ensure_left(vnode\
-    \ no) {}\n  inline void ensure_right(vnode no) {}\n};\n\ntemplate <\n    typename\
-    \ Node, typename NodeManager, typename CombinerFn = EmptyFolder<int>,\n    typename\
-    \ PushdownFn = EmptyPushdown, typename BreakCond = DefaultBreakCond,\n    typename\
-    \ TagCond = DefaultTagCond>\nstruct SegtreeImpl {\n  typedef typename NodeManager::vnode\
-    \ vnode;\n  constexpr static bool has_lazy = !is_same<PushdownFn, EmptyPushdown>::value;\n\
-    \  constexpr static bool is_implicit =\n      !is_same<NodeManager, InMemoryNodeManager<Node>>::value;\n\
-    \n  CombinerFn combiner_fn;\n  PushdownFn pushdown_fn;\n  BreakCond break_cond;\n\
-    \  TagCond tag_cond;\n  NodeManager manager;\n\n  int L, R;\n\n  template <typename\
-    \ Builder> explicit SegtreeImpl(const Builder &builder) {\n    tie(L, R) = builder.range();\n\
-    \    assert(L <= R);\n    manager.initialize(builder);\n    if (builder.should_build())\n\
-    \      build(builder);\n  }\n\n  inline vnode root() { return manager.root();\
-    \ }\n  inline int split(int l, int r) { return l + (r - l) / 2; }\n\n  template\
-    \ <typename Builder>\n  vnode build(const Builder &builder, vnode no, int l, int\
-    \ r) {\n    no = manager.persist(no);\n    if (l == r) {\n      builder(manager.ref(no),\
-    \ l);\n    } else {\n      int mid = split(l, r);\n      build(builder, manager.left(no),\
-    \ l, mid);\n      build(builder, manager.right(no), mid + 1, r);\n      manager.ref(no)\
-    \ = combiner_fn(manager.value(manager.left(no)),\n                           \
-    \         manager.value(manager.right(no)));\n    }\n    return no;\n  }\n\n \
-    \ template <typename Builder> vnode build(const Builder &builder) {\n    return\
-    \ manager.new_root(build(builder, root(), L, R));\n  }\n\n  inline int size()\
-    \ const { return R - L + 1; }\n\n  void push(vnode no, int l, int r) {\n    if(!has_lazy)\
-    \ return;\n    if (!pushdown_fn.dirty(manager.ref(no)))\n      return;\n    if(l\
-    \ == r) {\n      pushdown_fn(manager.ref(no), l, r, nullptr, nullptr);\n     \
-    \ return;\n    }\n    manager.ensure_left(no);\n    manager.ensure_right(no);\n\
+    \ no, int l, int r, \n                  Node* ln, Node* rn) const {}\n};\n\ntemplate<typename\
+    \ Node>\nstruct Active : public Node {\n  bool active_ = false;\n  Active& operator=(const\
+    \ Node& no) {\n    Node::operator=(no);\n    return *this;\n  }\n  bool is_active()\
+    \ const { return active_; }\n  Active& activate() {\n    active_ = true;\n   \
+    \ return *this;\n  }\n  Active& deactivate() {\n    active_ = false;\n    return\
+    \ *this;\n  }\n  void toggle() {\n    active_ = !active_;\n  }\n  friend Active<Node>\
+    \ operator+(const Active<Node>& a, const Active<Node>& b) {\n    if(!a.active_)\
+    \ return b;\n    else if(!b.active_) return a;\n    Active<Node> res;\n    res\
+    \ = Node(a) + Node(b);\n    return res.activate();\n  }\n};\n\ntemplate <typename\
+    \ T>\nstruct ActiveUpdater {\n  bool flag;\n\n  ActiveUpdater(bool f) : flag(f)\
+    \ {}\n\n  template <typename Node> inline void operator()(Node &no) const {\n\
+    \    no.active_ = flag;\n  }\n};\n}  // namespace seg\n}  // namespace lib\n\n\
+    \n#line 5 \"SegtreeBeats.cpp\"\n\nnamespace lib {\nusing namespace std;\nnamespace\
+    \ seg {\nstruct DefaultBreakCond {\n  template <typename Node>\n  inline bool\
+    \ operator()(const Node &no, int l, int r, int i, int j) const {\n    return i\
+    \ > r || j < l;\n  }\n};\n\nstruct DefaultTagCond {\n  template <typename Node>\n\
+    \  inline bool operator()(const Node &no, int l, int r, int i, int j) const {\n\
+    \    return i <= l && r <= j;\n  }\n};\n\ntemplate <typename T> struct SearchResult\
+    \ {\n  bool found;\n  int pos;\n  T value;\n\n  static SearchResult<T> not_found(T\
+    \ acc = T()) { return {false, 0, acc}; }\n};\n\nstruct PrefixSearch;\nstruct SuffixSearch;\n\
+    \ntemplate <typename Direction> using IsSuffix = is_same<Direction, SuffixSearch>;\n\
+    \ntemplate <typename Node> struct InMemoryNodeManager {\n  typedef int vnode;\n\
+    \  vector<Node> t;\n\n  template <typename Builder> void initialize(const Builder\
+    \ &builder) {\n    int L, R;\n    tie(L, R) = builder.range();\n    t = vector<Node>(4\
+    \ * (R - L + 1));\n  }\n\n  inline bool has(vnode no) { return true; }\n  inline\
+    \ vnode root() { return 1; }\n  inline vnode new_root(vnode no) { return no; }\n\
+    \  inline vnode left(vnode no) { return no << 1; }\n  inline vnode right(vnode\
+    \ no) { return no << 1 | 1; }\n  inline Node &ref(vnode no) { return t[no]; }\n\
+    \  inline Node *ptr(vnode no) { return &t[no]; }\n  inline Node value(vnode no)\
+    \ { return t[no]; }\n\n  inline vnode persist(vnode no) { return no; }\n  inline\
+    \ void ensure_left(vnode no) {}\n  inline void ensure_right(vnode no) {}\n};\n\
+    \ntemplate <\n    typename Node, typename NodeManager, typename CombinerFn = EmptyFolder<int>,\n\
+    \    typename PushdownFn = EmptyPushdown, typename BreakCond = DefaultBreakCond,\n\
+    \    typename TagCond = DefaultTagCond>\nstruct SegtreeImpl {\n  typedef typename\
+    \ NodeManager::vnode vnode;\n  constexpr static bool has_lazy = !is_same<PushdownFn,\
+    \ EmptyPushdown>::value;\n  constexpr static bool is_implicit =\n      !is_same<NodeManager,\
+    \ InMemoryNodeManager<Node>>::value;\n\n  CombinerFn combiner_fn;\n  PushdownFn\
+    \ pushdown_fn;\n  BreakCond break_cond;\n  TagCond tag_cond;\n  NodeManager manager;\n\
+    \n  int L, R;\n\n  template <typename Builder> explicit SegtreeImpl(const Builder\
+    \ &builder) {\n    tie(L, R) = builder.range();\n    assert(L <= R);\n    manager.initialize(builder);\n\
+    \    if (builder.should_build())\n      build(builder);\n  }\n\n  inline vnode\
+    \ root() { return manager.root(); }\n  inline int split(int l, int r) { return\
+    \ l + (r - l) / 2; }\n\n  template <typename Builder>\n  vnode build(const Builder\
+    \ &builder, vnode no, int l, int r) {\n    no = manager.persist(no);\n    if (l\
+    \ == r) {\n      builder(manager.ref(no), l);\n    } else {\n      int mid = split(l,\
+    \ r);\n      build(builder, manager.left(no), l, mid);\n      build(builder, manager.right(no),\
+    \ mid + 1, r);\n      manager.ref(no) = combiner_fn(manager.value(manager.left(no)),\n\
+    \                                    manager.value(manager.right(no)));\n    }\n\
+    \    return no;\n  }\n\n  template <typename Builder> vnode build(const Builder\
+    \ &builder) {\n    return manager.new_root(build(builder, root(), L, R));\n  }\n\
+    \n  inline int size() const { return R - L + 1; }\n\n  void push(vnode no, int\
+    \ l, int r) {\n    if(!has_lazy) return;\n    if (!pushdown_fn.dirty(manager.ref(no)))\n\
+    \      return;\n    if(l == r) {\n      pushdown_fn(manager.ref(no), l, r, nullptr,\
+    \ nullptr);\n      return;\n    }\n    manager.ensure_left(no);\n    manager.ensure_right(no);\n\
     \    vnode lno = manager.persist(manager.left(no));\n    vnode rno = manager.persist(manager.right(no));\n\
     \    pushdown_fn(manager.ref(no), l, r, manager.ptr(lno), manager.ptr(rno));\n\
     \  }\n\n  template <typename T, typename Folder>\n  T query(vnode no, int l, int\
@@ -270,7 +280,7 @@ data:
   isVerificationFile: false
   path: SegtreeSplash.cpp
   requiredBy: []
-  timestamp: '2020-11-07 21:20:14-03:00'
+  timestamp: '2021-02-11 19:36:05-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: SegtreeSplash.cpp

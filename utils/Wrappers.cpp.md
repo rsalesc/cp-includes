@@ -43,9 +43,9 @@ data:
   path: utils/Wrappers.cpp
   requiredBy:
   - SegtreeHLD.cpp
-  - TwoSat.cpp
   - Maxflow.cpp
   - HLD.cpp
+  - TwoSat.cpp
   - Graph.cpp
   timestamp: '2020-10-15 12:03:07-03:00'
   verificationStatus: LIBRARY_ALL_AC

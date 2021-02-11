@@ -481,9 +481,9 @@ data:
   timestamp: '2021-02-07 18:44:07-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/yosupo/fps-power.test.cpp
   - tests/yosupo/subset-sum.test.cpp
   - tests/yosupo/fps-inv.test.cpp
-  - tests/yosupo/fps-power.test.cpp
 documentation_of: PowerSeries.cpp
 layout: document
 redirect_from:

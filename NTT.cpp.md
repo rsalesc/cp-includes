@@ -253,13 +253,13 @@ data:
   timestamp: '2021-01-30 22:33:20-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/yosupo/fps-power.test.cpp
   - tests/yosupo/fht-convolution.test.cpp
-  - tests/yosupo/multipoint.test.cpp
-  - tests/yosupo/find-lr.test.cpp
   - tests/yosupo/subset-sum.test.cpp
+  - tests/yosupo/multipoint.test.cpp
   - tests/yosupo/kth-term-lr.test.cpp
   - tests/yosupo/fps-inv.test.cpp
-  - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/find-lr.test.cpp
 documentation_of: NTT.cpp
 layout: document
 redirect_from:
