@@ -144,6 +144,45 @@ struct EmptyPushdown {
   inline void operator()(Node& no, int l, int r, 
                   Node* ln, Node* rn) const {}
 };
+
+template<typename Node>
+struct Active : public Node {
+  bool active_ = false;
+  Active& operator=(const Node& no) {
+    Node::operator=(no);
+    return *this;
+  }
+  bool is_active() const { return active_; }
+  Active& activate() {
+    active_ = true;
+    return *this;
+  }
+  Active& deactivate() {
+    active_ = false;
+    return *this;
+  }
+  void toggle() {
+    active_ = !active_;
+  }
+  friend Active<Node> operator+(const Active<Node>& a, const Active<Node>& b) {
+    if(!a.active_) return b;
+    else if(!b.active_) return a;
+    Active<Node> res;
+    res = Node(a) + Node(b);
+    return res.activate();
+  }
+};
+
+template <typename T>
+struct ActiveUpdater {
+  bool flag;
+
+  ActiveUpdater(bool f) : flag(f) {}
+
+  template <typename Node> inline void operator()(Node &no) const {
+    no.active_ = flag;
+  }
+};
 }  // namespace seg
 }  // namespace lib
 

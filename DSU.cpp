@@ -55,6 +55,7 @@ struct CompressedDSU {
 struct FastDSU {
   vector<int> p, sz;
   int merges = 0;
+  pair<int, int> last_merge_ = {-1, -1};
   FastDSU(int n = 0) : p(n), sz(n, 1) { iota(p.begin(), p.end(), 0); }
 
   int get(int i) {
@@ -70,9 +71,12 @@ struct FastDSU {
     p[v] = u;
     sz[u] += sz[v];
     merges++;
+    last_merge_ = {v, u};
     return 1;
   }
-
+  pair<int, int> last_merge() const {
+    return last_merge_;
+  }
   int n_comps() const { return (int)p.size() - merges; }
 };
 } // namespace lib
