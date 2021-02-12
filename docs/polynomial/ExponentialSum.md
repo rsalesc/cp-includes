@@ -85,7 +85,7 @@ $$
 [x^N]\frac{G_h(x)}{1-x} = \sum_{i=0}^{N} a^i f(i)
 $$
 
-Thus, the $n$-th term is exactly our answer, but we can't really figure it out yet. Let's try to reduce to Problem 1. What if we reflect each term around $c$ (which, remember, is the answer to Problem 1)?
+Thus, the $(n-1)$-th term is exactly our answer, but we can't really figure it out yet. Let's try to reduce to Problem 1. What if we reflect each term around $c$ (which, remember, is the answer to Problem 1)?
 
 $$
 [x^N]\frac{c - G_h(x)}{1-x} = c - \sum_{i=0}^N a^i f(i) \\
