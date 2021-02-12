@@ -153,6 +153,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: VectorN.cpp
       title: VectorN.cpp
+  - name: ds
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: ds/StaticRMQ.cpp
+      title: ds/StaticRMQ.cpp
   - name: geometry
     pages:
     - icon: ':warning:'
@@ -284,6 +289,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/yosupo/multipoint.test.cpp
       title: tests/yosupo/multipoint.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/yosupo/static-rmq.test.cpp
+      title: tests/yosupo/static-rmq.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/yosupo/subset-convolution.test.cpp
       title: tests/yosupo/subset-convolution.test.cpp
