@@ -9,6 +9,7 @@
 "tests/yosupo/fps-power.test.cpp": "2021-02-07 18:44:07 -0300",
 "tests/yosupo/kth-term-lr.test.cpp": "2021-02-07 16:15:33 -0300",
 "tests/yosupo/multipoint.test.cpp": "2021-02-07 15:54:15 -0300",
+"tests/yosupo/static-rmq.test.cpp": "2021-02-12 02:28:44 -0300",
 "tests/yosupo/subset-convolution.test.cpp": "2021-02-07 15:36:07 -0300",
 "tests/yosupo/subset-sum.test.cpp": "2021-02-07 18:44:07 -0300"
 }
