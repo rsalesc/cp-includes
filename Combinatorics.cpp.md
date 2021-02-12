@@ -4,11 +4,32 @@ data:
   - icon: ':heavy_check_mark:'
     path: BitTricks.cpp
     title: BitTricks.cpp
-  _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: Lagrange.cpp
+    title: Lagrange.cpp
+  - icon: ':heavy_check_mark:'
+    path: polynomial/ExponentialSum.cpp
+    title: Exponential Sum
+  - icon: ':heavy_check_mark:'
+    path: polynomial/ExponentialSum.cpp
+    title: Exponential Sum
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/exp-sum-limit.test.cpp
+    title: tests/yosupo/exp-sum-limit.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/exp-sum-limit.test.cpp
+    title: tests/yosupo/exp-sum-limit.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/exp-sum.test.cpp
+    title: tests/yosupo/exp-sum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/exp-sum.test.cpp
+    title: tests/yosupo/exp-sum.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"Combinatorics.cpp\"\n\n\n#include <bits/stdc++.h>\n#line\
@@ -68,10 +89,17 @@ data:
   - BitTricks.cpp
   isVerificationFile: false
   path: Combinatorics.cpp
-  requiredBy: []
+  requiredBy:
+  - polynomial/ExponentialSum.cpp
+  - polynomial/ExponentialSum.cpp
+  - Lagrange.cpp
   timestamp: '2020-11-01 18:23:24-03:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/yosupo/exp-sum.test.cpp
+  - tests/yosupo/exp-sum.test.cpp
+  - tests/yosupo/exp-sum-limit.test.cpp
+  - tests/yosupo/exp-sum-limit.test.cpp
 documentation_of: Combinatorics.cpp
 layout: document
 redirect_from:

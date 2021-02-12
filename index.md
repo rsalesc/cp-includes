@@ -9,7 +9,7 @@ data:
     - icon: ':warning:'
       path: Bitset.cpp
       title: Bitset.cpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: Combinatorics.cpp
       title: Combinatorics.cpp
     - icon: ':warning:'
@@ -48,7 +48,7 @@ data:
     - icon: ':warning:'
       path: Karatsuba.cpp
       title: Karatsuba.cpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: Lagrange.cpp
       title: Lagrange.cpp
     - icon: ':warning:'
@@ -224,6 +224,9 @@ data:
   - name: polynomial
     pages:
     - icon: ':heavy_check_mark:'
+      path: polynomial/ExponentialSum.cpp
+      title: Exponential Sum
+    - icon: ':heavy_check_mark:'
       path: polynomial/MultipointEvaluation.cpp
       title: polynomial/MultipointEvaluation.cpp
     - icon: ':heavy_check_mark:'
@@ -257,6 +260,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/yosupo/and-convolution.test.cpp
       title: tests/yosupo/and-convolution.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/yosupo/exp-sum-limit.test.cpp
+      title: tests/yosupo/exp-sum-limit.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/yosupo/exp-sum.test.cpp
+      title: tests/yosupo/exp-sum.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/yosupo/fht-convolution.test.cpp
       title: tests/yosupo/fht-convolution.test.cpp

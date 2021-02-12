@@ -25,6 +25,12 @@ data:
     path: tests/yosupo/and-convolution.test.cpp
     title: tests/yosupo/and-convolution.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/yosupo/exp-sum-limit.test.cpp
+    title: tests/yosupo/exp-sum-limit.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/exp-sum.test.cpp
+    title: tests/yosupo/exp-sum.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/yosupo/fht-convolution.test.cpp
     title: tests/yosupo/fht-convolution.test.cpp
   - icon: ':heavy_check_mark:'
@@ -313,11 +319,13 @@ data:
   verifiedWith:
   - tests/yosupo/fps-power.test.cpp
   - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/exp-sum.test.cpp
   - tests/yosupo/fht-convolution.test.cpp
   - tests/yosupo/subset-sum.test.cpp
   - tests/yosupo/subset-sum.test.cpp
   - tests/yosupo/multipoint.test.cpp
   - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/exp-sum-limit.test.cpp
   - tests/yosupo/subset-convolution.test.cpp
   - tests/yosupo/and-convolution.test.cpp
   - tests/yosupo/kth-term-lr.test.cpp

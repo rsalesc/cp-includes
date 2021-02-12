@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: Combinatorics.cpp
     title: Combinatorics.cpp
   - icon: ':heavy_check_mark:'
@@ -15,12 +15,24 @@ data:
     path: FHT.cpp
     title: FHT.cpp
   - icon: ':heavy_check_mark:'
+    path: Lagrange.cpp
+    title: Lagrange.cpp
+  - icon: ':heavy_check_mark:'
     path: NTT.cpp
     title: NTT.cpp
   - icon: ':heavy_check_mark:'
     path: PowerSeries.cpp
     title: PowerSeries.cpp
+  - icon: ':heavy_check_mark:'
+    path: polynomial/ExponentialSum.cpp
+    title: Exponential Sum
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/exp-sum-limit.test.cpp
+    title: tests/yosupo/exp-sum-limit.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/exp-sum.test.cpp
+    title: tests/yosupo/exp-sum.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/fht-convolution.test.cpp
     title: tests/yosupo/fht-convolution.test.cpp
@@ -60,6 +72,8 @@ data:
   path: BitTricks.cpp
   requiredBy:
   - Combinatorics.cpp
+  - polynomial/ExponentialSum.cpp
+  - Lagrange.cpp
   - PowerSeries.cpp
   - DFT.cpp
   - FHT.cpp
@@ -69,9 +83,11 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/exp-sum.test.cpp
   - tests/yosupo/fht-convolution.test.cpp
   - tests/yosupo/subset-sum.test.cpp
   - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/exp-sum-limit.test.cpp
   - tests/yosupo/kth-term-lr.test.cpp
   - tests/yosupo/fps-inv.test.cpp
   - tests/yosupo/find-lr.test.cpp
