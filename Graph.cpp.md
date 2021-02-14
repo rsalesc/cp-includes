@@ -24,6 +24,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/2sat.test.cpp
     title: tests/yosupo/2sat.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/chordal.test.cpp
+    title: tests/yosupo/chordal.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -277,6 +280,7 @@ data:
   timestamp: '2021-01-26 16:28:00-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/yosupo/chordal.test.cpp
   - tests/yosupo/2sat.test.cpp
 documentation_of: Graph.cpp
 layout: document

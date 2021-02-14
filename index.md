@@ -178,6 +178,11 @@ data:
     - icon: ':warning:'
       path: geometry/Trigonometry.cpp
       title: geometry/Trigonometry.cpp
+  - name: graphs
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: graphs/Chordal.cpp
+      title: graphs/Chordal.cpp
   - name: matroid
     pages:
     - icon: ':warning:'
@@ -250,6 +255,9 @@ data:
     - icon: ':warning:'
       path: utils/FastAdj.cpp
       title: utils/FastAdj.cpp
+    - icon: ':heavy_check_mark:'
+      path: utils/FastList.cpp
+      title: utils/FastList.cpp
     - icon: ':warning:'
       path: utils/FastQueue.cpp
       title: utils/FastQueue.cpp
@@ -265,6 +273,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/yosupo/and-convolution.test.cpp
       title: tests/yosupo/and-convolution.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/yosupo/chordal.test.cpp
+      title: tests/yosupo/chordal.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/yosupo/exp-sum-limit.test.cpp
       title: tests/yosupo/exp-sum-limit.test.cpp

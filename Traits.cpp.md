@@ -94,6 +94,9 @@ data:
     path: tests/yosupo/2sat.test.cpp
     title: tests/yosupo/2sat.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/yosupo/chordal.test.cpp
+    title: tests/yosupo/chordal.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/yosupo/fht-convolution.test.cpp
     title: tests/yosupo/fht-convolution.test.cpp
   - icon: ':heavy_check_mark:'
@@ -200,6 +203,7 @@ data:
   verifiedWith:
   - tests/yosupo/fps-power.test.cpp
   - tests/yosupo/fht-convolution.test.cpp
+  - tests/yosupo/chordal.test.cpp
   - tests/yosupo/subset-sum.test.cpp
   - tests/yosupo/multipoint.test.cpp
   - tests/yosupo/multipoint.test.cpp
