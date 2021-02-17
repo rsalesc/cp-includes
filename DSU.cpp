@@ -9,8 +9,9 @@ struct DSU {
   vector<int> p, ptime, sz;
   int tempo = 0;
   int merges = 0;
+  pair<int, int> last_merge_ = {-1, -1};
 
-  DSU(int n = 0) : p(n), ptime(n), sz(n, 1) { iota(p.begin(), p.end(), 0); }
+  DSU(int n = 0) : p(n), ptime(n, 1e9), sz(n, 1) { iota(p.begin(), p.end(), 0); }
 
   int make_node() {
     int i = p.size();
@@ -35,8 +36,12 @@ struct DSU {
     p[v] = u;
     ptime[v] = ++tempo;
     sz[u] += sz[v];
+    last_merge_ = {v, u};
     merges++;
     return 1;
+  }
+  pair<int, int> last_merge() const {
+    return last_merge_;
   }
 
   int n_comps() const { return (int)p.size() - merges; }
