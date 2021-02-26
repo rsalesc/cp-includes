@@ -17,6 +17,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: TwoSat.cpp
     title: TwoSat.cpp
+  - icon: ':warning:'
+    path: graphs/BlockCut.cpp
+    title: graphs/BlockCut.cpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/2sat.test.cpp
@@ -47,6 +50,7 @@ data:
   requiredBy:
   - SegtreeHLD.cpp
   - Maxflow.cpp
+  - graphs/BlockCut.cpp
   - HLD.cpp
   - TwoSat.cpp
   - Graph.cpp

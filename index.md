@@ -158,6 +158,23 @@ data:
     - icon: ':heavy_check_mark:'
       path: ds/StaticRMQ.cpp
       title: ds/StaticRMQ.cpp
+  - name: dsu
+    pages:
+    - icon: ':warning:'
+      path: dsu/BinaryLifting.cpp
+      title: dsu/BinaryLifting.cpp
+    - icon: ':warning:'
+      path: dsu/Compress.cpp
+      title: dsu/Compress.cpp
+    - icon: ':warning:'
+      path: dsu/DSU.cpp
+      title: dsu/DSU.cpp
+    - icon: ':warning:'
+      path: dsu/SpanningTree.cpp
+      title: dsu/SpanningTree.cpp
+    - icon: ':warning:'
+      path: dsu/Time.cpp
+      title: dsu/Time.cpp
   - name: geometry
     pages:
     - icon: ':warning:'
@@ -180,6 +197,9 @@ data:
       title: geometry/Trigonometry.cpp
   - name: graphs
     pages:
+    - icon: ':warning:'
+      path: graphs/BlockCut.cpp
+      title: graphs/BlockCut.cpp
     - icon: ':heavy_check_mark:'
       path: graphs/Chordal.cpp
       title: graphs/Chordal.cpp
@@ -261,6 +281,9 @@ data:
     - icon: ':warning:'
       path: utils/FastQueue.cpp
       title: utils/FastQueue.cpp
+    - icon: ':warning:'
+      path: utils/LazyArray.cpp
+      title: utils/LazyArray.cpp
     - icon: ':heavy_check_mark:'
       path: utils/Wrappers.cpp
       title: utils/Wrappers.cpp

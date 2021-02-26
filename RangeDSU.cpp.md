@@ -123,16 +123,18 @@ data:
     \      updater(t[--j]);\n      i /= 2, j /= 2;\n    }\n  }\n};\n\n} // namespace\
     \ seg\n} // namespace lib\n\n\n#line 1 \"DSU.cpp\"\n\n\n#line 4 \"DSU.cpp\"\n\n\
     namespace lib {\nusing namespace std;\n\nstruct DSU {\n  vector<int> p, ptime,\
-    \ sz;\n  int tempo = 0;\n  int merges = 0;\n\n  DSU(int n = 0) : p(n), ptime(n),\
-    \ sz(n, 1) { iota(p.begin(), p.end(), 0); }\n\n  int make_node() {\n    int i\
-    \ = p.size();\n    p.emplace_back(i);\n    ptime.emplace_back(0);\n    sz.emplace_back(1);\n\
-    \    return 1;\n  }\n\n  int get(int i, int at) const {\n    return p[i] == i\
-    \ ? i : (at >= ptime[i] ? get(p[i], at) : i);\n  }\n\n  int operator[](int i)\
-    \ const { return get(i, tempo); }\n\n  int merge(int u, int v) {\n    u = (*this)[u],\
-    \ v = (*this)[v];\n    if (u == v)\n      return 0;\n    if (sz[u] < sz[v])\n\
-    \      swap(u, v);\n    p[v] = u;\n    ptime[v] = ++tempo;\n    sz[u] += sz[v];\n\
-    \    merges++;\n    return 1;\n  }\n\n  int n_comps() const { return (int)p.size()\
-    \ - merges; }\n};\n\nstruct CompressedDSU {\n  vector<int> p;\n  CompressedDSU(int\
+    \ sz;\n  int tempo = 0;\n  int merges = 0;\n  pair<int, int> last_merge_ = {-1,\
+    \ -1};\n\n  DSU(int n = 0) : p(n), ptime(n, 1e9), sz(n, 1) { iota(p.begin(), p.end(),\
+    \ 0); }\n\n  int make_node() {\n    int i = p.size();\n    p.emplace_back(i);\n\
+    \    ptime.emplace_back(0);\n    sz.emplace_back(1);\n    return 1;\n  }\n\n \
+    \ int get(int i, int at) const {\n    return p[i] == i ? i : (at >= ptime[i] ?\
+    \ get(p[i], at) : i);\n  }\n\n  int operator[](int i) const { return get(i, tempo);\
+    \ }\n\n  int merge(int u, int v) {\n    u = (*this)[u], v = (*this)[v];\n    if\
+    \ (u == v)\n      return 0;\n    if (sz[u] < sz[v])\n      swap(u, v);\n    p[v]\
+    \ = u;\n    ptime[v] = ++tempo;\n    sz[u] += sz[v];\n    last_merge_ = {v, u};\n\
+    \    merges++;\n    return 1;\n  }\n  pair<int, int> last_merge() const {\n  \
+    \  return last_merge_;\n  }\n\n  int n_comps() const { return (int)p.size() -\
+    \ merges; }\n};\n\nstruct CompressedDSU {\n  vector<int> p;\n  CompressedDSU(int\
     \ n = 0) : p(n) { iota(p.begin(), p.end(), 0); }\n  int get(int i) {\n    return\
     \ p[i] == i ? i : p[i] = get(p[i]);\n  }\n  int operator[](int i) { return get(i);\
     \ }\n  int& parent(int i) { return p[i]; }\n};\n\nstruct FastDSU {\n  vector<int>\
@@ -202,7 +204,7 @@ data:
   isVerificationFile: false
   path: RangeDSU.cpp
   requiredBy: []
-  timestamp: '2021-02-11 19:36:05-03:00'
+  timestamp: '2021-02-17 20:36:53-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: RangeDSU.cpp

@@ -42,6 +42,9 @@ data:
     path: VectorN.cpp
     title: VectorN.cpp
   - icon: ':warning:'
+    path: graphs/BlockCut.cpp
+    title: graphs/BlockCut.cpp
+  - icon: ':warning:'
     path: matroid/CographicMatroid.cpp
     title: matroid/CographicMatroid.cpp
   - icon: ':warning:'
@@ -176,6 +179,7 @@ data:
   - Maxflow.cpp
   - polynomial/MultipointEvaluation.cpp
   - polynomial/MultipointEvaluation.cpp
+  - graphs/BlockCut.cpp
   - HLD.cpp
   - TwoSat.cpp
   - PowerSeries.cpp

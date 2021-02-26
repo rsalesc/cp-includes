@@ -50,10 +50,11 @@ data:
     \ <typename T> struct VertexWrapper { T data; };\n\ntemplate <> struct VertexWrapper<void>\
     \ {};\n} // namespace graph\n} // namespace lib\n\n\n#line 6 \"Graph.cpp\"\n\n\
     namespace lib {\nusing namespace std;\nnamespace graph {\ntemplate <typename V\
-    \ = void, typename E = void> struct Graph {\n  typedef Graph<V, E> self_type;\n\
-    \  typedef vector<vector<int>> adj_list;\n  typedef Edge<E> edge_type;\n  typedef\
-    \ VertexWrapper<V> vertex_type;\n\n  vector<edge_type> edges;\n  adj_list adj;\n\
-    \n  vector<vertex_type> vertices;\n\n  class iterator {\n  public:\n    typedef\
+    \ = void, typename E = void, bool Directed = false>\nstruct GraphImpl {\n  typedef\
+    \ GraphImpl<V, E> self_type;\n  typedef vector<vector<int>> adj_list;\n  typedef\
+    \ Edge<E> edge_type;\n  typedef VertexWrapper<V> vertex_type;\n\n  const static\
+    \ bool directed = Directed;\n\n  vector<edge_type> edges;\n  adj_list adj;\n\n\
+    \  vector<vertex_type> vertices;\n\n  class iterator {\n  public:\n    typedef\
     \ iterator self_type;\n    typedef edge_type value_type;\n    typedef edge_type\
     \ &reference;\n    typedef edge_type *pointer;\n    typedef std::forward_iterator_tag\
     \ iterator_category;\n    typedef int difference_type;\n    iterator(vector<int>\
@@ -87,47 +88,57 @@ data:
     \    inline const_iterator begin() const { return cbegin(); }\n    inline const_iterator\
     \ end() const { return cend(); }\n\n    inline edge_type &operator[](int i) {\
     \ return (*edges_)[(*adj_)[i]]; }\n    inline const edge_type &operator[](int\
-    \ i) const {\n      return (*edges_)[(*adj_)[i]];\n    }\n\n    inline int size()\
-    \ const { return adj_->size(); }\n  };\n\n  Graph() {}\n\n  template <typename\
-    \ S = V,\n            typename enable_if<is_void<S>::value>::type * = nullptr>\n\
-    \  Graph(size_t n) : adj(n) {}\n\n  template <typename S = V,\n            typename\
-    \ enable_if<!is_void<S>::value>::type * = nullptr>\n  Graph(size_t n) : adj(n),\
-    \ vertices(n) {}\n\n  inline iterable n_edges(int i) { return iterable(&adj[i],\
-    \ &edges); }\n  inline const iterable n_edges(int i) const {\n    return iterable(const_cast<vector<int>\
-    \ *>(&adj[i]),\n                    const_cast<vector<edge_type> *>(&edges));\n\
-    \  }\n\n  inline int size() const { return adj.size(); }\n  inline int edge_size()\
-    \ const { return edges.size(); }\n  inline edge_type &edge(int i) { return edges[i];\
-    \ }\n  inline edge_type edge(int i) const { return edges[i]; }\n\n  inline vector<edge_type>\
-    \ all_edges() const { return edges; }\n\n  template <typename S = V,\n       \
-    \     typename enable_if<!is_void<S>::value>::type * = nullptr>\n  inline S &vertex(int\
-    \ i) {\n    return vertices[i];\n  }\n\n  template <typename S = V,\n        \
-    \    typename enable_if<!is_void<S>::value>::type * = nullptr>\n  inline V vertex(int\
-    \ i) const {\n    return vertices[i];\n  }\n\n  template <typename S = V,\n  \
-    \          typename enable_if<is_void<S>::value>::type * = nullptr>\n  inline\
-    \ void add_vertex() {\n    adj.emplace_back();\n  }\n\n  template <typename S\
-    \ = V,\n            typename enable_if<!is_void<S>::value>::type * = nullptr>\n\
-    \  inline S &add_vertex() {\n    adj.emplace_back();\n    return vertices.emplace_back().data;\n\
-    \  }\n\n  template <typename S = E,\n            typename enable_if<is_void<S>::value>::type\
-    \ * = nullptr>\n  inline void add_edge(int u, int v) {\n    adj[u].push_back(edges.size());\n\
-    \    edges.push_back({u, v});\n  }\n\n  template <typename S = E,\n          \
-    \  typename enable_if<!is_void<S>::value>::type * = nullptr>\n  inline S &add_edge(int\
+    \ i) const {\n      return (*edges_)[(*adj_)[i]];\n    }\n\n    inline int index(int\
+    \ i) const { return (*adj_)[i]; }\n    inline int size() const { return adj_->size();\
+    \ }\n  };\n\n  GraphImpl() {}\n\n  template <typename S = V,\n            typename\
+    \ enable_if<is_void<S>::value>::type * = nullptr>\n  GraphImpl(size_t n) : adj(n)\
+    \ {}\n\n  template <typename S = V,\n            typename enable_if<!is_void<S>::value>::type\
+    \ * = nullptr>\n  GraphImpl(size_t n) : adj(n), vertices(n) {}\n\n  inline iterable\
+    \ n_edges(int i) { return iterable(&adj[i], &edges); }\n  inline const iterable\
+    \ n_edges(int i) const {\n    return iterable(const_cast<vector<int> *>(&adj[i]),\n\
+    \                    const_cast<vector<edge_type> *>(&edges));\n  }\n  inline\
+    \ int degree(int i) { return adj[i].size(); }\n\n  inline int size() const { return\
+    \ adj.size(); }\n  inline int edge_size() const { return edges.size(); }\n  inline\
+    \ edge_type &edge(int i) { return edges[i]; }\n  inline edge_type edge(int i)\
+    \ const { return edges[i]; }\n\n  inline vector<edge_type> all_edges() const {\
+    \ return edges; }\n\n  template <typename S = V,\n            typename enable_if<!is_void<S>::value>::type\
+    \ * = nullptr>\n  inline S &vertex(int i) {\n    return vertices[i];\n  }\n\n\
+    \  template <typename S = V,\n            typename enable_if<!is_void<S>::value>::type\
+    \ * = nullptr>\n  inline V vertex(int i) const {\n    return vertices[i];\n  }\n\
+    \n  template <typename S = V,\n            typename enable_if<is_void<S>::value>::type\
+    \ * = nullptr>\n  inline void add_vertex() {\n    adj.emplace_back();\n  }\n\n\
+    \  template <typename S = V,\n            typename enable_if<!is_void<S>::value>::type\
+    \ * = nullptr>\n  inline S &add_vertex() {\n    adj.emplace_back();\n    return\
+    \ vertices.emplace_back().data;\n  }\n\n  template <typename S = E,\n        \
+    \    typename enable_if<is_void<S>::value>::type * = nullptr>\n  inline void add_edge_(int\
     \ u, int v) {\n    adj[u].push_back(edges.size());\n    edges.push_back({u, v});\n\
-    \    return edges.back().data;\n  }\n\n  void add_2edge(int u, int v) {\n    add_edge(u,\
-    \ v);\n    add_edge(v, u);\n  }\n\n  template <typename S = E,\n            typename\
-    \ enable_if<!is_void<S>::value>::type * = nullptr>\n  inline void add_2edge(int\
-    \ u, int v, const S &data) {\n    add_edge(u, v) = data;\n    add_edge(v, u) =\
-    \ data;\n  }\n};\n\ntemplate <typename V = void, typename E = void>\nstruct RootedForest\
-    \ : public Graph<V, E> {\n  typedef RootedForest<V, E> self_type;\n  using typename\
-    \ Graph<V, E>::adj_list;\n  using typename Graph<V, E>::edge_type;\n  using Graph<V,\
-    \ E>::Graph;\n  using Graph<V, E>::adj;\n  using Graph<V, E>::edge;\n  vector<int>\
-    \ p, pe;\n\n  void build_parents() {\n    if ((int)p.size() == this->size())\n\
-    \      return;\n\n    int n = this->size();\n    stack<int> st;\n    vector<bool>\
-    \ vis(n);\n    p.assign(n, -1), pe.assign(n, -1);\n    for (int i = 0; i < n;\
-    \ i++) {\n      if (!vis[i]) {\n        st.push(i);\n        vis[i] = true;\n\
-    \        while (!st.empty()) {\n          int u = st.top();\n          st.pop();\n\
-    \n          for (int k : adj[u]) {\n            int v = edge(k).to;\n        \
-    \    vis[v] = true;\n            st.push(v), pe[v] = k, p[v] = u;\n          }\n\
-    \        }\n      }\n    }\n  }\n\n  inline int parent(int i) const {\n    const_cast<self_type\
+    \  }\n\n  template <typename S = E,\n            typename enable_if<!is_void<S>::value>::type\
+    \ * = nullptr>\n  inline S &add_edge_(int u, int v) {\n    adj[u].push_back(edges.size());\n\
+    \    edges.push_back({u, v});\n    return edges.back().data;\n  }\n\n  void add_2edge(int\
+    \ u, int v) {\n    add_edge_(u, v);\n    add_edge_(v, u);\n  }\n\n  template <typename\
+    \ S = E,\n            typename enable_if<!is_void<S>::value>::type * = nullptr>\n\
+    \  inline void add_2edge(int u, int v, const S &data) {\n    add_edge_(u, v) =\
+    \ data;\n    add_edge_(v, u) = data;\n  }\n\n  template <typename S = E,\n   \
+    \         typename enable_if<is_void<S>::value && Directed>::type * = nullptr>\n\
+    \  inline void add_edge(int u, int v) {\n    adj[u].push_back(edges.size());\n\
+    \    edges.push_back({u, v});\n  }\n\n  template <typename S = E,\n          \
+    \  typename enable_if<!is_void<S>::value && Directed>::type * = nullptr>\n  inline\
+    \ S &add_edge(int u, int v) {\n    adj[u].push_back(edges.size());\n    edges.push_back({u,\
+    \ v});\n    return edges.back().data;\n  }\n};\n\ntemplate<typename V = void,\
+    \ typename E = void>\nusing Graph = GraphImpl<V, E, false>;\n\ntemplate<typename\
+    \ V = void, typename E = void>\nusing DirectedGraph = GraphImpl<V, E, true>;\n\
+    \ntemplate <typename V = void, typename E = void>\nstruct RootedForest : public\
+    \ Graph<V, E> {\n  typedef RootedForest<V, E> self_type;\n  using typename Graph<V,\
+    \ E>::adj_list;\n  using typename Graph<V, E>::edge_type;\n  using Graph<V, E>::Graph;\n\
+    \  using Graph<V, E>::adj;\n  using Graph<V, E>::edge;\n  vector<int> p, pe;\n\
+    \n  void build_parents() {\n    if ((int)p.size() == this->size())\n      return;\n\
+    \n    int n = this->size();\n    stack<int> st;\n    vector<bool> vis(n);\n  \
+    \  p.assign(n, -1), pe.assign(n, -1);\n    for (int i = 0; i < n; i++) {\n   \
+    \   if (!vis[i]) {\n        st.push(i);\n        vis[i] = true;\n        while\
+    \ (!st.empty()) {\n          int u = st.top();\n          st.pop();\n\n      \
+    \    for (int k : adj[u]) {\n            int v = edge(k).to;\n            vis[v]\
+    \ = true;\n            st.push(v), pe[v] = k, p[v] = u;\n          }\n       \
+    \ }\n      }\n    }\n  }\n\n  inline int parent(int i) const {\n    const_cast<self_type\
     \ *>(this)->build_parents();\n    return p[i];\n  }\n\n  inline bool is_root(int\
     \ i) const { return parent(i) != -1; }\n\n  inline edge_type &parent_edge(int\
     \ i) {\n    build_parents();\n    return edge(pe[i]);\n  }\n  inline edge_type\
@@ -456,7 +467,7 @@ data:
   isVerificationFile: false
   path: SegtreeHLD.cpp
   requiredBy: []
-  timestamp: '2021-02-11 19:36:05-03:00'
+  timestamp: '2021-02-17 20:36:53-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: SegtreeHLD.cpp
