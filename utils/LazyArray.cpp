@@ -20,7 +20,7 @@ struct LazyArray {
     fill(T());
   }
   T get(int i) const {
-    return tempo == lz[i] ? v[i] : lz_v:
+    return tempo == lz[i] ? v[i] : lz_v;
   }
   T operator[](int i) const {
     return get(i);
