@@ -357,6 +357,37 @@ template <typename T, typename Large = T> struct Ray {
   }
 };
 
+template <typename T, typename Large = T> struct Halfplane {
+  typedef Point<T, Large> point;
+  typedef Line<T, Large> line;
+  typedef Ray<T, Large> ray;
+  typedef Halfplane<T, Large> halfplane;
+  point a, b;
+
+  Halfplane(point a, point direction) : a(a), b(a + direction) {}
+
+  static halfplane from_points(point a, point b) { return halfplane(a, b - a); }
+  point direction() const { return b - a; }
+  point direction_versor() const { return versor(direction()); }
+
+  line as_line() const { return line(a, b); }
+  explicit operator line() const { return as_line(); }
+
+  ray as_ray() const { return ray(a, b); }
+  explicit operator ray() const { return as_ray(); }
+
+  template <typename G, typename H> explicit operator Halfplane<G, H>() const {
+    return Halfplane<G, H>(Point<G, H>(a), Point<G, H>(b));
+  }
+
+  bool contains(const point& p) const {
+    return ccw(a, b, p) <= 0;
+  }
+  bool strictly_contains(const point& p) const {
+    return ccw(a, b, p) < 0;
+  }
+};
+
 template <typename T, typename Large = T> struct Segment {
   typedef Point<T, Large> point;
   typedef Line<T, Large> line;
@@ -537,6 +568,7 @@ template <typename T, typename Large = T> struct CartesianPlane {
   typedef plane::Rectangle<T, Large> rectangle;
   typedef plane::Segment<T, Large> segment;
   typedef plane::Ray<T, Large> ray;
+  typedef plane::Halfplane<T, Large> halfplane;
 
   template<typename Direction>
   using angle_comparator = plane::AngleComparator<Direction, T, Large>;

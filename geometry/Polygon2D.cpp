@@ -28,6 +28,7 @@ template <typename T, typename Large = T> struct Polygon {
   typedef Circle<T, Large> circle;
   vector<point> p;
 
+  Polygon() {}
   Polygon(const vector<point> &p) : p(p) {}
   template <typename G> Polygon(const vector<pair<point, G>> &g) : p(g.size()) {
     for (size_t i = 0; i < g.size(); i++)
@@ -219,10 +220,12 @@ struct ConvexPolygon : public Polygon<T, Large> {
   typedef Point<T, Large> point;
   typedef Segment<T, Large> segment;
   typedef Line<T, Large> line;
+  typedef Halfplane<T, Large> halfplane;
   typedef Circle<T, Large> circle;
   typedef AngleComparator<PointDirection<point>, T, Large> angle_comparator;
   using Polygon<T, Large>::p;
   int top;
+  ConvexPolygon() {}
   ConvexPolygon(const vector<point> &p) : Polygon<T, Large>(p) { normalize(); }
   template <typename G>
   ConvexPolygon(const vector<pair<point, G>> &p) : Polygon<T, Large>(p) {
@@ -461,6 +464,40 @@ struct ConvexPolygon : public Polygon<T, Large> {
       res = min(res, dist(segment(sum[i], sum[i + 1]), point()));
     }
     return -res;
+  }
+  void cut(const halfplane& pl) {
+    int n = this->size();
+    if(n < 3) return;
+    p.push_back(p[0]);
+
+    auto pl_line = pl.as_line();
+
+    vector<point> out;
+    bool inside = pl.strictly_contains(p[0]);
+    if(inside) out.push_back(p[0]);
+
+    for(int i = 1; i <= n; i++) {
+      if(pl.strictly_contains(p[i])) {
+        if(!inside) {
+          out.push_back(intersect(pl_line, line(p[i-1], p[i])).first);
+        }
+        out.push_back(p[i]);
+        inside = true;
+      } else {
+        if(inside) {
+          out.push_back(intersect(pl_line, line(p[i-1], p[i])).first);
+        }
+        inside = false;
+      }
+    }
+
+    if(!out.empty() && out[0] == out.back()) out.pop_back();
+    *this = ConvexPolygon(ConvexPolygon::convex_hull(out));
+  }
+  void cut(const ConvexPolygon &rhs) {
+    for(int i = 0; i < rhs.size(); i++) {
+      cut(halfplane::from_points(rhs[i], rhs[i+1]));
+    }
   }
 };
 } // namespace plane
