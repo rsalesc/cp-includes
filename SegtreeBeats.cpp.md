@@ -357,9 +357,9 @@ data:
   isVerificationFile: false
   path: SegtreeBeats.cpp
   requiredBy:
-  - SegtreeNormal.cpp
-  - SegtreeSplash.cpp
   - SegtreeLazy.cpp
+  - SegtreeSplash.cpp
+  - SegtreeNormal.cpp
   timestamp: '2021-02-11 19:36:05-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

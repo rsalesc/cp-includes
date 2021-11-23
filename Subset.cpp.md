@@ -94,8 +94,8 @@ data:
   timestamp: '2021-02-07 14:32:59-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/yosupo/subset-convolution.test.cpp
   - tests/yosupo/and-convolution.test.cpp
+  - tests/yosupo/subset-convolution.test.cpp
 documentation_of: Subset.cpp
 layout: document
 redirect_from:

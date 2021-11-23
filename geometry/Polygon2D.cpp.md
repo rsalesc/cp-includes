@@ -231,15 +231,28 @@ data:
     \      return Large(0);\n    return dist(l, r.a);\n  }\n  friend Large dist(const\
     \ ray &r1, const ray &r2) {\n    if (has_intersection(r1, r2))\n      return Large(0);\n\
     \    return min(dist(r1, r2.a), dist(r2, r1.a));\n  }\n};\n\ntemplate <typename\
-    \ T, typename Large = T> struct Segment {\n  typedef Point<T, Large> point;\n\
-    \  typedef Line<T, Large> line;\n  typedef Segment<T, Large> segment;\n  typedef\
-    \ Ray<T, Large> ray;\n  point a, b;\n\n  Segment() {}\n  Segment(point a, point\
-    \ b) : a(a), b(b) {}\n  line as_line() const { return line(a, b); }\n  explicit\
-    \ operator line() const { return as_line(); }\n  bool is_degenerate() const {\
-    \ return a == b; }\n\n  template <typename G, typename H> explicit operator Segment<G,\
-    \ H>() const {\n    return Segment<G, H>(Point<G, H>(a), Point<G, H>(b));\n  }\n\
-    \  bool contains(const point &p) const { return between(a, p, b); }\n  bool strictly_contains(const\
-    \ point &p) const {\n    return strictly_between(a, p, b);\n  }\n  bool collinear_contains(const\
+    \ T, typename Large = T> struct Halfplane {\n  typedef Point<T, Large> point;\n\
+    \  typedef Line<T, Large> line;\n  typedef Ray<T, Large> ray;\n  typedef Halfplane<T,\
+    \ Large> halfplane;\n  point a, b;\n\n  Halfplane(point a, point direction) :\
+    \ a(a), b(a + direction) {}\n\n  static halfplane from_points(point a, point b)\
+    \ { return halfplane(a, b - a); }\n  point direction() const { return b - a; }\n\
+    \  point direction_versor() const { return versor(direction()); }\n\n  line as_line()\
+    \ const { return line(a, b); }\n  explicit operator line() const { return as_line();\
+    \ }\n\n  ray as_ray() const { return ray(a, b); }\n  explicit operator ray() const\
+    \ { return as_ray(); }\n\n  template <typename G, typename H> explicit operator\
+    \ Halfplane<G, H>() const {\n    return Halfplane<G, H>(Point<G, H>(a), Point<G,\
+    \ H>(b));\n  }\n\n  bool contains(const point& p) const {\n    return ccw(a, b,\
+    \ p) <= 0;\n  }\n  bool strictly_contains(const point& p) const {\n    return\
+    \ ccw(a, b, p) < 0;\n  }\n};\n\ntemplate <typename T, typename Large = T> struct\
+    \ Segment {\n  typedef Point<T, Large> point;\n  typedef Line<T, Large> line;\n\
+    \  typedef Segment<T, Large> segment;\n  typedef Ray<T, Large> ray;\n  point a,\
+    \ b;\n\n  Segment() {}\n  Segment(point a, point b) : a(a), b(b) {}\n  line as_line()\
+    \ const { return line(a, b); }\n  explicit operator line() const { return as_line();\
+    \ }\n  bool is_degenerate() const { return a == b; }\n\n  template <typename G,\
+    \ typename H> explicit operator Segment<G, H>() const {\n    return Segment<G,\
+    \ H>(Point<G, H>(a), Point<G, H>(b));\n  }\n  bool contains(const point &p) const\
+    \ { return between(a, p, b); }\n  bool strictly_contains(const point &p) const\
+    \ {\n    return strictly_between(a, p, b);\n  }\n  bool collinear_contains(const\
     \ point &p) const {\n    return collinear_between(a, p, b);\n  }\n  bool collinear_strictly_contains(const\
     \ point &p) const {\n    return collinear_strictly_between(a, p, b);\n  }\n  friend\
     \ pair<point, bool> intersect(const segment &s, const line &l) {\n    auto p =\
@@ -308,31 +321,32 @@ data:
     \ plane\n\ntemplate <typename T, typename Large = T> struct CartesianPlane {\n\
     \  typedef plane::Point<T, Large> point;\n  typedef plane::Line<T, Large> line;\n\
     \  typedef plane::Rectangle<T, Large> rectangle;\n  typedef plane::Segment<T,\
-    \ Large> segment;\n  typedef plane::Ray<T, Large> ray;\n\n  template<typename\
-    \ Direction>\n  using angle_comparator = plane::AngleComparator<Direction, T,\
-    \ Large>;\n};\n\n} // namespace geo\n} // namespace lib\n\n\n#line 6 \"geometry/Circle2D.cpp\"\
-    \n\nnamespace lib {\nusing namespace std;\nnamespace geo {\nnamespace plane {\n\
-    template <typename T, typename Large = T> struct Barycentric {\n  typedef Point<T,\
-    \ Large> point;\n  point r1, r2, r3;\n  T a, b, c;\n\n  Barycentric(const point\
-    \ &r1, const point &r2, const point &r3, T a = 1,\n              T b = 1, T c\
-    \ = 1)\n      : r1(r1), r2(r2), r3(r3), a(a), b(b), c(c) {}\n  point as_point()\
-    \ const { return (r1 * a + r2 * b + r3 * c) / (a + b + c); }\n\n  static Barycentric\
-    \ centroid(const point &r1, const point &r2,\n                              const\
-    \ point &r3) {\n    return Barycentric(r1, r2, r3);\n  }\n  static Barycentric\
-    \ circumcenter(const point &r1, const point &r2,\n                           \
-    \       const point &r3) {\n    Large a = norm_sq(r2 - r3), b = norm_sq(r3 - r1),\
-    \ c = norm_sq(r1 - r2);\n    return Barycentric(r1, r2, r3, a * (b + c - a), b\
-    \ * (c + a - b),\n                       c * (a + b - c));\n  }\n  static Barycentric\
-    \ incenter(const point &r1, const point &r2,\n                              const\
-    \ point &r3) {\n    return Barycentric(r1, r2, r3, norm(r2 - r3), norm(r1 - r3),\
-    \ norm(r1 - r2));\n  }\n  static Barycentric orthocenter(const point &r1, const\
-    \ point &r2,\n                                 const point &r3) {\n    Large a\
-    \ = norm_sq(r2 - r3), b = norm_sq(r3 - r1), c = norm_sq(r1 - r2);\n    return\
-    \ Barycentric(r1, r2, r3, (a + b - c) * (c + a - b),\n                       (b\
-    \ + c - a) * (a + b - c), (c + a - b) * (b + c - a));\n  }\n  static Barycentric\
-    \ excenter(const point &r1, const point &r2,\n                              const\
-    \ point &r3) {\n    return Barycentric(r1, r2, r3, -norm(r2 - r3), norm(r1 - r3),\n\
-    \                       norm(r1 - r2));\n  }\n};\n\ntemplate <typename T, typename\
+    \ Large> segment;\n  typedef plane::Ray<T, Large> ray;\n  typedef plane::Halfplane<T,\
+    \ Large> halfplane;\n\n  template<typename Direction>\n  using angle_comparator\
+    \ = plane::AngleComparator<Direction, T, Large>;\n};\n\n} // namespace geo\n}\
+    \ // namespace lib\n\n\n#line 6 \"geometry/Circle2D.cpp\"\n\nnamespace lib {\n\
+    using namespace std;\nnamespace geo {\nnamespace plane {\ntemplate <typename T,\
+    \ typename Large = T> struct Barycentric {\n  typedef Point<T, Large> point;\n\
+    \  point r1, r2, r3;\n  T a, b, c;\n\n  Barycentric(const point &r1, const point\
+    \ &r2, const point &r3, T a = 1,\n              T b = 1, T c = 1)\n      : r1(r1),\
+    \ r2(r2), r3(r3), a(a), b(b), c(c) {}\n  point as_point() const { return (r1 *\
+    \ a + r2 * b + r3 * c) / (a + b + c); }\n\n  static Barycentric centroid(const\
+    \ point &r1, const point &r2,\n                              const point &r3)\
+    \ {\n    return Barycentric(r1, r2, r3);\n  }\n  static Barycentric circumcenter(const\
+    \ point &r1, const point &r2,\n                                  const point &r3)\
+    \ {\n    Large a = norm_sq(r2 - r3), b = norm_sq(r3 - r1), c = norm_sq(r1 - r2);\n\
+    \    return Barycentric(r1, r2, r3, a * (b + c - a), b * (c + a - b),\n      \
+    \                 c * (a + b - c));\n  }\n  static Barycentric incenter(const\
+    \ point &r1, const point &r2,\n                              const point &r3)\
+    \ {\n    return Barycentric(r1, r2, r3, norm(r2 - r3), norm(r1 - r3), norm(r1\
+    \ - r2));\n  }\n  static Barycentric orthocenter(const point &r1, const point\
+    \ &r2,\n                                 const point &r3) {\n    Large a = norm_sq(r2\
+    \ - r3), b = norm_sq(r3 - r1), c = norm_sq(r1 - r2);\n    return Barycentric(r1,\
+    \ r2, r3, (a + b - c) * (c + a - b),\n                       (b + c - a) * (a\
+    \ + b - c), (c + a - b) * (b + c - a));\n  }\n  static Barycentric excenter(const\
+    \ point &r1, const point &r2,\n                              const point &r3)\
+    \ {\n    return Barycentric(r1, r2, r3, -norm(r2 - r3), norm(r1 - r3),\n     \
+    \                  norm(r1 - r2));\n  }\n};\n\ntemplate <typename T, typename\
     \ Large = T> struct Circle {\n  typedef Point<T, Large> point;\n  typedef Line<T,\
     \ Large> line;\n  typedef Barycentric<Large> bary;\n  typedef Segment<T, Large>\
     \ segment;\n  point center;\n  T radius;\n\n  Circle(point center, T radius) :\
@@ -422,7 +436,202 @@ data:
     \    if (k == 0)\n      return norm_sq(a.first) < norm_sq(b.first);\n    return\
     \ k > 0;\n  }\n};\n\ntemplate <typename T, typename Large = T> struct Polygon\
     \ {\n  typedef Point<T, Large> point;\n  typedef Polygon<T, Large> polygon;\n\
-    \  typedef Circle<T, Large> circle;\n  vector<point> p;\n\n  Polygon(const vector<point>\
+    \  typedef Circle<T, Large> circle;\n  vector<point> p;\n\n  Polygon() {}\n  Polygon(const\
+    \ vector<point> &p) : p(p) {}\n  template <typename G> Polygon(const vector<pair<point,\
+    \ G>> &g) : p(g.size()) {\n    for (size_t i = 0; i < g.size(); i++)\n      p[i]\
+    \ = g[i].first;\n  }\n  template <typename A, typename B> explicit operator Polygon<A,\
+    \ B>() const {\n    vector<Point<A, B>> v(p.size());\n    for (size_t i = 0; i\
+    \ < p.size(); i++)\n      v[i] = Point<A, B>(p[i]);\n    return Polygon<A, B>(v);\n\
+    \  }\n  inline int index(int i) const {\n    if (i >= size())\n      i %= size();\n\
+    \    else if (i < 0) {\n      i %= size();\n      if (i < 0)\n        i += size();\n\
+    \    }\n    return i;\n  }\n  inline int size() const { return p.size(); }\n \
+    \ inline point &operator[](int i) { return p[index(i)]; }\n  inline point operator[](int\
+    \ i) const { return p[index(i)]; }\n  void erase(int i) { p.erase(p.begin() +\
+    \ index(i)); }\n  polygon &operator+=(const point &pt) {\n    for (auto &q : p)\n\
+    \      q += pt;\n    return *this;\n  }\n  polygon &operator-=(const point &pt)\
+    \ {\n    for (auto &q : p)\n      q -= pt;\n    return *this;\n  }\n  polygon\
+    \ &operator*=(const Large k) {\n    for (auto &q : p)\n      q *= k;\n    return\
+    \ *this;\n  }\n  polygon &operator/=(const Large k) {\n    for (auto &q : p)\n\
+    \      q /= k;\n    return *this;\n  }\n  polygon operator-() const {\n    polygon\
+    \ res = *this;\n    for (auto &q : res.p)\n      q = -q;\n    return res;\n  }\n\
+    \  void reserve(int n) { p.reserve(n); }\n  bool is_ccw() const {\n    int n =\
+    \ size();\n    int i = min_element(p.begin(), p.end()) - p.begin();\n    return\
+    \ ccw(p[i], p[i + 1], p[i - 1]) >= 0;\n  }\n  bool is_degenerate() const {\n \
+    \   int n = size();\n    if (n < 3)\n      return true;\n    for (int i = 0; i\
+    \ < n; i++) {\n      if (GEOMETRY_COMPARE0(Large, cross(p[i + 2] - p[i], p[i +\
+    \ 1] - p[i])))\n        return false;\n    }\n    return true;\n  }\n  inline\
+    \ operator vector<point>() const { return p; }\n\n  friend Large double_area(const\
+    \ Polygon &p) {\n    int n = p.size();\n    Large res = 0;\n    for (int i = 0;\
+    \ i < n; i++) {\n      res += cross(p[i], p[i + 1]);\n    }\n    return abs(res);\n\
+    \  }\n  friend Large area(const Polygon &p) { return double_area(p) / 2; }\n \
+    \ friend Large perimeter(const Polygon &p) {\n    int n = p.size();\n    Large\
+    \ res = 0;\n    for (int i = 0; i < n; i++)\n      res += dist(p[i], p[i + 1]);\n\
+    \    return res;\n  }\n\n  int test(const point &p) const {\n    const Polygon\
+    \ &poly = *this;\n    int n = size();\n    int wn = 0;\n    for (int i = 0; i\
+    \ < n; i++) {\n      if (p == poly[i])\n        return 0;\n      int j = i + 1;\n\
+    \      if (poly[i].y == p.y && poly[j].y == p.y) {\n        if (min(poly[i].x,\
+    \ poly[j].x) <= p.x &&\n            p.x <= max(poly[i].x, poly[j].x))\n      \
+    \    return 0;\n      } else {\n        bool below = poly[i].y < p.y;\n      \
+    \  if (below != (poly[j].y < p.y)) {\n          auto sig = ccw(poly[i], poly[j],\
+    \ p);\n          if (sig == 0)\n            return 0;\n          if (below ==\
+    \ (sig > 0))\n            wn += below ? 1 : -1;\n        }\n      }\n    }\n \
+    \   return wn == 0 ? 1 : -1;\n  }\n\n  template <typename G>\n  static vector<pair<point,\
+    \ G>> convex_hull(vector<pair<point, G>> p,\n                                \
+    \            bool keep_border = false) {\n    if (p.size() <= 1)\n      return\
+    \ p;\n    sort(p.begin(), p.end());\n    vector<pair<point, G>> res;\n    res.reserve(p.size()\
+    \ + 1);\n    for (int step = 0; step < 2; step++) {\n      auto start = res.size();\n\
+    \      for (auto &q : p) {\n        while (res.size() >= start + 2) {\n      \
+    \    int sig = ccw(res[res.size() - 2].first, res.back().first, q.first);\n  \
+    \        if ((sig == 0 && !keep_border) || sig < 0)\n            res.pop_back();\n\
+    \          else\n            break;\n        }\n        res.push_back(q);\n  \
+    \    }\n      res.pop_back();\n      if (step == 0)\n        reverse(p.begin(),\
+    \ p.end());\n    }\n    if (res.size() == 2 && res[0] == res[1])\n      res.pop_back();\n\
+    \    return res;\n  }\n\n  static polygon convex_hull(const vector<point> &p,\
+    \ bool keep_border = false) {\n    vector<pair<point, int>> v(p.size());\n   \
+    \ for (size_t i = 0; i < p.size(); i++)\n      v[i] = {p[i], i};\n    auto res\
+    \ = convex_hull(v, keep_border);\n    return polygon(res);\n  }\n\n  friend vector<polygon>\
+    \ triangulation(polygon poly) {\n    if (poly.size() < 3)\n      return {};\n\
+    \    vector<polygon> res;\n    int ptr = 0;\n    int n;\n    while ((n = poly.size())\
+    \ > 3) {\n      for (int &i = ptr;; i++) {\n        if (ccw(poly[i - 1], poly[i],\
+    \ poly[i + 1]) > 0) {\n          auto trig = polygon({poly[i - 1], poly[i], poly[i\
+    \ + 1]});\n          bool good = true;\n          for (int j = 0; j < n; j++)\
+    \ {\n            good &= trig.test(poly[j]) >= 0;\n          }\n          if (!good)\n\
+    \            continue;\n          poly.erase(i--);\n          res.push_back(trig);\n\
+    \          break;\n        }\n      }\n    }\n    res.push_back(poly);\n    return\
+    \ res;\n  }\n\n  friend Large intersection_area(const Polygon &p, const circle\
+    \ &C) {\n    Large res = 0;\n    int n = p.size();\n    for (int i = 0; i < n;\
+    \ i++) {\n      res += circle::intersection_signed_area(C.radius, p[i + 1] - C.center,\n\
+    \                                              p[i] - C.center);\n    }\n    return\
+    \ abs(res);\n  }\n};\n\ntemplate <typename T, typename Large = T>\nstruct ConvexPolygon\
+    \ : public Polygon<T, Large> {\n  typedef Point<T, Large> point;\n  typedef Segment<T,\
+    \ Large> segment;\n  typedef Line<T, Large> line;\n  typedef Halfplane<T, Large>\
+    \ halfplane;\n  typedef Circle<T, Large> circle;\n  typedef AngleComparator<PointDirection<point>,\
+    \ T, Large> angle_comparator;\n  using Polygon<T, Large>::p;\n  int top;\n  ConvexPolygon()\
+    \ {}\n  ConvexPolygon(const vector<point> &p) : Polygon<T, Large>(p) { normalize();\
+    \ }\n  template <typename G>\n  ConvexPolygon(const vector<pair<point, G>> &p)\
+    \ : Polygon<T, Large>(p) {\n    normalize();\n  }\n  void normalize() {\n    auto\
+    \ bottom = min_element(p.begin(), p.end());\n    rotate(p.begin(), bottom, p.end());\n\
+    \    top = max_element(p.begin(), p.end()) - p.begin();\n  }\n  ConvexPolygon\
+    \ &operator+=(const point &pt) {\n    for (auto &q : p)\n      q += pt;\n    return\
+    \ *this;\n  }\n  ConvexPolygon &operator-=(const point &pt) {\n    for (auto &q\
+    \ : p)\n      q -= pt;\n    return *this;\n  }\n  ConvexPolygon &operator*=(const\
+    \ Large k) {\n    for (auto &q : p)\n      q *= k;\n    return *this;\n  }\n \
+    \ ConvexPolygon &operator/=(const Large k) {\n    for (auto &q : p)\n      q /=\
+    \ k;\n    return *this;\n  }\n  ConvexPolygon operator-() const {\n    ConvexPolygon\
+    \ res = *this;\n    for (auto &q : res.p)\n      q = -q;\n    return res;\n  }\n\
+    \n  int test(const point &q) const {\n    if (q < p[0] || q > p[top])\n      return\
+    \ 1;\n    auto sig = ccw(p[0], p[top], q);\n    if (sig == 0) {\n      if (q ==\
+    \ p[0] || q == p[top])\n        return 0;\n      return top == 1 || top + 1 ==\
+    \ this->size() ? 0 : -1;\n    } else if (sig < 0) {\n      auto it = lower_bound(p.begin()\
+    \ + 1, p.begin() + top, q);\n      return ccw(it[-1], q, it[0]);\n    } else {\n\
+    \      auto it = upper_bound(p.rbegin(), p.rend() - top - 1, q);\n      auto pit_deref\
+    \ = it == p.rbegin() ? p[0] : it[-1];\n      return ccw(*it, q, pit_deref);\n\
+    \    }\n  }\n  template <typename Function> int extreme(Function direction) const\
+    \ {\n    int n = this->size(), left = 0, leftSig;\n    const ConvexPolygon &poly\
+    \ = *this;\n    auto vertex_cmp = [&poly, direction](int i, int j) {\n      return\
+    \ ccw(poly[j] - poly[i], direction(poly[j]));\n    };\n    auto is_extreme = [n,\
+    \ vertex_cmp](int i, int &iSig) {\n      return (iSig = vertex_cmp(i + 1, i))\
+    \ >= 0 && vertex_cmp(i, i - 1) < 0;\n    };\n    for (int right = is_extreme(0,\
+    \ leftSig) ? 1 : n; left + 1 < right;) {\n      int mid = (left + right) / 2,\
+    \ midSig;\n      if (is_extreme(mid, midSig))\n        return mid;\n      if (leftSig\
+    \ != midSig ? leftSig < midSig\n                            : leftSig == vertex_cmp(left,\
+    \ mid))\n        right = mid;\n      else\n        left = mid, leftSig = midSig;\n\
+    \    }\n    return poly.index(left);\n  }\n  void stab_extremes(const line &l,\
+    \ int &left, int &right) const {\n    point direction = l.direction();\n    right\
+    \ = extreme([&direction](const point &) { return direction; });\n    left = extreme([&direction](const\
+    \ point &) { return -direction; });\n  }\n  friend vector<point> intersect(const\
+    \ ConvexPolygon &poly, const line &l) {\n    point direction = l.direction();\n\
+    \n    int left, right;\n    poly.stab_extremes(l, left, right);\n    auto vertex_cmp\
+    \ = [&l, &direction](const point &q) {\n      return ccw(q - l.a, direction);\n\
+    \    };\n    int rightSig = vertex_cmp(poly[right]), leftSig = vertex_cmp(poly[left]);\n\
+    \    if (rightSig < 0 || leftSig > 0)\n      return {};\n    auto intersectChain\
+    \ = [&l, &poly, vertex_cmp](int first, int last,\n                           \
+    \                       int firstSig) {\n      int n = poly.size();\n      while\
+    \ (poly.index(first + 1) != poly.index(last)) {\n        int mid = (first + last\
+    \ + (first < last ? 0 : n)) / 2;\n        mid = poly.index(mid);\n        if (vertex_cmp(poly[mid])\
+    \ == firstSig)\n          first = mid;\n        else\n          last = mid;\n\
+    \      }\n      return intersect(l, line(poly[first], poly[last]));\n    };\n\
+    \    return {intersectChain(left, right, leftSig).first,\n            intersectChain(right,\
+    \ left, rightSig).first};\n  }\n  friend bool has_intersection(const ConvexPolygon\
+    \ &p, const line &l) {\n    point direction = l.direction();\n    int left, right;\n\
+    \    p.stab_extremes(l, left, right);\n    auto vertex_cmp = [&l, &direction](const\
+    \ point &q) {\n      return ccw(q - l.a, direction);\n    };\n    int rightSig\
+    \ = vertex_cmp(p[right]), leftSig = vertex_cmp(p[left]);\n    if (rightSig < 0\
+    \ || leftSig > 0)\n      return false;\n    return true;\n  }\n  friend Large\
+    \ dist(const ConvexPolygon &p, const line &l) {\n    point direction = l.direction();\n\
+    \    int left, right;\n    p.stab_extremes(l, left, right);\n    auto vertex_cmp\
+    \ = [&l, &direction](const point &q) {\n      return ccw(q - l.a, direction);\n\
+    \    };\n    int rightSig = vertex_cmp(p[right]), leftSig = vertex_cmp(p[left]);\n\
+    \    if (rightSig < 0 || leftSig > 0) {\n      return min(dist(l, p[right]), dist(l,\
+    \ p[left]));\n    } else {\n      return 0;\n    }\n  }\n  template <typename\
+    \ Function>\n  friend void antipodals(const ConvexPolygon &poly, Function f) {\n\
+    \    if (poly.size() <= 1)\n      return;\n    if (poly.size() == 2)\n      return\
+    \ void(f(0, 1));\n    auto area = [&poly](int i, int j, int k) {\n      return\
+    \ abs(cross(poly[i], poly[j], poly[k]));\n    };\n    auto func = [f, &poly](int\
+    \ i, int j) {\n      return f(poly.index(i), poly.index(j));\n    };\n\n    int\
+    \ p = -1;\n    int q = 0;\n    while (area(p, p + 1, q + 1) > area(p, p + 1, q))\n\
+    \      q++;\n    int p0 = 0;\n    int q0 = q;\n    while (poly.index(q) != p0)\
+    \ {\n      p++;\n      func(p, q);\n      while (area(p, p + 1, q + 1) > area(p,\
+    \ p + 1, q)) {\n        q++;\n        if (poly.index(p) != poly.index(q0) || poly.index(q)\
+    \ != p0)\n          func(p, q);\n        else\n          return;\n      }\n  \
+    \    if (area(p, p + 1, q + 1) == area(p, p + 1, q)) {\n        if (poly.index(p)\
+    \ != poly.index(q0) || poly.index(q) != p0)\n          func(p, q + 1);\n     \
+    \   else\n          func(p + 1, q);\n      }\n    }\n  }\n  friend ConvexPolygon\
+    \ minkowski_sum(const vector<ConvexPolygon> &v) {\n    vector<point> vectors;\n\
+    \    point origin;\n    for (auto &poly : v) {\n      origin += poly[0];\n   \
+    \   for (int i = 0; i < poly.size(); i++)\n        vectors.push_back(poly[i +\
+    \ 1] - poly[i]);\n    }\n    angle_comparator::sortByAngle(vectors.begin(), vectors.end());\n\
+    \    auto last = point();\n    if (!vectors.empty()) {\n      last = vectors.back();\n\
+    \      vectors.pop_back();\n    }\n    vector<point> res;\n    res.push_back(origin);\n\
+    \    for (auto &v : vectors) {\n      res.push_back(res.back() + v);\n      int\
+    \ n = res.size();\n      if (n >= 3 && collinear(res[n - 3], res[n - 2], res[n\
+    \ - 1]))\n        res.erase(res.begin() + n - 2);\n    }\n    int n = res.size();\n\
+    \    if (n >= 3 && collinear(res[n - 2], res[n - 1], res[0]))\n      res.pop_back();\n\
+    \    if (res.size() >= 3 && collinear(res.back(), res[0], res[1]))\n      res.erase(res.begin());\n\
+    \    return ConvexPolygon(res);\n  }\n  friend ConvexPolygon minkowski_sum(const\
+    \ ConvexPolygon &a,\n                                     const ConvexPolygon\
+    \ &b) {\n    vector<ConvexPolygon> v;\n    v.push_back(a);\n    v.push_back(b);\n\
+    \    return minkowski_sum(v);\n  }\n  friend ConvexPolygon intersect(const ConvexPolygon\
+    \ &a,\n                                 const ConvexPolygon &b) {\n    vector<point>\
+    \ candidates;\n    auto consider = [&candidates](const ConvexPolygon &a,\n   \
+    \                               const ConvexPolygon &b) {\n      for (int i =\
+    \ 0; i < a.size(); i++) {\n        if (b.test(a[i]) <= 0)\n          candidates.push_back(a[i]);\n\
+    \        segment s(a[i], a[i + 1]);\n        vector<point> ps = intersect(b, s.as_line());\n\
+    \        for (auto p : ps) {\n          if (s.contains(p))\n            candidates.push_back(p);\n\
+    \        }\n      }\n    };\n    consider(a, b);\n    consider(b, a);\n    auto\
+    \ res = ConvexPolygon(ConvexPolygon::convex_hull(candidates));\n    return res;\n\
+    \  }\n  friend Large intersection_area_or_dist(const ConvexPolygon &a,\n     \
+    \                                    const ConvexPolygon &b) {\n    ConvexPolygon\
+    \ inter = intersect(a, b);\n    if (inter.size() > 0)\n      return max(area(inter),\
+    \ Large(0));\n    ConvexPolygon sum = minkowski_sum(a, -b);\n    Large res = numeric_limits<Large>::max();\n\
+    \    for (int i = 0; i < sum.size(); i++) {\n      res = min(res, dist(segment(sum[i],\
+    \ sum[i + 1]), point()));\n    }\n    return -res;\n  }\n  void cut(const halfplane&\
+    \ pl) {\n    int n = this->size();\n    if(n < 3) return;\n    p.push_back(p[0]);\n\
+    \n    auto pl_line = pl.as_line();\n\n    vector<point> out;\n    bool inside\
+    \ = pl.strictly_contains(p[0]);\n    if(inside) out.push_back(p[0]);\n\n    for(int\
+    \ i = 1; i <= n; i++) {\n      if(pl.strictly_contains(p[i])) {\n        if(!inside)\
+    \ {\n          out.push_back(intersect(pl_line, line(p[i-1], p[i])).first);\n\
+    \        }\n        out.push_back(p[i]);\n        inside = true;\n      } else\
+    \ {\n        if(inside) {\n          out.push_back(intersect(pl_line, line(p[i-1],\
+    \ p[i])).first);\n        }\n        inside = false;\n      }\n    }\n\n    if(!out.empty()\
+    \ && out[0] == out.back()) out.pop_back();\n    *this = ConvexPolygon(ConvexPolygon::convex_hull(out));\n\
+    \  }\n  void cut(const ConvexPolygon &rhs) {\n    for(int i = 0; i < rhs.size();\
+    \ i++) {\n      cut(halfplane::from_points(rhs[i], rhs[i+1]));\n    }\n  }\n};\n\
+    } // namespace plane\n\ntemplate <typename T, typename Large = T>\nstruct PolygonPlane\
+    \ : public CirclePlane<T, Large> {\n  typedef plane::Polygon<T, Large> polygon;\n\
+    \  typedef plane::ConvexPolygon<T, Large> convex_polygon;\n};\n\n} // namespace\
+    \ geo\n} // namespace lib\n\n\n"
+  code: "#ifndef _LIB_GEOMETRY_POLY_2D\n#define _LIB_GEOMETRY_POLY_2D\n#include \"\
+    Circle2D.cpp\"\n#include \"Line2D.cpp\"\n#include <bits/stdc++.h>\n\nnamespace\
+    \ lib {\nusing namespace std;\nnamespace geo {\nnamespace plane {\n\ntemplate\
+    \ <typename T, typename Large = T> struct ConvexHullComparator {\n  typedef Point<T,\
+    \ Large> point;\n  point pivot;\n  ConvexHullComparator(point p) : pivot(p) {}\n\
+    \  template <typename G>\n  bool operator()(const pair<point, G> &a, const pair<point,\
+    \ G> &b) const {\n    int k = ccw(pivot, a.first, b.first);\n    if (k == 0)\n\
+    \      return norm_sq(a.first) < norm_sq(b.first);\n    return k > 0;\n  }\n};\n\
+    \ntemplate <typename T, typename Large = T> struct Polygon {\n  typedef Point<T,\
+    \ Large> point;\n  typedef Polygon<T, Large> polygon;\n  typedef Circle<T, Large>\
+    \ circle;\n  vector<point> p;\n\n  Polygon() {}\n  Polygon(const vector<point>\
     \ &p) : p(p) {}\n  template <typename G> Polygon(const vector<pair<point, G>>\
     \ &g) : p(g.size()) {\n    for (size_t i = 0; i < g.size(); i++)\n      p[i] =\
     \ g[i].first;\n  }\n  template <typename A, typename B> explicit operator Polygon<A,\
@@ -490,229 +699,46 @@ data:
     \                                              p[i] - C.center);\n    }\n    return\
     \ abs(res);\n  }\n};\n\ntemplate <typename T, typename Large = T>\nstruct ConvexPolygon\
     \ : public Polygon<T, Large> {\n  typedef Point<T, Large> point;\n  typedef Segment<T,\
-    \ Large> segment;\n  typedef Line<T, Large> line;\n  typedef Circle<T, Large>\
-    \ circle;\n  typedef AngleComparator<PointDirection<point>, T, Large> angle_comparator;\n\
-    \  using Polygon<T, Large>::p;\n  int top;\n  ConvexPolygon(const vector<point>\
-    \ &p) : Polygon<T, Large>(p) { normalize(); }\n  template <typename G>\n  ConvexPolygon(const\
-    \ vector<pair<point, G>> &p) : Polygon<T, Large>(p) {\n    normalize();\n  }\n\
-    \  void normalize() {\n    auto bottom = min_element(p.begin(), p.end());\n  \
-    \  rotate(p.begin(), bottom, p.end());\n    top = max_element(p.begin(), p.end())\
-    \ - p.begin();\n  }\n  ConvexPolygon &operator+=(const point &pt) {\n    for (auto\
-    \ &q : p)\n      q += pt;\n    return *this;\n  }\n  ConvexPolygon &operator-=(const\
-    \ point &pt) {\n    for (auto &q : p)\n      q -= pt;\n    return *this;\n  }\n\
-    \  ConvexPolygon &operator*=(const Large k) {\n    for (auto &q : p)\n      q\
-    \ *= k;\n    return *this;\n  }\n  ConvexPolygon &operator/=(const Large k) {\n\
-    \    for (auto &q : p)\n      q /= k;\n    return *this;\n  }\n  ConvexPolygon\
-    \ operator-() const {\n    ConvexPolygon res = *this;\n    for (auto &q : res.p)\n\
-    \      q = -q;\n    return res;\n  }\n\n  int test(const point &q) const {\n \
-    \   if (q < p[0] || q > p[top])\n      return 1;\n    auto sig = ccw(p[0], p[top],\
-    \ q);\n    if (sig == 0) {\n      if (q == p[0] || q == p[top])\n        return\
-    \ 0;\n      return top == 1 || top + 1 == this->size() ? 0 : -1;\n    } else if\
-    \ (sig < 0) {\n      auto it = lower_bound(p.begin() + 1, p.begin() + top, q);\n\
-    \      return ccw(it[-1], q, it[0]);\n    } else {\n      auto it = upper_bound(p.rbegin(),\
-    \ p.rend() - top - 1, q);\n      auto pit_deref = it == p.rbegin() ? p[0] : it[-1];\n\
-    \      return ccw(*it, q, pit_deref);\n    }\n  }\n  template <typename Function>\
-    \ int extreme(Function direction) const {\n    int n = this->size(), left = 0,\
-    \ leftSig;\n    const ConvexPolygon &poly = *this;\n    auto vertex_cmp = [&poly,\
-    \ direction](int i, int j) {\n      return ccw(poly[j] - poly[i], direction(poly[j]));\n\
-    \    };\n    auto is_extreme = [n, vertex_cmp](int i, int &iSig) {\n      return\
-    \ (iSig = vertex_cmp(i + 1, i)) >= 0 && vertex_cmp(i, i - 1) < 0;\n    };\n  \
-    \  for (int right = is_extreme(0, leftSig) ? 1 : n; left + 1 < right;) {\n   \
-    \   int mid = (left + right) / 2, midSig;\n      if (is_extreme(mid, midSig))\n\
-    \        return mid;\n      if (leftSig != midSig ? leftSig < midSig\n       \
-    \                     : leftSig == vertex_cmp(left, mid))\n        right = mid;\n\
-    \      else\n        left = mid, leftSig = midSig;\n    }\n    return poly.index(left);\n\
-    \  }\n  void stab_extremes(const line &l, int &left, int &right) const {\n   \
-    \ point direction = l.direction();\n    right = extreme([&direction](const point\
-    \ &) { return direction; });\n    left = extreme([&direction](const point &) {\
-    \ return -direction; });\n  }\n  friend vector<point> intersect(const ConvexPolygon\
-    \ &poly, const line &l) {\n    point direction = l.direction();\n\n    int left,\
-    \ right;\n    poly.stab_extremes(l, left, right);\n    auto vertex_cmp = [&l,\
-    \ &direction](const point &q) {\n      return ccw(q - l.a, direction);\n    };\n\
-    \    int rightSig = vertex_cmp(poly[right]), leftSig = vertex_cmp(poly[left]);\n\
-    \    if (rightSig < 0 || leftSig > 0)\n      return {};\n    auto intersectChain\
-    \ = [&l, &poly, vertex_cmp](int first, int last,\n                           \
-    \                       int firstSig) {\n      int n = poly.size();\n      while\
-    \ (poly.index(first + 1) != poly.index(last)) {\n        int mid = (first + last\
-    \ + (first < last ? 0 : n)) / 2;\n        mid = poly.index(mid);\n        if (vertex_cmp(poly[mid])\
-    \ == firstSig)\n          first = mid;\n        else\n          last = mid;\n\
-    \      }\n      return intersect(l, line(poly[first], poly[last]));\n    };\n\
-    \    return {intersectChain(left, right, leftSig).first,\n            intersectChain(right,\
-    \ left, rightSig).first};\n  }\n  friend bool has_intersection(const ConvexPolygon\
-    \ &p, const line &l) {\n    point direction = l.direction();\n    int left, right;\n\
-    \    p.stab_extremes(l, left, right);\n    auto vertex_cmp = [&l, &direction](const\
-    \ point &q) {\n      return ccw(q - l.a, direction);\n    };\n    int rightSig\
-    \ = vertex_cmp(p[right]), leftSig = vertex_cmp(p[left]);\n    if (rightSig < 0\
-    \ || leftSig > 0)\n      return false;\n    return true;\n  }\n  friend Large\
-    \ dist(const ConvexPolygon &p, const line &l) {\n    point direction = l.direction();\n\
-    \    int left, right;\n    p.stab_extremes(l, left, right);\n    auto vertex_cmp\
-    \ = [&l, &direction](const point &q) {\n      return ccw(q - l.a, direction);\n\
-    \    };\n    int rightSig = vertex_cmp(p[right]), leftSig = vertex_cmp(p[left]);\n\
-    \    if (rightSig < 0 || leftSig > 0) {\n      return min(dist(l, p[right]), dist(l,\
-    \ p[left]));\n    } else {\n      return 0;\n    }\n  }\n  template <typename\
-    \ Function>\n  friend void antipodals(const ConvexPolygon &poly, Function f) {\n\
-    \    if (poly.size() <= 1)\n      return;\n    if (poly.size() == 2)\n      return\
-    \ void(f(0, 1));\n    auto area = [&poly](int i, int j, int k) {\n      return\
-    \ abs(cross(poly[i], poly[j], poly[k]));\n    };\n    auto func = [f, &poly](int\
-    \ i, int j) {\n      return f(poly.index(i), poly.index(j));\n    };\n\n    int\
-    \ p = -1;\n    int q = 0;\n    while (area(p, p + 1, q + 1) > area(p, p + 1, q))\n\
-    \      q++;\n    int p0 = 0;\n    int q0 = q;\n    while (poly.index(q) != p0)\
-    \ {\n      p++;\n      func(p, q);\n      while (area(p, p + 1, q + 1) > area(p,\
-    \ p + 1, q)) {\n        q++;\n        if (poly.index(p) != poly.index(q0) || poly.index(q)\
-    \ != p0)\n          func(p, q);\n        else\n          return;\n      }\n  \
-    \    if (area(p, p + 1, q + 1) == area(p, p + 1, q)) {\n        if (poly.index(p)\
-    \ != poly.index(q0) || poly.index(q) != p0)\n          func(p, q + 1);\n     \
-    \   else\n          func(p + 1, q);\n      }\n    }\n  }\n  friend ConvexPolygon\
-    \ minkowski_sum(const vector<ConvexPolygon> &v) {\n    vector<point> vectors;\n\
-    \    point origin;\n    for (auto &poly : v) {\n      origin += poly[0];\n   \
-    \   for (int i = 0; i < poly.size(); i++)\n        vectors.push_back(poly[i +\
-    \ 1] - poly[i]);\n    }\n    angle_comparator::sortByAngle(vectors.begin(), vectors.end());\n\
-    \    auto last = point();\n    if (!vectors.empty()) {\n      last = vectors.back();\n\
-    \      vectors.pop_back();\n    }\n    vector<point> res;\n    res.push_back(origin);\n\
-    \    for (auto &v : vectors) {\n      res.push_back(res.back() + v);\n      int\
-    \ n = res.size();\n      if (n >= 3 && collinear(res[n - 3], res[n - 2], res[n\
-    \ - 1]))\n        res.erase(res.begin() + n - 2);\n    }\n    int n = res.size();\n\
-    \    if (n >= 3 && collinear(res[n - 2], res[n - 1], res[0]))\n      res.pop_back();\n\
-    \    if (res.size() >= 3 && collinear(res.back(), res[0], res[1]))\n      res.erase(res.begin());\n\
-    \    return ConvexPolygon(res);\n  }\n  friend ConvexPolygon minkowski_sum(const\
-    \ ConvexPolygon &a,\n                                     const ConvexPolygon\
-    \ &b) {\n    vector<ConvexPolygon> v;\n    v.push_back(a);\n    v.push_back(b);\n\
-    \    return minkowski_sum(v);\n  }\n  friend ConvexPolygon intersect(const ConvexPolygon\
-    \ &a,\n                                 const ConvexPolygon &b) {\n    vector<point>\
-    \ candidates;\n    auto consider = [&candidates](const ConvexPolygon &a,\n   \
-    \                               const ConvexPolygon &b) {\n      for (int i =\
-    \ 0; i < a.size(); i++) {\n        if (b.test(a[i]) <= 0)\n          candidates.push_back(a[i]);\n\
-    \        segment s(a[i], a[i + 1]);\n        vector<point> ps = intersect(b, s.as_line());\n\
-    \        for (auto p : ps) {\n          if (s.contains(p))\n            candidates.push_back(p);\n\
-    \        }\n      }\n    };\n    consider(a, b);\n    consider(b, a);\n    auto\
-    \ res = ConvexPolygon(ConvexPolygon::convex_hull(candidates));\n    return res;\n\
-    \  }\n  friend Large intersection_area_or_dist(const ConvexPolygon &a,\n     \
-    \                                    const ConvexPolygon &b) {\n    ConvexPolygon\
-    \ inter = intersect(a, b);\n    if (inter.size() > 0)\n      return max(area(inter),\
-    \ Large(0));\n    ConvexPolygon sum = minkowski_sum(a, -b);\n    Large res = numeric_limits<Large>::max();\n\
-    \    for (int i = 0; i < sum.size(); i++) {\n      res = min(res, dist(segment(sum[i],\
-    \ sum[i + 1]), point()));\n    }\n    return -res;\n  }\n};\n} // namespace plane\n\
-    \ntemplate <typename T, typename Large = T>\nstruct PolygonPlane : public CirclePlane<T,\
-    \ Large> {\n  typedef plane::Polygon<T, Large> polygon;\n  typedef plane::ConvexPolygon<T,\
-    \ Large> convex_polygon;\n};\n\n} // namespace geo\n} // namespace lib\n\n\n"
-  code: "#ifndef _LIB_GEOMETRY_POLY_2D\n#define _LIB_GEOMETRY_POLY_2D\n#include \"\
-    Circle2D.cpp\"\n#include \"Line2D.cpp\"\n#include <bits/stdc++.h>\n\nnamespace\
-    \ lib {\nusing namespace std;\nnamespace geo {\nnamespace plane {\n\ntemplate\
-    \ <typename T, typename Large = T> struct ConvexHullComparator {\n  typedef Point<T,\
-    \ Large> point;\n  point pivot;\n  ConvexHullComparator(point p) : pivot(p) {}\n\
-    \  template <typename G>\n  bool operator()(const pair<point, G> &a, const pair<point,\
-    \ G> &b) const {\n    int k = ccw(pivot, a.first, b.first);\n    if (k == 0)\n\
-    \      return norm_sq(a.first) < norm_sq(b.first);\n    return k > 0;\n  }\n};\n\
-    \ntemplate <typename T, typename Large = T> struct Polygon {\n  typedef Point<T,\
-    \ Large> point;\n  typedef Polygon<T, Large> polygon;\n  typedef Circle<T, Large>\
-    \ circle;\n  vector<point> p;\n\n  Polygon(const vector<point> &p) : p(p) {}\n\
-    \  template <typename G> Polygon(const vector<pair<point, G>> &g) : p(g.size())\
-    \ {\n    for (size_t i = 0; i < g.size(); i++)\n      p[i] = g[i].first;\n  }\n\
-    \  template <typename A, typename B> explicit operator Polygon<A, B>() const {\n\
-    \    vector<Point<A, B>> v(p.size());\n    for (size_t i = 0; i < p.size(); i++)\n\
-    \      v[i] = Point<A, B>(p[i]);\n    return Polygon<A, B>(v);\n  }\n  inline\
-    \ int index(int i) const {\n    if (i >= size())\n      i %= size();\n    else\
-    \ if (i < 0) {\n      i %= size();\n      if (i < 0)\n        i += size();\n \
-    \   }\n    return i;\n  }\n  inline int size() const { return p.size(); }\n  inline\
-    \ point &operator[](int i) { return p[index(i)]; }\n  inline point operator[](int\
-    \ i) const { return p[index(i)]; }\n  void erase(int i) { p.erase(p.begin() +\
-    \ index(i)); }\n  polygon &operator+=(const point &pt) {\n    for (auto &q : p)\n\
-    \      q += pt;\n    return *this;\n  }\n  polygon &operator-=(const point &pt)\
-    \ {\n    for (auto &q : p)\n      q -= pt;\n    return *this;\n  }\n  polygon\
-    \ &operator*=(const Large k) {\n    for (auto &q : p)\n      q *= k;\n    return\
-    \ *this;\n  }\n  polygon &operator/=(const Large k) {\n    for (auto &q : p)\n\
-    \      q /= k;\n    return *this;\n  }\n  polygon operator-() const {\n    polygon\
+    \ Large> segment;\n  typedef Line<T, Large> line;\n  typedef Halfplane<T, Large>\
+    \ halfplane;\n  typedef Circle<T, Large> circle;\n  typedef AngleComparator<PointDirection<point>,\
+    \ T, Large> angle_comparator;\n  using Polygon<T, Large>::p;\n  int top;\n  ConvexPolygon()\
+    \ {}\n  ConvexPolygon(const vector<point> &p) : Polygon<T, Large>(p) { normalize();\
+    \ }\n  template <typename G>\n  ConvexPolygon(const vector<pair<point, G>> &p)\
+    \ : Polygon<T, Large>(p) {\n    normalize();\n  }\n  void normalize() {\n    auto\
+    \ bottom = min_element(p.begin(), p.end());\n    rotate(p.begin(), bottom, p.end());\n\
+    \    top = max_element(p.begin(), p.end()) - p.begin();\n  }\n  ConvexPolygon\
+    \ &operator+=(const point &pt) {\n    for (auto &q : p)\n      q += pt;\n    return\
+    \ *this;\n  }\n  ConvexPolygon &operator-=(const point &pt) {\n    for (auto &q\
+    \ : p)\n      q -= pt;\n    return *this;\n  }\n  ConvexPolygon &operator*=(const\
+    \ Large k) {\n    for (auto &q : p)\n      q *= k;\n    return *this;\n  }\n \
+    \ ConvexPolygon &operator/=(const Large k) {\n    for (auto &q : p)\n      q /=\
+    \ k;\n    return *this;\n  }\n  ConvexPolygon operator-() const {\n    ConvexPolygon\
     \ res = *this;\n    for (auto &q : res.p)\n      q = -q;\n    return res;\n  }\n\
-    \  void reserve(int n) { p.reserve(n); }\n  bool is_ccw() const {\n    int n =\
-    \ size();\n    int i = min_element(p.begin(), p.end()) - p.begin();\n    return\
-    \ ccw(p[i], p[i + 1], p[i - 1]) >= 0;\n  }\n  bool is_degenerate() const {\n \
-    \   int n = size();\n    if (n < 3)\n      return true;\n    for (int i = 0; i\
-    \ < n; i++) {\n      if (GEOMETRY_COMPARE0(Large, cross(p[i + 2] - p[i], p[i +\
-    \ 1] - p[i])))\n        return false;\n    }\n    return true;\n  }\n  inline\
-    \ operator vector<point>() const { return p; }\n\n  friend Large double_area(const\
-    \ Polygon &p) {\n    int n = p.size();\n    Large res = 0;\n    for (int i = 0;\
-    \ i < n; i++) {\n      res += cross(p[i], p[i + 1]);\n    }\n    return abs(res);\n\
-    \  }\n  friend Large area(const Polygon &p) { return double_area(p) / 2; }\n \
-    \ friend Large perimeter(const Polygon &p) {\n    int n = p.size();\n    Large\
-    \ res = 0;\n    for (int i = 0; i < n; i++)\n      res += dist(p[i], p[i + 1]);\n\
-    \    return res;\n  }\n\n  int test(const point &p) const {\n    const Polygon\
-    \ &poly = *this;\n    int n = size();\n    int wn = 0;\n    for (int i = 0; i\
-    \ < n; i++) {\n      if (p == poly[i])\n        return 0;\n      int j = i + 1;\n\
-    \      if (poly[i].y == p.y && poly[j].y == p.y) {\n        if (min(poly[i].x,\
-    \ poly[j].x) <= p.x &&\n            p.x <= max(poly[i].x, poly[j].x))\n      \
-    \    return 0;\n      } else {\n        bool below = poly[i].y < p.y;\n      \
-    \  if (below != (poly[j].y < p.y)) {\n          auto sig = ccw(poly[i], poly[j],\
-    \ p);\n          if (sig == 0)\n            return 0;\n          if (below ==\
-    \ (sig > 0))\n            wn += below ? 1 : -1;\n        }\n      }\n    }\n \
-    \   return wn == 0 ? 1 : -1;\n  }\n\n  template <typename G>\n  static vector<pair<point,\
-    \ G>> convex_hull(vector<pair<point, G>> p,\n                                \
-    \            bool keep_border = false) {\n    if (p.size() <= 1)\n      return\
-    \ p;\n    sort(p.begin(), p.end());\n    vector<pair<point, G>> res;\n    res.reserve(p.size()\
-    \ + 1);\n    for (int step = 0; step < 2; step++) {\n      auto start = res.size();\n\
-    \      for (auto &q : p) {\n        while (res.size() >= start + 2) {\n      \
-    \    int sig = ccw(res[res.size() - 2].first, res.back().first, q.first);\n  \
-    \        if ((sig == 0 && !keep_border) || sig < 0)\n            res.pop_back();\n\
-    \          else\n            break;\n        }\n        res.push_back(q);\n  \
-    \    }\n      res.pop_back();\n      if (step == 0)\n        reverse(p.begin(),\
-    \ p.end());\n    }\n    if (res.size() == 2 && res[0] == res[1])\n      res.pop_back();\n\
-    \    return res;\n  }\n\n  static polygon convex_hull(const vector<point> &p,\
-    \ bool keep_border = false) {\n    vector<pair<point, int>> v(p.size());\n   \
-    \ for (size_t i = 0; i < p.size(); i++)\n      v[i] = {p[i], i};\n    auto res\
-    \ = convex_hull(v, keep_border);\n    return polygon(res);\n  }\n\n  friend vector<polygon>\
-    \ triangulation(polygon poly) {\n    if (poly.size() < 3)\n      return {};\n\
-    \    vector<polygon> res;\n    int ptr = 0;\n    int n;\n    while ((n = poly.size())\
-    \ > 3) {\n      for (int &i = ptr;; i++) {\n        if (ccw(poly[i - 1], poly[i],\
-    \ poly[i + 1]) > 0) {\n          auto trig = polygon({poly[i - 1], poly[i], poly[i\
-    \ + 1]});\n          bool good = true;\n          for (int j = 0; j < n; j++)\
-    \ {\n            good &= trig.test(poly[j]) >= 0;\n          }\n          if (!good)\n\
-    \            continue;\n          poly.erase(i--);\n          res.push_back(trig);\n\
-    \          break;\n        }\n      }\n    }\n    res.push_back(poly);\n    return\
-    \ res;\n  }\n\n  friend Large intersection_area(const Polygon &p, const circle\
-    \ &C) {\n    Large res = 0;\n    int n = p.size();\n    for (int i = 0; i < n;\
-    \ i++) {\n      res += circle::intersection_signed_area(C.radius, p[i + 1] - C.center,\n\
-    \                                              p[i] - C.center);\n    }\n    return\
-    \ abs(res);\n  }\n};\n\ntemplate <typename T, typename Large = T>\nstruct ConvexPolygon\
-    \ : public Polygon<T, Large> {\n  typedef Point<T, Large> point;\n  typedef Segment<T,\
-    \ Large> segment;\n  typedef Line<T, Large> line;\n  typedef Circle<T, Large>\
-    \ circle;\n  typedef AngleComparator<PointDirection<point>, T, Large> angle_comparator;\n\
-    \  using Polygon<T, Large>::p;\n  int top;\n  ConvexPolygon(const vector<point>\
-    \ &p) : Polygon<T, Large>(p) { normalize(); }\n  template <typename G>\n  ConvexPolygon(const\
-    \ vector<pair<point, G>> &p) : Polygon<T, Large>(p) {\n    normalize();\n  }\n\
-    \  void normalize() {\n    auto bottom = min_element(p.begin(), p.end());\n  \
-    \  rotate(p.begin(), bottom, p.end());\n    top = max_element(p.begin(), p.end())\
-    \ - p.begin();\n  }\n  ConvexPolygon &operator+=(const point &pt) {\n    for (auto\
-    \ &q : p)\n      q += pt;\n    return *this;\n  }\n  ConvexPolygon &operator-=(const\
-    \ point &pt) {\n    for (auto &q : p)\n      q -= pt;\n    return *this;\n  }\n\
-    \  ConvexPolygon &operator*=(const Large k) {\n    for (auto &q : p)\n      q\
-    \ *= k;\n    return *this;\n  }\n  ConvexPolygon &operator/=(const Large k) {\n\
-    \    for (auto &q : p)\n      q /= k;\n    return *this;\n  }\n  ConvexPolygon\
-    \ operator-() const {\n    ConvexPolygon res = *this;\n    for (auto &q : res.p)\n\
-    \      q = -q;\n    return res;\n  }\n\n  int test(const point &q) const {\n \
-    \   if (q < p[0] || q > p[top])\n      return 1;\n    auto sig = ccw(p[0], p[top],\
-    \ q);\n    if (sig == 0) {\n      if (q == p[0] || q == p[top])\n        return\
-    \ 0;\n      return top == 1 || top + 1 == this->size() ? 0 : -1;\n    } else if\
-    \ (sig < 0) {\n      auto it = lower_bound(p.begin() + 1, p.begin() + top, q);\n\
-    \      return ccw(it[-1], q, it[0]);\n    } else {\n      auto it = upper_bound(p.rbegin(),\
-    \ p.rend() - top - 1, q);\n      auto pit_deref = it == p.rbegin() ? p[0] : it[-1];\n\
-    \      return ccw(*it, q, pit_deref);\n    }\n  }\n  template <typename Function>\
-    \ int extreme(Function direction) const {\n    int n = this->size(), left = 0,\
-    \ leftSig;\n    const ConvexPolygon &poly = *this;\n    auto vertex_cmp = [&poly,\
-    \ direction](int i, int j) {\n      return ccw(poly[j] - poly[i], direction(poly[j]));\n\
-    \    };\n    auto is_extreme = [n, vertex_cmp](int i, int &iSig) {\n      return\
-    \ (iSig = vertex_cmp(i + 1, i)) >= 0 && vertex_cmp(i, i - 1) < 0;\n    };\n  \
-    \  for (int right = is_extreme(0, leftSig) ? 1 : n; left + 1 < right;) {\n   \
-    \   int mid = (left + right) / 2, midSig;\n      if (is_extreme(mid, midSig))\n\
-    \        return mid;\n      if (leftSig != midSig ? leftSig < midSig\n       \
-    \                     : leftSig == vertex_cmp(left, mid))\n        right = mid;\n\
-    \      else\n        left = mid, leftSig = midSig;\n    }\n    return poly.index(left);\n\
-    \  }\n  void stab_extremes(const line &l, int &left, int &right) const {\n   \
-    \ point direction = l.direction();\n    right = extreme([&direction](const point\
-    \ &) { return direction; });\n    left = extreme([&direction](const point &) {\
-    \ return -direction; });\n  }\n  friend vector<point> intersect(const ConvexPolygon\
-    \ &poly, const line &l) {\n    point direction = l.direction();\n\n    int left,\
-    \ right;\n    poly.stab_extremes(l, left, right);\n    auto vertex_cmp = [&l,\
-    \ &direction](const point &q) {\n      return ccw(q - l.a, direction);\n    };\n\
-    \    int rightSig = vertex_cmp(poly[right]), leftSig = vertex_cmp(poly[left]);\n\
+    \n  int test(const point &q) const {\n    if (q < p[0] || q > p[top])\n      return\
+    \ 1;\n    auto sig = ccw(p[0], p[top], q);\n    if (sig == 0) {\n      if (q ==\
+    \ p[0] || q == p[top])\n        return 0;\n      return top == 1 || top + 1 ==\
+    \ this->size() ? 0 : -1;\n    } else if (sig < 0) {\n      auto it = lower_bound(p.begin()\
+    \ + 1, p.begin() + top, q);\n      return ccw(it[-1], q, it[0]);\n    } else {\n\
+    \      auto it = upper_bound(p.rbegin(), p.rend() - top - 1, q);\n      auto pit_deref\
+    \ = it == p.rbegin() ? p[0] : it[-1];\n      return ccw(*it, q, pit_deref);\n\
+    \    }\n  }\n  template <typename Function> int extreme(Function direction) const\
+    \ {\n    int n = this->size(), left = 0, leftSig;\n    const ConvexPolygon &poly\
+    \ = *this;\n    auto vertex_cmp = [&poly, direction](int i, int j) {\n      return\
+    \ ccw(poly[j] - poly[i], direction(poly[j]));\n    };\n    auto is_extreme = [n,\
+    \ vertex_cmp](int i, int &iSig) {\n      return (iSig = vertex_cmp(i + 1, i))\
+    \ >= 0 && vertex_cmp(i, i - 1) < 0;\n    };\n    for (int right = is_extreme(0,\
+    \ leftSig) ? 1 : n; left + 1 < right;) {\n      int mid = (left + right) / 2,\
+    \ midSig;\n      if (is_extreme(mid, midSig))\n        return mid;\n      if (leftSig\
+    \ != midSig ? leftSig < midSig\n                            : leftSig == vertex_cmp(left,\
+    \ mid))\n        right = mid;\n      else\n        left = mid, leftSig = midSig;\n\
+    \    }\n    return poly.index(left);\n  }\n  void stab_extremes(const line &l,\
+    \ int &left, int &right) const {\n    point direction = l.direction();\n    right\
+    \ = extreme([&direction](const point &) { return direction; });\n    left = extreme([&direction](const\
+    \ point &) { return -direction; });\n  }\n  friend vector<point> intersect(const\
+    \ ConvexPolygon &poly, const line &l) {\n    point direction = l.direction();\n\
+    \n    int left, right;\n    poly.stab_extremes(l, left, right);\n    auto vertex_cmp\
+    \ = [&l, &direction](const point &q) {\n      return ccw(q - l.a, direction);\n\
+    \    };\n    int rightSig = vertex_cmp(poly[right]), leftSig = vertex_cmp(poly[left]);\n\
     \    if (rightSig < 0 || leftSig > 0)\n      return {};\n    auto intersectChain\
     \ = [&l, &poly, vertex_cmp](int first, int last,\n                           \
     \                       int firstSig) {\n      int n = poly.size();\n      while\
@@ -774,10 +800,22 @@ data:
     \ inter = intersect(a, b);\n    if (inter.size() > 0)\n      return max(area(inter),\
     \ Large(0));\n    ConvexPolygon sum = minkowski_sum(a, -b);\n    Large res = numeric_limits<Large>::max();\n\
     \    for (int i = 0; i < sum.size(); i++) {\n      res = min(res, dist(segment(sum[i],\
-    \ sum[i + 1]), point()));\n    }\n    return -res;\n  }\n};\n} // namespace plane\n\
-    \ntemplate <typename T, typename Large = T>\nstruct PolygonPlane : public CirclePlane<T,\
-    \ Large> {\n  typedef plane::Polygon<T, Large> polygon;\n  typedef plane::ConvexPolygon<T,\
-    \ Large> convex_polygon;\n};\n\n} // namespace geo\n} // namespace lib\n\n#endif\n"
+    \ sum[i + 1]), point()));\n    }\n    return -res;\n  }\n  void cut(const halfplane&\
+    \ pl) {\n    int n = this->size();\n    if(n < 3) return;\n    p.push_back(p[0]);\n\
+    \n    auto pl_line = pl.as_line();\n\n    vector<point> out;\n    bool inside\
+    \ = pl.strictly_contains(p[0]);\n    if(inside) out.push_back(p[0]);\n\n    for(int\
+    \ i = 1; i <= n; i++) {\n      if(pl.strictly_contains(p[i])) {\n        if(!inside)\
+    \ {\n          out.push_back(intersect(pl_line, line(p[i-1], p[i])).first);\n\
+    \        }\n        out.push_back(p[i]);\n        inside = true;\n      } else\
+    \ {\n        if(inside) {\n          out.push_back(intersect(pl_line, line(p[i-1],\
+    \ p[i])).first);\n        }\n        inside = false;\n      }\n    }\n\n    if(!out.empty()\
+    \ && out[0] == out.back()) out.pop_back();\n    *this = ConvexPolygon(ConvexPolygon::convex_hull(out));\n\
+    \  }\n  void cut(const ConvexPolygon &rhs) {\n    for(int i = 0; i < rhs.size();\
+    \ i++) {\n      cut(halfplane::from_points(rhs[i], rhs[i+1]));\n    }\n  }\n};\n\
+    } // namespace plane\n\ntemplate <typename T, typename Large = T>\nstruct PolygonPlane\
+    \ : public CirclePlane<T, Large> {\n  typedef plane::Polygon<T, Large> polygon;\n\
+    \  typedef plane::ConvexPolygon<T, Large> convex_polygon;\n};\n\n} // namespace\
+    \ geo\n} // namespace lib\n\n#endif\n"
   dependsOn:
   - geometry/Circle2D.cpp
   - utils/Annotation.cpp
@@ -789,7 +827,7 @@ data:
   path: geometry/Polygon2D.cpp
   requiredBy:
   - geometry/Caliper.cpp
-  timestamp: '2020-10-19 01:04:40-03:00'
+  timestamp: '2021-11-23 18:59:56-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: geometry/Polygon2D.cpp

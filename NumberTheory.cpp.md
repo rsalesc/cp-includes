@@ -93,28 +93,28 @@ data:
   isVerificationFile: false
   path: NumberTheory.cpp
   requiredBy:
-  - PolynomialRing.cpp
-  - RollingHash.cpp
+  - NTT.cpp
   - LinearRecurrence.cpp
   - polynomial/MultipointEvaluation.cpp
-  - PowerSeries.cpp
+  - RollingHash.cpp
+  - PolynomialRing.cpp
   - ModularInteger.cpp
+  - PowerSeries.cpp
   - FHT.cpp
-  - NTT.cpp
   timestamp: '2020-11-07 21:20:50-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/yosupo/fps-power.test.cpp
-  - tests/yosupo/exp-sum.test.cpp
   - tests/yosupo/fht-convolution.test.cpp
-  - tests/yosupo/subset-sum.test.cpp
-  - tests/yosupo/multipoint.test.cpp
-  - tests/yosupo/exp-sum-limit.test.cpp
-  - tests/yosupo/subset-convolution.test.cpp
-  - tests/yosupo/and-convolution.test.cpp
-  - tests/yosupo/kth-term-lr.test.cpp
-  - tests/yosupo/fps-inv.test.cpp
   - tests/yosupo/find-lr.test.cpp
+  - tests/yosupo/and-convolution.test.cpp
+  - tests/yosupo/exp-sum.test.cpp
+  - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
+  - tests/yosupo/exp-sum-limit.test.cpp
+  - tests/yosupo/fps-inv.test.cpp
+  - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/subset-convolution.test.cpp
+  - tests/yosupo/kth-term-lr.test.cpp
 documentation_of: NumberTheory.cpp
 layout: document
 redirect_from:

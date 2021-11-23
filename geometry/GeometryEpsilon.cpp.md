@@ -63,10 +63,10 @@ data:
   isVerificationFile: false
   path: geometry/GeometryEpsilon.cpp
   requiredBy:
-  - geometry/Polygon2D.cpp
   - geometry/Circle2D.cpp
-  - geometry/Line2D.cpp
   - geometry/Caliper.cpp
+  - geometry/Polygon2D.cpp
+  - geometry/Line2D.cpp
   timestamp: '2020-10-15 12:03:07-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

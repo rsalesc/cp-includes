@@ -172,14 +172,14 @@ data:
   isVerificationFile: false
   path: Segtree.cpp
   requiredBy:
-  - SegtreeFast.cpp
   - RangeDSU.cpp
-  - SegtreeNormal.cpp
+  - HLD.cpp
+  - SegtreeFast.cpp
+  - SegtreeLazy.cpp
   - SegtreeHLD.cpp
   - SegtreeSplash.cpp
-  - HLD.cpp
-  - SegtreeLazy.cpp
   - SegtreeBeats.cpp
+  - SegtreeNormal.cpp
   timestamp: '2021-02-11 19:36:05-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

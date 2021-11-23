@@ -152,9 +152,9 @@ data:
   path: matroid/Matroid.cpp
   requiredBy:
   - matroid/GraphicMatroid.cpp
+  - matroid/CographicMatroid.cpp
   - matroid/ColorMatroid.cpp
   - matroid/Compose.cpp
-  - matroid/CographicMatroid.cpp
   timestamp: '2021-02-03 01:52:23-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

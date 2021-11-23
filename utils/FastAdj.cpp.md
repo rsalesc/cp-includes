@@ -115,8 +115,8 @@ data:
   path: utils/FastAdj.cpp
   requiredBy:
   - matroid/GraphicMatroid.cpp
-  - matroid/CographicMatroid.cpp
   - matroid/MatroidIntersection.cpp
+  - matroid/CographicMatroid.cpp
   timestamp: '2021-01-27 21:58:35-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

@@ -71,26 +71,26 @@ data:
   isVerificationFile: false
   path: BitTricks.cpp
   requiredBy:
-  - Combinatorics.cpp
+  - NTT.cpp
   - polynomial/ExponentialSum.cpp
-  - Lagrange.cpp
-  - PowerSeries.cpp
+  - Combinatorics.cpp
   - DFT.cpp
+  - PowerSeries.cpp
   - FHT.cpp
   - FFT.cpp
-  - NTT.cpp
+  - Lagrange.cpp
   timestamp: '2020-10-15 12:03:07-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/yosupo/fps-power.test.cpp
-  - tests/yosupo/exp-sum.test.cpp
   - tests/yosupo/fht-convolution.test.cpp
-  - tests/yosupo/subset-sum.test.cpp
-  - tests/yosupo/multipoint.test.cpp
-  - tests/yosupo/exp-sum-limit.test.cpp
-  - tests/yosupo/kth-term-lr.test.cpp
-  - tests/yosupo/fps-inv.test.cpp
   - tests/yosupo/find-lr.test.cpp
+  - tests/yosupo/exp-sum.test.cpp
+  - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
+  - tests/yosupo/exp-sum-limit.test.cpp
+  - tests/yosupo/fps-inv.test.cpp
+  - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/kth-term-lr.test.cpp
 documentation_of: BitTricks.cpp
 layout: document
 redirect_from:

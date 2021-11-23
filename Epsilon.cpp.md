@@ -82,24 +82,24 @@ data:
   isVerificationFile: false
   path: Epsilon.cpp
   requiredBy:
-  - PolynomialRing.cpp
   - LinearRecurrence.cpp
   - polynomial/MultipointEvaluation.cpp
-  - PowerSeries.cpp
-  - geometry/Polygon2D.cpp
   - geometry/Circle2D.cpp
-  - geometry/Line2D.cpp
   - geometry/Caliper.cpp
+  - geometry/Polygon2D.cpp
   - geometry/GeometryEpsilon.cpp
+  - geometry/Line2D.cpp
+  - PolynomialRing.cpp
+  - PowerSeries.cpp
   timestamp: '2020-10-15 12:03:07-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/yosupo/fps-power.test.cpp
-  - tests/yosupo/subset-sum.test.cpp
-  - tests/yosupo/multipoint.test.cpp
-  - tests/yosupo/kth-term-lr.test.cpp
-  - tests/yosupo/fps-inv.test.cpp
   - tests/yosupo/find-lr.test.cpp
+  - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
+  - tests/yosupo/fps-inv.test.cpp
+  - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/kth-term-lr.test.cpp
 documentation_of: Epsilon.cpp
 layout: document
 redirect_from:

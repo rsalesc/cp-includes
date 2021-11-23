@@ -47,9 +47,9 @@ data:
   isVerificationFile: false
   path: utils/Annotation.cpp
   requiredBy:
-  - geometry/Polygon2D.cpp
   - geometry/Circle2D.cpp
   - geometry/Caliper.cpp
+  - geometry/Polygon2D.cpp
   timestamp: '2020-10-19 01:04:40-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

@@ -643,18 +643,18 @@ data:
   timestamp: '2021-01-31 01:48:38-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/yosupo/fps-power.test.cpp
-  - tests/yosupo/fps-power.test.cpp
-  - tests/yosupo/subset-sum.test.cpp
-  - tests/yosupo/subset-sum.test.cpp
-  - tests/yosupo/multipoint.test.cpp
-  - tests/yosupo/multipoint.test.cpp
-  - tests/yosupo/kth-term-lr.test.cpp
-  - tests/yosupo/kth-term-lr.test.cpp
-  - tests/yosupo/fps-inv.test.cpp
-  - tests/yosupo/fps-inv.test.cpp
   - tests/yosupo/find-lr.test.cpp
   - tests/yosupo/find-lr.test.cpp
+  - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
+  - tests/yosupo/fps-inv.test.cpp
+  - tests/yosupo/fps-inv.test.cpp
+  - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/kth-term-lr.test.cpp
+  - tests/yosupo/kth-term-lr.test.cpp
 documentation_of: PolynomialRing.cpp
 layout: document
 redirect_from:

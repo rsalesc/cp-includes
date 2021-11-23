@@ -65,19 +65,19 @@ data:
   isVerificationFile: false
   path: Math.cpp
   requiredBy:
-  - PolynomialRing.cpp
   - LinearRecurrence.cpp
   - polynomial/MultipointEvaluation.cpp
+  - PolynomialRing.cpp
   - PowerSeries.cpp
   timestamp: '2020-10-15 12:03:07-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/yosupo/fps-power.test.cpp
-  - tests/yosupo/subset-sum.test.cpp
-  - tests/yosupo/multipoint.test.cpp
-  - tests/yosupo/kth-term-lr.test.cpp
-  - tests/yosupo/fps-inv.test.cpp
   - tests/yosupo/find-lr.test.cpp
+  - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
+  - tests/yosupo/fps-inv.test.cpp
+  - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/kth-term-lr.test.cpp
 documentation_of: Math.cpp
 layout: document
 redirect_from:

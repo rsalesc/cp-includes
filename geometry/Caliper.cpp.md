@@ -218,15 +218,28 @@ data:
     \      return Large(0);\n    return dist(l, r.a);\n  }\n  friend Large dist(const\
     \ ray &r1, const ray &r2) {\n    if (has_intersection(r1, r2))\n      return Large(0);\n\
     \    return min(dist(r1, r2.a), dist(r2, r1.a));\n  }\n};\n\ntemplate <typename\
-    \ T, typename Large = T> struct Segment {\n  typedef Point<T, Large> point;\n\
-    \  typedef Line<T, Large> line;\n  typedef Segment<T, Large> segment;\n  typedef\
-    \ Ray<T, Large> ray;\n  point a, b;\n\n  Segment() {}\n  Segment(point a, point\
-    \ b) : a(a), b(b) {}\n  line as_line() const { return line(a, b); }\n  explicit\
-    \ operator line() const { return as_line(); }\n  bool is_degenerate() const {\
-    \ return a == b; }\n\n  template <typename G, typename H> explicit operator Segment<G,\
-    \ H>() const {\n    return Segment<G, H>(Point<G, H>(a), Point<G, H>(b));\n  }\n\
-    \  bool contains(const point &p) const { return between(a, p, b); }\n  bool strictly_contains(const\
-    \ point &p) const {\n    return strictly_between(a, p, b);\n  }\n  bool collinear_contains(const\
+    \ T, typename Large = T> struct Halfplane {\n  typedef Point<T, Large> point;\n\
+    \  typedef Line<T, Large> line;\n  typedef Ray<T, Large> ray;\n  typedef Halfplane<T,\
+    \ Large> halfplane;\n  point a, b;\n\n  Halfplane(point a, point direction) :\
+    \ a(a), b(a + direction) {}\n\n  static halfplane from_points(point a, point b)\
+    \ { return halfplane(a, b - a); }\n  point direction() const { return b - a; }\n\
+    \  point direction_versor() const { return versor(direction()); }\n\n  line as_line()\
+    \ const { return line(a, b); }\n  explicit operator line() const { return as_line();\
+    \ }\n\n  ray as_ray() const { return ray(a, b); }\n  explicit operator ray() const\
+    \ { return as_ray(); }\n\n  template <typename G, typename H> explicit operator\
+    \ Halfplane<G, H>() const {\n    return Halfplane<G, H>(Point<G, H>(a), Point<G,\
+    \ H>(b));\n  }\n\n  bool contains(const point& p) const {\n    return ccw(a, b,\
+    \ p) <= 0;\n  }\n  bool strictly_contains(const point& p) const {\n    return\
+    \ ccw(a, b, p) < 0;\n  }\n};\n\ntemplate <typename T, typename Large = T> struct\
+    \ Segment {\n  typedef Point<T, Large> point;\n  typedef Line<T, Large> line;\n\
+    \  typedef Segment<T, Large> segment;\n  typedef Ray<T, Large> ray;\n  point a,\
+    \ b;\n\n  Segment() {}\n  Segment(point a, point b) : a(a), b(b) {}\n  line as_line()\
+    \ const { return line(a, b); }\n  explicit operator line() const { return as_line();\
+    \ }\n  bool is_degenerate() const { return a == b; }\n\n  template <typename G,\
+    \ typename H> explicit operator Segment<G, H>() const {\n    return Segment<G,\
+    \ H>(Point<G, H>(a), Point<G, H>(b));\n  }\n  bool contains(const point &p) const\
+    \ { return between(a, p, b); }\n  bool strictly_contains(const point &p) const\
+    \ {\n    return strictly_between(a, p, b);\n  }\n  bool collinear_contains(const\
     \ point &p) const {\n    return collinear_between(a, p, b);\n  }\n  bool collinear_strictly_contains(const\
     \ point &p) const {\n    return collinear_strictly_between(a, p, b);\n  }\n  friend\
     \ pair<point, bool> intersect(const segment &s, const line &l) {\n    auto p =\
@@ -295,57 +308,57 @@ data:
     \ plane\n\ntemplate <typename T, typename Large = T> struct CartesianPlane {\n\
     \  typedef plane::Point<T, Large> point;\n  typedef plane::Line<T, Large> line;\n\
     \  typedef plane::Rectangle<T, Large> rectangle;\n  typedef plane::Segment<T,\
-    \ Large> segment;\n  typedef plane::Ray<T, Large> ray;\n\n  template<typename\
-    \ Direction>\n  using angle_comparator = plane::AngleComparator<Direction, T,\
-    \ Large>;\n};\n\n} // namespace geo\n} // namespace lib\n\n\n#line 1 \"geometry/Polygon2D.cpp\"\
-    \n\n\n#line 1 \"geometry/Circle2D.cpp\"\n\n\n#line 1 \"utils/Annotation.cpp\"\n\
-    \n\n#line 4 \"utils/Annotation.cpp\"\n\nnamespace lib {\nusing namespace std;\n\
-    template <typename T, typename A = void>\nstruct Note : public T {\nprivate:\n\
-    \    A m_data = A();\n    Note(const T& t, const A& a) : T(t), m_data(a) {}\n\
-    public:\n    using T::T;\n\n    static Note make(const T& t, const A& a) {\n \
-    \       return Note(t, a);\n    }\n\n    friend A& annotation(Note& note) {\n\
-    \        return note.m_data;\n    }\n    friend const A& annotation(const Note&\
-    \ note) {\n        return note.m_data;\n    }\n\n    template<typename C, typename\
-    \ D>\n    operator Note<T,A>() const {\n        return Note<C, D>(*this, m_data);\n\
-    \    }\n};\n\ntemplate <typename T>\nstruct Note<T, void> : public T {\n    using\
-    \ T::T;\n    using T::operator=;\n    \n    Note(const T& a) : T(a) {}\n    Note(T\
-    \ &&a): T(std::move(a)) {}\n};\n\ntemplate<typename T, typename A>\nNote<T, A>\
-    \ make_note(const T& t, const A& a) {\n    return Note<T, A>::make(t, a);\n}\n\
-    } // namespace lib\n\n\n#line 6 \"geometry/Circle2D.cpp\"\n\nnamespace lib {\n\
-    using namespace std;\nnamespace geo {\nnamespace plane {\ntemplate <typename T,\
-    \ typename Large = T> struct Barycentric {\n  typedef Point<T, Large> point;\n\
-    \  point r1, r2, r3;\n  T a, b, c;\n\n  Barycentric(const point &r1, const point\
-    \ &r2, const point &r3, T a = 1,\n              T b = 1, T c = 1)\n      : r1(r1),\
-    \ r2(r2), r3(r3), a(a), b(b), c(c) {}\n  point as_point() const { return (r1 *\
-    \ a + r2 * b + r3 * c) / (a + b + c); }\n\n  static Barycentric centroid(const\
-    \ point &r1, const point &r2,\n                              const point &r3)\
-    \ {\n    return Barycentric(r1, r2, r3);\n  }\n  static Barycentric circumcenter(const\
-    \ point &r1, const point &r2,\n                                  const point &r3)\
-    \ {\n    Large a = norm_sq(r2 - r3), b = norm_sq(r3 - r1), c = norm_sq(r1 - r2);\n\
-    \    return Barycentric(r1, r2, r3, a * (b + c - a), b * (c + a - b),\n      \
-    \                 c * (a + b - c));\n  }\n  static Barycentric incenter(const\
-    \ point &r1, const point &r2,\n                              const point &r3)\
-    \ {\n    return Barycentric(r1, r2, r3, norm(r2 - r3), norm(r1 - r3), norm(r1\
-    \ - r2));\n  }\n  static Barycentric orthocenter(const point &r1, const point\
-    \ &r2,\n                                 const point &r3) {\n    Large a = norm_sq(r2\
+    \ Large> segment;\n  typedef plane::Ray<T, Large> ray;\n  typedef plane::Halfplane<T,\
+    \ Large> halfplane;\n\n  template<typename Direction>\n  using angle_comparator\
+    \ = plane::AngleComparator<Direction, T, Large>;\n};\n\n} // namespace geo\n}\
+    \ // namespace lib\n\n\n#line 1 \"geometry/Polygon2D.cpp\"\n\n\n#line 1 \"geometry/Circle2D.cpp\"\
+    \n\n\n#line 1 \"utils/Annotation.cpp\"\n\n\n#line 4 \"utils/Annotation.cpp\"\n\
+    \nnamespace lib {\nusing namespace std;\ntemplate <typename T, typename A = void>\n\
+    struct Note : public T {\nprivate:\n    A m_data = A();\n    Note(const T& t,\
+    \ const A& a) : T(t), m_data(a) {}\npublic:\n    using T::T;\n\n    static Note\
+    \ make(const T& t, const A& a) {\n        return Note(t, a);\n    }\n\n    friend\
+    \ A& annotation(Note& note) {\n        return note.m_data;\n    }\n    friend\
+    \ const A& annotation(const Note& note) {\n        return note.m_data;\n    }\n\
+    \n    template<typename C, typename D>\n    operator Note<T,A>() const {\n   \
+    \     return Note<C, D>(*this, m_data);\n    }\n};\n\ntemplate <typename T>\n\
+    struct Note<T, void> : public T {\n    using T::T;\n    using T::operator=;\n\
+    \    \n    Note(const T& a) : T(a) {}\n    Note(T &&a): T(std::move(a)) {}\n};\n\
+    \ntemplate<typename T, typename A>\nNote<T, A> make_note(const T& t, const A&\
+    \ a) {\n    return Note<T, A>::make(t, a);\n}\n} // namespace lib\n\n\n#line 6\
+    \ \"geometry/Circle2D.cpp\"\n\nnamespace lib {\nusing namespace std;\nnamespace\
+    \ geo {\nnamespace plane {\ntemplate <typename T, typename Large = T> struct Barycentric\
+    \ {\n  typedef Point<T, Large> point;\n  point r1, r2, r3;\n  T a, b, c;\n\n \
+    \ Barycentric(const point &r1, const point &r2, const point &r3, T a = 1,\n  \
+    \            T b = 1, T c = 1)\n      : r1(r1), r2(r2), r3(r3), a(a), b(b), c(c)\
+    \ {}\n  point as_point() const { return (r1 * a + r2 * b + r3 * c) / (a + b +\
+    \ c); }\n\n  static Barycentric centroid(const point &r1, const point &r2,\n \
+    \                             const point &r3) {\n    return Barycentric(r1, r2,\
+    \ r3);\n  }\n  static Barycentric circumcenter(const point &r1, const point &r2,\n\
+    \                                  const point &r3) {\n    Large a = norm_sq(r2\
     \ - r3), b = norm_sq(r3 - r1), c = norm_sq(r1 - r2);\n    return Barycentric(r1,\
-    \ r2, r3, (a + b - c) * (c + a - b),\n                       (b + c - a) * (a\
-    \ + b - c), (c + a - b) * (b + c - a));\n  }\n  static Barycentric excenter(const\
-    \ point &r1, const point &r2,\n                              const point &r3)\
-    \ {\n    return Barycentric(r1, r2, r3, -norm(r2 - r3), norm(r1 - r3),\n     \
-    \                  norm(r1 - r2));\n  }\n};\n\ntemplate <typename T, typename\
-    \ Large = T> struct Circle {\n  typedef Point<T, Large> point;\n  typedef Line<T,\
-    \ Large> line;\n  typedef Barycentric<Large> bary;\n  typedef Segment<T, Large>\
-    \ segment;\n  point center;\n  T radius;\n\n  Circle(point center, T radius) :\
-    \ center(center), radius(radius) {}\n  Circle(const point &p1, const point &p2,\
-    \ const point &p3) {\n    center = bary::circumcenter(p1, p2, p3).as_point();\n\
-    \    radius = dist(center, p1);\n  }\n  Circle(const point &p1, const point &p2)\
-    \ {\n    center = (p1 + p2) / 2;\n    radius = dist(center, p1);\n  }\n  bool\
-    \ crosses_x_axis(point p = point()) const {\n    auto c = center - p;\n    return\
-    \ GEOMETRY_COMPARE0(T, c.y + radius) >= 0 && GEOMETRY_COMPARE0(T, c.y - radius)\
-    \ < 0;\n  }\n  static Circle incircle(const point &p1, const point &p2, const\
-    \ point &p3) {\n    point center = bary::incenter(p1, p2, p3).as_point();\n  \
-    \  return Circle(center, dist(line(p1, p2), center));\n  }\n  friend pair<segment,\
+    \ r2, r3, a * (b + c - a), b * (c + a - b),\n                       c * (a + b\
+    \ - c));\n  }\n  static Barycentric incenter(const point &r1, const point &r2,\n\
+    \                              const point &r3) {\n    return Barycentric(r1,\
+    \ r2, r3, norm(r2 - r3), norm(r1 - r3), norm(r1 - r2));\n  }\n  static Barycentric\
+    \ orthocenter(const point &r1, const point &r2,\n                            \
+    \     const point &r3) {\n    Large a = norm_sq(r2 - r3), b = norm_sq(r3 - r1),\
+    \ c = norm_sq(r1 - r2);\n    return Barycentric(r1, r2, r3, (a + b - c) * (c +\
+    \ a - b),\n                       (b + c - a) * (a + b - c), (c + a - b) * (b\
+    \ + c - a));\n  }\n  static Barycentric excenter(const point &r1, const point\
+    \ &r2,\n                              const point &r3) {\n    return Barycentric(r1,\
+    \ r2, r3, -norm(r2 - r3), norm(r1 - r3),\n                       norm(r1 - r2));\n\
+    \  }\n};\n\ntemplate <typename T, typename Large = T> struct Circle {\n  typedef\
+    \ Point<T, Large> point;\n  typedef Line<T, Large> line;\n  typedef Barycentric<Large>\
+    \ bary;\n  typedef Segment<T, Large> segment;\n  point center;\n  T radius;\n\n\
+    \  Circle(point center, T radius) : center(center), radius(radius) {}\n  Circle(const\
+    \ point &p1, const point &p2, const point &p3) {\n    center = bary::circumcenter(p1,\
+    \ p2, p3).as_point();\n    radius = dist(center, p1);\n  }\n  Circle(const point\
+    \ &p1, const point &p2) {\n    center = (p1 + p2) / 2;\n    radius = dist(center,\
+    \ p1);\n  }\n  bool crosses_x_axis(point p = point()) const {\n    auto c = center\
+    \ - p;\n    return GEOMETRY_COMPARE0(T, c.y + radius) >= 0 && GEOMETRY_COMPARE0(T,\
+    \ c.y - radius) < 0;\n  }\n  static Circle incircle(const point &p1, const point\
+    \ &p2, const point &p3) {\n    point center = bary::incenter(p1, p2, p3).as_point();\n\
+    \    return Circle(center, dist(line(p1, p2), center));\n  }\n  friend pair<segment,\
     \ int> intersect_segment(const Circle &c, const line &l) {\n    point H = project(c.center,\
     \ l);\n    Large h = norm(H - c.center);\n    if (GEOMETRY_COMPARE(Large, c.radius,\
     \ h) < 0)\n      return {{}, 0};\n    Large norma = sqrtl(c.radius + h) * sqrtl(c.radius\
@@ -423,10 +436,10 @@ data:
     \    if (k == 0)\n      return norm_sq(a.first) < norm_sq(b.first);\n    return\
     \ k > 0;\n  }\n};\n\ntemplate <typename T, typename Large = T> struct Polygon\
     \ {\n  typedef Point<T, Large> point;\n  typedef Polygon<T, Large> polygon;\n\
-    \  typedef Circle<T, Large> circle;\n  vector<point> p;\n\n  Polygon(const vector<point>\
-    \ &p) : p(p) {}\n  template <typename G> Polygon(const vector<pair<point, G>>\
-    \ &g) : p(g.size()) {\n    for (size_t i = 0; i < g.size(); i++)\n      p[i] =\
-    \ g[i].first;\n  }\n  template <typename A, typename B> explicit operator Polygon<A,\
+    \  typedef Circle<T, Large> circle;\n  vector<point> p;\n\n  Polygon() {}\n  Polygon(const\
+    \ vector<point> &p) : p(p) {}\n  template <typename G> Polygon(const vector<pair<point,\
+    \ G>> &g) : p(g.size()) {\n    for (size_t i = 0; i < g.size(); i++)\n      p[i]\
+    \ = g[i].first;\n  }\n  template <typename A, typename B> explicit operator Polygon<A,\
     \ B>() const {\n    vector<Point<A, B>> v(p.size());\n    for (size_t i = 0; i\
     \ < p.size(); i++)\n      v[i] = Point<A, B>(p[i]);\n    return Polygon<A, B>(v);\n\
     \  }\n  inline int index(int i) const {\n    if (i >= size())\n      i %= size();\n\
@@ -491,46 +504,46 @@ data:
     \                                              p[i] - C.center);\n    }\n    return\
     \ abs(res);\n  }\n};\n\ntemplate <typename T, typename Large = T>\nstruct ConvexPolygon\
     \ : public Polygon<T, Large> {\n  typedef Point<T, Large> point;\n  typedef Segment<T,\
-    \ Large> segment;\n  typedef Line<T, Large> line;\n  typedef Circle<T, Large>\
-    \ circle;\n  typedef AngleComparator<PointDirection<point>, T, Large> angle_comparator;\n\
-    \  using Polygon<T, Large>::p;\n  int top;\n  ConvexPolygon(const vector<point>\
-    \ &p) : Polygon<T, Large>(p) { normalize(); }\n  template <typename G>\n  ConvexPolygon(const\
-    \ vector<pair<point, G>> &p) : Polygon<T, Large>(p) {\n    normalize();\n  }\n\
-    \  void normalize() {\n    auto bottom = min_element(p.begin(), p.end());\n  \
-    \  rotate(p.begin(), bottom, p.end());\n    top = max_element(p.begin(), p.end())\
-    \ - p.begin();\n  }\n  ConvexPolygon &operator+=(const point &pt) {\n    for (auto\
-    \ &q : p)\n      q += pt;\n    return *this;\n  }\n  ConvexPolygon &operator-=(const\
-    \ point &pt) {\n    for (auto &q : p)\n      q -= pt;\n    return *this;\n  }\n\
-    \  ConvexPolygon &operator*=(const Large k) {\n    for (auto &q : p)\n      q\
-    \ *= k;\n    return *this;\n  }\n  ConvexPolygon &operator/=(const Large k) {\n\
-    \    for (auto &q : p)\n      q /= k;\n    return *this;\n  }\n  ConvexPolygon\
-    \ operator-() const {\n    ConvexPolygon res = *this;\n    for (auto &q : res.p)\n\
-    \      q = -q;\n    return res;\n  }\n\n  int test(const point &q) const {\n \
-    \   if (q < p[0] || q > p[top])\n      return 1;\n    auto sig = ccw(p[0], p[top],\
-    \ q);\n    if (sig == 0) {\n      if (q == p[0] || q == p[top])\n        return\
-    \ 0;\n      return top == 1 || top + 1 == this->size() ? 0 : -1;\n    } else if\
-    \ (sig < 0) {\n      auto it = lower_bound(p.begin() + 1, p.begin() + top, q);\n\
-    \      return ccw(it[-1], q, it[0]);\n    } else {\n      auto it = upper_bound(p.rbegin(),\
-    \ p.rend() - top - 1, q);\n      auto pit_deref = it == p.rbegin() ? p[0] : it[-1];\n\
-    \      return ccw(*it, q, pit_deref);\n    }\n  }\n  template <typename Function>\
-    \ int extreme(Function direction) const {\n    int n = this->size(), left = 0,\
-    \ leftSig;\n    const ConvexPolygon &poly = *this;\n    auto vertex_cmp = [&poly,\
-    \ direction](int i, int j) {\n      return ccw(poly[j] - poly[i], direction(poly[j]));\n\
-    \    };\n    auto is_extreme = [n, vertex_cmp](int i, int &iSig) {\n      return\
-    \ (iSig = vertex_cmp(i + 1, i)) >= 0 && vertex_cmp(i, i - 1) < 0;\n    };\n  \
-    \  for (int right = is_extreme(0, leftSig) ? 1 : n; left + 1 < right;) {\n   \
-    \   int mid = (left + right) / 2, midSig;\n      if (is_extreme(mid, midSig))\n\
-    \        return mid;\n      if (leftSig != midSig ? leftSig < midSig\n       \
-    \                     : leftSig == vertex_cmp(left, mid))\n        right = mid;\n\
-    \      else\n        left = mid, leftSig = midSig;\n    }\n    return poly.index(left);\n\
-    \  }\n  void stab_extremes(const line &l, int &left, int &right) const {\n   \
-    \ point direction = l.direction();\n    right = extreme([&direction](const point\
-    \ &) { return direction; });\n    left = extreme([&direction](const point &) {\
-    \ return -direction; });\n  }\n  friend vector<point> intersect(const ConvexPolygon\
-    \ &poly, const line &l) {\n    point direction = l.direction();\n\n    int left,\
-    \ right;\n    poly.stab_extremes(l, left, right);\n    auto vertex_cmp = [&l,\
-    \ &direction](const point &q) {\n      return ccw(q - l.a, direction);\n    };\n\
-    \    int rightSig = vertex_cmp(poly[right]), leftSig = vertex_cmp(poly[left]);\n\
+    \ Large> segment;\n  typedef Line<T, Large> line;\n  typedef Halfplane<T, Large>\
+    \ halfplane;\n  typedef Circle<T, Large> circle;\n  typedef AngleComparator<PointDirection<point>,\
+    \ T, Large> angle_comparator;\n  using Polygon<T, Large>::p;\n  int top;\n  ConvexPolygon()\
+    \ {}\n  ConvexPolygon(const vector<point> &p) : Polygon<T, Large>(p) { normalize();\
+    \ }\n  template <typename G>\n  ConvexPolygon(const vector<pair<point, G>> &p)\
+    \ : Polygon<T, Large>(p) {\n    normalize();\n  }\n  void normalize() {\n    auto\
+    \ bottom = min_element(p.begin(), p.end());\n    rotate(p.begin(), bottom, p.end());\n\
+    \    top = max_element(p.begin(), p.end()) - p.begin();\n  }\n  ConvexPolygon\
+    \ &operator+=(const point &pt) {\n    for (auto &q : p)\n      q += pt;\n    return\
+    \ *this;\n  }\n  ConvexPolygon &operator-=(const point &pt) {\n    for (auto &q\
+    \ : p)\n      q -= pt;\n    return *this;\n  }\n  ConvexPolygon &operator*=(const\
+    \ Large k) {\n    for (auto &q : p)\n      q *= k;\n    return *this;\n  }\n \
+    \ ConvexPolygon &operator/=(const Large k) {\n    for (auto &q : p)\n      q /=\
+    \ k;\n    return *this;\n  }\n  ConvexPolygon operator-() const {\n    ConvexPolygon\
+    \ res = *this;\n    for (auto &q : res.p)\n      q = -q;\n    return res;\n  }\n\
+    \n  int test(const point &q) const {\n    if (q < p[0] || q > p[top])\n      return\
+    \ 1;\n    auto sig = ccw(p[0], p[top], q);\n    if (sig == 0) {\n      if (q ==\
+    \ p[0] || q == p[top])\n        return 0;\n      return top == 1 || top + 1 ==\
+    \ this->size() ? 0 : -1;\n    } else if (sig < 0) {\n      auto it = lower_bound(p.begin()\
+    \ + 1, p.begin() + top, q);\n      return ccw(it[-1], q, it[0]);\n    } else {\n\
+    \      auto it = upper_bound(p.rbegin(), p.rend() - top - 1, q);\n      auto pit_deref\
+    \ = it == p.rbegin() ? p[0] : it[-1];\n      return ccw(*it, q, pit_deref);\n\
+    \    }\n  }\n  template <typename Function> int extreme(Function direction) const\
+    \ {\n    int n = this->size(), left = 0, leftSig;\n    const ConvexPolygon &poly\
+    \ = *this;\n    auto vertex_cmp = [&poly, direction](int i, int j) {\n      return\
+    \ ccw(poly[j] - poly[i], direction(poly[j]));\n    };\n    auto is_extreme = [n,\
+    \ vertex_cmp](int i, int &iSig) {\n      return (iSig = vertex_cmp(i + 1, i))\
+    \ >= 0 && vertex_cmp(i, i - 1) < 0;\n    };\n    for (int right = is_extreme(0,\
+    \ leftSig) ? 1 : n; left + 1 < right;) {\n      int mid = (left + right) / 2,\
+    \ midSig;\n      if (is_extreme(mid, midSig))\n        return mid;\n      if (leftSig\
+    \ != midSig ? leftSig < midSig\n                            : leftSig == vertex_cmp(left,\
+    \ mid))\n        right = mid;\n      else\n        left = mid, leftSig = midSig;\n\
+    \    }\n    return poly.index(left);\n  }\n  void stab_extremes(const line &l,\
+    \ int &left, int &right) const {\n    point direction = l.direction();\n    right\
+    \ = extreme([&direction](const point &) { return direction; });\n    left = extreme([&direction](const\
+    \ point &) { return -direction; });\n  }\n  friend vector<point> intersect(const\
+    \ ConvexPolygon &poly, const line &l) {\n    point direction = l.direction();\n\
+    \n    int left, right;\n    poly.stab_extremes(l, left, right);\n    auto vertex_cmp\
+    \ = [&l, &direction](const point &q) {\n      return ccw(q - l.a, direction);\n\
+    \    };\n    int rightSig = vertex_cmp(poly[right]), leftSig = vertex_cmp(poly[left]);\n\
     \    if (rightSig < 0 || leftSig > 0)\n      return {};\n    auto intersectChain\
     \ = [&l, &poly, vertex_cmp](int first, int last,\n                           \
     \                       int firstSig) {\n      int n = poly.size();\n      while\
@@ -592,46 +605,58 @@ data:
     \ inter = intersect(a, b);\n    if (inter.size() > 0)\n      return max(area(inter),\
     \ Large(0));\n    ConvexPolygon sum = minkowski_sum(a, -b);\n    Large res = numeric_limits<Large>::max();\n\
     \    for (int i = 0; i < sum.size(); i++) {\n      res = min(res, dist(segment(sum[i],\
-    \ sum[i + 1]), point()));\n    }\n    return -res;\n  }\n};\n} // namespace plane\n\
-    \ntemplate <typename T, typename Large = T>\nstruct PolygonPlane : public CirclePlane<T,\
-    \ Large> {\n  typedef plane::Polygon<T, Large> polygon;\n  typedef plane::ConvexPolygon<T,\
-    \ Large> convex_polygon;\n};\n\n} // namespace geo\n} // namespace lib\n\n\n#line\
-    \ 6 \"geometry/Caliper.cpp\"\n\nnamespace lib {\nusing namespace std;\nnamespace\
-    \ geo {\nnamespace plane {\ntemplate <typename T, typename Large = T,\n      \
-    \    typename enable_if<!is_integral<T>::value>::type * = nullptr,\n         \
-    \ typename enable_if<!is_integral<T>::value>::type * = nullptr>\nstruct Caliper\
-    \ {\n  typedef Point<T, Large> point;\n  typedef Line<T, Large> line;\n  point\
-    \ p;\n  Large ang;\n  Caliper(point a, Large alpha) : p(a) {\n    ang = remainder(alpha,\
-    \ 2 * trig::PI);\n    while (ang < 0)\n      ang += 2 * trig::PI;\n  }\n  Large\
-    \ angle_to(const point &q) const {\n    return remainder(arg(q - p) - ang, 2 *\
-    \ trig::PI);\n  }\n  void rotate(double theta) {\n    ang += theta;\n    while\
-    \ (ang > 2 * trig::PI)\n      ang -= 2 * trig::PI;\n    while (ang < 0)\n    \
-    \  ang += 2 * trig::PI;\n  }\n  void move(const point &q) { p = q; }\n  point\
-    \ versor() const { return point::polar(1.0, ang); }\n  line as_line(Large scale\
-    \ = 1.0) const {\n    return line(p, p + versor() * scale);\n  }\n  friend Large\
-    \ dist(const Caliper &a, const Caliper &b) {\n    return dist(a.as_line(), b.p);\n\
-    \  }\n};\n\ntemplate <typename T, typename Large = T> struct PolygonCalipers {\n\
-    \  constexpr static Large LIMIT = 4 * acosl(-1);\n\n  typedef Point<T, Large>\
-    \ point;\n  typedef Caliper<T, Large> caliper;\n  typedef ConvexPolygon<T, Large>\
-    \ polygon;\n  typedef pair<int, Large> descriptor;\n\n  polygon poly;\n  vector<caliper>\
-    \ calipers;\n  vector<int> indices;\n  vector<int> walked;\n  Large angle_walked;\n\
-    \n  PolygonCalipers(const polygon &poly, const vector<descriptor> &descriptors)\n\
-    \      : poly(poly), walked(descriptors.size()), angle_walked(0) {\n    indices.reserve(descriptors.size());\n\
-    \    calipers.reserve(descriptors.size());\n    for (size_t i = 0; i < descriptors.size();\
-    \ i++) {\n      calipers.emplace_back(poly[descriptors[i].first], descriptors[i].second);\n\
-    \      indices.emplace_back(descriptors[i].first);\n    }\n  }\n  caliper operator[](int\
-    \ i) const { return calipers[i]; }\n  int index(int i) const { return indices[i];\
-    \ }\n  bool has_next() const {\n    return *min_element(walked.begin(), walked.end())\
-    \ < poly.size() &&\n           angle_walked < LIMIT;\n  }\n  Large angle_to_next(int\
-    \ i) const {\n    int u = indices[i];\n    return calipers[i].angle_to(poly[u\
-    \ + 1]);\n  }\n  void step_(int i) {\n    int u = indices[i]++;\n    indices[i]\
-    \ %= poly.size();\n    calipers[i].move(poly[u + 1]);\n    walked[i]++;\n  }\n\
-    \n  void next() {\n    int i = 0;\n    Large best = angle_to_next(0);\n    for\
-    \ (size_t j = 1; j < calipers.size(); j++) {\n      Large cur = angle_to_next(j);\n\
-    \      if (cur < best) {\n        best = cur;\n        i = j;\n      }\n    }\n\
-    \    Large alpha = angle_to_next(i);\n    for (auto &caliper : calipers)\n   \
-    \   caliper.rotate(alpha);\n    step_(i);\n    angle_walked += alpha;\n  }\n};\n\
-    } // namespace plane\n\n} // namespace geo\n} // namespace lib\n\n\n"
+    \ sum[i + 1]), point()));\n    }\n    return -res;\n  }\n  void cut(const halfplane&\
+    \ pl) {\n    int n = this->size();\n    if(n < 3) return;\n    p.push_back(p[0]);\n\
+    \n    auto pl_line = pl.as_line();\n\n    vector<point> out;\n    bool inside\
+    \ = pl.strictly_contains(p[0]);\n    if(inside) out.push_back(p[0]);\n\n    for(int\
+    \ i = 1; i <= n; i++) {\n      if(pl.strictly_contains(p[i])) {\n        if(!inside)\
+    \ {\n          out.push_back(intersect(pl_line, line(p[i-1], p[i])).first);\n\
+    \        }\n        out.push_back(p[i]);\n        inside = true;\n      } else\
+    \ {\n        if(inside) {\n          out.push_back(intersect(pl_line, line(p[i-1],\
+    \ p[i])).first);\n        }\n        inside = false;\n      }\n    }\n\n    if(!out.empty()\
+    \ && out[0] == out.back()) out.pop_back();\n    *this = ConvexPolygon(ConvexPolygon::convex_hull(out));\n\
+    \  }\n  void cut(const ConvexPolygon &rhs) {\n    for(int i = 0; i < rhs.size();\
+    \ i++) {\n      cut(halfplane::from_points(rhs[i], rhs[i+1]));\n    }\n  }\n};\n\
+    } // namespace plane\n\ntemplate <typename T, typename Large = T>\nstruct PolygonPlane\
+    \ : public CirclePlane<T, Large> {\n  typedef plane::Polygon<T, Large> polygon;\n\
+    \  typedef plane::ConvexPolygon<T, Large> convex_polygon;\n};\n\n} // namespace\
+    \ geo\n} // namespace lib\n\n\n#line 6 \"geometry/Caliper.cpp\"\n\nnamespace lib\
+    \ {\nusing namespace std;\nnamespace geo {\nnamespace plane {\ntemplate <typename\
+    \ T, typename Large = T,\n          typename enable_if<!is_integral<T>::value>::type\
+    \ * = nullptr,\n          typename enable_if<!is_integral<T>::value>::type * =\
+    \ nullptr>\nstruct Caliper {\n  typedef Point<T, Large> point;\n  typedef Line<T,\
+    \ Large> line;\n  point p;\n  Large ang;\n  Caliper(point a, Large alpha) : p(a)\
+    \ {\n    ang = remainder(alpha, 2 * trig::PI);\n    while (ang < 0)\n      ang\
+    \ += 2 * trig::PI;\n  }\n  Large angle_to(const point &q) const {\n    return\
+    \ remainder(arg(q - p) - ang, 2 * trig::PI);\n  }\n  void rotate(double theta)\
+    \ {\n    ang += theta;\n    while (ang > 2 * trig::PI)\n      ang -= 2 * trig::PI;\n\
+    \    while (ang < 0)\n      ang += 2 * trig::PI;\n  }\n  void move(const point\
+    \ &q) { p = q; }\n  point versor() const { return point::polar(1.0, ang); }\n\
+    \  line as_line(Large scale = 1.0) const {\n    return line(p, p + versor() *\
+    \ scale);\n  }\n  friend Large dist(const Caliper &a, const Caliper &b) {\n  \
+    \  return dist(a.as_line(), b.p);\n  }\n};\n\ntemplate <typename T, typename Large\
+    \ = T> struct PolygonCalipers {\n  constexpr static Large LIMIT = 4 * acosl(-1);\n\
+    \n  typedef Point<T, Large> point;\n  typedef Caliper<T, Large> caliper;\n  typedef\
+    \ ConvexPolygon<T, Large> polygon;\n  typedef pair<int, Large> descriptor;\n\n\
+    \  polygon poly;\n  vector<caliper> calipers;\n  vector<int> indices;\n  vector<int>\
+    \ walked;\n  Large angle_walked;\n\n  PolygonCalipers(const polygon &poly, const\
+    \ vector<descriptor> &descriptors)\n      : poly(poly), walked(descriptors.size()),\
+    \ angle_walked(0) {\n    indices.reserve(descriptors.size());\n    calipers.reserve(descriptors.size());\n\
+    \    for (size_t i = 0; i < descriptors.size(); i++) {\n      calipers.emplace_back(poly[descriptors[i].first],\
+    \ descriptors[i].second);\n      indices.emplace_back(descriptors[i].first);\n\
+    \    }\n  }\n  caliper operator[](int i) const { return calipers[i]; }\n  int\
+    \ index(int i) const { return indices[i]; }\n  bool has_next() const {\n    return\
+    \ *min_element(walked.begin(), walked.end()) < poly.size() &&\n           angle_walked\
+    \ < LIMIT;\n  }\n  Large angle_to_next(int i) const {\n    int u = indices[i];\n\
+    \    return calipers[i].angle_to(poly[u + 1]);\n  }\n  void step_(int i) {\n \
+    \   int u = indices[i]++;\n    indices[i] %= poly.size();\n    calipers[i].move(poly[u\
+    \ + 1]);\n    walked[i]++;\n  }\n\n  void next() {\n    int i = 0;\n    Large\
+    \ best = angle_to_next(0);\n    for (size_t j = 1; j < calipers.size(); j++) {\n\
+    \      Large cur = angle_to_next(j);\n      if (cur < best) {\n        best =\
+    \ cur;\n        i = j;\n      }\n    }\n    Large alpha = angle_to_next(i);\n\
+    \    for (auto &caliper : calipers)\n      caliper.rotate(alpha);\n    step_(i);\n\
+    \    angle_walked += alpha;\n  }\n};\n} // namespace plane\n\n} // namespace geo\n\
+    } // namespace lib\n\n\n"
   code: "#ifndef _LIB_GEOMETRY_CALIPER\n#define _LIB_GEOMETRY_CALIPER\n#include \"\
     Line2D.cpp\"\n#include \"Polygon2D.cpp\"\n#include <bits/stdc++.h>\n\nnamespace\
     \ lib {\nusing namespace std;\nnamespace geo {\nnamespace plane {\ntemplate <typename\
@@ -681,7 +706,7 @@ data:
   isVerificationFile: false
   path: geometry/Caliper.cpp
   requiredBy: []
-  timestamp: '2020-10-19 01:04:40-03:00'
+  timestamp: '2021-11-23 18:59:56-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: geometry/Caliper.cpp

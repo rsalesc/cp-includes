@@ -230,15 +230,28 @@ data:
     \      return Large(0);\n    return dist(l, r.a);\n  }\n  friend Large dist(const\
     \ ray &r1, const ray &r2) {\n    if (has_intersection(r1, r2))\n      return Large(0);\n\
     \    return min(dist(r1, r2.a), dist(r2, r1.a));\n  }\n};\n\ntemplate <typename\
-    \ T, typename Large = T> struct Segment {\n  typedef Point<T, Large> point;\n\
-    \  typedef Line<T, Large> line;\n  typedef Segment<T, Large> segment;\n  typedef\
-    \ Ray<T, Large> ray;\n  point a, b;\n\n  Segment() {}\n  Segment(point a, point\
-    \ b) : a(a), b(b) {}\n  line as_line() const { return line(a, b); }\n  explicit\
-    \ operator line() const { return as_line(); }\n  bool is_degenerate() const {\
-    \ return a == b; }\n\n  template <typename G, typename H> explicit operator Segment<G,\
-    \ H>() const {\n    return Segment<G, H>(Point<G, H>(a), Point<G, H>(b));\n  }\n\
-    \  bool contains(const point &p) const { return between(a, p, b); }\n  bool strictly_contains(const\
-    \ point &p) const {\n    return strictly_between(a, p, b);\n  }\n  bool collinear_contains(const\
+    \ T, typename Large = T> struct Halfplane {\n  typedef Point<T, Large> point;\n\
+    \  typedef Line<T, Large> line;\n  typedef Ray<T, Large> ray;\n  typedef Halfplane<T,\
+    \ Large> halfplane;\n  point a, b;\n\n  Halfplane(point a, point direction) :\
+    \ a(a), b(a + direction) {}\n\n  static halfplane from_points(point a, point b)\
+    \ { return halfplane(a, b - a); }\n  point direction() const { return b - a; }\n\
+    \  point direction_versor() const { return versor(direction()); }\n\n  line as_line()\
+    \ const { return line(a, b); }\n  explicit operator line() const { return as_line();\
+    \ }\n\n  ray as_ray() const { return ray(a, b); }\n  explicit operator ray() const\
+    \ { return as_ray(); }\n\n  template <typename G, typename H> explicit operator\
+    \ Halfplane<G, H>() const {\n    return Halfplane<G, H>(Point<G, H>(a), Point<G,\
+    \ H>(b));\n  }\n\n  bool contains(const point& p) const {\n    return ccw(a, b,\
+    \ p) <= 0;\n  }\n  bool strictly_contains(const point& p) const {\n    return\
+    \ ccw(a, b, p) < 0;\n  }\n};\n\ntemplate <typename T, typename Large = T> struct\
+    \ Segment {\n  typedef Point<T, Large> point;\n  typedef Line<T, Large> line;\n\
+    \  typedef Segment<T, Large> segment;\n  typedef Ray<T, Large> ray;\n  point a,\
+    \ b;\n\n  Segment() {}\n  Segment(point a, point b) : a(a), b(b) {}\n  line as_line()\
+    \ const { return line(a, b); }\n  explicit operator line() const { return as_line();\
+    \ }\n  bool is_degenerate() const { return a == b; }\n\n  template <typename G,\
+    \ typename H> explicit operator Segment<G, H>() const {\n    return Segment<G,\
+    \ H>(Point<G, H>(a), Point<G, H>(b));\n  }\n  bool contains(const point &p) const\
+    \ { return between(a, p, b); }\n  bool strictly_contains(const point &p) const\
+    \ {\n    return strictly_between(a, p, b);\n  }\n  bool collinear_contains(const\
     \ point &p) const {\n    return collinear_between(a, p, b);\n  }\n  bool collinear_strictly_contains(const\
     \ point &p) const {\n    return collinear_strictly_between(a, p, b);\n  }\n  friend\
     \ pair<point, bool> intersect(const segment &s, const line &l) {\n    auto p =\
@@ -307,31 +320,32 @@ data:
     \ plane\n\ntemplate <typename T, typename Large = T> struct CartesianPlane {\n\
     \  typedef plane::Point<T, Large> point;\n  typedef plane::Line<T, Large> line;\n\
     \  typedef plane::Rectangle<T, Large> rectangle;\n  typedef plane::Segment<T,\
-    \ Large> segment;\n  typedef plane::Ray<T, Large> ray;\n\n  template<typename\
-    \ Direction>\n  using angle_comparator = plane::AngleComparator<Direction, T,\
-    \ Large>;\n};\n\n} // namespace geo\n} // namespace lib\n\n\n#line 6 \"geometry/Circle2D.cpp\"\
-    \n\nnamespace lib {\nusing namespace std;\nnamespace geo {\nnamespace plane {\n\
-    template <typename T, typename Large = T> struct Barycentric {\n  typedef Point<T,\
-    \ Large> point;\n  point r1, r2, r3;\n  T a, b, c;\n\n  Barycentric(const point\
-    \ &r1, const point &r2, const point &r3, T a = 1,\n              T b = 1, T c\
-    \ = 1)\n      : r1(r1), r2(r2), r3(r3), a(a), b(b), c(c) {}\n  point as_point()\
-    \ const { return (r1 * a + r2 * b + r3 * c) / (a + b + c); }\n\n  static Barycentric\
-    \ centroid(const point &r1, const point &r2,\n                              const\
-    \ point &r3) {\n    return Barycentric(r1, r2, r3);\n  }\n  static Barycentric\
-    \ circumcenter(const point &r1, const point &r2,\n                           \
-    \       const point &r3) {\n    Large a = norm_sq(r2 - r3), b = norm_sq(r3 - r1),\
-    \ c = norm_sq(r1 - r2);\n    return Barycentric(r1, r2, r3, a * (b + c - a), b\
-    \ * (c + a - b),\n                       c * (a + b - c));\n  }\n  static Barycentric\
-    \ incenter(const point &r1, const point &r2,\n                              const\
-    \ point &r3) {\n    return Barycentric(r1, r2, r3, norm(r2 - r3), norm(r1 - r3),\
-    \ norm(r1 - r2));\n  }\n  static Barycentric orthocenter(const point &r1, const\
-    \ point &r2,\n                                 const point &r3) {\n    Large a\
-    \ = norm_sq(r2 - r3), b = norm_sq(r3 - r1), c = norm_sq(r1 - r2);\n    return\
-    \ Barycentric(r1, r2, r3, (a + b - c) * (c + a - b),\n                       (b\
-    \ + c - a) * (a + b - c), (c + a - b) * (b + c - a));\n  }\n  static Barycentric\
-    \ excenter(const point &r1, const point &r2,\n                              const\
-    \ point &r3) {\n    return Barycentric(r1, r2, r3, -norm(r2 - r3), norm(r1 - r3),\n\
-    \                       norm(r1 - r2));\n  }\n};\n\ntemplate <typename T, typename\
+    \ Large> segment;\n  typedef plane::Ray<T, Large> ray;\n  typedef plane::Halfplane<T,\
+    \ Large> halfplane;\n\n  template<typename Direction>\n  using angle_comparator\
+    \ = plane::AngleComparator<Direction, T, Large>;\n};\n\n} // namespace geo\n}\
+    \ // namespace lib\n\n\n#line 6 \"geometry/Circle2D.cpp\"\n\nnamespace lib {\n\
+    using namespace std;\nnamespace geo {\nnamespace plane {\ntemplate <typename T,\
+    \ typename Large = T> struct Barycentric {\n  typedef Point<T, Large> point;\n\
+    \  point r1, r2, r3;\n  T a, b, c;\n\n  Barycentric(const point &r1, const point\
+    \ &r2, const point &r3, T a = 1,\n              T b = 1, T c = 1)\n      : r1(r1),\
+    \ r2(r2), r3(r3), a(a), b(b), c(c) {}\n  point as_point() const { return (r1 *\
+    \ a + r2 * b + r3 * c) / (a + b + c); }\n\n  static Barycentric centroid(const\
+    \ point &r1, const point &r2,\n                              const point &r3)\
+    \ {\n    return Barycentric(r1, r2, r3);\n  }\n  static Barycentric circumcenter(const\
+    \ point &r1, const point &r2,\n                                  const point &r3)\
+    \ {\n    Large a = norm_sq(r2 - r3), b = norm_sq(r3 - r1), c = norm_sq(r1 - r2);\n\
+    \    return Barycentric(r1, r2, r3, a * (b + c - a), b * (c + a - b),\n      \
+    \                 c * (a + b - c));\n  }\n  static Barycentric incenter(const\
+    \ point &r1, const point &r2,\n                              const point &r3)\
+    \ {\n    return Barycentric(r1, r2, r3, norm(r2 - r3), norm(r1 - r3), norm(r1\
+    \ - r2));\n  }\n  static Barycentric orthocenter(const point &r1, const point\
+    \ &r2,\n                                 const point &r3) {\n    Large a = norm_sq(r2\
+    \ - r3), b = norm_sq(r3 - r1), c = norm_sq(r1 - r2);\n    return Barycentric(r1,\
+    \ r2, r3, (a + b - c) * (c + a - b),\n                       (b + c - a) * (a\
+    \ + b - c), (c + a - b) * (b + c - a));\n  }\n  static Barycentric excenter(const\
+    \ point &r1, const point &r2,\n                              const point &r3)\
+    \ {\n    return Barycentric(r1, r2, r3, -norm(r2 - r3), norm(r1 - r3),\n     \
+    \                  norm(r1 - r2));\n  }\n};\n\ntemplate <typename T, typename\
     \ Large = T> struct Circle {\n  typedef Point<T, Large> point;\n  typedef Line<T,\
     \ Large> line;\n  typedef Barycentric<Large> bary;\n  typedef Segment<T, Large>\
     \ segment;\n  point center;\n  T radius;\n\n  Circle(point center, T radius) :\
@@ -527,9 +541,9 @@ data:
   isVerificationFile: false
   path: geometry/Circle2D.cpp
   requiredBy:
-  - geometry/Polygon2D.cpp
   - geometry/Caliper.cpp
-  timestamp: '2020-10-19 01:04:40-03:00'
+  - geometry/Polygon2D.cpp
+  timestamp: '2021-11-23 18:59:56-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: geometry/Circle2D.cpp
