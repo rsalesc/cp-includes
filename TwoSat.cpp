@@ -8,6 +8,7 @@ using namespace std;
 namespace graph {
 #define POS(x) (2*(x))
 #define NEG(x) (2*(x)+1)
+#define VAR(x) ((x) < 0 ? NEG(-(x)) : POS(x))
 
 // TODO: reuse graph structure and extract tarjan
 struct TwoSat {

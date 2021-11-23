@@ -34,6 +34,11 @@ struct MintRootProvider {
     }
   }
 
+  pair<T, T> roots(int num, int den) {
+    auto p = g ^ ((long long)(T::mod - 1) / den * num);
+    return {p, p.inverse()};
+  }
+
   T operator()(int n, int k) {
     return power(g, (T::mod-1)/(n/k));
   }

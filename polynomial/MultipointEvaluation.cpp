@@ -68,6 +68,14 @@ template <typename Poly> struct MultipointEvaluation {
       down[i] = down[i*2] * up[i*2+1] + down[i*2+1] * up[i*2];
     return down[1];
   }
+
+  template <
+      typename Container,
+      typename enable_if<traits::HasInputIterator<Container>::value>::type * = nullptr>
+  Poly interp(const Container &container) {
+    interp(container.begin(), container.end());
+  }
+
 };
 } // namespace math
 } // namespace lib

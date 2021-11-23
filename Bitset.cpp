@@ -127,14 +127,14 @@ template <typename T = uint64_t> struct Bitset {
 
   Bitset<T> &operator^=(const Bitset<T> &rhs) {
     assert(n >= rhs.n);
-    for (size_t i = 0; i < bucket_cnt; i++)
+    for (size_t i = 0; i < rhs.bucket_cnt; i++)
       v[i] ^= rhs.v[i];
     return *this;
   }
 
   Bitset<T> &operator&=(const Bitset<T> &rhs) {
     assert(n >= rhs.n);
-    for (size_t i = 0; i < bucket_cnt; i++)
+    for (size_t i = 0; i < rhs.bucket_cnt; i++)
       v[i] &= rhs.v[i];
     return *this;
   }
@@ -216,6 +216,15 @@ template <typename T = uint64_t> struct Bitset {
 
   bool operator!=(const Bitset<T> &rhs) const { return !(*this == rhs); }
 
+  bool operator<(const Bitset<T>& rhs) const {
+    int b = min(bucket_cnt, rhs.bucket_cnt);
+    for(int i = 0; i < b; i++) {
+      if(v[i] != rhs.v[i])
+        return v[i] < rhs.v[i];
+    }
+    return n < rhs.n;
+  }
+
   Bitset<T> operator|(const Bitset<T> &rhs) const {
     if (rhs.n > n)
       return Bitset<T>(rhs) |= *this;
@@ -246,6 +255,16 @@ template <typename T = uint64_t> struct Bitset {
     for (int i = (int)rhs.n - 1; i >= 0; i--)
       output << rhs[i];
     return output;
+  }
+
+  static Bitset<T> from_int(T x) {
+    auto b = Bitset<T>(B);
+    b.v[0] = x;
+    return b;
+  }
+  
+  T to_int() const {
+    return v[0];
   }
 };
 

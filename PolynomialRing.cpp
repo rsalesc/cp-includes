@@ -20,7 +20,7 @@ using traits::IsInputIterator;
 using traits::HasInputIterator;
 } // namespace
 
-namespace detail{
+namespace detail {
   template<class>
   struct sfinae_true : std::true_type{};
 
@@ -83,12 +83,7 @@ struct Polynomial {
   constexpr static int Magic = 64;
   constexpr static bool NaiveMod = is_same<Divmod, NaiveDivmod>::value;
   constexpr static bool HasTransform = has_transform<Mult, Field>::value;
-  template <
-    // Used in SFINAE.
-    typename U = Field,
-    enable_if_t<has_transform<Mult, U>::value>* = nullptr>
-  using Transform_ = typename Mult::template Transform<U>;
-  using Transform = Transform_<Field>;
+  using Transform =  typename Mult::template Transform<Field>;
 
   typedef Polynomial<Field, Mult, Divmod> type;
   typedef Field field;

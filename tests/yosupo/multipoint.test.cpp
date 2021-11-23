@@ -1,8 +1,10 @@
+#define PROBLEM "https://judge.yosupo.jp/problem/multipoint_evaluation"
+
 #include <bits/stdc++.h>
 #include "ModularInteger.cpp"
 #include "NTT.cpp"
 #include "PolynomialRing.cpp"
-#include "PowerSeries.cpp"
+#include "polynomial/MultipointEvaluation.cpp"
 #define int long long
 using namespace std;
  
@@ -213,17 +215,26 @@ int32_t main(){
     // Printer pr(stdout);
     iopt;
 
-    int n;
-    cin >> n;
+    int n, m;
+    cin >> n >> m;
 
     V<mint> a(n);
     for (int i = 0; i < n; i++) {
         cin >> a[i];
     }
-    auto c = series::inverse(poly(a), n);
-    for (int i = 0; i < n; i++) {
-        cout << c[i] << " ";
+    auto pl = poly(a);
+    vector<mint> c(m);
+    for (int i = 0; i < m; i++) {
+        cin >> c[i];
     }
+
+    auto me = math::MultipointEvaluation<poly>(c);
+    auto res = me.eval(pl);
+
+    for(int i = 0; i < m; i++) {
+        cout << res[i] << " ";
+    }
+
     cout << endl;
     return 0;
 }

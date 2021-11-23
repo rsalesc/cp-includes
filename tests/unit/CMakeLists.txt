@@ -22,6 +22,8 @@ target_sources(${PROJECT_NAME} PRIVATE
     Symbolic.cpp
     Traits.cpp
     VectorN.cpp
+    PolynomialRing.cpp
+    MontgomeryInteger.cpp
     FastStd.cpp
     Lambda.cpp
 )

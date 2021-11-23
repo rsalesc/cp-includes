@@ -8,8 +8,7 @@ using namespace lib;
 
 typedef long long ll;
 
-const int MOD = (int)1e9+7;
-using Field = Mint32<MOD>;
+using Field = MintNTT;
 
 int32_t main() {
   ios::sync_with_stdio(false); cin.tie(0);

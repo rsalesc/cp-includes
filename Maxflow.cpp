@@ -20,7 +20,7 @@ template <typename T> struct Edge<T, void> {
 template <typename T, typename E = void> struct Maxflow {
   typedef Maxflow<T, E> type;
   typedef Edge<T, E> flow_edge_type;
-  typedef lib::graph::Graph<void, flow_edge_type> graph;
+  typedef lib::graph::DirectedGraph<void, flow_edge_type> graph;
   using edge_type = typename graph::edge_type;
 
   graph g;

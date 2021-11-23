@@ -1,0 +1,4 @@
+exclude: [
+  "build", "scripts", "tests/benchmark", "tests/judge", "tests/unit", "tests/stress",
+  "tests/catch.hpp", "tests/jngen.h", ".vscode"
+]

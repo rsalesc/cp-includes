@@ -7,11 +7,14 @@
 namespace lib {
 using namespace std;
 namespace graph {
-template <typename V = void, typename E = void> struct Graph {
-  typedef Graph<V, E> self_type;
+template <typename V = void, typename E = void, bool Directed = false>
+struct GraphImpl {
+  typedef GraphImpl<V, E> self_type;
   typedef vector<vector<int>> adj_list;
   typedef Edge<E> edge_type;
   typedef VertexWrapper<V> vertex_type;
+
+  const static bool directed = Directed;
 
   vector<edge_type> edges;
   adj_list adj;
@@ -107,24 +110,26 @@ template <typename V = void, typename E = void> struct Graph {
       return (*edges_)[(*adj_)[i]];
     }
 
+    inline int index(int i) const { return (*adj_)[i]; }
     inline int size() const { return adj_->size(); }
   };
 
-  Graph() {}
+  GraphImpl() {}
 
   template <typename S = V,
             typename enable_if<is_void<S>::value>::type * = nullptr>
-  Graph(size_t n) : adj(n) {}
+  GraphImpl(size_t n) : adj(n) {}
 
   template <typename S = V,
             typename enable_if<!is_void<S>::value>::type * = nullptr>
-  Graph(size_t n) : adj(n), vertices(n) {}
+  GraphImpl(size_t n) : adj(n), vertices(n) {}
 
   inline iterable n_edges(int i) { return iterable(&adj[i], &edges); }
   inline const iterable n_edges(int i) const {
     return iterable(const_cast<vector<int> *>(&adj[i]),
                     const_cast<vector<edge_type> *>(&edges));
   }
+  inline int degree(int i) { return adj[i].size(); }
 
   inline int size() const { return adj.size(); }
   inline int edge_size() const { return edges.size(); }
@@ -160,31 +165,52 @@ template <typename V = void, typename E = void> struct Graph {
 
   template <typename S = E,
             typename enable_if<is_void<S>::value>::type * = nullptr>
-  inline void add_edge(int u, int v) {
+  inline void add_edge_(int u, int v) {
     adj[u].push_back(edges.size());
     edges.push_back({u, v});
   }
 
   template <typename S = E,
             typename enable_if<!is_void<S>::value>::type * = nullptr>
-  inline S &add_edge(int u, int v) {
+  inline S &add_edge_(int u, int v) {
     adj[u].push_back(edges.size());
     edges.push_back({u, v});
     return edges.back().data;
   }
 
   void add_2edge(int u, int v) {
-    add_edge(u, v);
-    add_edge(v, u);
+    add_edge_(u, v);
+    add_edge_(v, u);
   }
 
   template <typename S = E,
             typename enable_if<!is_void<S>::value>::type * = nullptr>
   inline void add_2edge(int u, int v, const S &data) {
-    add_edge(u, v) = data;
-    add_edge(v, u) = data;
+    add_edge_(u, v) = data;
+    add_edge_(v, u) = data;
+  }
+
+  template <typename S = E,
+            typename enable_if<is_void<S>::value && Directed>::type * = nullptr>
+  inline void add_edge(int u, int v) {
+    adj[u].push_back(edges.size());
+    edges.push_back({u, v});
+  }
+
+  template <typename S = E,
+            typename enable_if<!is_void<S>::value && Directed>::type * = nullptr>
+  inline S &add_edge(int u, int v) {
+    adj[u].push_back(edges.size());
+    edges.push_back({u, v});
+    return edges.back().data;
   }
 };
+
+template<typename V = void, typename E = void>
+using Graph = GraphImpl<V, E, false>;
+
+template<typename V = void, typename E = void>
+using DirectedGraph = GraphImpl<V, E, true>;
 
 template <typename V = void, typename E = void>
 struct RootedForest : public Graph<V, E> {

@@ -31,6 +31,8 @@ template <typename T, T Mod> struct ModularIntegerBase<T, Mod> {
 
   T x[1];
 
+  T& data() { return this->x[0]; }
+  T data() const { return this->x[0]; }
   explicit operator int() const { return this->x[0]; }
   explicit operator int64_t() const { return this->x[0]; }
   explicit operator long long() const { return this->x[0]; }
@@ -41,12 +43,39 @@ template <typename T, T Mod> struct ModularIntegerBase<T, Mod> {
   }
 };
 
+template<typename T, typename U, T... Mods>
+struct InversesTable {
+  constexpr static size_t n_mods = sizeof...(Mods);
+  constexpr static T mods[sizeof...(Mods)] = {Mods...};
+  constexpr static int n_inverses = 1e6 + 10;
+
+  T v[n_inverses][n_mods];
+  T max_x;
+
+  InversesTable() : v(), max_x(n_inverses) {
+    for(int j = 0; j < sizeof...(Mods); j++)
+      v[1][j] = 1, max_x = min(max_x, mods[j]);
+    for(int i = 2; i < max_x; i++) {
+      for(int j = 0; j < sizeof...(Mods); j++) {
+        v[i][j] = mods[j] - (T)((U)(mods[j] / i) * v[mods[j] % i][j] % mods[j]);
+      }
+    }
+  }
+};
+
+// Make available for linkage.
+template <typename T, class U, T... Mods>
+constexpr T InversesTable<T, U, Mods...>::mods[];
+
 template <typename T, class Enable, T... Mods>
 struct ModularIntegerImpl : ModularIntegerBase<T, Mods...> {
   typedef ModularIntegerImpl<T, Enable, Mods...> type;
   typedef T type_int;
-  typedef int64_t large_int;
-  const static size_t n_mods = sizeof...(Mods);
+  typedef uint64_t large_int;
+  constexpr static size_t n_mods = sizeof...(Mods);
+  constexpr static T mods[sizeof...(Mods)] = {Mods...};
+  using ModularIntegerBase<T, Mods...>::x;
+  using Inverses = InversesTable<T, large_int, Mods...>;
 
   struct Less {
     bool operator()(const type &lhs, const type &rhs) const {
@@ -58,8 +87,6 @@ struct ModularIntegerImpl : ModularIntegerBase<T, Mods...> {
   };
   typedef Less less;
 
-  constexpr static T mods[sizeof...(Mods)] = {Mods...};
-  using ModularIntegerBase<T, Mods...>::x;
 
   ModularIntegerImpl() {
     for (size_t i = 0; i < sizeof...(Mods); i++)
@@ -92,10 +119,17 @@ struct ModularIntegerImpl : ModularIntegerBase<T, Mods...> {
 
   inline T inv(T a, T mod) const { return static_cast<T>(nt::inverse(a, mod)); }
 
+  inline T invi(T a, int i) const {
+    const static Inverses inverses = Inverses();
+    if(a < inverses.max_x)
+      return inverses.v[a][i];
+    return inv(a, mods[i]);
+  }
+
   type inverse() const {
     T res[sizeof...(Mods)];
     for (size_t i = 0; i < sizeof...(Mods); i++)
-      res[i] = inv(x[i], mods[i]);
+      res[i] = invi(x[i], i);
     return type::with_remainders(res);
   }
 
@@ -141,7 +175,7 @@ struct ModularIntegerImpl : ModularIntegerBase<T, Mods...> {
   }
   inline type &operator/=(const type &rhs) {
     for (size_t i = 0; i < sizeof...(Mods); i++)
-      x[i] = multiply(x[i], inv(rhs.x[i], mods[i]), mods[i]);
+      x[i] = multiply(x[i], invi(rhs.x[i], i), mods[i]);
     return *this;
   }
 
@@ -167,7 +201,7 @@ struct ModularIntegerImpl : ModularIntegerBase<T, Mods...> {
 
   type &operator/=(T rhs) {
     for (size_t i = 0; i < sizeof...(Mods); i++)
-      x[i] = multiply(inv(rhs, mods[i]), x[i], mods[i]);
+      x[i] = multiply(invi(rhs, i), x[i], mods[i]);
     return *this;
   }
 

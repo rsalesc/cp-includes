@@ -4,6 +4,7 @@
 #include "../../NTT.cpp"
 #include "../../LongMultiplication.cpp"
 #include "../../polynomial/MultipointEvaluation.cpp"
+#include "../../Lagrange.cpp"
 
 #include "stress.cpp"
 
@@ -113,5 +114,30 @@ TEST_CASE_METHOD(StressTestFixture, "interpolation with mod 1e9+7", "[polynomial
         auto ans = me.interp(ans_mid.begin(), ans_mid.end());
 
         REQUIRE_THAT(ans.p, Catch::Equals(a));
+    }
+}
+
+TEST_CASE_METHOD(StressTestFixture, "lagrange iota with mod 1e9+7", "[polynomial]") {
+    const static int n = 500;
+    const static int MOD = (int)1e9+7;
+    using Field = Mint32<MOD>;
+    using Poly = Polynomial<Field, NaiveMultiplication>;
+
+    STRESS(5) {
+        auto v = Array::random(n, MOD);
+        vector<Field> a(v.begin(), v.end());
+        Poly p = a;
+
+        vector<Field> z(n);
+        iota(z.begin(), z.end(), 0);
+
+        vector<Field> ans_mid(n);
+        for(int i = 0; i < n; i++) ans_mid[i] = p.eval(i);
+
+        auto N = rnd.next((long long)1e18);
+        auto ans = linalg::lagrange_iota(ans_mid, N);
+        auto expected = p.eval(N);
+
+        REQUIRE(expected == ans);
     }
 }

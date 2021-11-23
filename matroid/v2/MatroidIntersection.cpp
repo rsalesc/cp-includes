@@ -12,6 +12,8 @@ struct MatroidIntersection {
   M1 m1;
   M2 m2;
 
+  bool rank1 = false, rank2 = false;
+
   // aux vectors
   vector<int> vI;
   vector<int> I;
@@ -22,15 +24,19 @@ struct MatroidIntersection {
   lambda::SubsetFilter I_;
 
   MatroidIntersection() : q(1) { init (); }
-  MatroidIntersection(int n, const M1& m1, const M2& m2) : m1(m1), m2(m2), n(n), q(n) {
+  MatroidIntersection(const M1& m1, const M2& m2) : m1(m1), m2(m2), n(m1.size()), q(m1.size()) {
+    assert(m1.size() == m2.size());
+    n = m1.size();
     init();
+  }
+  void use_rank(bool i1, bool i2) {
+    rank1 = i1, rank2 = i2;
   }
   int size() const { return n; }
   void init() {
     vI.clear();
     vI.reserve(n);
     I.assign(n, false);
-    m1.build(n), m2.build(n);
   }
   void clear() { init(); }
   void setup_set() {
@@ -42,13 +48,15 @@ struct MatroidIntersection {
     sI_ = I_.subset(n);
   }
   template<typename M>
-  auto edge_finder(M& mat, int u, int d) {
-    return matroid::edge_finder(mat, sI_, I_, u, [this, d](int i) { return dist[i] == d; });
+  std::function<int()> edge_finder(M& mat, int u, int d, bool rank) {
+    if(rank)
+      return matroid::rank_edge_finder(mat, sI_, I_, u, [this, d](int i) { return dist[i] == d; });
+    return matroid::incremental_edge_finder(mat, sI_, I_, u, [this, d](int i) { return dist[i] == d; });
   }
   bool dfs(int u, int du) {
     int v;
-    auto forward_edge = edge_finder(m2, u, du - 1);
-    auto backward_edge = edge_finder(m1, u, du - 1);
+    auto forward_edge = edge_finder(m2, u, du - 1, rank2);
+    auto backward_edge = edge_finder(m1, u, du - 1, rank1);
     while((v = (du&1) ? backward_edge() : forward_edge()) >= 0) {
       if(v == n) return true;
       dist[v] = -1;
@@ -65,8 +73,8 @@ struct MatroidIntersection {
     q.push(n+1);
     while(dist[n] == -1 && !q.empty()) {
       int u = q.pop();
-      auto forward_edge = edge_finder(m1, u, -1);
-      auto backward_edge = edge_finder(m2, u, -1);
+      auto forward_edge = edge_finder(m1, u, -1, rank1);
+      auto backward_edge = edge_finder(m2, u, -1, rank2);
       int v;
       while(dist[n] == -1 && (v = (dist[u]&1) ? backward_edge() : forward_edge()) >= 0) {
         q.push(v), dist[v] = dist[u]+1;
@@ -104,8 +112,8 @@ struct MatroidIntersection {
 };
 
 template<typename M1, typename M2>
-shared_ptr<MatroidIntersection<M1, M2>> make_matroid_intersection(int n, const M1& m1, const M2& m2) {
-  return make_shared<MatroidIntersection<M1, M2>>(n, m1, m2);
+shared_ptr<MatroidIntersection<M1, M2>> make_matroid_intersection(const M1& m1, const M2& m2) {
+  return make_shared<MatroidIntersection<M1, M2>>(m1, m2);
 }
 } // namespace lib
 

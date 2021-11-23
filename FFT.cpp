@@ -147,6 +147,8 @@ struct FFT : public DFT<Complex<T>, ComplexRootProvider<T>> {
 
 namespace math {
 struct FastMultiplication {
+  template<typename T>
+  using Transform = linalg::FFT<T>;
   template <typename Field, typename U = double>
   vector<Field> operator()(const vector<Field> &a,
                            const vector<Field> &b) const {
@@ -155,6 +157,8 @@ struct FastMultiplication {
 };
 
 struct FFTMultiplication {
+  template<typename T>
+  using Transform = linalg::FFT<T>;
   template <typename Field, typename U = double>
   vector<Field> operator()(const vector<Field> &a,
                            const vector<Field> &b) const {
@@ -163,6 +167,8 @@ struct FFTMultiplication {
 };
 
 struct SafeMultiplication {
+  template<typename T>
+  using Transform = linalg::FFT<T>;
   template <typename Field, typename U = double>
   vector<Field> operator()(const vector<Field> &a,
                            const vector<Field> &b) const {

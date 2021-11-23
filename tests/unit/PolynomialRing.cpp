@@ -2,6 +2,7 @@
 #include "../../FFT.cpp"
 #include "../../ModularInteger.cpp"
 #include "../../NTT.cpp"
+#include "../../FHT.cpp"
 #include "../../LongMultiplication.cpp"
 #include "../../ModularInteger.cpp"
 #include "../../polynomial/MultipointEvaluation.cpp"
@@ -90,4 +91,20 @@ TEST_CASE("chirp-z transform", "[polynomial]") {
     r2[i] = p(power(Field(z), i));
   }
   REQUIRE_THAT(r1, Catch::Equals(r2));
+}
+
+TEST_CASE("Polynomial<MintNTT> FHT multiplication", "[polynomial]") {
+  using Poly = Polynomial<MintNTT, FHTMultiplication>;
+  Poly p = {0, 1, 3, 5, 7, 9, 11};
+  Poly q = {1, 3, 5, 11, 13};
+
+  auto r1 = p * q;
+
+  using Poly2 = Polynomial<MintNTT, NaiveMultiplication>;
+  Poly2 a = {0, 1, 3, 5, 7, 9, 11};
+  Poly2 b = {1, 3, 5, 11, 13};
+
+  auto r2 = a * b;
+
+  REQUIRE_THAT(r1.p, Catch::Equals(r2.p));
 }

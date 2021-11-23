@@ -5,21 +5,44 @@
 
 namespace lib {
   using namespace std;
-template<int N>
+namespace {
+template<typename T>
+struct BinaryMatroidFn {
+  T operator()(const T& a, const T& b) const {
+    return min(a, a^b);
+  }
+};
+}
+
+template<typename T = uint64_t>
 struct BinaryMatroid : IncrementalMatroid {
-  
-  BinaryMatroid(int n, const lambda::Map<bitset<N>>& fn) 
-    : BinaryMatroid() {}
+  lambda::Map<T> bit_fn;
+  vector<T> basis_;
+  BinaryMatroid() {}
+  BinaryMatroid(const lambda::SubsetMap<T>& fn) 
+    : IncrementalMatroid(), bit_fn(fn) {
+      set_ground(fn.size());
+    }
   void clear() override {
-    dsu = FastDSU(g_sz);
+    basis_.clear();
   }
   void add(int i) override {
-    auto p = edge_fn(F(i));
-    dsu.merge(p.first, p.second);
+    auto x = bit_fn(i);
+    if((x = accumulate(basis_.begin(), basis_.end(), x, BinaryMatroidFn<T>())) > 0) {
+      for(int i = 0; i < basis_.size(); i++) {
+        if(basis_[i] < x) {
+          basis_.insert(basis_.begin() + i, x);
+          return;
+        }
+      }
+      basis_.push_back(x);
+    }
   }
   bool check(int i) override {
-    auto p = edge_fn(F(i));
-    return dsu.get(p.first) != dsu.get(p.second);
+    auto x = bit_fn(i);
+    bool res = 
+      accumulate(basis_.begin(), basis_.end(), x, BinaryMatroidFn<T>()) > 0;
+    return res;
   }
 };
 } // namespace lib
