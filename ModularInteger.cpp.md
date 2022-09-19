@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: NumberTheory.cpp
     title: NumberTheory.cpp
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: LinearRecurrence.cpp
     title: LinearRecurrence.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: PolynomialRing.cpp
     title: PolynomialRing.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: PowerSeries.cpp
     title: PowerSeries.cpp
   - icon: ':warning:'
@@ -45,10 +45,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/fps-inv.test.cpp
     title: tests/yosupo/fps-inv.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/yosupo/fps-power.test.cpp
     title: tests/yosupo/fps-power.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/yosupo/fps-power.test.cpp
     title: tests/yosupo/fps-power.test.cpp
   - icon: ':heavy_check_mark:'
@@ -72,9 +72,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/subset-sum.test.cpp
     title: tests/yosupo/subset-sum.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"ModularInteger.cpp\"\n\n\n#line 1 \"NumberTheory.cpp\"\n\
@@ -121,9 +121,9 @@ data:
     \ InversesTable<T, large_int, Mods...>;\n\n  struct Less {\n    bool operator()(const\
     \ type &lhs, const type &rhs) const {\n      for (size_t i = 0; i < sizeof...(Mods);\
     \ i++)\n        if (lhs.x[i] != rhs.x[i])\n          return lhs.x[i] < rhs.x[i];\n\
-    \      return false;\n    };\n  };\n  typedef Less less;\n\n\n  ModularIntegerImpl()\
+    \      return false;\n    };\n  };\n  typedef Less less;\n\n\n  constexpr ModularIntegerImpl()\
     \ {\n    for (size_t i = 0; i < sizeof...(Mods); i++)\n      x[i] = T();\n  }\n\
-    \  ModularIntegerImpl(large_int y) {\n    for (size_t i = 0; i < sizeof...(Mods);\
+    \  constexpr ModularIntegerImpl(large_int y) {\n    for (size_t i = 0; i < sizeof...(Mods);\
     \ i++) {\n      x[i] = y % mods[i];\n      if (x[i] < 0)\n        x[i] += mods[i];\n\
     \    }\n  }\n  static type with_remainders(T y[sizeof...(Mods)]) {\n    type res;\n\
     \    for (size_t i = 0; i < sizeof...(Mods); i++)\n      res.x[i] = y[i];\n  \
@@ -229,9 +229,9 @@ data:
     \ InversesTable<T, large_int, Mods...>;\n\n  struct Less {\n    bool operator()(const\
     \ type &lhs, const type &rhs) const {\n      for (size_t i = 0; i < sizeof...(Mods);\
     \ i++)\n        if (lhs.x[i] != rhs.x[i])\n          return lhs.x[i] < rhs.x[i];\n\
-    \      return false;\n    };\n  };\n  typedef Less less;\n\n\n  ModularIntegerImpl()\
+    \      return false;\n    };\n  };\n  typedef Less less;\n\n\n  constexpr ModularIntegerImpl()\
     \ {\n    for (size_t i = 0; i < sizeof...(Mods); i++)\n      x[i] = T();\n  }\n\
-    \  ModularIntegerImpl(large_int y) {\n    for (size_t i = 0; i < sizeof...(Mods);\
+    \  constexpr ModularIntegerImpl(large_int y) {\n    for (size_t i = 0; i < sizeof...(Mods);\
     \ i++) {\n      x[i] = y % mods[i];\n      if (x[i] < 0)\n        x[i] += mods[i];\n\
     \    }\n  }\n  static type with_remainders(T y[sizeof...(Mods)]) {\n    type res;\n\
     \    for (size_t i = 0; i < sizeof...(Mods); i++)\n      res.x[i] = y[i];\n  \
@@ -309,31 +309,31 @@ data:
   isVerificationFile: false
   path: ModularInteger.cpp
   requiredBy:
-  - LinearRecurrence.cpp
   - polynomial/MultipointEvaluation.cpp
-  - RollingHash.cpp
   - PolynomialRing.cpp
   - PowerSeries.cpp
-  timestamp: '2021-01-31 01:48:38-03:00'
-  verificationStatus: LIBRARY_ALL_AC
+  - RollingHash.cpp
+  - LinearRecurrence.cpp
+  timestamp: '2022-09-18 23:37:16-03:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/yosupo/fht-convolution.test.cpp
+  - tests/yosupo/exp-sum.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
+  - tests/yosupo/fps-inv.test.cpp
+  - tests/yosupo/fps-inv.test.cpp
   - tests/yosupo/find-lr.test.cpp
   - tests/yosupo/find-lr.test.cpp
   - tests/yosupo/and-convolution.test.cpp
-  - tests/yosupo/exp-sum.test.cpp
-  - tests/yosupo/multipoint.test.cpp
-  - tests/yosupo/multipoint.test.cpp
-  - tests/yosupo/subset-sum.test.cpp
-  - tests/yosupo/subset-sum.test.cpp
   - tests/yosupo/exp-sum-limit.test.cpp
-  - tests/yosupo/fps-inv.test.cpp
-  - tests/yosupo/fps-inv.test.cpp
-  - tests/yosupo/fps-power.test.cpp
-  - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/kth-term-lr.test.cpp
+  - tests/yosupo/kth-term-lr.test.cpp
+  - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/multipoint.test.cpp
   - tests/yosupo/subset-convolution.test.cpp
-  - tests/yosupo/kth-term-lr.test.cpp
-  - tests/yosupo/kth-term-lr.test.cpp
+  - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/fht-convolution.test.cpp
 documentation_of: ModularInteger.cpp
 layout: document
 redirect_from:

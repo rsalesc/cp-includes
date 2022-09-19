@@ -1,52 +1,52 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: BitTricks.cpp
     title: BitTricks.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: DFT.cpp
     title: DFT.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: Epsilon.cpp
     title: Epsilon.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: FHT.cpp
     title: FHT.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: LongMultiplication.cpp
     title: LongMultiplication.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: Math.cpp
     title: Math.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: ModularInteger.cpp
     title: ModularInteger.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: ModularInteger.cpp
     title: ModularInteger.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: NTT.cpp
     title: NTT.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: NumberTheory.cpp
     title: NumberTheory.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: PolynomialRing.cpp
     title: PolynomialRing.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: PolynomialRing.cpp
     title: PolynomialRing.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: PowerSeries.cpp
     title: PowerSeries.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: Traits.cpp
     title: Traits.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: VectorN.cpp
     title: VectorN.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: polynomial/Transform.cpp
     title: polynomial/Transform.cpp
   _extendedRequiredBy: []
@@ -131,9 +131,9 @@ data:
     \ large_int, Mods...>;\n\n  struct Less {\n    bool operator()(const type &lhs,\
     \ const type &rhs) const {\n      for (size_t i = 0; i < sizeof...(Mods); i++)\n\
     \        if (lhs.x[i] != rhs.x[i])\n          return lhs.x[i] < rhs.x[i];\n  \
-    \    return false;\n    };\n  };\n  typedef Less less;\n\n\n  ModularIntegerImpl()\
+    \    return false;\n    };\n  };\n  typedef Less less;\n\n\n  constexpr ModularIntegerImpl()\
     \ {\n    for (size_t i = 0; i < sizeof...(Mods); i++)\n      x[i] = T();\n  }\n\
-    \  ModularIntegerImpl(large_int y) {\n    for (size_t i = 0; i < sizeof...(Mods);\
+    \  constexpr ModularIntegerImpl(large_int y) {\n    for (size_t i = 0; i < sizeof...(Mods);\
     \ i++) {\n      x[i] = y % mods[i];\n      if (x[i] < 0)\n        x[i] += mods[i];\n\
     \    }\n  }\n  static type with_remainders(T y[sizeof...(Mods)]) {\n    type res;\n\
     \    for (size_t i = 0; i < sizeof...(Mods); i++)\n      res.x[i] = y[i];\n  \
@@ -666,7 +666,7 @@ data:
   isVerificationFile: true
   path: tests/yosupo/subset-sum.test.cpp
   requiredBy: []
-  timestamp: '2021-02-07 18:44:07-03:00'
+  timestamp: '2022-09-18 23:37:16-03:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/yosupo/subset-sum.test.cpp

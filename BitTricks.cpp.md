@@ -5,22 +5,22 @@ data:
   - icon: ':heavy_check_mark:'
     path: Combinatorics.cpp
     title: Combinatorics.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: DFT.cpp
     title: DFT.cpp
   - icon: ':warning:'
     path: FFT.cpp
     title: FFT.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: FHT.cpp
     title: FHT.cpp
   - icon: ':heavy_check_mark:'
     path: Lagrange.cpp
     title: Lagrange.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: NTT.cpp
     title: NTT.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: PowerSeries.cpp
     title: PowerSeries.cpp
   - icon: ':heavy_check_mark:'
@@ -42,7 +42,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/fps-inv.test.cpp
     title: tests/yosupo/fps-inv.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/yosupo/fps-power.test.cpp
     title: tests/yosupo/fps-power.test.cpp
   - icon: ':heavy_check_mark:'
@@ -54,9 +54,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/subset-sum.test.cpp
     title: tests/yosupo/subset-sum.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"BitTricks.cpp\"\n\n\n#include <bits/stdc++.h>\n\nnamespace\
@@ -71,26 +71,26 @@ data:
   isVerificationFile: false
   path: BitTricks.cpp
   requiredBy:
-  - NTT.cpp
-  - polynomial/ExponentialSum.cpp
-  - Combinatorics.cpp
-  - DFT.cpp
-  - PowerSeries.cpp
-  - FHT.cpp
-  - FFT.cpp
   - Lagrange.cpp
+  - DFT.cpp
+  - polynomial/ExponentialSum.cpp
+  - PowerSeries.cpp
+  - Combinatorics.cpp
+  - NTT.cpp
+  - FFT.cpp
+  - FHT.cpp
   timestamp: '2020-10-15 12:03:07-03:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/yosupo/fht-convolution.test.cpp
-  - tests/yosupo/find-lr.test.cpp
   - tests/yosupo/exp-sum.test.cpp
-  - tests/yosupo/multipoint.test.cpp
   - tests/yosupo/subset-sum.test.cpp
-  - tests/yosupo/exp-sum-limit.test.cpp
   - tests/yosupo/fps-inv.test.cpp
-  - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/find-lr.test.cpp
+  - tests/yosupo/exp-sum-limit.test.cpp
   - tests/yosupo/kth-term-lr.test.cpp
+  - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/fht-convolution.test.cpp
 documentation_of: BitTricks.cpp
 layout: document
 redirect_from:

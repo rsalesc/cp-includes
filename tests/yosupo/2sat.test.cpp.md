@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: Graph.cpp
     title: Graph.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: Traits.cpp
     title: Traits.cpp
   - icon: ':heavy_check_mark:'

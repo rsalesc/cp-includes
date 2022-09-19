@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: Traits.cpp
     title: Traits.cpp
   _extendedRequiredBy:
@@ -231,18 +231,18 @@ data:
   isVerificationFile: false
   path: Lambda.cpp
   requiredBy:
-  - matroid/v2/BinaryMatroid.cpp
+  - matroid/CographicMatroid.cpp
+  - matroid/GraphicMatroid.cpp
   - matroid/v2/GraphicMatroid.cpp
-  - matroid/v2/MatroidIntersection.cpp
+  - matroid/v2/BinaryMatroid.cpp
   - matroid/v2/ColorMatroid.cpp
-  - matroid/v2/EdgeFinder.cpp
+  - matroid/v2/MatroidIntersection.cpp
   - matroid/v2/ContractionMatroid.cpp
   - matroid/v2/Matroid.cpp
-  - matroid/GraphicMatroid.cpp
-  - matroid/MatroidIntersection.cpp
-  - matroid/CographicMatroid.cpp
+  - matroid/v2/EdgeFinder.cpp
   - matroid/ColorMatroid.cpp
   - matroid/Compose.cpp
+  - matroid/MatroidIntersection.cpp
   - matroid/Matroid.cpp
   timestamp: '2021-02-03 01:52:23-03:00'
   verificationStatus: LIBRARY_NO_TESTS

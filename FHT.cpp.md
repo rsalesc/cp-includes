@@ -1,25 +1,25 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: BitTricks.cpp
     title: BitTricks.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: DFT.cpp
     title: DFT.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: NTT.cpp
     title: NTT.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: NumberTheory.cpp
     title: NumberTheory.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: Traits.cpp
     title: Traits.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: VectorN.cpp
     title: VectorN.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: polynomial/Transform.cpp
     title: polynomial/Transform.cpp
   _extendedRequiredBy: []
@@ -33,7 +33,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/fps-inv.test.cpp
     title: tests/yosupo/fps-inv.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/yosupo/fps-power.test.cpp
     title: tests/yosupo/fps-power.test.cpp
   - icon: ':heavy_check_mark:'
@@ -42,9 +42,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/subset-sum.test.cpp
     title: tests/yosupo/subset-sum.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"FHT.cpp\"\n\n\n#include <bits/stdc++.h>\n#line 1 \"BitTricks.cpp\"\
@@ -325,14 +325,14 @@ data:
   path: FHT.cpp
   requiredBy: []
   timestamp: '2021-01-30 22:33:20-03:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/yosupo/fht-convolution.test.cpp
-  - tests/yosupo/find-lr.test.cpp
   - tests/yosupo/subset-sum.test.cpp
   - tests/yosupo/fps-inv.test.cpp
-  - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/find-lr.test.cpp
   - tests/yosupo/kth-term-lr.test.cpp
+  - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/fht-convolution.test.cpp
 documentation_of: FHT.cpp
 layout: document
 redirect_from:

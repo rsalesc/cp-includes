@@ -4,7 +4,7 @@ data:
   - icon: ':warning:'
     path: Lambda.cpp
     title: Lambda.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: Traits.cpp
     title: Traits.cpp
   _extendedRequiredBy:
@@ -151,8 +151,8 @@ data:
   isVerificationFile: false
   path: matroid/Matroid.cpp
   requiredBy:
-  - matroid/GraphicMatroid.cpp
   - matroid/CographicMatroid.cpp
+  - matroid/GraphicMatroid.cpp
   - matroid/ColorMatroid.cpp
   - matroid/Compose.cpp
   timestamp: '2021-02-03 01:52:23-03:00'

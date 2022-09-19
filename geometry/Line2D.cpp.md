@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: Epsilon.cpp
     title: Epsilon.cpp
   - icon: ':warning:'
@@ -567,9 +567,9 @@ data:
   isVerificationFile: false
   path: geometry/Line2D.cpp
   requiredBy:
+  - geometry/Polygon2D.cpp
   - geometry/Circle2D.cpp
   - geometry/Caliper.cpp
-  - geometry/Polygon2D.cpp
   timestamp: '2021-11-23 18:59:56-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

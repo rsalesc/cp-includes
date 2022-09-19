@@ -7,7 +7,7 @@ data:
   - icon: ':warning:'
     path: Segtree.cpp
     title: Segtree.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: Traits.cpp
     title: Traits.cpp
   - icon: ':heavy_check_mark:'

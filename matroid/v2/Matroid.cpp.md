@@ -4,7 +4,7 @@ data:
   - icon: ':warning:'
     path: Lambda.cpp
     title: Lambda.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: Traits.cpp
     title: Traits.cpp
   _extendedRequiredBy:
@@ -181,12 +181,12 @@ data:
   isVerificationFile: false
   path: matroid/v2/Matroid.cpp
   requiredBy:
-  - matroid/v2/BinaryMatroid.cpp
   - matroid/v2/GraphicMatroid.cpp
-  - matroid/v2/MatroidIntersection.cpp
+  - matroid/v2/BinaryMatroid.cpp
   - matroid/v2/ColorMatroid.cpp
-  - matroid/v2/EdgeFinder.cpp
+  - matroid/v2/MatroidIntersection.cpp
   - matroid/v2/ContractionMatroid.cpp
+  - matroid/v2/EdgeFinder.cpp
   timestamp: '2021-02-03 01:52:23-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

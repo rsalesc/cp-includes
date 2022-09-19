@@ -5,10 +5,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: LinearRecurrence.cpp
     title: LinearRecurrence.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: PolynomialRing.cpp
     title: PolynomialRing.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: PowerSeries.cpp
     title: PowerSeries.cpp
   - icon: ':heavy_check_mark:'
@@ -21,7 +21,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/fps-inv.test.cpp
     title: tests/yosupo/fps-inv.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/yosupo/fps-power.test.cpp
     title: tests/yosupo/fps-power.test.cpp
   - icon: ':heavy_check_mark:'
@@ -33,9 +33,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/subset-sum.test.cpp
     title: tests/yosupo/subset-sum.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"Math.cpp\"\n\n\n#include <bits/stdc++.h>\n\nnamespace lib\
@@ -65,19 +65,19 @@ data:
   isVerificationFile: false
   path: Math.cpp
   requiredBy:
-  - LinearRecurrence.cpp
   - polynomial/MultipointEvaluation.cpp
   - PolynomialRing.cpp
   - PowerSeries.cpp
+  - LinearRecurrence.cpp
   timestamp: '2020-10-15 12:03:07-03:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/yosupo/find-lr.test.cpp
-  - tests/yosupo/multipoint.test.cpp
   - tests/yosupo/subset-sum.test.cpp
   - tests/yosupo/fps-inv.test.cpp
-  - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/find-lr.test.cpp
   - tests/yosupo/kth-term-lr.test.cpp
+  - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/fps-power.test.cpp
 documentation_of: Math.cpp
 layout: document
 redirect_from:

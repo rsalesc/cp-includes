@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: FHT.cpp
     title: FHT.cpp
   - icon: ':heavy_check_mark:'
@@ -20,13 +20,13 @@ data:
   - icon: ':warning:'
     path: Maxflow.cpp
     title: Maxflow.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: NTT.cpp
     title: NTT.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: PolynomialRing.cpp
     title: PolynomialRing.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: PowerSeries.cpp
     title: PowerSeries.cpp
   - icon: ':warning:'
@@ -38,7 +38,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: TwoSat.cpp
     title: TwoSat.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: VectorN.cpp
     title: VectorN.cpp
   - icon: ':warning:'
@@ -108,7 +108,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/fps-inv.test.cpp
     title: tests/yosupo/fps-inv.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/yosupo/fps-power.test.cpp
     title: tests/yosupo/fps-power.test.cpp
   - icon: ':heavy_check_mark:'
@@ -123,9 +123,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/subset-sum.test.cpp
     title: tests/yosupo/subset-sum.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"Traits.cpp\"\n\n\n#include <bits/stdc++.h>\n\nnamespace\
@@ -172,49 +172,49 @@ data:
   isVerificationFile: false
   path: Traits.cpp
   requiredBy:
-  - HLD.cpp
-  - NTT.cpp
-  - LinearRecurrence.cpp
-  - Maxflow.cpp
+  - VectorN.cpp
   - polynomial/MultipointEvaluation.cpp
   - polynomial/MultipointEvaluation.cpp
-  - SegtreeHLD.cpp
-  - graphs/BlockCut.cpp
-  - RollingHash.cpp
   - PolynomialRing.cpp
-  - TwoSat.cpp
   - PowerSeries.cpp
-  - FHT.cpp
-  - matroid/v2/BinaryMatroid.cpp
+  - Graph.cpp
+  - NTT.cpp
+  - HLD.cpp
+  - matroid/CographicMatroid.cpp
+  - matroid/GraphicMatroid.cpp
   - matroid/v2/GraphicMatroid.cpp
-  - matroid/v2/MatroidIntersection.cpp
+  - matroid/v2/BinaryMatroid.cpp
   - matroid/v2/ColorMatroid.cpp
-  - matroid/v2/EdgeFinder.cpp
+  - matroid/v2/MatroidIntersection.cpp
   - matroid/v2/ContractionMatroid.cpp
   - matroid/v2/Matroid.cpp
-  - matroid/GraphicMatroid.cpp
-  - matroid/MatroidIntersection.cpp
-  - matroid/CographicMatroid.cpp
+  - matroid/v2/EdgeFinder.cpp
   - matroid/ColorMatroid.cpp
   - matroid/Compose.cpp
+  - matroid/MatroidIntersection.cpp
   - matroid/Matroid.cpp
-  - Graph.cpp
-  - VectorN.cpp
+  - graphs/BlockCut.cpp
+  - TwoSat.cpp
+  - Maxflow.cpp
   - Lambda.cpp
+  - SegtreeHLD.cpp
   - pbds/TreeUpdater.cpp
+  - FHT.cpp
+  - RollingHash.cpp
+  - LinearRecurrence.cpp
   timestamp: '2021-01-26 16:28:00-03:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/yosupo/fht-convolution.test.cpp
-  - tests/yosupo/find-lr.test.cpp
-  - tests/yosupo/multipoint.test.cpp
-  - tests/yosupo/multipoint.test.cpp
-  - tests/yosupo/2sat.test.cpp
   - tests/yosupo/subset-sum.test.cpp
   - tests/yosupo/fps-inv.test.cpp
-  - tests/yosupo/fps-power.test.cpp
-  - tests/yosupo/chordal.test.cpp
+  - tests/yosupo/find-lr.test.cpp
+  - tests/yosupo/2sat.test.cpp
   - tests/yosupo/kth-term-lr.test.cpp
+  - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/fht-convolution.test.cpp
+  - tests/yosupo/chordal.test.cpp
 documentation_of: Traits.cpp
 layout: document
 redirect_from:

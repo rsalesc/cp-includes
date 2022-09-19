@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: BitTricks.cpp
     title: BitTricks.cpp
   _extendedRequiredBy:
@@ -90,9 +90,9 @@ data:
   isVerificationFile: false
   path: Combinatorics.cpp
   requiredBy:
-  - polynomial/ExponentialSum.cpp
-  - polynomial/ExponentialSum.cpp
   - Lagrange.cpp
+  - polynomial/ExponentialSum.cpp
+  - polynomial/ExponentialSum.cpp
   timestamp: '2020-11-01 18:23:24-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
