@@ -88,11 +88,11 @@ struct ModularIntegerImpl : ModularIntegerBase<T, Mods...> {
   typedef Less less;
 
 
-  ModularIntegerImpl() {
+  constexpr ModularIntegerImpl() {
     for (size_t i = 0; i < sizeof...(Mods); i++)
       x[i] = T();
   }
-  ModularIntegerImpl(large_int y) {
+  constexpr ModularIntegerImpl(large_int y) {
     for (size_t i = 0; i < sizeof...(Mods); i++) {
       x[i] = y % mods[i];
       if (x[i] < 0)
