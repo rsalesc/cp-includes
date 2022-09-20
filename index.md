@@ -302,6 +302,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/yosupo/and-convolution.test.cpp
       title: tests/yosupo/and-convolution.test.cpp
+    - icon: ':x:'
+      path: tests/yosupo/associative-array.test.cpp
+      title: tests/yosupo/associative-array.test.cpp
+    - icon: ':x:'
+      path: tests/yosupo/biconnected-components.test.cpp
+      title: tests/yosupo/biconnected-components.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/yosupo/chordal.test.cpp
       title: tests/yosupo/chordal.test.cpp
@@ -347,5 +353,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/yosupo/suffix-array.test.cpp
       title: tests/yosupo/suffix-array.test.cpp
+    - icon: ':x:'
+      path: tests/yosupo/unionfind-with-compression.test.cpp
+      title: tests/yosupo/unionfind-with-compression.test.cpp
+    - icon: ':x:'
+      path: tests/yosupo/unionfind.test.cpp
+      title: tests/yosupo/unionfind.test.cpp
 layout: toppage
 ---
