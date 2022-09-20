@@ -135,7 +135,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: Subset.cpp
       title: Subset.cpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: SuffixArray.cpp
       title: SuffixArray.cpp
     - icon: ':warning:'
@@ -155,6 +155,12 @@ data:
       title: VectorN.cpp
   - name: ds
     pages:
+    - icon: ':heavy_check_mark:'
+      path: ds/LiChaoTree.cpp
+      title: ds/LiChaoTree.cpp
+    - icon: ':warning:'
+      path: ds/OrderedIntTree.cpp
+      title: ds/OrderedIntTree.cpp
     - icon: ':heavy_check_mark:'
       path: ds/StaticRMQ.cpp
       title: ds/StaticRMQ.cpp
@@ -321,8 +327,14 @@ data:
       path: tests/yosupo/kth-term-lr.test.cpp
       title: tests/yosupo/kth-term-lr.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/yosupo/line-add-get-min.test.cpp
+      title: tests/yosupo/line-add-get-min.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/yosupo/multipoint.test.cpp
       title: tests/yosupo/multipoint.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/yosupo/segment-add-get-min.test.cpp
+      title: tests/yosupo/segment-add-get-min.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/yosupo/static-rmq.test.cpp
       title: tests/yosupo/static-rmq.test.cpp
@@ -332,5 +344,8 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/yosupo/subset-sum.test.cpp
       title: tests/yosupo/subset-sum.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/yosupo/suffix-array.test.cpp
+      title: tests/yosupo/suffix-array.test.cpp
 layout: toppage
 ---
