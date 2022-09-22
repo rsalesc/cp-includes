@@ -4,7 +4,7 @@ data:
   - icon: ':warning:'
     path: dsu/SpanningTree.cpp
     title: dsu/SpanningTree.cpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: utils/LazyArray.cpp
     title: utils/LazyArray.cpp
   _extendedRequiredBy: []

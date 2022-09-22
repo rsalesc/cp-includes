@@ -17,13 +17,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: TwoSat.cpp
     title: TwoSat.cpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: graphs/BlockCut.cpp
     title: graphs/BlockCut.cpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/2sat.test.cpp
     title: tests/yosupo/2sat.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/biconnected-components.test.cpp
+    title: tests/yosupo/biconnected-components.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/chordal.test.cpp
     title: tests/yosupo/chordal.test.cpp
@@ -58,6 +61,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/yosupo/2sat.test.cpp
+  - tests/yosupo/biconnected-components.test.cpp
   - tests/yosupo/chordal.test.cpp
 documentation_of: utils/Wrappers.cpp
 layout: document

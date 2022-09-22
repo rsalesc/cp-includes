@@ -33,6 +33,9 @@ data:
     - icon: ':question:'
       path: FHT.cpp
       title: FHT.cpp
+    - icon: ':heavy_check_mark:'
+      path: FastMap.cpp
+      title: FastMap.cpp
     - icon: ':warning:'
       path: Fenwick.cpp
       title: Fenwick.cpp
@@ -141,6 +144,9 @@ data:
     - icon: ':warning:'
       path: Symbolic.cpp
       title: Symbolic.cpp
+    - icon: ':heavy_check_mark:'
+      path: Template.cpp
+      title: Template.cpp
     - icon: ':question:'
       path: Traits.cpp
       title: Traits.cpp
@@ -169,10 +175,10 @@ data:
     - icon: ':warning:'
       path: dsu/BinaryLifting.cpp
       title: dsu/BinaryLifting.cpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: dsu/Compress.cpp
       title: dsu/Compress.cpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: dsu/DSU.cpp
       title: dsu/DSU.cpp
     - icon: ':warning:'
@@ -203,7 +209,7 @@ data:
       title: geometry/Trigonometry.cpp
   - name: graphs
     pages:
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: graphs/BlockCut.cpp
       title: graphs/BlockCut.cpp
     - icon: ':heavy_check_mark:'
@@ -287,7 +293,7 @@ data:
     - icon: ':warning:'
       path: utils/FastQueue.cpp
       title: utils/FastQueue.cpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: utils/LazyArray.cpp
       title: utils/LazyArray.cpp
     - icon: ':heavy_check_mark:'
@@ -302,10 +308,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/yosupo/and-convolution.test.cpp
       title: tests/yosupo/and-convolution.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/yosupo/associative-array.test.cpp
       title: tests/yosupo/associative-array.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/yosupo/biconnected-components.test.cpp
       title: tests/yosupo/biconnected-components.test.cpp
     - icon: ':heavy_check_mark:'
@@ -353,10 +359,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/yosupo/suffix-array.test.cpp
       title: tests/yosupo/suffix-array.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/yosupo/unionfind-with-compression.test.cpp
       title: tests/yosupo/unionfind-with-compression.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/yosupo/unionfind.test.cpp
       title: tests/yosupo/unionfind.test.cpp
 layout: toppage

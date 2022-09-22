@@ -8,13 +8,16 @@ data:
   - icon: ':warning:'
     path: dsu/SpanningTree.cpp
     title: dsu/SpanningTree.cpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: graphs/BlockCut.cpp
     title: graphs/BlockCut.cpp
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/biconnected-components.test.cpp
+    title: tests/yosupo/biconnected-components.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"utils/LazyArray.cpp\"\n\n\n#include <bits/stdc++.h>\n\n\
@@ -44,8 +47,9 @@ data:
   - dsu/SpanningTree.cpp
   - graphs/BlockCut.cpp
   timestamp: '2021-02-26 00:37:16-03:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/yosupo/biconnected-components.test.cpp
 documentation_of: utils/LazyArray.cpp
 layout: document
 redirect_from:

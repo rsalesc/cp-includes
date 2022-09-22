@@ -2,10 +2,13 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/unionfind-with-compression.test.cpp
+    title: tests/yosupo/unionfind-with-compression.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"dsu/Compress.cpp\"\n\n\n#include <bits/stdc++.h>\n\nnamespace\
@@ -25,8 +28,9 @@ data:
   path: dsu/Compress.cpp
   requiredBy: []
   timestamp: '2021-02-26 00:37:16-03:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/yosupo/unionfind-with-compression.test.cpp
 documentation_of: dsu/Compress.cpp
 layout: document
 redirect_from:

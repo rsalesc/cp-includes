@@ -101,35 +101,35 @@ data:
     \ n_edges(int i) { return iterable(&adj[i], &edges); }\n  inline const iterable\
     \ n_edges(int i) const {\n    return iterable(const_cast<vector<int> *>(&adj[i]),\n\
     \                    const_cast<vector<edge_type> *>(&edges));\n  }\n  inline\
-    \ int degree(int i) { return adj[i].size(); }\n\n  inline int size() const { return\
-    \ adj.size(); }\n  inline int edge_size() const { return edges.size(); }\n  inline\
-    \ edge_type &edge(int i) { return edges[i]; }\n  inline edge_type edge(int i)\
-    \ const { return edges[i]; }\n\n  inline vector<edge_type> all_edges() const {\
-    \ return edges; }\n\n  template <typename S = V,\n            typename enable_if<!is_void<S>::value>::type\
-    \ * = nullptr>\n  inline S &vertex(int i) {\n    return vertices[i];\n  }\n\n\
-    \  template <typename S = V,\n            typename enable_if<!is_void<S>::value>::type\
-    \ * = nullptr>\n  inline V vertex(int i) const {\n    return vertices[i];\n  }\n\
-    \n  template <typename S = V,\n            typename enable_if<is_void<S>::value>::type\
-    \ * = nullptr>\n  inline void add_vertex() {\n    adj.emplace_back();\n  }\n\n\
-    \  template <typename S = V,\n            typename enable_if<!is_void<S>::value>::type\
-    \ * = nullptr>\n  inline S &add_vertex() {\n    adj.emplace_back();\n    return\
-    \ vertices.emplace_back().data;\n  }\n\n  template <typename S = E,\n        \
-    \    typename enable_if<is_void<S>::value>::type * = nullptr>\n  inline void add_edge_(int\
-    \ u, int v) {\n    adj[u].push_back(edges.size());\n    edges.push_back({u, v});\n\
-    \  }\n\n  template <typename S = E,\n            typename enable_if<!is_void<S>::value>::type\
-    \ * = nullptr>\n  inline S &add_edge_(int u, int v) {\n    adj[u].push_back(edges.size());\n\
-    \    edges.push_back({u, v});\n    return edges.back().data;\n  }\n\n  void add_2edge(int\
-    \ u, int v) {\n    add_edge_(u, v);\n    add_edge_(v, u);\n  }\n\n  template <typename\
-    \ S = E,\n            typename enable_if<!is_void<S>::value>::type * = nullptr>\n\
-    \  inline void add_2edge(int u, int v, const S &data) {\n    add_edge_(u, v) =\
-    \ data;\n    add_edge_(v, u) = data;\n  }\n\n  template <typename S = E,\n   \
-    \         typename enable_if<is_void<S>::value && Directed>::type * = nullptr>\n\
-    \  inline void add_edge(int u, int v) {\n    adj[u].push_back(edges.size());\n\
+    \ int degree(int i) const { return adj[i].size(); }\n\n  inline int size() const\
+    \ { return adj.size(); }\n  inline int edge_size() const { return edges.size();\
+    \ }\n  inline edge_type &edge(int i) { return edges[i]; }\n  inline edge_type\
+    \ edge(int i) const { return edges[i]; }\n\n  inline vector<edge_type> all_edges()\
+    \ const { return edges; }\n\n  template <typename S = V,\n            typename\
+    \ enable_if<!is_void<S>::value>::type * = nullptr>\n  inline S &vertex(int i)\
+    \ {\n    return vertices[i];\n  }\n\n  template <typename S = V,\n           \
+    \ typename enable_if<!is_void<S>::value>::type * = nullptr>\n  inline V vertex(int\
+    \ i) const {\n    return vertices[i];\n  }\n\n  template <typename S = V,\n  \
+    \          typename enable_if<is_void<S>::value>::type * = nullptr>\n  inline\
+    \ void add_vertex() {\n    adj.emplace_back();\n  }\n\n  template <typename S\
+    \ = V,\n            typename enable_if<!is_void<S>::value>::type * = nullptr>\n\
+    \  inline S &add_vertex() {\n    adj.emplace_back();\n    return vertices.emplace_back().data;\n\
+    \  }\n\n  template <typename S = E,\n            typename enable_if<is_void<S>::value>::type\
+    \ * = nullptr>\n  inline void add_edge_(int u, int v) {\n    adj[u].push_back(edges.size());\n\
     \    edges.push_back({u, v});\n  }\n\n  template <typename S = E,\n          \
-    \  typename enable_if<!is_void<S>::value && Directed>::type * = nullptr>\n  inline\
-    \ S &add_edge(int u, int v) {\n    adj[u].push_back(edges.size());\n    edges.push_back({u,\
-    \ v});\n    return edges.back().data;\n  }\n};\n\ntemplate<typename V = void,\
-    \ typename E = void>\nusing Graph = GraphImpl<V, E, false>;\n\ntemplate<typename\
+    \  typename enable_if<!is_void<S>::value>::type * = nullptr>\n  inline S &add_edge_(int\
+    \ u, int v) {\n    adj[u].push_back(edges.size());\n    edges.push_back({u, v});\n\
+    \    return edges.back().data;\n  }\n\n  void add_2edge(int u, int v) {\n    add_edge_(u,\
+    \ v);\n    add_edge_(v, u);\n  }\n\n  template <typename S = E,\n            typename\
+    \ enable_if<!is_void<S>::value>::type * = nullptr>\n  inline void add_2edge(int\
+    \ u, int v, const S &data) {\n    add_edge_(u, v) = data;\n    add_edge_(v, u)\
+    \ = data;\n  }\n\n  template <typename S = E,\n            typename enable_if<is_void<S>::value\
+    \ && Directed>::type * = nullptr>\n  inline void add_edge(int u, int v) {\n  \
+    \  adj[u].push_back(edges.size());\n    edges.push_back({u, v});\n  }\n\n  template\
+    \ <typename S = E,\n            typename enable_if<!is_void<S>::value && Directed>::type\
+    \ * = nullptr>\n  inline S &add_edge(int u, int v) {\n    adj[u].push_back(edges.size());\n\
+    \    edges.push_back({u, v});\n    return edges.back().data;\n  }\n};\n\ntemplate<typename\
+    \ V = void, typename E = void>\nusing Graph = GraphImpl<V, E, false>;\n\ntemplate<typename\
     \ V = void, typename E = void>\nusing DirectedGraph = GraphImpl<V, E, true>;\n\
     \ntemplate <typename V = void, typename E = void>\nstruct RootedForest : public\
     \ Graph<V, E> {\n  typedef RootedForest<V, E> self_type;\n  using typename Graph<V,\
@@ -287,7 +287,7 @@ data:
   isVerificationFile: true
   path: tests/yosupo/chordal.test.cpp
   requiredBy: []
-  timestamp: '2021-02-17 20:36:53-03:00'
+  timestamp: '2022-09-22 01:23:11-03:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/yosupo/chordal.test.cpp

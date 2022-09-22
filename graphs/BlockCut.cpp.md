@@ -7,17 +7,20 @@ data:
   - icon: ':question:'
     path: Traits.cpp
     title: Traits.cpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: utils/LazyArray.cpp
     title: utils/LazyArray.cpp
   - icon: ':heavy_check_mark:'
     path: utils/Wrappers.cpp
     title: utils/Wrappers.cpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/biconnected-components.test.cpp
+    title: tests/yosupo/biconnected-components.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"graphs/BlockCut.cpp\"\n\n\n#include <bits/stdc++.h>\n#line\
@@ -94,35 +97,35 @@ data:
     \ n_edges(int i) { return iterable(&adj[i], &edges); }\n  inline const iterable\
     \ n_edges(int i) const {\n    return iterable(const_cast<vector<int> *>(&adj[i]),\n\
     \                    const_cast<vector<edge_type> *>(&edges));\n  }\n  inline\
-    \ int degree(int i) { return adj[i].size(); }\n\n  inline int size() const { return\
-    \ adj.size(); }\n  inline int edge_size() const { return edges.size(); }\n  inline\
-    \ edge_type &edge(int i) { return edges[i]; }\n  inline edge_type edge(int i)\
-    \ const { return edges[i]; }\n\n  inline vector<edge_type> all_edges() const {\
-    \ return edges; }\n\n  template <typename S = V,\n            typename enable_if<!is_void<S>::value>::type\
-    \ * = nullptr>\n  inline S &vertex(int i) {\n    return vertices[i];\n  }\n\n\
-    \  template <typename S = V,\n            typename enable_if<!is_void<S>::value>::type\
-    \ * = nullptr>\n  inline V vertex(int i) const {\n    return vertices[i];\n  }\n\
-    \n  template <typename S = V,\n            typename enable_if<is_void<S>::value>::type\
-    \ * = nullptr>\n  inline void add_vertex() {\n    adj.emplace_back();\n  }\n\n\
-    \  template <typename S = V,\n            typename enable_if<!is_void<S>::value>::type\
-    \ * = nullptr>\n  inline S &add_vertex() {\n    adj.emplace_back();\n    return\
-    \ vertices.emplace_back().data;\n  }\n\n  template <typename S = E,\n        \
-    \    typename enable_if<is_void<S>::value>::type * = nullptr>\n  inline void add_edge_(int\
-    \ u, int v) {\n    adj[u].push_back(edges.size());\n    edges.push_back({u, v});\n\
-    \  }\n\n  template <typename S = E,\n            typename enable_if<!is_void<S>::value>::type\
-    \ * = nullptr>\n  inline S &add_edge_(int u, int v) {\n    adj[u].push_back(edges.size());\n\
-    \    edges.push_back({u, v});\n    return edges.back().data;\n  }\n\n  void add_2edge(int\
-    \ u, int v) {\n    add_edge_(u, v);\n    add_edge_(v, u);\n  }\n\n  template <typename\
-    \ S = E,\n            typename enable_if<!is_void<S>::value>::type * = nullptr>\n\
-    \  inline void add_2edge(int u, int v, const S &data) {\n    add_edge_(u, v) =\
-    \ data;\n    add_edge_(v, u) = data;\n  }\n\n  template <typename S = E,\n   \
-    \         typename enable_if<is_void<S>::value && Directed>::type * = nullptr>\n\
-    \  inline void add_edge(int u, int v) {\n    adj[u].push_back(edges.size());\n\
+    \ int degree(int i) const { return adj[i].size(); }\n\n  inline int size() const\
+    \ { return adj.size(); }\n  inline int edge_size() const { return edges.size();\
+    \ }\n  inline edge_type &edge(int i) { return edges[i]; }\n  inline edge_type\
+    \ edge(int i) const { return edges[i]; }\n\n  inline vector<edge_type> all_edges()\
+    \ const { return edges; }\n\n  template <typename S = V,\n            typename\
+    \ enable_if<!is_void<S>::value>::type * = nullptr>\n  inline S &vertex(int i)\
+    \ {\n    return vertices[i];\n  }\n\n  template <typename S = V,\n           \
+    \ typename enable_if<!is_void<S>::value>::type * = nullptr>\n  inline V vertex(int\
+    \ i) const {\n    return vertices[i];\n  }\n\n  template <typename S = V,\n  \
+    \          typename enable_if<is_void<S>::value>::type * = nullptr>\n  inline\
+    \ void add_vertex() {\n    adj.emplace_back();\n  }\n\n  template <typename S\
+    \ = V,\n            typename enable_if<!is_void<S>::value>::type * = nullptr>\n\
+    \  inline S &add_vertex() {\n    adj.emplace_back();\n    return vertices.emplace_back().data;\n\
+    \  }\n\n  template <typename S = E,\n            typename enable_if<is_void<S>::value>::type\
+    \ * = nullptr>\n  inline void add_edge_(int u, int v) {\n    adj[u].push_back(edges.size());\n\
     \    edges.push_back({u, v});\n  }\n\n  template <typename S = E,\n          \
-    \  typename enable_if<!is_void<S>::value && Directed>::type * = nullptr>\n  inline\
-    \ S &add_edge(int u, int v) {\n    adj[u].push_back(edges.size());\n    edges.push_back({u,\
-    \ v});\n    return edges.back().data;\n  }\n};\n\ntemplate<typename V = void,\
-    \ typename E = void>\nusing Graph = GraphImpl<V, E, false>;\n\ntemplate<typename\
+    \  typename enable_if<!is_void<S>::value>::type * = nullptr>\n  inline S &add_edge_(int\
+    \ u, int v) {\n    adj[u].push_back(edges.size());\n    edges.push_back({u, v});\n\
+    \    return edges.back().data;\n  }\n\n  void add_2edge(int u, int v) {\n    add_edge_(u,\
+    \ v);\n    add_edge_(v, u);\n  }\n\n  template <typename S = E,\n            typename\
+    \ enable_if<!is_void<S>::value>::type * = nullptr>\n  inline void add_2edge(int\
+    \ u, int v, const S &data) {\n    add_edge_(u, v) = data;\n    add_edge_(v, u)\
+    \ = data;\n  }\n\n  template <typename S = E,\n            typename enable_if<is_void<S>::value\
+    \ && Directed>::type * = nullptr>\n  inline void add_edge(int u, int v) {\n  \
+    \  adj[u].push_back(edges.size());\n    edges.push_back({u, v});\n  }\n\n  template\
+    \ <typename S = E,\n            typename enable_if<!is_void<S>::value && Directed>::type\
+    \ * = nullptr>\n  inline S &add_edge(int u, int v) {\n    adj[u].push_back(edges.size());\n\
+    \    edges.push_back({u, v});\n    return edges.back().data;\n  }\n};\n\ntemplate<typename\
+    \ V = void, typename E = void>\nusing Graph = GraphImpl<V, E, false>;\n\ntemplate<typename\
     \ V = void, typename E = void>\nusing DirectedGraph = GraphImpl<V, E, true>;\n\
     \ntemplate <typename V = void, typename E = void>\nstruct RootedForest : public\
     \ Graph<V, E> {\n  typedef RootedForest<V, E> self_type;\n  using typename Graph<V,\
@@ -172,12 +175,17 @@ data:
     #line 6 \"graphs/BlockCut.cpp\"\n\nnamespace lib {\n  using namespace std;\nnamespace\
     \ graph {\ntemplate<typename V, typename E>\nstruct BlockCut {\n  int n, m;\n\
     \  Graph<V, E> g;\n  int tempo = 0;\n  vector<int> vis, low, seen;\n  vector<int>\
-    \ st;\n  vector<vector<int>> comps;\n  LazyArray<char> seen_v;\n\n  Graph<V, E>\
-    \ g2;\n  int n2 = 0;\n\n  BlockCut(const Graph<V, E>& g) : g(g) {\n    n = g.size();\n\
-    \    m = g.edge_size();\n    vis = low = vector<int>(n);\n    seen = vector<int>(m);\n\
-    \    st.reserve(m);\n    comps.reserve(n);\n    seen_v = LazyArray<char>(n, 0);\n\
-    \n    g2 = Graph<V, E>(n);\n\n    for(int i = 0; i < n; i++) {\n      if(!vis[i])\
-    \ tarjan(i, -1);\n    }\n  }\n  Graph<V, E> graph() const { return g2; }\n  vector<int>\
+    \ st;\n  LazyArray<char> seen_v;\n\n  Graph<V, E> g2;\n  int n2 = 0;\n\n  BlockCut(const\
+    \ Graph<V, E>& g) : g(g) {\n    n = g.size();\n    m = g.edge_size();\n    vis\
+    \ = low = vector<int>(n);\n    seen = vector<int>(m);\n    st.reserve(m);\n  \
+    \  seen_v = LazyArray<char>(n, 0);\n\n    g2 = Graph<V, E>(n);\n\n    for(int\
+    \ i = 0; i < n; i++) {\n      if(!vis[i]) {\n        tarjan(i, -1);\n        if\
+    \ (g.degree(i) == 0) {\n          // Vertex is isolated, process separately.\n\
+    \          g2.add_vertex();\n          g2.add_2edge(n + n2, i);\n          n2++;\n\
+    \        }\n      }\n    }\n  }\n  Graph<V, E> graph() const { return g2; }\n\n\
+    \  int n_components() const { return n2; }\n  vector<int> component(int i) const\
+    \ {\n    vector<int> res;\n    for(const auto& v : g2.n_edges(n + i))\n      if\
+    \ (v.to < n)\n        res.push_back(v.to);\n    return res;\n  }\n\n  vector<int>\
     \ get_vertices_(const vector<int>& e) {\n    seen_v.clear();\n    vector<int>\
     \ comp;\n    for(int kk : e) {\n      auto ed = g.edge(kk);\n      if(!seen_v.get(ed.from))\
     \ comp.push_back(ed.from), seen_v[ed.from] = true;\n      if(!seen_v.get(ed.to))\
@@ -188,42 +196,45 @@ data:
     \ w : comp) {\n      g2.add_2edge(n + n2, w);\n    }\n    n2++;\n  }\n  void tarjan(int\
     \ u, int p) {\n    vis[u] = low[u] = ++tempo;\n    auto nei = g.n_edges(u);\n\
     \    for(int i = 0; i < nei.size(); i++) {\n      int k = nei.index(i);\n    \
-    \  int v = g.edge(k).to;\n      if(v == p) continue;\n\n      if(!seen[k]) {\n\
-    \        seen[k] = seen[k^1] = 1;\n        st.push_back(k);\n      }\n\n     \
-    \ if(!vis[v]) {\n        tarjan(v, u);\n        low[u] = min(low[u], low[v]);\n\
-    \n        if(low[v] >= vis[u]) {\n          process_component_(k);\n        }\n\
-    \      } else {\n        low[u] = min(low[u], vis[v]);\n      }\n    }\n  }\n\
-    };\n\ntemplate<typename V, typename E>\nBlockCut<V, E> make_block_cut(const Graph<V,\
-    \ E>& g) {\n  return BlockCut<V, E>(g);\n}\n} // namespace graph\n} // namespace\
-    \ lib\n\n\n"
+    \  int v = g.edge(k).to;\n\n      if(!seen[k]) {\n        seen[k] = seen[k^1]\
+    \ = 1;\n        st.push_back(k);\n      }\n\n      if(!vis[v]) {\n        tarjan(v,\
+    \ u);\n        low[u] = min(low[u], low[v]);\n\n        if(low[v] >= vis[u]) {\n\
+    \          process_component_(k);\n        }\n      } else {\n        low[u] =\
+    \ min(low[u], vis[v]);\n      }\n    }\n  }\n};\n\ntemplate<typename V, typename\
+    \ E>\nBlockCut<V, E> make_block_cut(const Graph<V, E>& g) {\n  return BlockCut<V,\
+    \ E>(g);\n}\n} // namespace graph\n} // namespace lib\n\n\n"
   code: "#ifndef _LIB_BLOCK_CUT\n#define _LIB_BLOCK_CUT\n#include <bits/stdc++.h>\n\
     #include \"../Graph.cpp\"\n#include \"../utils/LazyArray.cpp\"\n\nnamespace lib\
     \ {\n  using namespace std;\nnamespace graph {\ntemplate<typename V, typename\
     \ E>\nstruct BlockCut {\n  int n, m;\n  Graph<V, E> g;\n  int tempo = 0;\n  vector<int>\
-    \ vis, low, seen;\n  vector<int> st;\n  vector<vector<int>> comps;\n  LazyArray<char>\
-    \ seen_v;\n\n  Graph<V, E> g2;\n  int n2 = 0;\n\n  BlockCut(const Graph<V, E>&\
-    \ g) : g(g) {\n    n = g.size();\n    m = g.edge_size();\n    vis = low = vector<int>(n);\n\
-    \    seen = vector<int>(m);\n    st.reserve(m);\n    comps.reserve(n);\n    seen_v\
-    \ = LazyArray<char>(n, 0);\n\n    g2 = Graph<V, E>(n);\n\n    for(int i = 0; i\
-    \ < n; i++) {\n      if(!vis[i]) tarjan(i, -1);\n    }\n  }\n  Graph<V, E> graph()\
-    \ const { return g2; }\n  vector<int> get_vertices_(const vector<int>& e) {\n\
-    \    seen_v.clear();\n    vector<int> comp;\n    for(int kk : e) {\n      auto\
-    \ ed = g.edge(kk);\n      if(!seen_v.get(ed.from)) comp.push_back(ed.from), seen_v[ed.from]\
-    \ = true;\n      if(!seen_v.get(ed.to)) comp.push_back(ed.to), seen_v[ed.to] =\
-    \ true;\n    }\n    return comp;\n  }\n  void process_component_(int k) {\n  \
-    \  vector<int> e;\n    int cur;\n    do {\n      cur = st.back(); st.pop_back();\n\
-    \      e.push_back(cur);\n    } while(cur != k);\n    auto comp = get_vertices_(e);\n\
-    \    g2.add_vertex();\n    for(int w : comp) {\n      g2.add_2edge(n + n2, w);\n\
-    \    }\n    n2++;\n  }\n  void tarjan(int u, int p) {\n    vis[u] = low[u] = ++tempo;\n\
-    \    auto nei = g.n_edges(u);\n    for(int i = 0; i < nei.size(); i++) {\n   \
-    \   int k = nei.index(i);\n      int v = g.edge(k).to;\n      if(v == p) continue;\n\
-    \n      if(!seen[k]) {\n        seen[k] = seen[k^1] = 1;\n        st.push_back(k);\n\
-    \      }\n\n      if(!vis[v]) {\n        tarjan(v, u);\n        low[u] = min(low[u],\
-    \ low[v]);\n\n        if(low[v] >= vis[u]) {\n          process_component_(k);\n\
-    \        }\n      } else {\n        low[u] = min(low[u], vis[v]);\n      }\n \
-    \   }\n  }\n};\n\ntemplate<typename V, typename E>\nBlockCut<V, E> make_block_cut(const\
-    \ Graph<V, E>& g) {\n  return BlockCut<V, E>(g);\n}\n} // namespace graph\n} //\
-    \ namespace lib\n\n#endif"
+    \ vis, low, seen;\n  vector<int> st;\n  LazyArray<char> seen_v;\n\n  Graph<V,\
+    \ E> g2;\n  int n2 = 0;\n\n  BlockCut(const Graph<V, E>& g) : g(g) {\n    n =\
+    \ g.size();\n    m = g.edge_size();\n    vis = low = vector<int>(n);\n    seen\
+    \ = vector<int>(m);\n    st.reserve(m);\n    seen_v = LazyArray<char>(n, 0);\n\
+    \n    g2 = Graph<V, E>(n);\n\n    for(int i = 0; i < n; i++) {\n      if(!vis[i])\
+    \ {\n        tarjan(i, -1);\n        if (g.degree(i) == 0) {\n          // Vertex\
+    \ is isolated, process separately.\n          g2.add_vertex();\n          g2.add_2edge(n\
+    \ + n2, i);\n          n2++;\n        }\n      }\n    }\n  }\n  Graph<V, E> graph()\
+    \ const { return g2; }\n\n  int n_components() const { return n2; }\n  vector<int>\
+    \ component(int i) const {\n    vector<int> res;\n    for(const auto& v : g2.n_edges(n\
+    \ + i))\n      if (v.to < n)\n        res.push_back(v.to);\n    return res;\n\
+    \  }\n\n  vector<int> get_vertices_(const vector<int>& e) {\n    seen_v.clear();\n\
+    \    vector<int> comp;\n    for(int kk : e) {\n      auto ed = g.edge(kk);\n \
+    \     if(!seen_v.get(ed.from)) comp.push_back(ed.from), seen_v[ed.from] = true;\n\
+    \      if(!seen_v.get(ed.to)) comp.push_back(ed.to), seen_v[ed.to] = true;\n \
+    \   }\n    return comp;\n  }\n  void process_component_(int k) {\n    vector<int>\
+    \ e;\n    int cur;\n    do {\n      cur = st.back(); st.pop_back();\n      e.push_back(cur);\n\
+    \    } while(cur != k);\n    auto comp = get_vertices_(e);\n    g2.add_vertex();\n\
+    \    for(int w : comp) {\n      g2.add_2edge(n + n2, w);\n    }\n    n2++;\n \
+    \ }\n  void tarjan(int u, int p) {\n    vis[u] = low[u] = ++tempo;\n    auto nei\
+    \ = g.n_edges(u);\n    for(int i = 0; i < nei.size(); i++) {\n      int k = nei.index(i);\n\
+    \      int v = g.edge(k).to;\n\n      if(!seen[k]) {\n        seen[k] = seen[k^1]\
+    \ = 1;\n        st.push_back(k);\n      }\n\n      if(!vis[v]) {\n        tarjan(v,\
+    \ u);\n        low[u] = min(low[u], low[v]);\n\n        if(low[v] >= vis[u]) {\n\
+    \          process_component_(k);\n        }\n      } else {\n        low[u] =\
+    \ min(low[u], vis[v]);\n      }\n    }\n  }\n};\n\ntemplate<typename V, typename\
+    \ E>\nBlockCut<V, E> make_block_cut(const Graph<V, E>& g) {\n  return BlockCut<V,\
+    \ E>(g);\n}\n} // namespace graph\n} // namespace lib\n\n#endif"
   dependsOn:
   - Graph.cpp
   - Traits.cpp
@@ -232,9 +243,10 @@ data:
   isVerificationFile: false
   path: graphs/BlockCut.cpp
   requiredBy: []
-  timestamp: '2021-02-26 00:37:16-03:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2022-09-22 01:23:11-03:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/yosupo/biconnected-components.test.cpp
 documentation_of: graphs/BlockCut.cpp
 layout: document
 redirect_from:

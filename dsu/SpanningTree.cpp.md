@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: utils/LazyArray.cpp
     title: utils/LazyArray.cpp
   _extendedRequiredBy:

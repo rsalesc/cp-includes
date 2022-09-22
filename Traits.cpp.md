@@ -41,7 +41,7 @@ data:
   - icon: ':question:'
     path: VectorN.cpp
     title: VectorN.cpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: graphs/BlockCut.cpp
     title: graphs/BlockCut.cpp
   - icon: ':warning:'
@@ -96,6 +96,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/2sat.test.cpp
     title: tests/yosupo/2sat.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/yosupo/biconnected-components.test.cpp
+    title: tests/yosupo/biconnected-components.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/chordal.test.cpp
     title: tests/yosupo/chordal.test.cpp
@@ -210,6 +213,7 @@ data:
   - tests/yosupo/find-lr.test.cpp
   - tests/yosupo/2sat.test.cpp
   - tests/yosupo/kth-term-lr.test.cpp
+  - tests/yosupo/biconnected-components.test.cpp
   - tests/yosupo/multipoint.test.cpp
   - tests/yosupo/multipoint.test.cpp
   - tests/yosupo/fps-power.test.cpp
