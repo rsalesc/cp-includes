@@ -6,7 +6,7 @@
 namespace lib {
 using namespace std;
 
-template <typename D, typename T, bool Prune = true> struct LiChaoTree {
+template <typename D, typename T> struct LiChaoTree {
   inline constexpr static T inf = numeric_limits<T>::max();
 
   using Fn = function<T(D)>;
@@ -43,34 +43,34 @@ template <typename D, typename T, bool Prune = true> struct LiChaoTree {
 
   // r is exclusive
   void add(int i, int no, int l, int r) {
-    // mid is exclusive
-    int mid = (l + r) / 2;
-    bool l_wins = fns[i](xs[l]) < fns[t[no]](xs[l]);
-    if (Prune) {
+    while (1) {
+      int mid = (l + r) / 2;
+      bool l_wins = fns[i](xs[l]) < fns[t[no]](xs[l]);
       bool r_wins = fns[i](xs[r-1]) < fns[t[no]](xs[r-1]);
       if (l_wins == r_wins) {
         if (l_wins) swap(i, t[no]);
         return;
       }
+      bool mid_wins = fns[i](xs[mid]) < fns[t[no]](xs[mid]);
+      if (mid_wins)
+        swap(i, t[no]);
+      if (l + 1 == r)
+        return;
+      if (l_wins != mid_wins)
+        no = 2 * no, r = mid;
+      else
+        no = 2 * no + 1, l = mid;
     }
-    bool mid_wins = fns[i](xs[mid]) < fns[t[no]](xs[mid]);
-    if (mid_wins)
-      swap(i, t[no]);
-    if (l + 1 == r)
-      return;
-    if (l_wins != mid_wins)
-      add(i, 2 * no, l, mid);
-    else
-      add(i, 2 * no + 1, mid, r);
   }
 
-  void add_segment(int idx, int no, int l, int r, int i, int j) {
-    if (i >= r || j <= l) return;
-    if (i <= l && r <= j) add(idx, no, l, r);
+  int seg_l, seg_r, seg_idx;
+  void add_segment(int no, int l, int r) {
+    if (seg_l >= r || seg_r <= l) return;
+    if (seg_l <= l && r <= seg_r) add(seg_idx, no, l, r);
     else {
       int mid = (l+r)/2;
-      add_segment(idx, 2*no, l, mid, i, j);
-      add_segment(idx, 2*no+1, mid, r, i, j);
+      add_segment(2*no, l, mid);
+      add_segment(2*no+1, mid, r);
     }
   }
 
@@ -80,17 +80,22 @@ template <typename D, typename T, bool Prune = true> struct LiChaoTree {
     int l = lower_bound(xs.begin(), xs.end(), a) - xs.begin();
     int r = lower_bound(xs.begin(), xs.end(), b) - xs.begin();
     if (l == r) return;
-    add_segment(i, 1, 0, xs.size(), l, r);
+    seg_idx = i, seg_l = l, seg_r = r;
+    add_segment(1, 0, xs.size());
   }
 
   T query(D x, int no, int l, int r) const {
-    if (l + 1 == r)
-      return fns[t[no]](x);
-    int mid = (l + r) / 2;
-    if (x < xs[mid])
-      return min(fns[t[no]](x), query(x, 2 * no, l, mid));
-    else
-      return min(fns[t[no]](x), query(x, 2 * no + 1, mid, r));
+    auto res = inf;
+    while (1) {
+      res = min(res, fns[t[no]](x));
+      if (l + 1 == r)
+        return res;
+      int mid = (l + r) / 2;
+      if (x < xs[mid])
+        no = 2 * no, r = mid;
+      else
+        no = 2 * no + 1, l = mid;
+    }
   }
 
   T query(D x) const { return query(x, 1, 0, xs.size()); }

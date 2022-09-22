@@ -20,8 +20,9 @@ int32_t main() {
 
   auto bct = graph::make_block_cut(g);
 
-  cout << bct.comps.size() << endl;
-  for(const auto& comp : bct.comps) {
+  cout << bct.n_components() << endl;
+  for(int i = 0; i < bct.n_components(); i++) {
+    const auto comp = bct.component(i);
     cout << comp.size() << " ";
     for(const auto v : comp) cout << v << " ";
     cout << endl;

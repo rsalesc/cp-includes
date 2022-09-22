@@ -1,10 +1,10 @@
 #ifndef _LIB_HASH_MAP
 #define _LIB_HASH_MAP
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
+// #include <ext/pb_ds/assoc_container.hpp>
 
 namespace lib {
-using namespace __gnu_pbds;
+// using namespace __gnu_pbds;
 using namespace std;
 
 /* 1. Maybe remove lazy delete and transfer delete work all to the erase
@@ -170,14 +170,14 @@ private:
   }
 };
 
-template <typename T, typename Hash = hash<T>, typename N = T>
-using GpHashMap = gp_hash_table<
-    T, N, Hash, equal_to<T>, direct_mask_range_hashing<T>, linear_probe_fn<>,
-    hash_standard_resize_policy<hash_exponential_size_policy<>,
-                                hash_load_check_resize_trigger<true>, true>>;
+// template <typename T, typename Hash = hash<T>, typename N = T>
+// using GpHashMap = gp_hash_table<
+//     T, N, Hash, equal_to<T>, direct_mask_range_hashing<T>, linear_probe_fn<>,
+//     hash_standard_resize_policy<hash_exponential_size_policy<>,
+//                                 hash_load_check_resize_trigger<true>, true>>;
 
-template <typename T, typename Hash = hash<T>>
-using GpHashSet = GpHashMap<T, Hash, null_type>;
+// template <typename T, typename Hash = hash<T>>
+// using GpHashSet = GpHashMap<T, Hash, null_type>;
 } // namespace lib
 
 #endif
