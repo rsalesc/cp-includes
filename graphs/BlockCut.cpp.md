@@ -7,6 +7,9 @@ data:
   - icon: ':question:'
     path: Traits.cpp
     title: Traits.cpp
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   - icon: ':heavy_check_mark:'
     path: utils/LazyArray.cpp
     title: utils/LazyArray.cpp
@@ -236,6 +239,7 @@ data:
     \ E>\nBlockCut<V, E> make_block_cut(const Graph<V, E>& g) {\n  return BlockCut<V,\
     \ E>(g);\n}\n} // namespace graph\n} // namespace lib\n\n#endif"
   dependsOn:
+  - bits/stdc++.h
   - Graph.cpp
   - Traits.cpp
   - utils/Wrappers.cpp
@@ -243,7 +247,7 @@ data:
   isVerificationFile: false
   path: graphs/BlockCut.cpp
   requiredBy: []
-  timestamp: '2022-09-22 01:23:11-03:00'
+  timestamp: '2022-12-14 09:29:18-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/yosupo/biconnected-components.test.cpp

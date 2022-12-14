@@ -16,6 +16,9 @@ data:
   - icon: ':question:'
     path: VectorN.cpp
     title: VectorN.cpp
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy:
   - icon: ':question:'
     path: FHT.cpp
@@ -39,7 +42,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/multipoint.test.cpp
     title: tests/yosupo/multipoint.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/yosupo/subset-sum.test.cpp
     title: tests/yosupo/subset-sum.test.cpp
   _isVerificationFailed: true
@@ -241,6 +244,7 @@ data:
     \ return linalg::NTT<Field>::itransform(\n      f(n, linalg::NTT<Field>::transform(vs,\
     \ np)...), n);\n  }\n};\n} // namespace lib\n\n#endif\n"
   dependsOn:
+  - bits/stdc++.h
   - DFT.cpp
   - BitTricks.cpp
   - NumberTheory.cpp
@@ -250,16 +254,16 @@ data:
   path: NTT.cpp
   requiredBy:
   - FHT.cpp
-  timestamp: '2021-01-30 22:33:20-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/yosupo/subset-sum.test.cpp
-  - tests/yosupo/fps-inv.test.cpp
-  - tests/yosupo/find-lr.test.cpp
   - tests/yosupo/kth-term-lr.test.cpp
-  - tests/yosupo/multipoint.test.cpp
   - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/find-lr.test.cpp
   - tests/yosupo/fht-convolution.test.cpp
+  - tests/yosupo/fps-inv.test.cpp
+  - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
 documentation_of: NTT.cpp
 layout: document
 redirect_from:

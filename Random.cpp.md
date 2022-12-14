@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy:
   - icon: ':warning:'
     path: RollingHash.cpp
@@ -50,13 +53,14 @@ data:
     \  }\n\n  inline double uniform_real() { return uniform_real(0.0, 1.0); }\n};\n\
     \nstatic Generator gen = Generator();\n} // namespace rng\nstatic rng::Generator\
     \ &rng_gen = rng::gen;\n} // namespace lib\n\n#endif\n"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: Random.cpp
   requiredBy:
   - Treap.cpp
   - RollingHash.cpp
-  timestamp: '2020-10-15 12:03:07-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: Random.cpp

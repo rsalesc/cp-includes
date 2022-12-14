@@ -4,9 +4,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: FastMap.cpp
     title: FastMap.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: Template.cpp
     title: Template.cpp
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -69,11 +72,12 @@ data:
     \   }\n  }\n}\n"
   dependsOn:
   - Template.cpp
+  - bits/stdc++.h
   - FastMap.cpp
   isVerificationFile: true
   path: tests/yosupo/associative-array.test.cpp
   requiredBy: []
-  timestamp: '2022-09-22 01:23:11-03:00'
+  timestamp: '2022-12-14 09:29:18-03:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/yosupo/associative-array.test.cpp

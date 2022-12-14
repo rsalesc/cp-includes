@@ -7,6 +7,9 @@ data:
   - icon: ':warning:'
     path: SegtreeImplicit.cpp
     title: SegtreeImplicit.cpp
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -167,11 +170,12 @@ data:
     \  }\n};\n} // namespace treap\n} // namespace lib\n\n#endif\n"
   dependsOn:
   - Random.cpp
+  - bits/stdc++.h
   - SegtreeImplicit.cpp
   isVerificationFile: false
   path: Treap.cpp
   requiredBy: []
-  timestamp: '2020-10-15 12:03:07-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: Treap.cpp

@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -24,11 +27,12 @@ data:
     \ > 0; i -= (i&-i))\n      res += t[i];\n    return res;\n  }\n  T get(int i,\
     \ int j) const {\n    return get(j) - get(i - 1);\n  }\n  T from(int i) const\
     \ {\n    return get(i, size() - 1);\n  }\n};\n} // namespace lib\n#endif\n"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: Fenwick.cpp
   requiredBy: []
-  timestamp: '2020-11-07 21:20:23-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: Fenwick.cpp

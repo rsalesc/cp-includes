@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy:
   - icon: ':warning:'
     path: FFT.cpp
@@ -43,12 +46,13 @@ data:
     \ &rhs) {\n    Complex<T> res = *this;\n    res *= rhs;\n    return res;\n  }\n\
     \  Complex<T> operator-() const {\n    return {-re, -im};\n  }\n  void operator/=(const\
     \ T x) { re /= x, im /= x; }\n};\n} // namespace lib\n\n#endif\n"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: Complex.cpp
   requiredBy:
   - FFT.cpp
-  timestamp: '2021-01-30 22:31:25-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: Complex.cpp

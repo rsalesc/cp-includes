@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy:
   - icon: ':warning:'
     path: pbds/TreeUpdater.cpp
@@ -37,12 +40,13 @@ data:
     \          std::is_same<Head, T>::value,\n          std::integral_constant<std::size_t,\
     \ Index>,\n          find_first<std::tuple<Rest...>, T, Index + 1>>::type {};\n\
     } // namespace traits\n} // namespace lib\n\n#endif"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: traits/Tuple.cpp
   requiredBy:
   - pbds/TreeUpdater.cpp
-  timestamp: '2020-10-15 12:03:07-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: traits/Tuple.cpp

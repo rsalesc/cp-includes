@@ -1,14 +1,17 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/yosupo/suffix-array.test.cpp
     title: tests/yosupo/suffix-array.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"SuffixArray.cpp\"\n\n\n#include <bits/stdc++.h>\n\nnamespace\
@@ -99,12 +102,13 @@ data:
     \        else r = mid-1;\n      }\n      res.second = l;\n    }\n    return res;\n\
     \  }\n\n  pair<int, int> range(int i) {\n    return range(i, length(i));\n  }\n\
     };\n} // namespace lib\n\n#endif\n"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: SuffixArray.cpp
   requiredBy: []
-  timestamp: '2021-01-21 01:27:23-03:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-12-14 09:28:49-03:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/yosupo/suffix-array.test.cpp
 documentation_of: SuffixArray.cpp

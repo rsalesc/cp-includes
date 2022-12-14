@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: Combinatorics.cpp
@@ -51,7 +54,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/multipoint.test.cpp
     title: tests/yosupo/multipoint.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/yosupo/subset-sum.test.cpp
     title: tests/yosupo/subset-sum.test.cpp
   _isVerificationFailed: true
@@ -67,30 +70,31 @@ data:
     \nnamespace lib {\nlong long next_power_of_two(long long n) {\n  return 1LL <<\
     \ (sizeof(long long) * 8 - 1 - __builtin_clzll(n) +\n                 ((n & (n\
     \ - 1LL)) != 0));\n}\n} // namespace lib\n\n#endif\n"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: BitTricks.cpp
   requiredBy:
+  - NTT.cpp
+  - polynomial/ExponentialSum.cpp
+  - FHT.cpp
+  - Combinatorics.cpp
+  - PowerSeries.cpp
   - Lagrange.cpp
   - DFT.cpp
-  - polynomial/ExponentialSum.cpp
-  - PowerSeries.cpp
-  - Combinatorics.cpp
-  - NTT.cpp
   - FFT.cpp
-  - FHT.cpp
-  timestamp: '2020-10-15 12:03:07-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/yosupo/exp-sum.test.cpp
-  - tests/yosupo/subset-sum.test.cpp
-  - tests/yosupo/fps-inv.test.cpp
+  - tests/yosupo/kth-term-lr.test.cpp
+  - tests/yosupo/fps-power.test.cpp
   - tests/yosupo/find-lr.test.cpp
   - tests/yosupo/exp-sum-limit.test.cpp
-  - tests/yosupo/kth-term-lr.test.cpp
-  - tests/yosupo/multipoint.test.cpp
-  - tests/yosupo/fps-power.test.cpp
   - tests/yosupo/fht-convolution.test.cpp
+  - tests/yosupo/fps-inv.test.cpp
+  - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
 documentation_of: BitTricks.cpp
 layout: document
 redirect_from:

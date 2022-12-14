@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: Graph.cpp
@@ -47,17 +50,18 @@ data:
     \ { const int from, to; };\n\ntemplate <typename T> struct VertexWrapper { T data;\
     \ };\n\ntemplate <> struct VertexWrapper<void> {};\n} // namespace graph\n} //\
     \ namespace lib\n\n#endif\n"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: utils/Wrappers.cpp
   requiredBy:
-  - Graph.cpp
   - HLD.cpp
   - graphs/BlockCut.cpp
-  - TwoSat.cpp
   - Maxflow.cpp
   - SegtreeHLD.cpp
-  timestamp: '2020-10-15 12:03:07-03:00'
+  - Graph.cpp
+  - TwoSat.cpp
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/yosupo/2sat.test.cpp

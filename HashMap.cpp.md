@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -124,11 +127,12 @@ data:
     //                                 hash_load_check_resize_trigger<true>, true>>;\n\
     \n// template <typename T, typename Hash = hash<T>>\n// using GpHashSet = GpHashMap<T,\
     \ Hash, null_type>;\n} // namespace lib\n\n#endif\n"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: HashMap.cpp
   requiredBy: []
-  timestamp: '2022-09-22 01:23:11-03:00'
+  timestamp: '2022-12-14 09:29:18-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: HashMap.cpp

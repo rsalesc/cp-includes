@@ -20,6 +20,9 @@ data:
     path: VectorN.cpp
     title: VectorN.cpp
   - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
+  - icon: ':question:'
     path: polynomial/Transform.cpp
     title: polynomial/Transform.cpp
   _extendedRequiredBy: []
@@ -39,7 +42,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/kth-term-lr.test.cpp
     title: tests/yosupo/kth-term-lr.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/yosupo/subset-sum.test.cpp
     title: tests/yosupo/subset-sum.test.cpp
   _isVerificationFailed: true
@@ -314,6 +317,7 @@ data:
     \ Ring>\nvector<Ring> FHT<Ring>::ig = vector<Ring>();\n}\n\nusing FHTMultiplication\
     \ = TransformMultiplication<linalg::FHT>;\n} // namespace lib\n\n#endif\n"
   dependsOn:
+  - bits/stdc++.h
   - BitTricks.cpp
   - NTT.cpp
   - DFT.cpp
@@ -324,15 +328,15 @@ data:
   isVerificationFile: false
   path: FHT.cpp
   requiredBy: []
-  timestamp: '2021-01-30 22:33:20-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/yosupo/subset-sum.test.cpp
-  - tests/yosupo/fps-inv.test.cpp
-  - tests/yosupo/find-lr.test.cpp
   - tests/yosupo/kth-term-lr.test.cpp
   - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/find-lr.test.cpp
   - tests/yosupo/fht-convolution.test.cpp
+  - tests/yosupo/fps-inv.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
 documentation_of: FHT.cpp
 layout: document
 redirect_from:

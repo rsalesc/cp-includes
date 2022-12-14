@@ -1,20 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: Template.cpp
     title: Template.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
+  - icon: ':x:'
     path: dsu/Compress.cpp
     title: dsu/Compress.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: dsu/DSU.cpp
     title: dsu/DSU.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/unionfind
@@ -65,13 +68,14 @@ data:
     \ uf[b]) << endl;\n  }\n}"
   dependsOn:
   - dsu/DSU.cpp
+  - bits/stdc++.h
   - dsu/Compress.cpp
   - Template.cpp
   isVerificationFile: true
   path: tests/yosupo/unionfind-with-compression.test.cpp
   requiredBy: []
-  timestamp: '2022-09-22 01:23:11-03:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-12-14 09:29:18-03:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/yosupo/unionfind-with-compression.test.cpp
 layout: document

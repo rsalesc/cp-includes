@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy:
   - icon: ':warning:'
     path: HLD.cpp
@@ -168,19 +171,20 @@ data:
     \ {}\n\n  template <typename Node> inline void operator()(Node &no) const {\n\
     \    no.active_ = flag;\n  }\n};\n}  // namespace seg\n}  // namespace lib\n\n\
     #endif\n"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: Segtree.cpp
   requiredBy:
   - SegtreeNormal.cpp
-  - SegtreeSplash.cpp
-  - SegtreeBeats.cpp
-  - SegtreeFast.cpp
-  - HLD.cpp
-  - RangeDSU.cpp
-  - SegtreeHLD.cpp
   - SegtreeLazy.cpp
-  timestamp: '2021-02-11 19:36:05-03:00'
+  - SegtreeBeats.cpp
+  - HLD.cpp
+  - SegtreeFast.cpp
+  - SegtreeHLD.cpp
+  - RangeDSU.cpp
+  - SegtreeSplash.cpp
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: Segtree.cpp

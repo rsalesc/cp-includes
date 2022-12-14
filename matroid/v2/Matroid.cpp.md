@@ -7,6 +7,9 @@ data:
   - icon: ':question:'
     path: Traits.cpp
     title: Traits.cpp
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy:
   - icon: ':warning:'
     path: matroid/v2/BinaryMatroid.cpp
@@ -176,18 +179,19 @@ data:
     \ IsIncremental = is_base_of<IncrementalMatroid, M>;\n} // namespace matroid\n\
     } // namespace lib\n\n#endif\n"
   dependsOn:
+  - bits/stdc++.h
   - Lambda.cpp
   - Traits.cpp
   isVerificationFile: false
   path: matroid/v2/Matroid.cpp
   requiredBy:
-  - matroid/v2/GraphicMatroid.cpp
   - matroid/v2/BinaryMatroid.cpp
-  - matroid/v2/ColorMatroid.cpp
-  - matroid/v2/MatroidIntersection.cpp
-  - matroid/v2/ContractionMatroid.cpp
   - matroid/v2/EdgeFinder.cpp
-  timestamp: '2021-02-03 01:52:23-03:00'
+  - matroid/v2/GraphicMatroid.cpp
+  - matroid/v2/ColorMatroid.cpp
+  - matroid/v2/ContractionMatroid.cpp
+  - matroid/v2/MatroidIntersection.cpp
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: matroid/v2/Matroid.cpp

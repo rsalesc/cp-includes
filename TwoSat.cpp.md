@@ -7,6 +7,9 @@ data:
   - icon: ':question:'
     path: Traits.cpp
     title: Traits.cpp
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   - icon: ':heavy_check_mark:'
     path: utils/Wrappers.cpp
     title: utils/Wrappers.cpp
@@ -236,11 +239,12 @@ data:
   dependsOn:
   - Graph.cpp
   - Traits.cpp
+  - bits/stdc++.h
   - utils/Wrappers.cpp
   isVerificationFile: false
   path: TwoSat.cpp
   requiredBy: []
-  timestamp: '2022-09-22 01:23:11-03:00'
+  timestamp: '2022-12-14 09:29:18-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/yosupo/2sat.test.cpp

@@ -4,12 +4,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: Graph.cpp
     title: Graph.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: Template.cpp
     title: Template.cpp
   - icon: ':question:'
     path: Traits.cpp
     title: Traits.cpp
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   - icon: ':heavy_check_mark:'
     path: graphs/BlockCut.cpp
     title: graphs/BlockCut.cpp
@@ -235,6 +238,7 @@ data:
     ;\n    for(const auto v : comp) cout << v << \" \";\n    cout << endl;\n  }\n}"
   dependsOn:
   - graphs/BlockCut.cpp
+  - bits/stdc++.h
   - Graph.cpp
   - Traits.cpp
   - utils/Wrappers.cpp
@@ -243,7 +247,7 @@ data:
   isVerificationFile: true
   path: tests/yosupo/biconnected-components.test.cpp
   requiredBy: []
-  timestamp: '2022-09-22 01:23:11-03:00'
+  timestamp: '2022-12-14 09:29:18-03:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/yosupo/biconnected-components.test.cpp

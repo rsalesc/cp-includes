@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy:
   - icon: ':question:'
     path: FHT.cpp
@@ -123,7 +126,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/multipoint.test.cpp
     title: tests/yosupo/multipoint.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/yosupo/subset-sum.test.cpp
     title: tests/yosupo/subset-sum.test.cpp
   _isVerificationFailed: true
@@ -171,53 +174,54 @@ data:
     \ IteratorCategoryOf<Container>>;\n\n/// keep caide\ntemplate <typename Container>\n\
     using HasBidirectionalIterator =\n    is_base_of<bidirectional_iterator_tag, IteratorCategoryOf<Container>>;\n\
     } // namespace traits\n} // namespace lib\n\n#endif\n"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: Traits.cpp
   requiredBy:
-  - VectorN.cpp
-  - polynomial/MultipointEvaluation.cpp
-  - polynomial/MultipointEvaluation.cpp
   - PolynomialRing.cpp
-  - PowerSeries.cpp
-  - Graph.cpp
   - NTT.cpp
+  - polynomial/MultipointEvaluation.cpp
+  - polynomial/MultipointEvaluation.cpp
+  - FHT.cpp
   - HLD.cpp
+  - graphs/BlockCut.cpp
   - matroid/CographicMatroid.cpp
   - matroid/GraphicMatroid.cpp
-  - matroid/v2/GraphicMatroid.cpp
-  - matroid/v2/BinaryMatroid.cpp
-  - matroid/v2/ColorMatroid.cpp
-  - matroid/v2/MatroidIntersection.cpp
-  - matroid/v2/ContractionMatroid.cpp
-  - matroid/v2/Matroid.cpp
-  - matroid/v2/EdgeFinder.cpp
-  - matroid/ColorMatroid.cpp
-  - matroid/Compose.cpp
-  - matroid/MatroidIntersection.cpp
   - matroid/Matroid.cpp
-  - graphs/BlockCut.cpp
-  - TwoSat.cpp
-  - Maxflow.cpp
+  - matroid/ColorMatroid.cpp
+  - matroid/MatroidIntersection.cpp
+  - matroid/Compose.cpp
+  - matroid/v2/BinaryMatroid.cpp
+  - matroid/v2/EdgeFinder.cpp
+  - matroid/v2/GraphicMatroid.cpp
+  - matroid/v2/Matroid.cpp
+  - matroid/v2/ColorMatroid.cpp
+  - matroid/v2/ContractionMatroid.cpp
+  - matroid/v2/MatroidIntersection.cpp
   - Lambda.cpp
+  - RollingHash.cpp
+  - Maxflow.cpp
   - SegtreeHLD.cpp
   - pbds/TreeUpdater.cpp
-  - FHT.cpp
-  - RollingHash.cpp
+  - Graph.cpp
+  - VectorN.cpp
+  - PowerSeries.cpp
+  - TwoSat.cpp
   - LinearRecurrence.cpp
-  timestamp: '2021-01-26 16:28:00-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/yosupo/subset-sum.test.cpp
-  - tests/yosupo/fps-inv.test.cpp
-  - tests/yosupo/find-lr.test.cpp
-  - tests/yosupo/2sat.test.cpp
   - tests/yosupo/kth-term-lr.test.cpp
-  - tests/yosupo/biconnected-components.test.cpp
-  - tests/yosupo/multipoint.test.cpp
-  - tests/yosupo/multipoint.test.cpp
   - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/2sat.test.cpp
+  - tests/yosupo/find-lr.test.cpp
   - tests/yosupo/fht-convolution.test.cpp
+  - tests/yosupo/biconnected-components.test.cpp
+  - tests/yosupo/fps-inv.test.cpp
+  - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
   - tests/yosupo/chordal.test.cpp
 documentation_of: Traits.cpp
 layout: document

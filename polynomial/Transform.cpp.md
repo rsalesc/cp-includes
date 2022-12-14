@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy:
   - icon: ':question:'
     path: FHT.cpp
@@ -21,7 +24,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/kth-term-lr.test.cpp
     title: tests/yosupo/kth-term-lr.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/yosupo/subset-sum.test.cpp
     title: tests/yosupo/subset-sum.test.cpp
   _isVerificationFailed: true
@@ -58,20 +61,21 @@ data:
     \ vs) const {\n    int np = next_power_of_two(n);\n    return T<Field>::itransform(\n\
     \      f(n, T<Field>::transform(vs, np)...), n);\n  }\n};\n} // namespace lib\n\
     \n#endif\n"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: polynomial/Transform.cpp
   requiredBy:
   - FHT.cpp
-  timestamp: '2021-01-30 22:31:25-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/yosupo/subset-sum.test.cpp
-  - tests/yosupo/fps-inv.test.cpp
-  - tests/yosupo/find-lr.test.cpp
   - tests/yosupo/kth-term-lr.test.cpp
   - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/find-lr.test.cpp
   - tests/yosupo/fht-convolution.test.cpp
+  - tests/yosupo/fps-inv.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
 documentation_of: polynomial/Transform.cpp
 layout: document
 redirect_from:

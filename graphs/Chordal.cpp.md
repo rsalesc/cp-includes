@@ -1,6 +1,9 @@
 ---
 data:
   _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   - icon: ':heavy_check_mark:'
     path: utils/FastList.cpp
     title: utils/FastList.cpp
@@ -148,11 +151,12 @@ data:
     Chordal<Graph> make_chordal(const Graph& g) {\n  return Chordal<Graph>(g);\n}\n\
     } // namespace graph\n} // namespace lib\n\n#endif"
   dependsOn:
+  - bits/stdc++.h
   - utils/FastList.cpp
   isVerificationFile: false
   path: graphs/Chordal.cpp
   requiredBy: []
-  timestamp: '2021-02-13 23:55:16-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/yosupo/chordal.test.cpp

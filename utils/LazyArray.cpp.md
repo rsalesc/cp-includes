@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy:
   - icon: ':warning:'
     path: dsu/BinaryLifting.cpp
@@ -39,14 +42,15 @@ data:
     \  }\n  T& operator[](int i) {\n    if(lz[i] != tempo) {\n      lz[i] = tempo;\n\
     \      v[i] = lz_v;\n    }\n    return v[i];\n  }\n};\n} // namespace lib\n\n\
     #endif\n"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: utils/LazyArray.cpp
   requiredBy:
+  - graphs/BlockCut.cpp
   - dsu/BinaryLifting.cpp
   - dsu/SpanningTree.cpp
-  - graphs/BlockCut.cpp
-  timestamp: '2021-02-26 00:37:16-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/yosupo/biconnected-components.test.cpp

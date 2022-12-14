@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy:
   - icon: ':warning:'
     path: geometry/Caliper.cpp
@@ -43,14 +46,15 @@ data:
     \    \n    Note(const T& a) : T(a) {}\n    Note(T &&a): T(std::move(a)) {}\n};\n\
     \ntemplate<typename T, typename A>\nNote<T, A> make_note(const T& t, const A&\
     \ a) {\n    return Note<T, A>::make(t, a);\n}\n} // namespace lib\n\n#endif\n"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: utils/Annotation.cpp
   requiredBy:
-  - geometry/Polygon2D.cpp
   - geometry/Circle2D.cpp
+  - geometry/Polygon2D.cpp
   - geometry/Caliper.cpp
-  timestamp: '2020-10-19 01:04:40-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: utils/Annotation.cpp

@@ -1,17 +1,20 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/yosupo/unionfind-with-compression.test.cpp
     title: tests/yosupo/unionfind-with-compression.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/yosupo/unionfind.test.cpp
     title: tests/yosupo/unionfind.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"dsu/DSU.cpp\"\n\n\n#include <bits/stdc++.h>\n\nnamespace\
@@ -52,12 +55,13 @@ data:
     };\n\ntemplate<>\nstruct ByRankImpl<> {\n  using type = RankDSU;\n};\n\ntemplate<template<class>\
     \ class ...Ts>\nusing ByRank = typename ByRankImpl<Ts...>::type;\n} // namespace\
     \ dsu\n} // namespace lib\n\n#endif\n\n"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: dsu/DSU.cpp
   requiredBy: []
-  timestamp: '2021-02-26 00:37:16-03:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-12-14 09:28:49-03:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/yosupo/unionfind.test.cpp
   - tests/yosupo/unionfind-with-compression.test.cpp

@@ -13,6 +13,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: Lagrange.cpp
     title: Lagrange.cpp
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -126,6 +129,7 @@ data:
     \ f[ps[j]];\n      if (i % ps[j] == 0) break;\n    }\n  }\n  return std::move(f);\n\
     }\n} // namespace lib\n\n#endif\n"
   dependsOn:
+  - bits/stdc++.h
   - Combinatorics.cpp
   - BitTricks.cpp
   - Lagrange.cpp
@@ -133,7 +137,7 @@ data:
   isVerificationFile: false
   path: polynomial/ExponentialSum.cpp
   requiredBy: []
-  timestamp: '2021-02-12 00:21:13-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/yosupo/exp-sum.test.cpp

@@ -10,6 +10,9 @@ data:
   - icon: ':question:'
     path: DFT.cpp
     title: DFT.cpp
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   - icon: ':warning:'
     path: geometry/Trigonometry.cpp
     title: geometry/Trigonometry.cpp
@@ -74,7 +77,7 @@ data:
     \ {\n    return {-re, -im};\n  }\n  void operator/=(const T x) { re /= x, im /=\
     \ x; }\n};\n} // namespace lib\n\n\n#line 1 \"geometry/Trigonometry.cpp\"\n\n\n\
     #line 4 \"geometry/Trigonometry.cpp\"\n\nnamespace lib {\nusing namespace std;\n\
-    namespace geo {\nnamespace trig {\nconstexpr static long double PI = acosl(-1);\n\
+    namespace geo {\nnamespace trig {\nconstexpr static long double PI = 3.141592653589793238462643383279502884197169399375105820974944l;\n\
     double cos(double x) { return ::cos(x); }\ndouble sin(double x) { return ::sin(x);\
     \ }\ndouble asin(double x) { return ::asin(x); }\ndouble acos(double x) { return\
     \ ::acos(x); }\ndouble atan2(double y, double x) { return ::atan2(y, x); }\nlong\
@@ -219,13 +222,14 @@ data:
     \ namespace math\n} // namespace lib\n\n#endif\n"
   dependsOn:
   - DFT.cpp
+  - bits/stdc++.h
   - BitTricks.cpp
   - Complex.cpp
   - geometry/Trigonometry.cpp
   isVerificationFile: false
   path: FFT.cpp
   requiredBy: []
-  timestamp: '2021-01-30 22:31:25-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: FFT.cpp

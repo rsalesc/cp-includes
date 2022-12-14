@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy:
   - icon: ':warning:'
     path: LinearProgram.cpp
@@ -81,12 +84,13 @@ data:
     \      return numeric_limits<DOUBLE>::infinity();\n    x = VD(n);\n    for (int\
     \ i = 0; i < m; i++)\n      if (B[i] < n)\n        x[B[i]] = D[i][n + 1];\n  \
     \  return D[m][n + 1];\n  }\n};\n} // namespace lib\n\n#endif\n"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: Simplex.cpp
   requiredBy:
   - LinearProgram.cpp
-  timestamp: '2020-10-15 12:03:07-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: Simplex.cpp

@@ -28,6 +28,9 @@ data:
   - icon: ':question:'
     path: VectorN.cpp
     title: VectorN.cpp
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -36,7 +39,7 @@ data:
   - icon: ':x:'
     path: tests/yosupo/fps-power.test.cpp
     title: tests/yosupo/fps-power.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/yosupo/subset-sum.test.cpp
     title: tests/yosupo/subset-sum.test.cpp
   _isVerificationFailed: true
@@ -93,28 +96,27 @@ data:
     \ = Mod;\n\n  T x[1];\n\n  T& data() { return this->x[0]; }\n  T data() const\
     \ { return this->x[0]; }\n  explicit operator int() const { return this->x[0];\
     \ }\n  explicit operator int64_t() const { return this->x[0]; }\n  explicit operator\
-    \ long long() const { return this->x[0]; }\n  explicit operator double() const\
-    \ { return this->x[0]; }\n  explicit operator long double() const { return this->x[0];\
-    \ }\n  friend ostream &operator<<(ostream &output, const type &var) {\n    return\
-    \ output << var.x[0];\n  }\n};\n\ntemplate<typename T, typename U, T... Mods>\n\
-    struct InversesTable {\n  constexpr static size_t n_mods = sizeof...(Mods);\n\
-    \  constexpr static T mods[sizeof...(Mods)] = {Mods...};\n  constexpr static int\
-    \ n_inverses = 1e6 + 10;\n\n  T v[n_inverses][n_mods];\n  T max_x;\n\n  InversesTable()\
-    \ : v(), max_x(n_inverses) {\n    for(int j = 0; j < sizeof...(Mods); j++)\n \
-    \     v[1][j] = 1, max_x = min(max_x, mods[j]);\n    for(int i = 2; i < max_x;\
-    \ i++) {\n      for(int j = 0; j < sizeof...(Mods); j++) {\n        v[i][j] =\
-    \ mods[j] - (T)((U)(mods[j] / i) * v[mods[j] % i][j] % mods[j]);\n      }\n  \
-    \  }\n  }\n};\n\n// Make available for linkage.\ntemplate <typename T, class U,\
-    \ T... Mods>\nconstexpr T InversesTable<T, U, Mods...>::mods[];\n\ntemplate <typename\
-    \ T, class Enable, T... Mods>\nstruct ModularIntegerImpl : ModularIntegerBase<T,\
-    \ Mods...> {\n  typedef ModularIntegerImpl<T, Enable, Mods...> type;\n  typedef\
-    \ T type_int;\n  typedef uint64_t large_int;\n  constexpr static size_t n_mods\
+    \ double() const { return this->x[0]; }\n  explicit operator long double() const\
+    \ { return this->x[0]; }\n  friend ostream &operator<<(ostream &output, const\
+    \ type &var) {\n    return output << var.x[0];\n  }\n};\n\ntemplate<typename T,\
+    \ typename U, T... Mods>\nstruct InversesTable {\n  constexpr static size_t n_mods\
     \ = sizeof...(Mods);\n  constexpr static T mods[sizeof...(Mods)] = {Mods...};\n\
-    \  using ModularIntegerBase<T, Mods...>::x;\n  using Inverses = InversesTable<T,\
-    \ large_int, Mods...>;\n\n  struct Less {\n    bool operator()(const type &lhs,\
-    \ const type &rhs) const {\n      for (size_t i = 0; i < sizeof...(Mods); i++)\n\
-    \        if (lhs.x[i] != rhs.x[i])\n          return lhs.x[i] < rhs.x[i];\n  \
-    \    return false;\n    };\n  };\n  typedef Less less;\n\n\n  constexpr ModularIntegerImpl()\
+    \  constexpr static int n_inverses = 1e6 + 10;\n\n  T v[n_inverses][n_mods];\n\
+    \  T max_x;\n\n  InversesTable() : v(), max_x(n_inverses) {\n    for(int j = 0;\
+    \ j < sizeof...(Mods); j++)\n      v[1][j] = 1, max_x = min(max_x, mods[j]);\n\
+    \    for(int i = 2; i < max_x; i++) {\n      for(int j = 0; j < sizeof...(Mods);\
+    \ j++) {\n        v[i][j] = mods[j] - (T)((U)(mods[j] / i) * v[mods[j] % i][j]\
+    \ % mods[j]);\n      }\n    }\n  }\n};\n\n// Make available for linkage.\ntemplate\
+    \ <typename T, class U, T... Mods>\nconstexpr T InversesTable<T, U, Mods...>::mods[];\n\
+    \ntemplate <typename T, class Enable, T... Mods>\nstruct ModularIntegerImpl :\
+    \ ModularIntegerBase<T, Mods...> {\n  typedef ModularIntegerImpl<T, Enable, Mods...>\
+    \ type;\n  typedef T type_int;\n  typedef uint64_t large_int;\n  constexpr static\
+    \ size_t n_mods = sizeof...(Mods);\n  constexpr static T mods[sizeof...(Mods)]\
+    \ = {Mods...};\n  using ModularIntegerBase<T, Mods...>::x;\n  using Inverses =\
+    \ InversesTable<T, large_int, Mods...>;\n\n  struct Less {\n    bool operator()(const\
+    \ type &lhs, const type &rhs) const {\n      for (size_t i = 0; i < sizeof...(Mods);\
+    \ i++)\n        if (lhs.x[i] != rhs.x[i])\n          return lhs.x[i] < rhs.x[i];\n\
+    \      return false;\n    };\n  };\n  typedef Less less;\n\n\n  constexpr ModularIntegerImpl()\
     \ {\n    for (size_t i = 0; i < sizeof...(Mods); i++)\n      x[i] = T();\n  }\n\
     \  constexpr ModularIntegerImpl(large_int y) {\n    for (size_t i = 0; i < sizeof...(Mods);\
     \ i++) {\n      x[i] = y % mods[i];\n      if (x[i] < 0)\n        x[i] += mods[i];\n\
@@ -467,6 +469,7 @@ data:
     } // namespace lib\n\n#endif\n"
   dependsOn:
   - BitTricks.cpp
+  - bits/stdc++.h
   - PolynomialRing.cpp
   - Epsilon.cpp
   - Math.cpp
@@ -478,12 +481,12 @@ data:
   isVerificationFile: false
   path: PowerSeries.cpp
   requiredBy: []
-  timestamp: '2022-09-18 23:37:16-03:00'
+  timestamp: '2022-12-14 09:29:18-03:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/yosupo/subset-sum.test.cpp
-  - tests/yosupo/fps-inv.test.cpp
   - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/fps-inv.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
 documentation_of: PowerSeries.cpp
 layout: document
 redirect_from:

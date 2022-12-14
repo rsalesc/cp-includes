@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: graphs/Chordal.cpp
@@ -41,12 +44,13 @@ data:
     \ nullptr) no->prev->next = nw;\n  if(nw != nullptr) {\n    nw->prev = no->prev;\n\
     \    nw->next = no;\n  }\n  no->prev = nw;\n}\n} // namespace list\n} // namespace\
     \ lib\n\n#endif\n"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: utils/FastList.cpp
   requiredBy:
   - graphs/Chordal.cpp
-  timestamp: '2021-02-13 23:55:16-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/yosupo/chordal.test.cpp

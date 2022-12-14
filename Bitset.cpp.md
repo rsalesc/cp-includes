@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -170,11 +173,12 @@ data:
     \ x) {\n    auto b = Bitset<T>(B);\n    b.v[0] = x;\n    return b;\n  }\n  \n\
     \  T to_int() const {\n    return v[0];\n  }\n};\n\nusing Bitset64 = Bitset<uint64_t>;\n\
     using Bitset32 = Bitset<uint32_t>;\n} // namespace lib\n\n#endif\n"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: Bitset.cpp
   requiredBy: []
-  timestamp: '2021-02-03 01:52:23-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: Bitset.cpp

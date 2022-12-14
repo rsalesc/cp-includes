@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -114,11 +117,12 @@ data:
     \ = MontgomeryIntegerImpl<T, Mods...>;\n\ntemplate <int32_t... Mods> using Mont32\
     \ = MontgomeryInteger<int32_t, Mods...>;\n\nusing MontP = Mont32<(int32_t)1e9+7>;\n\
     using MontNTT = Mont32<998244353>;\n} // namespace lib\n\n#endif\n"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: MontgomeryInteger.cpp
   requiredBy: []
-  timestamp: '2020-11-16 01:15:04-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: MontgomeryInteger.cpp

@@ -7,6 +7,9 @@ data:
   - icon: ':question:'
     path: Traits.cpp
     title: Traits.cpp
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   - icon: ':warning:'
     path: utils/FastAdj.cpp
     title: utils/FastAdj.cpp
@@ -292,6 +295,7 @@ data:
     \ M2, W>>(n, m1, m2);\n  vector<W> w(n);\n  for(int i = 0; i < n; i++) w[i] =\
     \ f(i);\n  res->set_weights(w);\n  return res;\n}\n} // namespace lib\n\n#endif\n"
   dependsOn:
+  - bits/stdc++.h
   - utils/FastAdj.cpp
   - utils/FastQueue.cpp
   - Lambda.cpp
@@ -299,7 +303,7 @@ data:
   isVerificationFile: false
   path: matroid/MatroidIntersection.cpp
   requiredBy: []
-  timestamp: '2021-02-03 01:52:23-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: matroid/MatroidIntersection.cpp

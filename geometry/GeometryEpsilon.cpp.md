@@ -4,6 +4,9 @@ data:
   - icon: ':question:'
     path: Epsilon.cpp
     title: Epsilon.cpp
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy:
   - icon: ':warning:'
     path: geometry/Caliper.cpp
@@ -60,14 +63,15 @@ data:
     \n#endif\n"
   dependsOn:
   - Epsilon.cpp
+  - bits/stdc++.h
   isVerificationFile: false
   path: geometry/GeometryEpsilon.cpp
   requiredBy:
-  - geometry/Line2D.cpp
-  - geometry/Polygon2D.cpp
   - geometry/Circle2D.cpp
+  - geometry/Polygon2D.cpp
   - geometry/Caliper.cpp
-  timestamp: '2020-10-15 12:03:07-03:00'
+  - geometry/Line2D.cpp
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: geometry/GeometryEpsilon.cpp

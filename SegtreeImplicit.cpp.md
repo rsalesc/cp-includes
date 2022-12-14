@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy:
   - icon: ':warning:'
     path: SegtreePersistent.cpp
@@ -53,13 +56,14 @@ data:
     \      no.cur->right = new NodeWrapper();\n  }\n};\n\ntemplate <typename Node>\
     \ using Implicit = ImplicitNodeManager<Node>;\n} // namespace seg\n} // namespace\
     \ lib\n\n#endif\n"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: SegtreeImplicit.cpp
   requiredBy:
-  - SegtreePersistent.cpp
   - Treap.cpp
-  timestamp: '2020-10-15 12:03:07-03:00'
+  - SegtreePersistent.cpp
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: SegtreeImplicit.cpp

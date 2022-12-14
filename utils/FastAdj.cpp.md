@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy:
   - icon: ':warning:'
     path: matroid/CographicMatroid.cpp
@@ -110,14 +113,15 @@ data:
     \ const iterable n_edges(int i) const {\n    return iterable(const_cast<vector<int>\
     \ *>(&next),\n                    const_cast<vector<T> *>(&edges),\n         \
     \           head[i]);\n  }\n};\n} // namespace lib\n\n#endif\n"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: utils/FastAdj.cpp
   requiredBy:
   - matroid/CographicMatroid.cpp
   - matroid/GraphicMatroid.cpp
   - matroid/MatroidIntersection.cpp
-  timestamp: '2021-01-27 21:58:35-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: utils/FastAdj.cpp

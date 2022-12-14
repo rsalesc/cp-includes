@@ -1,6 +1,9 @@
 ---
 data:
   _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   - icon: ':heavy_check_mark:'
     path: ds/StaticRMQ.cpp
     title: ds/StaticRMQ.cpp
@@ -63,11 +66,12 @@ data:
     \ {\n      int l, r;\n      cin >> l >> r;\n      --r;\n      cout << rmq.query(l,\
     \ r) << \"\\n\";\n    }\n    return 0;\n}\n"
   dependsOn:
+  - bits/stdc++.h
   - ds/StaticRMQ.cpp
   isVerificationFile: true
   path: tests/yosupo/static-rmq.test.cpp
   requiredBy: []
-  timestamp: '2021-02-12 02:28:44-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/yosupo/static-rmq.test.cpp

@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: LinearRecurrence.cpp
@@ -45,7 +48,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/multipoint.test.cpp
     title: tests/yosupo/multipoint.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/yosupo/subset-sum.test.cpp
     title: tests/yosupo/subset-sum.test.cpp
   _isVerificationFailed: true
@@ -78,28 +81,29 @@ data:
     \  template <typename G,\n            typename enable_if<!is_floating_point<G>::value>::type\
     \ * = nullptr>\n  bool null(G a) const {\n    return a == 0;\n  }\n};\n} // namespace\
     \ lib\n\n#endif\n"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: Epsilon.cpp
   requiredBy:
-  - geometry/Line2D.cpp
-  - geometry/Polygon2D.cpp
+  - PolynomialRing.cpp
+  - polynomial/MultipointEvaluation.cpp
   - geometry/Circle2D.cpp
+  - geometry/Polygon2D.cpp
   - geometry/Caliper.cpp
   - geometry/GeometryEpsilon.cpp
-  - polynomial/MultipointEvaluation.cpp
-  - PolynomialRing.cpp
+  - geometry/Line2D.cpp
   - PowerSeries.cpp
   - LinearRecurrence.cpp
-  timestamp: '2020-10-15 12:03:07-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/yosupo/subset-sum.test.cpp
-  - tests/yosupo/fps-inv.test.cpp
-  - tests/yosupo/find-lr.test.cpp
   - tests/yosupo/kth-term-lr.test.cpp
-  - tests/yosupo/multipoint.test.cpp
   - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/find-lr.test.cpp
+  - tests/yosupo/fps-inv.test.cpp
+  - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
 documentation_of: Epsilon.cpp
 layout: document
 redirect_from:

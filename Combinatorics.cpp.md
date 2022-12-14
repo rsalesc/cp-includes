@@ -4,6 +4,9 @@ data:
   - icon: ':question:'
     path: BitTricks.cpp
     title: BitTricks.cpp
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: Lagrange.cpp
@@ -86,14 +89,15 @@ data:
     template<typename T>\nvector<T> Combinatorics<T>::ifat = vector<T>(1, T(1));\n\
     } // namespace lib\n\n#endif\n"
   dependsOn:
+  - bits/stdc++.h
   - BitTricks.cpp
   isVerificationFile: false
   path: Combinatorics.cpp
   requiredBy:
+  - polynomial/ExponentialSum.cpp
+  - polynomial/ExponentialSum.cpp
   - Lagrange.cpp
-  - polynomial/ExponentialSum.cpp
-  - polynomial/ExponentialSum.cpp
-  timestamp: '2020-11-01 18:23:24-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/yosupo/exp-sum.test.cpp

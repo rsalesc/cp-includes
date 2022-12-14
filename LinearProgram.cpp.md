@@ -7,6 +7,9 @@ data:
   - icon: ':warning:'
     path: Symbolic.cpp
     title: Symbolic.cpp
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -241,11 +244,12 @@ data:
     };\n} // namespace lib\n\n#endif\n"
   dependsOn:
   - Simplex.cpp
+  - bits/stdc++.h
   - Symbolic.cpp
   isVerificationFile: false
   path: LinearProgram.cpp
   requiredBy: []
-  timestamp: '2020-10-19 18:36:16-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: LinearProgram.cpp

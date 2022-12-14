@@ -4,6 +4,9 @@ data:
   - icon: ':question:'
     path: Traits.cpp
     title: Traits.cpp
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   - icon: ':warning:'
     path: traits/Tuple.cpp
     title: traits/Tuple.cpp
@@ -165,11 +168,12 @@ data:
     \ pbds\n} // namespace lib\n\n#endif"
   dependsOn:
   - Traits.cpp
+  - bits/stdc++.h
   - traits/Tuple.cpp
   isVerificationFile: false
   path: pbds/TreeUpdater.cpp
   requiredBy: []
-  timestamp: '2021-01-26 16:28:00-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: pbds/TreeUpdater.cpp

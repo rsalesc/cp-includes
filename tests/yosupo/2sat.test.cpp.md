@@ -10,6 +10,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: TwoSat.cpp
     title: TwoSat.cpp
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   - icon: ':heavy_check_mark:'
     path: utils/Wrappers.cpp
     title: utils/Wrappers.cpp
@@ -237,6 +240,7 @@ data:
     \ n; i++) {\n      if(sat.get(i)) cout << i << \" \";\n      else cout << -i <<\
     \ \" \";\n    }\n    cout << 0 << endl;\n}\n"
   dependsOn:
+  - bits/stdc++.h
   - TwoSat.cpp
   - Graph.cpp
   - Traits.cpp
@@ -244,7 +248,7 @@ data:
   isVerificationFile: true
   path: tests/yosupo/2sat.test.cpp
   requiredBy: []
-  timestamp: '2022-09-22 01:23:11-03:00'
+  timestamp: '2022-12-14 09:29:18-03:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/yosupo/2sat.test.cpp

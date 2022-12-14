@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -80,15 +83,16 @@ data:
     \    if (x < xs[mid])\n        no = 2 * no, r = mid;\n      else\n        no =\
     \ 2 * no + 1, l = mid;\n    }\n  }\n\n  T query(D x) const { return query(x, 1,\
     \ 0, xs.size()); }\n};\n} // namespace lib\n\n#endif"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: ds/LiChaoTree.cpp
   requiredBy: []
-  timestamp: '2022-09-22 01:23:11-03:00'
+  timestamp: '2022-12-14 09:29:18-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/yosupo/segment-add-get-min.test.cpp
   - tests/yosupo/line-add-get-min.test.cpp
+  - tests/yosupo/segment-add-get-min.test.cpp
 documentation_of: ds/LiChaoTree.cpp
 layout: document
 redirect_from:

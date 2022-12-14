@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy:
   - icon: ':warning:'
     path: FFT.cpp
@@ -38,7 +41,7 @@ data:
 
     namespace trig {
 
-    constexpr static long double PI = acosl(-1);
+    constexpr static long double PI = 3.141592653589793238462643383279502884197169399375105820974944l;
 
     double cos(double x) { return ::cos(x); }
 
@@ -84,7 +87,7 @@ data:
 
     namespace trig {
 
-    constexpr static long double PI = acosl(-1);
+    constexpr static long double PI = 3.141592653589793238462643383279502884197169399375105820974944l;
 
     double cos(double x) { return ::cos(x); }
 
@@ -116,16 +119,17 @@ data:
     #endif
 
     '
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: geometry/Trigonometry.cpp
   requiredBy:
-  - geometry/Line2D.cpp
-  - geometry/Polygon2D.cpp
   - geometry/Circle2D.cpp
+  - geometry/Polygon2D.cpp
   - geometry/Caliper.cpp
+  - geometry/Line2D.cpp
   - FFT.cpp
-  timestamp: '2020-10-15 12:03:07-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: geometry/Trigonometry.cpp

@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy:
   - icon: ':warning:'
     path: matroid/MatroidIntersection.cpp
@@ -30,13 +33,14 @@ data:
     \ return v[L];\n  }\n  T pop() {\n    return v[L++];\n  }\n  bool empty() const\
     \ {\n    return L >= R;\n  }\n  int size() const {\n    return max(R - L, 0);\n\
     \  }\n  void clear() {\n    L = 0, R = 0;\n  }\n};\n} // namespace lib\n\n#endif\n"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: utils/FastQueue.cpp
   requiredBy:
-  - matroid/v2/MatroidIntersection.cpp
   - matroid/MatroidIntersection.cpp
-  timestamp: '2021-01-28 01:15:31-03:00'
+  - matroid/v2/MatroidIntersection.cpp
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: utils/FastQueue.cpp

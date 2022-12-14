@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy:
   - icon: ':question:'
     path: FHT.cpp
@@ -54,10 +57,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/multipoint.test.cpp
     title: tests/yosupo/multipoint.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/yosupo/subset-convolution.test.cpp
     title: tests/yosupo/subset-convolution.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/yosupo/subset-sum.test.cpp
     title: tests/yosupo/subset-sum.test.cpp
   _isVerificationFailed: true
@@ -89,32 +92,33 @@ data:
     \ factors(T n) {\n  vector<T> f;\n  for(T i = 2; i*i <= n; i++) {\n    if(n %\
     \ i == 0) f.push_back(i);\n    while(n % i == 0) n /= i;\n  }\n  if(n > 1) f.push_back(n);\n\
     \  return f;\n}\n} // namespace nt\n} // namespace lib\n\n#endif\n"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: NumberTheory.cpp
   requiredBy:
-  - polynomial/MultipointEvaluation.cpp
-  - PolynomialRing.cpp
   - ModularInteger.cpp
-  - PowerSeries.cpp
+  - PolynomialRing.cpp
   - NTT.cpp
+  - polynomial/MultipointEvaluation.cpp
   - FHT.cpp
   - RollingHash.cpp
+  - PowerSeries.cpp
   - LinearRecurrence.cpp
-  timestamp: '2020-11-07 21:20:50-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/yosupo/exp-sum.test.cpp
-  - tests/yosupo/subset-sum.test.cpp
-  - tests/yosupo/fps-inv.test.cpp
-  - tests/yosupo/find-lr.test.cpp
-  - tests/yosupo/and-convolution.test.cpp
-  - tests/yosupo/exp-sum-limit.test.cpp
-  - tests/yosupo/kth-term-lr.test.cpp
-  - tests/yosupo/multipoint.test.cpp
   - tests/yosupo/subset-convolution.test.cpp
+  - tests/yosupo/kth-term-lr.test.cpp
   - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/find-lr.test.cpp
+  - tests/yosupo/exp-sum-limit.test.cpp
+  - tests/yosupo/and-convolution.test.cpp
   - tests/yosupo/fht-convolution.test.cpp
+  - tests/yosupo/fps-inv.test.cpp
+  - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
 documentation_of: NumberTheory.cpp
 layout: document
 redirect_from:

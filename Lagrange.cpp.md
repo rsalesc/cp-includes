@@ -7,6 +7,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: Combinatorics.cpp
     title: Combinatorics.cpp
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: polynomial/ExponentialSum.cpp
@@ -88,13 +91,14 @@ data:
     \      g[i] = g[i-1] + f[i-1];\n  return lagrange_iota(g, n);\n}\n} // namespace\
     \ linalg\n} // namespace lib\n\n#endif\n"
   dependsOn:
+  - bits/stdc++.h
   - Combinatorics.cpp
   - BitTricks.cpp
   isVerificationFile: false
   path: Lagrange.cpp
   requiredBy:
   - polynomial/ExponentialSum.cpp
-  timestamp: '2021-02-12 00:04:03-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/yosupo/exp-sum.test.cpp

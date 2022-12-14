@@ -4,6 +4,9 @@ data:
   - icon: ':warning:'
     path: DSU.cpp
     title: DSU.cpp
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -58,11 +61,12 @@ data:
     \      ans[p.second] = v[dsu[p.first]];\n    }\n  }\n  return ans;\n}\n} // namespace\
     \ lib\n\n#endif\n\n"
   dependsOn:
+  - bits/stdc++.h
   - DSU.cpp
   isVerificationFile: false
   path: OfflineRMQ.cpp
   requiredBy: []
-  timestamp: '2021-02-17 20:36:53-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: OfflineRMQ.cpp

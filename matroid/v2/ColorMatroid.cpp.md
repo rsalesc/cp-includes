@@ -7,6 +7,9 @@ data:
   - icon: ':question:'
     path: Traits.cpp
     title: Traits.cpp
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   - icon: ':warning:'
     path: matroid/v2/Matroid.cpp
     title: matroid/v2/Matroid.cpp
@@ -165,13 +168,14 @@ data:
     \    fix_(c);\n    bool res = cnt[c] < limits[c];\n    return res;\n  }\n};\n\
     } // namespace lib\n\n#endif\n"
   dependsOn:
+  - bits/stdc++.h
   - matroid/v2/Matroid.cpp
   - Lambda.cpp
   - Traits.cpp
   isVerificationFile: false
   path: matroid/v2/ColorMatroid.cpp
   requiredBy: []
-  timestamp: '2021-02-03 01:52:23-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: matroid/v2/ColorMatroid.cpp

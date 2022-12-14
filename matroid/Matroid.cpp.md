@@ -7,6 +7,9 @@ data:
   - icon: ':question:'
     path: Traits.cpp
     title: Traits.cpp
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy:
   - icon: ':warning:'
     path: matroid/CographicMatroid.cpp
@@ -146,6 +149,7 @@ data:
     \    for(int i = 0; i < I.size(); i++) cout << in_I(i) << \" \";\n    cout <<\
     \ endl;\n  }\n};\n} // namespace lib\n\n#endif\n"
   dependsOn:
+  - bits/stdc++.h
   - Lambda.cpp
   - Traits.cpp
   isVerificationFile: false
@@ -155,7 +159,7 @@ data:
   - matroid/GraphicMatroid.cpp
   - matroid/ColorMatroid.cpp
   - matroid/Compose.cpp
-  timestamp: '2021-02-03 01:52:23-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: matroid/Matroid.cpp

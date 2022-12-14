@@ -4,6 +4,9 @@ data:
   - icon: ':warning:'
     path: Segtree.cpp
     title: Segtree.cpp
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy:
   - icon: ':warning:'
     path: SegtreeLazy.cpp
@@ -354,13 +357,14 @@ data:
     \ namespace lib\n\n#endif\n"
   dependsOn:
   - Segtree.cpp
+  - bits/stdc++.h
   isVerificationFile: false
   path: SegtreeBeats.cpp
   requiredBy:
   - SegtreeNormal.cpp
-  - SegtreeSplash.cpp
   - SegtreeLazy.cpp
-  timestamp: '2021-02-11 19:36:05-03:00'
+  - SegtreeSplash.cpp
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: SegtreeBeats.cpp

@@ -7,6 +7,9 @@ data:
   - icon: ':question:'
     path: Traits.cpp
     title: Traits.cpp
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   - icon: ':heavy_check_mark:'
     path: graphs/Chordal.cpp
     title: graphs/Chordal.cpp
@@ -279,6 +282,7 @@ data:
     \ << endl;\n      for(int x : ch.induced_cycle()) cout << x << \" \";\n      cout\
     \ << endl;\n    }\n    return 0;\n}\n"
   dependsOn:
+  - bits/stdc++.h
   - Graph.cpp
   - Traits.cpp
   - utils/Wrappers.cpp
@@ -287,7 +291,7 @@ data:
   isVerificationFile: true
   path: tests/yosupo/chordal.test.cpp
   requiredBy: []
-  timestamp: '2022-09-22 01:23:11-03:00'
+  timestamp: '2022-12-14 09:29:18-03:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/yosupo/chordal.test.cpp

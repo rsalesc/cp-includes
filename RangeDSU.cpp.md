@@ -10,6 +10,9 @@ data:
   - icon: ':warning:'
     path: SegtreeFast.cpp
     title: SegtreeFast.cpp
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -198,13 +201,14 @@ data:
     \ }\n  vector<int> last_move() const { return inv[last_merge().first]; }\n};\n\
     } // namespace lib\n\n#endif\n"
   dependsOn:
+  - bits/stdc++.h
   - SegtreeFast.cpp
   - Segtree.cpp
   - DSU.cpp
   isVerificationFile: false
   path: RangeDSU.cpp
   requiredBy: []
-  timestamp: '2021-02-17 20:36:53-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: RangeDSU.cpp

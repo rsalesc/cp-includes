@@ -7,6 +7,9 @@ data:
   - icon: ':question:'
     path: Traits.cpp
     title: Traits.cpp
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   - icon: ':warning:'
     path: matroid/Matroid.cpp
     title: matroid/Matroid.cpp
@@ -229,6 +232,7 @@ data:
     \  }\n  bool can_add(int i) {\n    auto e = edge(i);\n    return comp[e.first]\
     \ != comp[e.second];\n  }\n};\n} // namespace lib\n\n#endif\n"
   dependsOn:
+  - bits/stdc++.h
   - matroid/Matroid.cpp
   - Lambda.cpp
   - Traits.cpp
@@ -237,7 +241,7 @@ data:
   path: matroid/GraphicMatroid.cpp
   requiredBy:
   - matroid/CographicMatroid.cpp
-  timestamp: '2021-02-03 01:52:23-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: matroid/GraphicMatroid.cpp

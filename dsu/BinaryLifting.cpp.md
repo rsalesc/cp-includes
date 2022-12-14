@@ -1,6 +1,9 @@
 ---
 data:
   _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   - icon: ':warning:'
     path: dsu/SpanningTree.cpp
     title: dsu/SpanningTree.cpp
@@ -78,12 +81,13 @@ data:
     \     if(u == -1) return -1;\n    }\n    return u;\n  }\n};\n} // namespace dsu\n\
     } // namespace lib\n\n#endif\n\n"
   dependsOn:
+  - bits/stdc++.h
   - dsu/SpanningTree.cpp
   - utils/LazyArray.cpp
   isVerificationFile: false
   path: dsu/BinaryLifting.cpp
   requiredBy: []
-  timestamp: '2021-02-26 00:37:16-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: dsu/BinaryLifting.cpp

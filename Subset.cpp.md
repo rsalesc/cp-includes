@@ -1,17 +1,20 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/and-convolution.test.cpp
     title: tests/yosupo/and-convolution.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/yosupo/subset-convolution.test.cpp
     title: tests/yosupo/subset-convolution.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links:
     - https://github.com/NyaanNyaan/library/tree/master/set-function
@@ -87,15 +90,16 @@ data:
     \      }\n    }\n  }\n\n  for(int i = 0; i <= R; i++)\n    subset_mobius_transform(C[i]);\n\
     \  vector<T> res(N);\n  for(int i = 0; i < N; i++)\n    res[i] = C[__builtin_popcount(i)][i];\n\
     \  return res;\n}\n} // namespace lib\n\n#endif\n"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: Subset.cpp
   requiredBy: []
-  timestamp: '2021-02-07 14:32:59-03:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-12-14 09:28:49-03:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/yosupo/and-convolution.test.cpp
   - tests/yosupo/subset-convolution.test.cpp
+  - tests/yosupo/and-convolution.test.cpp
 documentation_of: Subset.cpp
 layout: document
 redirect_from:

@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -35,11 +38,12 @@ data:
     \  }\n  virtual void merged(int u, int v) override {\n    D::merged(u, v);\n \
     \   t[u] = tempo;\n  }\n};\n} // namespace dsu\n} // namespace lib\n\n#endif\n\
     \n"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: dsu/Time.cpp
   requiredBy: []
-  timestamp: '2021-02-26 00:37:16-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: dsu/Time.cpp

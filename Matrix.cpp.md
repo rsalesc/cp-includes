@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -152,11 +155,12 @@ data:
     ;\n        output << var(i, j);\n      }\n      output << \"\\n\";\n    }\n  \
     \  return output << \"]\";\n  }\n};\n} // namespace linalg\n} // namespace lib\n\
     \n#endif\n"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: Matrix.cpp
   requiredBy: []
-  timestamp: '2022-09-18 23:37:16-03:00'
+  timestamp: '2022-12-14 09:29:18-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: Matrix.cpp

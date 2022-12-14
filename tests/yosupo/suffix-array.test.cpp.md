@@ -1,14 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: SuffixArray.cpp
     title: SuffixArray.cpp
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/suffixarray
@@ -85,12 +88,13 @@ data:
     \  iopt;\n  string s; cin >> s;\n\n  lib::SuffixArray<char> sa(s);\n\n  for(int\
     \ i = 0; i < s.size(); i++) cout << sa[i] << \" \";\n  cout << endl;\n}\n"
   dependsOn:
+  - bits/stdc++.h
   - SuffixArray.cpp
   isVerificationFile: true
   path: tests/yosupo/suffix-array.test.cpp
   requiredBy: []
-  timestamp: '2022-09-19 17:21:55-03:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-12-14 09:29:18-03:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/yosupo/suffix-array.test.cpp
 layout: document

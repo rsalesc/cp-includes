@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy:
   - icon: ':warning:'
     path: LinearProgram.cpp
@@ -187,12 +190,13 @@ data:
     \ b, ConstraintOperation::less);\n}\n\ntemplate <typename T>\nT eval(const Expression<T>\
     \ &e, const map<Variable<T>, T> &values) {\n  auto visitor = std::make_unique<EvalVisitor<T>>();\n\
     \  return visitor->eval(e, values);\n}\n\n} // namespace lib\n\n#endif\n"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: Symbolic.cpp
   requiredBy:
   - LinearProgram.cpp
-  timestamp: '2020-10-19 18:36:16-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: Symbolic.cpp

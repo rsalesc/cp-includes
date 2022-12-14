@@ -1,6 +1,9 @@
 ---
 data:
   _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   - icon: ':heavy_check_mark:'
     path: ds/LiChaoTree.cpp
     title: ds/LiChaoTree.cpp
@@ -94,11 +97,12 @@ data:
     \ << \"INFINITY\" << endl;\n      else\n        cout << res << endl;\n    }\n\
     \  }\n}\n"
   dependsOn:
+  - bits/stdc++.h
   - ds/LiChaoTree.cpp
   isVerificationFile: true
   path: tests/yosupo/segment-add-get-min.test.cpp
   requiredBy: []
-  timestamp: '2022-09-22 01:23:11-03:00'
+  timestamp: '2022-12-14 09:29:18-03:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/yosupo/segment-add-get-min.test.cpp

@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -43,11 +46,12 @@ data:
     \ = min(ans, t2[x]);\n    for(T y = r; y != 0 && y - lsb(y) + 1 >= l; y -= lsb(y))\n\
     \      ans = min(ans, t1[y]);\n    if(x <= r)\n      ans = min(ans, a[x-1]);\n\
     \    return ans;\n  }\n};\n} // namespace lib\n\n#endif\n\n"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: ds/StaticRMQ.cpp
   requiredBy: []
-  timestamp: '2021-02-12 02:28:44-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/yosupo/static-rmq.test.cpp

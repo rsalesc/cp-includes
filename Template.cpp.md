@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -9,15 +12,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/biconnected-components.test.cpp
     title: tests/yosupo/biconnected-components.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/yosupo/unionfind-with-compression.test.cpp
     title: tests/yosupo/unionfind-with-compression.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/yosupo/unionfind.test.cpp
     title: tests/yosupo/unionfind.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"Template.cpp\"\n#include <bits/stdc++.h>\n#define int long\
@@ -34,17 +37,18 @@ data:
     #define untie(p, a, b) decltype(p.first) a = p.first, decltype(p.second) b = p.second\n\
     \ \nint gcd(int a, int b) { return b == 0 ? a : gcd(b, a%b); }\n \ntypedef pair<int,\
     \ int> ii;\ntypedef long double LD;\ntypedef vector<int> vi;\n"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: Template.cpp
   requiredBy: []
-  timestamp: '2022-09-22 01:23:11-03:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-12-14 09:29:18-03:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/yosupo/associative-array.test.cpp
   - tests/yosupo/unionfind.test.cpp
-  - tests/yosupo/biconnected-components.test.cpp
   - tests/yosupo/unionfind-with-compression.test.cpp
+  - tests/yosupo/biconnected-components.test.cpp
 documentation_of: Template.cpp
 layout: document
 redirect_from:

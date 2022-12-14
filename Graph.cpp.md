@@ -4,6 +4,9 @@ data:
   - icon: ':question:'
     path: Traits.cpp
     title: Traits.cpp
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   - icon: ':heavy_check_mark:'
     path: utils/Wrappers.cpp
     title: utils/Wrappers.cpp
@@ -297,16 +300,17 @@ data:
     \ namespace lib\n\n#endif\n"
   dependsOn:
   - Traits.cpp
+  - bits/stdc++.h
   - utils/Wrappers.cpp
   isVerificationFile: false
   path: Graph.cpp
   requiredBy:
   - HLD.cpp
   - graphs/BlockCut.cpp
-  - TwoSat.cpp
   - Maxflow.cpp
   - SegtreeHLD.cpp
-  timestamp: '2022-09-22 01:23:11-03:00'
+  - TwoSat.cpp
+  timestamp: '2022-12-14 09:29:18-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/yosupo/2sat.test.cpp

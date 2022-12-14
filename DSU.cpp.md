@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   _extendedRequiredBy:
   - icon: ':warning:'
     path: OfflineRMQ.cpp
@@ -69,14 +72,15 @@ data:
     \ 1;\n  }\n  pair<int, int> last_merge() const {\n    return last_merge_;\n  }\n\
     \  int n_comps() const { return (int)p.size() - merges; }\n};\n} // namespace\
     \ lib\n\n#endif\n"
-  dependsOn: []
+  dependsOn:
+  - bits/stdc++.h
   isVerificationFile: false
   path: DSU.cpp
   requiredBy:
+  - matroid/v2/GraphicMatroid.cpp
   - OfflineRMQ.cpp
   - RangeDSU.cpp
-  - matroid/v2/GraphicMatroid.cpp
-  timestamp: '2021-02-17 20:36:53-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: DSU.cpp

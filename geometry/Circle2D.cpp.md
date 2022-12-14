@@ -4,6 +4,9 @@ data:
   - icon: ':question:'
     path: Epsilon.cpp
     title: Epsilon.cpp
+  - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
   - icon: ':warning:'
     path: geometry/GeometryEpsilon.cpp
     title: geometry/GeometryEpsilon.cpp
@@ -66,48 +69,49 @@ data:
     \ 0);\nGEOMETRY_EPSILON(long long, 0);\n} // namespace geo\n} // namespace lib\n\
     \n\n#line 1 \"geometry/Trigonometry.cpp\"\n\n\n#line 4 \"geometry/Trigonometry.cpp\"\
     \n\nnamespace lib {\nusing namespace std;\nnamespace geo {\nnamespace trig {\n\
-    constexpr static long double PI = acosl(-1);\ndouble cos(double x) { return ::cos(x);\
-    \ }\ndouble sin(double x) { return ::sin(x); }\ndouble asin(double x) { return\
-    \ ::asin(x); }\ndouble acos(double x) { return ::acos(x); }\ndouble atan2(double\
-    \ y, double x) { return ::atan2(y, x); }\nlong double cos(long double x) { return\
-    \ ::cosl(x); }\nlong double sin(long double x) { return ::sinl(x); }\nlong double\
-    \ asin(long double x) { return ::asinl(x); }\nlong double acos(long double x)\
-    \ { return ::acosl(x); }\nlong double atan2(long double y, long double x) { return\
-    \ ::atan2l(y, x); }\n} // namespace trig\n} // namespace geo\n} // namespace lib\n\
-    \n\n#line 6 \"geometry/Line2D.cpp\"\n\nnamespace lib {\nusing namespace std;\n\
-    namespace geo {\nnamespace plane {\nnamespace {\ntemplate <typename T> bool scalar_between(T\
-    \ a, T o, T b) {\n  if (a > b)\n    swap(a, b);\n  return GEOMETRY_COMPARE(T,\
-    \ a, o) <= 0 && GEOMETRY_COMPARE(T, o, b) <= 0;\n}\n\ntemplate <typename T> bool\
-    \ scalar_strictly_between(T a, T o, T b) {\n  if (a > b)\n    swap(a, b);\n  int\
-    \ x = GEOMETRY_COMPARE(T, a, o);\n  int y = GEOMETRY_COMPARE(T, o, b);\n  return\
-    \ x <= 0 && y <= 0 && (x < 0 || y < 0);\n}\n} // namespace\n\ntemplate <typename\
-    \ T, typename Large = T> struct Point {\n  T x, y;\n  Point() : x(0), y(0) {}\n\
-    \  Point(T x, T y) : x(x), y(y) {}\n  template <typename G, typename H> explicit\
-    \ operator Point<G, H>() const {\n    return Point<G, H>((G)x, (G)y);\n  }\n \
-    \ friend Point reversed(const Point &a) { return Point(a.y, a.x); }\n  Point &operator+=(const\
-    \ Point &rhs) {\n    x += rhs.x, y += rhs.y;\n    return *this;\n  }\n  Point\
-    \ &operator-=(const Point &rhs) {\n    x -= rhs.x, y -= rhs.y;\n    return *this;\n\
-    \  }\n  Point &operator*=(T k) {\n    x *= k, y *= k;\n    return *this;\n  }\n\
-    \  Point &operator/=(T k) {\n    x /= k, y /= k;\n    return *this;\n  }\n  Point\
-    \ operator+(const Point &rhs) const {\n    Point res = *this;\n    return res\
-    \ += rhs;\n  }\n  Point operator-(const Point &rhs) const {\n    Point res = *this;\n\
-    \    return res -= rhs;\n  }\n  Point operator*(T k) const {\n    Point res =\
-    \ *this;\n    return res *= k;\n  }\n  Point operator/(T k) const {\n    Point\
-    \ res = *this;\n    return res /= k;\n  }\n  Point operator-() const { return\
-    \ Point(-x, -y); }\n  inline friend Point convolve(const Point &a, const Point\
-    \ &b) {\n    return Point(a.x * b.x - a.y * b.y, a.x * b.y + b.x * a.y);\n  }\n\
-    \  inline friend Large cross(const Point &a, const Point &b) {\n    return (Large)a.x\
-    \ * b.y - (Large)a.y * b.x;\n  }\n  friend Large cross(const Point &a, const Point\
-    \ &b, const Point &c) {\n    return cross(b - a, c - a);\n  }\n  inline friend\
-    \ Large dot(const Point &a, const Point &b) {\n    return (Large)a.x * b.x + (Large)a.y\
-    \ * b.y;\n  }\n  friend int ccw(const Point &u, const Point &v) {\n    return\
-    \ GEOMETRY_COMPARE0(Large, cross(u, v));\n  }\n  friend int ccw(const Point &a,\
-    \ const Point &b, const Point &c) {\n    return ccw(b - a, c - a);\n  }\n  friend\
-    \ int half_ccw(const Point& u, const Point& v) {\n    int dot_sgn = GEOMETRY_COMPARE0(Large,\
-    \ dot(u, v));\n    int ccw_sgn = ccw(u, v);\n    if(dot_sgn == 0) return ccw_sgn\
-    \ ? 1 : 0;\n    return dot_sgn * ccw_sgn;\n  }\n  friend Large norm(const Point\
-    \ &a) { return sqrtl(dot(a, a)); }\n  friend Large norm_sq(const Point &a) { return\
-    \ dot(a, a); }\n  bool is_null() const { return GEOMETRY_COMPARE0(Large, norm_sq(*this))\
+    constexpr static long double PI = 3.141592653589793238462643383279502884197169399375105820974944l;\n\
+    double cos(double x) { return ::cos(x); }\ndouble sin(double x) { return ::sin(x);\
+    \ }\ndouble asin(double x) { return ::asin(x); }\ndouble acos(double x) { return\
+    \ ::acos(x); }\ndouble atan2(double y, double x) { return ::atan2(y, x); }\nlong\
+    \ double cos(long double x) { return ::cosl(x); }\nlong double sin(long double\
+    \ x) { return ::sinl(x); }\nlong double asin(long double x) { return ::asinl(x);\
+    \ }\nlong double acos(long double x) { return ::acosl(x); }\nlong double atan2(long\
+    \ double y, long double x) { return ::atan2l(y, x); }\n} // namespace trig\n}\
+    \ // namespace geo\n} // namespace lib\n\n\n#line 6 \"geometry/Line2D.cpp\"\n\n\
+    namespace lib {\nusing namespace std;\nnamespace geo {\nnamespace plane {\nnamespace\
+    \ {\ntemplate <typename T> bool scalar_between(T a, T o, T b) {\n  if (a > b)\n\
+    \    swap(a, b);\n  return GEOMETRY_COMPARE(T, a, o) <= 0 && GEOMETRY_COMPARE(T,\
+    \ o, b) <= 0;\n}\n\ntemplate <typename T> bool scalar_strictly_between(T a, T\
+    \ o, T b) {\n  if (a > b)\n    swap(a, b);\n  int x = GEOMETRY_COMPARE(T, a, o);\n\
+    \  int y = GEOMETRY_COMPARE(T, o, b);\n  return x <= 0 && y <= 0 && (x < 0 ||\
+    \ y < 0);\n}\n} // namespace\n\ntemplate <typename T, typename Large = T> struct\
+    \ Point {\n  T x, y;\n  Point() : x(0), y(0) {}\n  Point(T x, T y) : x(x), y(y)\
+    \ {}\n  template <typename G, typename H> explicit operator Point<G, H>() const\
+    \ {\n    return Point<G, H>((G)x, (G)y);\n  }\n  friend Point reversed(const Point\
+    \ &a) { return Point(a.y, a.x); }\n  Point &operator+=(const Point &rhs) {\n \
+    \   x += rhs.x, y += rhs.y;\n    return *this;\n  }\n  Point &operator-=(const\
+    \ Point &rhs) {\n    x -= rhs.x, y -= rhs.y;\n    return *this;\n  }\n  Point\
+    \ &operator*=(T k) {\n    x *= k, y *= k;\n    return *this;\n  }\n  Point &operator/=(T\
+    \ k) {\n    x /= k, y /= k;\n    return *this;\n  }\n  Point operator+(const Point\
+    \ &rhs) const {\n    Point res = *this;\n    return res += rhs;\n  }\n  Point\
+    \ operator-(const Point &rhs) const {\n    Point res = *this;\n    return res\
+    \ -= rhs;\n  }\n  Point operator*(T k) const {\n    Point res = *this;\n    return\
+    \ res *= k;\n  }\n  Point operator/(T k) const {\n    Point res = *this;\n   \
+    \ return res /= k;\n  }\n  Point operator-() const { return Point(-x, -y); }\n\
+    \  inline friend Point convolve(const Point &a, const Point &b) {\n    return\
+    \ Point(a.x * b.x - a.y * b.y, a.x * b.y + b.x * a.y);\n  }\n  inline friend Large\
+    \ cross(const Point &a, const Point &b) {\n    return (Large)a.x * b.y - (Large)a.y\
+    \ * b.x;\n  }\n  friend Large cross(const Point &a, const Point &b, const Point\
+    \ &c) {\n    return cross(b - a, c - a);\n  }\n  inline friend Large dot(const\
+    \ Point &a, const Point &b) {\n    return (Large)a.x * b.x + (Large)a.y * b.y;\n\
+    \  }\n  friend int ccw(const Point &u, const Point &v) {\n    return GEOMETRY_COMPARE0(Large,\
+    \ cross(u, v));\n  }\n  friend int ccw(const Point &a, const Point &b, const Point\
+    \ &c) {\n    return ccw(b - a, c - a);\n  }\n  friend int half_ccw(const Point&\
+    \ u, const Point& v) {\n    int dot_sgn = GEOMETRY_COMPARE0(Large, dot(u, v));\n\
+    \    int ccw_sgn = ccw(u, v);\n    if(dot_sgn == 0) return ccw_sgn ? 1 : 0;\n\
+    \    return dot_sgn * ccw_sgn;\n  }\n  friend Large norm(const Point &a) { return\
+    \ sqrtl(dot(a, a)); }\n  friend Large norm_sq(const Point &a) { return dot(a,\
+    \ a); }\n  bool is_null() const { return GEOMETRY_COMPARE0(Large, norm_sq(*this))\
     \ == 0; }\n  bool is_versor() const {\n    return GEOMETRY_COMPARE(Large, norm_sq(*this),\
     \ (Large)1) == 0;\n  }\n  static Point polar(Large d, Large theta) {\n    return\
     \ Point(trig::cos(theta) * d, trig::sin(theta) * d);\n  }\n  friend Point rotate(const\
@@ -534,6 +538,7 @@ data:
     \ Large> circle;\n};\n\n} // namespace geo\n} // namespace lib\n\n#endif\n"
   dependsOn:
   - utils/Annotation.cpp
+  - bits/stdc++.h
   - geometry/Line2D.cpp
   - geometry/GeometryEpsilon.cpp
   - Epsilon.cpp
@@ -543,7 +548,7 @@ data:
   requiredBy:
   - geometry/Polygon2D.cpp
   - geometry/Caliper.cpp
-  timestamp: '2021-11-23 18:59:56-03:00'
+  timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: geometry/Circle2D.cpp

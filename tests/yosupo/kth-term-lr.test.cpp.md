@@ -47,6 +47,9 @@ data:
     path: VectorN.cpp
     title: VectorN.cpp
   - icon: ':question:'
+    path: bits/stdc++.h
+    title: bits/stdc++.h
+  - icon: ':question:'
     path: polynomial/Transform.cpp
     title: polynomial/Transform.cpp
   _extendedRequiredBy: []
@@ -84,10 +87,9 @@ data:
     \ constexpr static T mod = Mod;\n\n  T x[1];\n\n  T& data() { return this->x[0];\
     \ }\n  T data() const { return this->x[0]; }\n  explicit operator int() const\
     \ { return this->x[0]; }\n  explicit operator int64_t() const { return this->x[0];\
-    \ }\n  explicit operator long long() const { return this->x[0]; }\n  explicit\
-    \ operator double() const { return this->x[0]; }\n  explicit operator long double()\
-    \ const { return this->x[0]; }\n  friend ostream &operator<<(ostream &output,\
-    \ const type &var) {\n    return output << var.x[0];\n  }\n};\n\ntemplate<typename\
+    \ }\n  explicit operator double() const { return this->x[0]; }\n  explicit operator\
+    \ long double() const { return this->x[0]; }\n  friend ostream &operator<<(ostream\
+    \ &output, const type &var) {\n    return output << var.x[0];\n  }\n};\n\ntemplate<typename\
     \ T, typename U, T... Mods>\nstruct InversesTable {\n  constexpr static size_t\
     \ n_mods = sizeof...(Mods);\n  constexpr static T mods[sizeof...(Mods)] = {Mods...};\n\
     \  constexpr static int n_inverses = 1e6 + 10;\n\n  T v[n_inverses][n_mods];\n\
@@ -684,6 +686,7 @@ data:
     \ linalg::LinearRecurrence<poly> lr(b, T);\n    cout << lr.compute(K) << endl;\n\
     \    return 0;\n}\n"
   dependsOn:
+  - bits/stdc++.h
   - ModularInteger.cpp
   - NumberTheory.cpp
   - FHT.cpp
@@ -703,7 +706,7 @@ data:
   isVerificationFile: true
   path: tests/yosupo/kth-term-lr.test.cpp
   requiredBy: []
-  timestamp: '2022-09-18 23:37:16-03:00'
+  timestamp: '2022-12-14 09:29:18-03:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/yosupo/kth-term-lr.test.cpp
