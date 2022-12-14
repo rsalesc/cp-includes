@@ -27,6 +27,7 @@ template <typename T, typename US = T> struct Euclid {
   static U safe_mult(U a, U b, U m) {
     a = safe_mod(a, m), b = safe_mod(b, m);
 
+    if (!b) return 0;
     int hi = 63 - __builtin_clzll((unsigned long long)b);
     U res = 0;
     for (int i = hi; i >= 0; i--) {
@@ -87,6 +88,45 @@ template <typename T, typename US = T> struct Euclid {
         return {0, 0};
     }
     return acc;
+  }
+
+  static bool diophantine_solution(T a, T b, T c, T& x0, T& y0, T& g) {
+    g = euclid(a, b, x0, y0);
+    if (c % g)
+      return false;
+    x0 *= c/g;
+    y0 *= c/g;
+    return true;
+  }
+
+  // Give solutions for diophantine in the form [x = x.first * k + x.second].
+  static bool diophantine_solutions(T a, T b, T c, pair<T, T>& x, pair<T, T>& y) {
+    T g;
+    if(!diophantine_solution(a, b, c, x.second, y.second, g))
+      return false;
+    x.first = b / g;
+    y.first = -a / g;
+    return true;
+  }
+
+  // Give parameterized solution (in terms of k) to:
+  // a_1 * k + b_1 = ... = a_n * k + b_n, i.e, an equation for where those
+  // functions meet.
+  static bool linear_equality_system(const vector<pair<T, T>>& v, pair<T, T>& res) {
+    assert(!v.empty());
+    res = v[0];
+    for(int i = 1; i < v.size(); i++) {
+      pair<T, T> x, y;
+      if (!diophantine_solutions(res.first, -v[i].first, v[i].second - res.second, x, y))
+        return false;
+      auto num = res.first * x.first;
+      if (num < 0) num = -num;
+      res = {
+        num,
+        safe_mod(res.second + safe_mult(res.first, x.second, num), num),
+      };
+    }
+    return true;
   }
 };
 
