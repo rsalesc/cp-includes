@@ -129,7 +129,7 @@ struct GraphImpl {
     return iterable(const_cast<vector<int> *>(&adj[i]),
                     const_cast<vector<edge_type> *>(&edges));
   }
-  inline int degree(int i) { return adj[i].size(); }
+  inline int degree(int i) const { return adj[i].size(); }
 
   inline int size() const { return adj.size(); }
   inline int edge_size() const { return edges.size(); }

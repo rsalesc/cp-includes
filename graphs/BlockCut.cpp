@@ -14,7 +14,6 @@ struct BlockCut {
   int tempo = 0;
   vector<int> vis, low, seen;
   vector<int> st;
-  vector<vector<int>> comps;
   LazyArray<char> seen_v;
 
   Graph<V, E> g2;
@@ -26,16 +25,33 @@ struct BlockCut {
     vis = low = vector<int>(n);
     seen = vector<int>(m);
     st.reserve(m);
-    comps.reserve(n);
     seen_v = LazyArray<char>(n, 0);
 
     g2 = Graph<V, E>(n);
 
     for(int i = 0; i < n; i++) {
-      if(!vis[i]) tarjan(i, -1);
+      if(!vis[i]) {
+        tarjan(i, -1);
+        if (g.degree(i) == 0) {
+          // Vertex is isolated, process separately.
+          g2.add_vertex();
+          g2.add_2edge(n + n2, i);
+          n2++;
+        }
+      }
     }
   }
   Graph<V, E> graph() const { return g2; }
+
+  int n_components() const { return n2; }
+  vector<int> component(int i) const {
+    vector<int> res;
+    for(const auto& v : g2.n_edges(n + i))
+      if (v.to < n)
+        res.push_back(v.to);
+    return res;
+  }
+
   vector<int> get_vertices_(const vector<int>& e) {
     seen_v.clear();
     vector<int> comp;
@@ -66,7 +82,6 @@ struct BlockCut {
     for(int i = 0; i < nei.size(); i++) {
       int k = nei.index(i);
       int v = g.edge(k).to;
-      if(v == p) continue;
 
       if(!seen[k]) {
         seen[k] = seen[k^1] = 1;

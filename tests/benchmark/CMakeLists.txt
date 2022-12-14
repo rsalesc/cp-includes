@@ -1,15 +1,19 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.20)
 project("Lib_Bench")
 
-set (BENCHMARK_ENABLE_INSTALL OFF)
 set (BENCHMARK_ENABLE_GTEST_TESTS OFF)
 set (BENCHMARK_ENABLE_TESTING OFF)
 
 include(FetchContent)
+FetchContent_Declare(googletest
+        GIT_REPOSITORY https://github.com/google/googletest.git
+        GIT_TAG main
+        )
 FetchContent_Declare(googlebenchmark
                      GIT_REPOSITORY https://github.com/google/benchmark
+                     GIT_TAG main
         )
-FetchContent_MakeAvailable(googlebenchmark)
+FetchContent_MakeAvailable(googletest googlebenchmark)
 
 add_executable(${PROJECT_NAME})
 target_sources(${PROJECT_NAME} PRIVATE
