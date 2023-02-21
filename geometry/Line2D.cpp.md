@@ -572,9 +572,9 @@ data:
   isVerificationFile: false
   path: geometry/Line2D.cpp
   requiredBy:
-  - geometry/Circle2D.cpp
   - geometry/Polygon2D.cpp
   - geometry/Caliper.cpp
+  - geometry/Circle2D.cpp
   timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

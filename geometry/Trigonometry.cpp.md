@@ -124,10 +124,10 @@ data:
   isVerificationFile: false
   path: geometry/Trigonometry.cpp
   requiredBy:
-  - geometry/Circle2D.cpp
   - geometry/Polygon2D.cpp
   - geometry/Caliper.cpp
   - geometry/Line2D.cpp
+  - geometry/Circle2D.cpp
   - FFT.cpp
   timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS

@@ -55,18 +55,18 @@ data:
   isVerificationFile: false
   path: utils/Wrappers.cpp
   requiredBy:
-  - HLD.cpp
   - graphs/BlockCut.cpp
   - Maxflow.cpp
   - SegtreeHLD.cpp
+  - HLD.cpp
   - Graph.cpp
   - TwoSat.cpp
   timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/yosupo/2sat.test.cpp
-  - tests/yosupo/biconnected-components.test.cpp
   - tests/yosupo/chordal.test.cpp
+  - tests/yosupo/biconnected-components.test.cpp
+  - tests/yosupo/2sat.test.cpp
 documentation_of: utils/Wrappers.cpp
 layout: document
 redirect_from:

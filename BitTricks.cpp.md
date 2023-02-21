@@ -54,7 +54,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/multipoint.test.cpp
     title: tests/yosupo/multipoint.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/yosupo/subset-sum.test.cpp
     title: tests/yosupo/subset-sum.test.cpp
   _isVerificationFailed: true
@@ -75,26 +75,26 @@ data:
   isVerificationFile: false
   path: BitTricks.cpp
   requiredBy:
-  - NTT.cpp
-  - polynomial/ExponentialSum.cpp
   - FHT.cpp
+  - polynomial/ExponentialSum.cpp
+  - DFT.cpp
   - Combinatorics.cpp
   - PowerSeries.cpp
-  - Lagrange.cpp
-  - DFT.cpp
   - FFT.cpp
+  - NTT.cpp
+  - Lagrange.cpp
   timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
+  - tests/yosupo/subset-sum.test.cpp
+  - tests/yosupo/fht-convolution.test.cpp
+  - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/multipoint.test.cpp
   - tests/yosupo/exp-sum.test.cpp
   - tests/yosupo/kth-term-lr.test.cpp
-  - tests/yosupo/fps-power.test.cpp
-  - tests/yosupo/find-lr.test.cpp
-  - tests/yosupo/exp-sum-limit.test.cpp
-  - tests/yosupo/fht-convolution.test.cpp
   - tests/yosupo/fps-inv.test.cpp
-  - tests/yosupo/multipoint.test.cpp
-  - tests/yosupo/subset-sum.test.cpp
+  - tests/yosupo/exp-sum-limit.test.cpp
+  - tests/yosupo/find-lr.test.cpp
 documentation_of: BitTricks.cpp
 layout: document
 redirect_from:

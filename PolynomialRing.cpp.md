@@ -66,10 +66,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/multipoint.test.cpp
     title: tests/yosupo/multipoint.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/yosupo/subset-sum.test.cpp
     title: tests/yosupo/subset-sum.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/yosupo/subset-sum.test.cpp
     title: tests/yosupo/subset-sum.test.cpp
   _isVerificationFailed: true
@@ -640,24 +640,24 @@ data:
   isVerificationFile: false
   path: PolynomialRing.cpp
   requiredBy:
+  - LinearRecurrence.cpp
   - polynomial/MultipointEvaluation.cpp
   - PowerSeries.cpp
-  - LinearRecurrence.cpp
   timestamp: '2022-12-14 09:29:18-03:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/yosupo/kth-term-lr.test.cpp
-  - tests/yosupo/kth-term-lr.test.cpp
-  - tests/yosupo/fps-power.test.cpp
-  - tests/yosupo/fps-power.test.cpp
-  - tests/yosupo/find-lr.test.cpp
-  - tests/yosupo/find-lr.test.cpp
-  - tests/yosupo/fps-inv.test.cpp
-  - tests/yosupo/fps-inv.test.cpp
-  - tests/yosupo/multipoint.test.cpp
-  - tests/yosupo/multipoint.test.cpp
   - tests/yosupo/subset-sum.test.cpp
   - tests/yosupo/subset-sum.test.cpp
+  - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/kth-term-lr.test.cpp
+  - tests/yosupo/kth-term-lr.test.cpp
+  - tests/yosupo/fps-inv.test.cpp
+  - tests/yosupo/fps-inv.test.cpp
+  - tests/yosupo/find-lr.test.cpp
+  - tests/yosupo/find-lr.test.cpp
 documentation_of: PolynomialRing.cpp
 layout: document
 redirect_from:

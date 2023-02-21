@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: Template.cpp
     title: Template.cpp
   - icon: ':question:'
     path: bits/stdc++.h
     title: bits/stdc++.h
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: dsu/DSU.cpp
     title: dsu/DSU.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/unionfind
@@ -34,7 +34,7 @@ data:
     \ virtual int merge(int u, int v) {\n    u = get(u), v = get(v);\n    if(u ==\
     \ v) return 0;\n    last_swapped_ = false;\n    if(sz[u] > sz[v]) swap(u, v),\
     \ last_swapped_ = true;\n    r[u] = v;\n    sz[v] += sz[u];\n    last_merge_ =\
-    \ {u, v};\n    merged(u, v);\n    return 1;\n  }\n};\n\ntemplate<template<class>\
+    \ {u, v};\n    merges++;\n    merged(u, v);\n    return 1;\n  }\n};\n\ntemplate<template<class>\
     \ class ...Ts>\nstruct ByRankImpl;\n\ntemplate<template<class> class T, template<class>\
     \ class ...Ts>\nstruct ByRankImpl<T, Ts...> {\n  using type = T<typename ByRankImpl<Ts...>::type>;\n\
     };\n\ntemplate<>\nstruct ByRankImpl<> {\n  using type = RankDSU;\n};\n\ntemplate<template<class>\
@@ -64,8 +64,8 @@ data:
   isVerificationFile: true
   path: tests/yosupo/unionfind.test.cpp
   requiredBy: []
-  timestamp: '2022-12-14 09:29:18-03:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2023-02-21 13:50:33-03:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/yosupo/unionfind.test.cpp
 layout: document

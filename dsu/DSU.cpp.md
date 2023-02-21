@@ -6,15 +6,15 @@ data:
     title: bits/stdc++.h
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/yosupo/unionfind-with-compression.test.cpp
     title: tests/yosupo/unionfind-with-compression.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/yosupo/unionfind.test.cpp
     title: tests/yosupo/unionfind.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"dsu/DSU.cpp\"\n\n\n#include <bits/stdc++.h>\n\nnamespace\
@@ -30,7 +30,7 @@ data:
     \ virtual int merge(int u, int v) {\n    u = get(u), v = get(v);\n    if(u ==\
     \ v) return 0;\n    last_swapped_ = false;\n    if(sz[u] > sz[v]) swap(u, v),\
     \ last_swapped_ = true;\n    r[u] = v;\n    sz[v] += sz[u];\n    last_merge_ =\
-    \ {u, v};\n    merged(u, v);\n    return 1;\n  }\n};\n\ntemplate<template<class>\
+    \ {u, v};\n    merges++;\n    merged(u, v);\n    return 1;\n  }\n};\n\ntemplate<template<class>\
     \ class ...Ts>\nstruct ByRankImpl;\n\ntemplate<template<class> class T, template<class>\
     \ class ...Ts>\nstruct ByRankImpl<T, Ts...> {\n  using type = T<typename ByRankImpl<Ts...>::type>;\n\
     };\n\ntemplate<>\nstruct ByRankImpl<> {\n  using type = RankDSU;\n};\n\ntemplate<template<class>\
@@ -49,7 +49,7 @@ data:
     \ u, int v) {}\n  virtual int merge(int u, int v) {\n    u = get(u), v = get(v);\n\
     \    if(u == v) return 0;\n    last_swapped_ = false;\n    if(sz[u] > sz[v]) swap(u,\
     \ v), last_swapped_ = true;\n    r[u] = v;\n    sz[v] += sz[u];\n    last_merge_\
-    \ = {u, v};\n    merged(u, v);\n    return 1;\n  }\n};\n\ntemplate<template<class>\
+    \ = {u, v};\n    merges++;\n    merged(u, v);\n    return 1;\n  }\n};\n\ntemplate<template<class>\
     \ class ...Ts>\nstruct ByRankImpl;\n\ntemplate<template<class> class T, template<class>\
     \ class ...Ts>\nstruct ByRankImpl<T, Ts...> {\n  using type = T<typename ByRankImpl<Ts...>::type>;\n\
     };\n\ntemplate<>\nstruct ByRankImpl<> {\n  using type = RankDSU;\n};\n\ntemplate<template<class>\
@@ -60,8 +60,8 @@ data:
   isVerificationFile: false
   path: dsu/DSU.cpp
   requiredBy: []
-  timestamp: '2022-12-14 09:28:49-03:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2023-02-21 13:50:33-03:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/yosupo/unionfind.test.cpp
   - tests/yosupo/unionfind-with-compression.test.cpp

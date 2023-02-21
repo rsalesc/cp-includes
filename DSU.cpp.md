@@ -77,8 +77,8 @@ data:
   isVerificationFile: false
   path: DSU.cpp
   requiredBy:
-  - matroid/v2/GraphicMatroid.cpp
   - OfflineRMQ.cpp
+  - matroid/v2/GraphicMatroid.cpp
   - RangeDSU.cpp
   timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS

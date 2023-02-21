@@ -126,7 +126,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/multipoint.test.cpp
     title: tests/yosupo/multipoint.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/yosupo/subset-sum.test.cpp
     title: tests/yosupo/subset-sum.test.cpp
   _isVerificationFailed: true
@@ -179,50 +179,50 @@ data:
   isVerificationFile: false
   path: Traits.cpp
   requiredBy:
-  - PolynomialRing.cpp
-  - NTT.cpp
-  - polynomial/MultipointEvaluation.cpp
-  - polynomial/MultipointEvaluation.cpp
-  - FHT.cpp
-  - HLD.cpp
   - graphs/BlockCut.cpp
-  - matroid/CographicMatroid.cpp
-  - matroid/GraphicMatroid.cpp
-  - matroid/Matroid.cpp
-  - matroid/ColorMatroid.cpp
-  - matroid/MatroidIntersection.cpp
-  - matroid/Compose.cpp
-  - matroid/v2/BinaryMatroid.cpp
-  - matroid/v2/EdgeFinder.cpp
-  - matroid/v2/GraphicMatroid.cpp
-  - matroid/v2/Matroid.cpp
-  - matroid/v2/ColorMatroid.cpp
-  - matroid/v2/ContractionMatroid.cpp
-  - matroid/v2/MatroidIntersection.cpp
-  - Lambda.cpp
-  - RollingHash.cpp
+  - FHT.cpp
   - Maxflow.cpp
   - SegtreeHLD.cpp
+  - HLD.cpp
   - pbds/TreeUpdater.cpp
+  - LinearRecurrence.cpp
+  - matroid/v2/ContractionMatroid.cpp
+  - matroid/v2/MatroidIntersection.cpp
+  - matroid/v2/GraphicMatroid.cpp
+  - matroid/v2/BinaryMatroid.cpp
+  - matroid/v2/ColorMatroid.cpp
+  - matroid/v2/EdgeFinder.cpp
+  - matroid/v2/Matroid.cpp
+  - matroid/MatroidIntersection.cpp
+  - matroid/GraphicMatroid.cpp
+  - matroid/ColorMatroid.cpp
+  - matroid/Compose.cpp
+  - matroid/Matroid.cpp
+  - matroid/CographicMatroid.cpp
   - Graph.cpp
+  - polynomial/MultipointEvaluation.cpp
+  - polynomial/MultipointEvaluation.cpp
+  - RollingHash.cpp
   - VectorN.cpp
   - PowerSeries.cpp
+  - NTT.cpp
   - TwoSat.cpp
-  - LinearRecurrence.cpp
+  - Lambda.cpp
+  - PolynomialRing.cpp
   timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/yosupo/kth-term-lr.test.cpp
+  - tests/yosupo/chordal.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
+  - tests/yosupo/fht-convolution.test.cpp
   - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/biconnected-components.test.cpp
+  - tests/yosupo/kth-term-lr.test.cpp
+  - tests/yosupo/fps-inv.test.cpp
   - tests/yosupo/2sat.test.cpp
   - tests/yosupo/find-lr.test.cpp
-  - tests/yosupo/fht-convolution.test.cpp
-  - tests/yosupo/biconnected-components.test.cpp
-  - tests/yosupo/fps-inv.test.cpp
-  - tests/yosupo/multipoint.test.cpp
-  - tests/yosupo/multipoint.test.cpp
-  - tests/yosupo/subset-sum.test.cpp
-  - tests/yosupo/chordal.test.cpp
 documentation_of: Traits.cpp
 layout: document
 redirect_from:

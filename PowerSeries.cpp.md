@@ -39,7 +39,7 @@ data:
   - icon: ':x:'
     path: tests/yosupo/fps-power.test.cpp
     title: tests/yosupo/fps-power.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/yosupo/subset-sum.test.cpp
     title: tests/yosupo/subset-sum.test.cpp
   _isVerificationFailed: true
@@ -484,9 +484,9 @@ data:
   timestamp: '2022-12-14 09:29:18-03:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
+  - tests/yosupo/subset-sum.test.cpp
   - tests/yosupo/fps-power.test.cpp
   - tests/yosupo/fps-inv.test.cpp
-  - tests/yosupo/subset-sum.test.cpp
 documentation_of: PowerSeries.cpp
 layout: document
 redirect_from:

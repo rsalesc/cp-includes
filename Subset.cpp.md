@@ -9,12 +9,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/and-convolution.test.cpp
     title: tests/yosupo/and-convolution.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/yosupo/subset-convolution.test.cpp
     title: tests/yosupo/subset-convolution.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links:
     - https://github.com/NyaanNyaan/library/tree/master/set-function
@@ -96,10 +96,10 @@ data:
   path: Subset.cpp
   requiredBy: []
   timestamp: '2022-12-14 09:28:49-03:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/yosupo/subset-convolution.test.cpp
   - tests/yosupo/and-convolution.test.cpp
+  - tests/yosupo/subset-convolution.test.cpp
 documentation_of: Subset.cpp
 layout: document
 redirect_from:

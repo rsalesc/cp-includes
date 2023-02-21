@@ -185,12 +185,12 @@ data:
   isVerificationFile: false
   path: matroid/v2/Matroid.cpp
   requiredBy:
-  - matroid/v2/BinaryMatroid.cpp
-  - matroid/v2/EdgeFinder.cpp
-  - matroid/v2/GraphicMatroid.cpp
-  - matroid/v2/ColorMatroid.cpp
   - matroid/v2/ContractionMatroid.cpp
   - matroid/v2/MatroidIntersection.cpp
+  - matroid/v2/GraphicMatroid.cpp
+  - matroid/v2/BinaryMatroid.cpp
+  - matroid/v2/ColorMatroid.cpp
+  - matroid/v2/EdgeFinder.cpp
   timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

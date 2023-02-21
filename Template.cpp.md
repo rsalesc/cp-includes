@@ -12,15 +12,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/biconnected-components.test.cpp
     title: tests/yosupo/biconnected-components.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/yosupo/unionfind-with-compression.test.cpp
     title: tests/yosupo/unionfind-with-compression.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/yosupo/unionfind.test.cpp
     title: tests/yosupo/unionfind.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"Template.cpp\"\n#include <bits/stdc++.h>\n#define int long\
@@ -43,12 +43,12 @@ data:
   path: Template.cpp
   requiredBy: []
   timestamp: '2022-12-14 09:29:18-03:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/yosupo/associative-array.test.cpp
   - tests/yosupo/unionfind.test.cpp
-  - tests/yosupo/unionfind-with-compression.test.cpp
   - tests/yosupo/biconnected-components.test.cpp
+  - tests/yosupo/associative-array.test.cpp
+  - tests/yosupo/unionfind-with-compression.test.cpp
 documentation_of: Template.cpp
 layout: document
 redirect_from:

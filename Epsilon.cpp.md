@@ -48,7 +48,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/multipoint.test.cpp
     title: tests/yosupo/multipoint.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/yosupo/subset-sum.test.cpp
     title: tests/yosupo/subset-sum.test.cpp
   _isVerificationFailed: true
@@ -86,24 +86,24 @@ data:
   isVerificationFile: false
   path: Epsilon.cpp
   requiredBy:
-  - PolynomialRing.cpp
+  - LinearRecurrence.cpp
   - polynomial/MultipointEvaluation.cpp
-  - geometry/Circle2D.cpp
   - geometry/Polygon2D.cpp
   - geometry/Caliper.cpp
   - geometry/GeometryEpsilon.cpp
   - geometry/Line2D.cpp
+  - geometry/Circle2D.cpp
   - PowerSeries.cpp
-  - LinearRecurrence.cpp
+  - PolynomialRing.cpp
   timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/yosupo/kth-term-lr.test.cpp
-  - tests/yosupo/fps-power.test.cpp
-  - tests/yosupo/find-lr.test.cpp
-  - tests/yosupo/fps-inv.test.cpp
-  - tests/yosupo/multipoint.test.cpp
   - tests/yosupo/subset-sum.test.cpp
+  - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/kth-term-lr.test.cpp
+  - tests/yosupo/fps-inv.test.cpp
+  - tests/yosupo/find-lr.test.cpp
 documentation_of: Epsilon.cpp
 layout: document
 redirect_from:

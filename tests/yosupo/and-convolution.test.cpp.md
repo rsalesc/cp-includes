@@ -7,7 +7,7 @@ data:
   - icon: ':question:'
     path: NumberTheory.cpp
     title: NumberTheory.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: Subset.cpp
     title: Subset.cpp
   - icon: ':question:'

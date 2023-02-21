@@ -48,8 +48,8 @@ data:
   path: utils/LazyArray.cpp
   requiredBy:
   - graphs/BlockCut.cpp
-  - dsu/BinaryLifting.cpp
   - dsu/SpanningTree.cpp
+  - dsu/BinaryLifting.cpp
   timestamp: '2022-12-14 09:28:49-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
