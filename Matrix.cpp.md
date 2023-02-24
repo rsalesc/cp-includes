@@ -53,7 +53,7 @@ data:
     \    return res += rhs;\n  }\n  friend Matrix<T> operator-(const Matrix &lhs,\
     \ const Matrix &rhs) {\n    Matrix res = lhs;\n    return res -= rhs;\n  }\n \
     \ friend Matrix operator*(const Matrix &lhs, const Matrix &rhs) {\n    Matrix\
-    \ res = lhs;\n    return res *= lhs;\n  }\n  friend Matrix operator%(const Matrix\
+    \ res = lhs;\n    return res *= rhs;\n  }\n  friend Matrix operator%(const Matrix\
     \ &lhs, const Matrix &rhs) {\n    assert(lhs.m == rhs.n);\n    auto res = Matrix::same(lhs.n,\
     \ rhs.m, Combiner::default_value);\n    Combiner combiner;\n    for (int i = 0;\
     \ i < lhs.n; i++) {\n      for (int k = 0; k < lhs.m; k++) {\n        for (int\
@@ -125,7 +125,7 @@ data:
     \    return res += rhs;\n  }\n  friend Matrix<T> operator-(const Matrix &lhs,\
     \ const Matrix &rhs) {\n    Matrix res = lhs;\n    return res -= rhs;\n  }\n \
     \ friend Matrix operator*(const Matrix &lhs, const Matrix &rhs) {\n    Matrix\
-    \ res = lhs;\n    return res *= lhs;\n  }\n  friend Matrix operator%(const Matrix\
+    \ res = lhs;\n    return res *= rhs;\n  }\n  friend Matrix operator%(const Matrix\
     \ &lhs, const Matrix &rhs) {\n    assert(lhs.m == rhs.n);\n    auto res = Matrix::same(lhs.n,\
     \ rhs.m, Combiner::default_value);\n    Combiner combiner;\n    for (int i = 0;\
     \ i < lhs.n; i++) {\n      for (int k = 0; k < lhs.m; k++) {\n        for (int\
@@ -160,7 +160,7 @@ data:
   isVerificationFile: false
   path: Matrix.cpp
   requiredBy: []
-  timestamp: '2022-12-14 09:29:18-03:00'
+  timestamp: '2023-02-24 16:39:19-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: Matrix.cpp

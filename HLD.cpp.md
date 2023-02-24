@@ -186,17 +186,23 @@ data:
     \ begin, RandomIterator end)\n      : begin(begin), end(end) {}\n\n  template\
     \ <typename Node> inline void operator()(Node &no, int i) const {\n    no = *(begin\
     \ + i);\n  }\n\n  inline pair<int, int> range() const { return {0, end - begin\
-    \ - 1}; }\n};\n\nEmptyLeafBuilder make_builder(int n) { return EmptyLeafBuilder(n);\
-    \ }\n\ntemplate <typename RandomIterator>\nRangeLeafBuilder<RandomIterator> make_builder(RandomIterator\
-    \ begin,\n                                              RandomIterator end) {\n\
-    \  return RangeLeafBuilder<RandomIterator>(begin, end);\n}\n\ntemplate <typename\
-    \ T>\nRangeLeafBuilder<typename vector<T>::const_iterator>\nmake_builder(const\
-    \ vector<T> &v) {\n  return RangeLeafBuilder<typename vector<T>::const_iterator>(v.begin(),\n\
+    \ - 1}; }\n};\n\ntemplate <typename F> struct LambdaLeafBuilder : LeafBuilder\
+    \ {\n  F f;\n  pair<int, int> rng;\n  explicit LambdaLeafBuilder(F f, pair<int,\
+    \ int> range)\n      : f(f), rng(range) {}\n\n  template <typename Node> inline\
+    \ void operator()(Node &no, int i) const {\n    no = f(i);\n  }\n\n  inline pair<int,\
+    \ int> range() const { return rng; }\n};\n\nEmptyLeafBuilder make_builder(int\
+    \ n) { return EmptyLeafBuilder(n); }\n\ntemplate <typename RandomIterator>\nRangeLeafBuilder<RandomIterator>\
+    \ make_builder(RandomIterator begin,\n                                       \
+    \       RandomIterator end) {\n  return RangeLeafBuilder<RandomIterator>(begin,\
+    \ end);\n}\n\ntemplate <typename T>\nRangeLeafBuilder<typename vector<T>::const_iterator>\n\
+    make_builder(const vector<T> &v) {\n  return RangeLeafBuilder<typename vector<T>::const_iterator>(v.begin(),\n\
     \                                                              v.end());\n}\n\n\
-    template <typename T> struct CombineFolder {\n  inline T operator()() const {\
-    \ return T(); }\n\n  template <typename Node> inline T operator()(const Node &no)\
-    \ const {\n    return T(no);\n  }\n\n  inline T operator()(const T &a, const T\
-    \ &b) const { return a + b; }\n};\n\ntemplate <typename T> struct EmptyFolder\
+    template<typename T>\nLambdaLeafBuilder<std::function<T(int)>>\nmake_builder(std::function<T(int)>\
+    \ f, pair<int, int> range) {\n  return LambdaLeafBuilder<std::function<T(int)>>(f,\
+    \ range);\n}\n\ntemplate <typename T> struct CombineFolder {\n  inline T operator()()\
+    \ const { return T(); }\n\n  template <typename Node> inline T operator()(const\
+    \ Node &no) const {\n    return T(no);\n  }\n\n  inline T operator()(const T &a,\
+    \ const T &b) const { return a + b; }\n};\n\ntemplate <typename T> struct EmptyFolder\
     \ : CombineFolder<T> {\n  using CombineFolder<T>::operator();\n\n  template <typename\
     \ Node> inline T operator()(const Node &no) const {\n    return T();\n  }\n  inline\
     \ T operator()(const T &a, const T &b) const { return T(); }\n};\n\ntemplate <typename\
@@ -329,7 +335,7 @@ data:
   path: HLD.cpp
   requiredBy:
   - SegtreeHLD.cpp
-  timestamp: '2022-12-14 09:29:18-03:00'
+  timestamp: '2023-02-24 16:39:19-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: HLD.cpp
