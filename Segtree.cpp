@@ -53,6 +53,19 @@ template <typename RandomIterator> struct RangeLeafBuilder : LeafBuilder {
   inline pair<int, int> range() const { return {0, end - begin - 1}; }
 };
 
+template <typename F> struct LambdaLeafBuilder : LeafBuilder {
+  F f;
+  pair<int, int> rng;
+  explicit LambdaLeafBuilder(F f, pair<int, int> range)
+      : f(f), rng(range) {}
+
+  template <typename Node> inline void operator()(Node &no, int i) const {
+    no = f(i);
+  }
+
+  inline pair<int, int> range() const { return rng; }
+};
+
 EmptyLeafBuilder make_builder(int n) { return EmptyLeafBuilder(n); }
 
 template <typename RandomIterator>
@@ -66,6 +79,12 @@ RangeLeafBuilder<typename vector<T>::const_iterator>
 make_builder(const vector<T> &v) {
   return RangeLeafBuilder<typename vector<T>::const_iterator>(v.begin(),
                                                               v.end());
+}
+
+template<typename T>
+LambdaLeafBuilder<std::function<T(int)>>
+make_builder(std::function<T(int)> f, pair<int, int> range) {
+  return LambdaLeafBuilder<std::function<T(int)>>(f, range);
 }
 
 template <typename T> struct CombineFolder {

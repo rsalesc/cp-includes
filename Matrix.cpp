@@ -117,7 +117,7 @@ template <typename T, typename Combiner = MultCombiner<T>> struct Matrix {
   }
   friend Matrix operator*(const Matrix &lhs, const Matrix &rhs) {
     Matrix res = lhs;
-    return res *= lhs;
+    return res *= rhs;
   }
   friend Matrix operator%(const Matrix &lhs, const Matrix &rhs) {
     assert(lhs.m == rhs.n);
