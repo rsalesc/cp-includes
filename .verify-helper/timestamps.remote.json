@@ -13,5 +13,10 @@
 "tests/yosupo/line-add-get-min.test.cpp": "2022-12-14 09:29:18 -0300",
 "tests/yosupo/multipoint.test.cpp": "2022-12-14 09:29:18 -0300",
 "tests/yosupo/segment-add-get-min.test.cpp": "2022-12-14 09:29:18 -0300",
-"tests/yosupo/static-rmq.test.cpp": "2022-12-14 09:28:49 -0300"
+"tests/yosupo/static-rmq.test.cpp": "2022-12-14 09:28:49 -0300",
+"tests/yosupo/subset-convolution.test.cpp": "2022-12-14 09:29:18 -0300",
+"tests/yosupo/subset-sum.test.cpp": "2022-12-14 09:29:18 -0300",
+"tests/yosupo/suffix-array.test.cpp": "2022-12-14 09:29:18 -0300",
+"tests/yosupo/unionfind-with-compression.test.cpp": "2023-02-21 13:50:33 -0300",
+"tests/yosupo/unionfind.test.cpp": "2023-02-21 13:50:33 -0300"
 }
