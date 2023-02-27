@@ -191,7 +191,7 @@ data:
   - matroid/v2/BinaryMatroid.cpp
   - matroid/v2/ColorMatroid.cpp
   - matroid/v2/EdgeFinder.cpp
-  timestamp: '2022-12-14 09:28:49-03:00'
+  timestamp: '2023-02-27 10:03:35-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: matroid/v2/Matroid.cpp

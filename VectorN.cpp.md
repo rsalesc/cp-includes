@@ -45,7 +45,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/multipoint.test.cpp
     title: tests/yosupo/multipoint.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/yosupo/subset-sum.test.cpp
     title: tests/yosupo/subset-sum.test.cpp
   _isVerificationFailed: true
@@ -131,7 +131,7 @@ data:
   - PowerSeries.cpp
   - NTT.cpp
   - PolynomialRing.cpp
-  timestamp: '2022-12-14 09:28:49-03:00'
+  timestamp: '2023-02-27 10:03:35-03:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/yosupo/subset-sum.test.cpp

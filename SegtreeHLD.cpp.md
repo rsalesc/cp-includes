@@ -131,53 +131,53 @@ data:
     \ V = void, typename E = void>\nusing Graph = GraphImpl<V, E, false>;\n\ntemplate<typename\
     \ V = void, typename E = void>\nusing DirectedGraph = GraphImpl<V, E, true>;\n\
     \ntemplate <typename V = void, typename E = void>\nstruct RootedForest : public\
-    \ Graph<V, E> {\n  typedef RootedForest<V, E> self_type;\n  using typename Graph<V,\
-    \ E>::adj_list;\n  using typename Graph<V, E>::edge_type;\n  using Graph<V, E>::Graph;\n\
-    \  using Graph<V, E>::adj;\n  using Graph<V, E>::edge;\n  vector<int> p, pe;\n\
-    \n  void build_parents() {\n    if ((int)p.size() == this->size())\n      return;\n\
-    \n    int n = this->size();\n    stack<int> st;\n    vector<bool> vis(n);\n  \
-    \  p.assign(n, -1), pe.assign(n, -1);\n    for (int i = 0; i < n; i++) {\n   \
-    \   if (!vis[i]) {\n        st.push(i);\n        vis[i] = true;\n        while\
-    \ (!st.empty()) {\n          int u = st.top();\n          st.pop();\n\n      \
-    \    for (int k : adj[u]) {\n            int v = edge(k).to;\n            vis[v]\
-    \ = true;\n            st.push(v), pe[v] = k, p[v] = u;\n          }\n       \
-    \ }\n      }\n    }\n  }\n\n  inline int parent(int i) const {\n    const_cast<self_type\
-    \ *>(this)->build_parents();\n    return p[i];\n  }\n\n  inline bool is_root(int\
-    \ i) const { return parent(i) != -1; }\n\n  inline edge_type &parent_edge(int\
-    \ i) {\n    build_parents();\n    return edge(pe[i]);\n  }\n  inline edge_type\
-    \ &parent_edge(int i) const {\n    const_cast<self_type *>(this)->build_parents();\n\
-    \    return edge(pe[i]);\n  }\n\n  vector<int> roots() const {\n    vector<int>\
-    \ res;\n    const_cast<self_type *>(this)->build_parents();\n    int n = this->size();\n\
-    \n    for (int i = 0; i < n; i++)\n      if (p[i] == -1)\n        res.push_back(i);\n\
-    \    return res;\n  }\n};\n\ntemplate <typename V = void, typename E = void>\n\
-    struct RootedTree : public RootedForest<V, E> {\n  using typename RootedForest<V,\
-    \ E>::adj_list;\n  int root;\n\n  RootedTree(int n, int root) : RootedForest<V,\
-    \ E>(n) {\n    assert(n > 0);\n    assert(root < n);\n    this->root = root;\n\
-    \  }\n\n  RootedTree(const adj_list &adj, int root) : RootedForest<V, E>(adj)\
-    \ {\n    assert(adj.size() > 0);\n    assert(root < adj.size());\n    this->root\
-    \ = root;\n  }\n};\n\nnamespace builders {\nnamespace {\ntemplate <typename F,\
-    \ typename G>\nvoid dfs_rooted_forest(F &forest, const G &graph, int u, vector<bool>\
-    \ &vis) {\n  vis[u] = true;\n  for (const auto &ed : graph.n_edges(u)) {\n   \
-    \ int v = ed.to;\n    if (!vis[v]) {\n      forest.add_edge(u, v);\n      dfs_rooted_forest(forest,\
-    \ graph, v, vis);\n    }\n  }\n}\n\ntemplate <typename A, typename B>\nRootedForest<A,\
-    \ B> make_rooted_forest(const Graph<A, B> &graph,\n                          \
-    \            const vector<int> &roots) {\n  RootedForest<A, B> res(graph.size());\n\
-    \  vector<bool> vis(graph.size());\n  for (int i : roots)\n    if (!vis[i])\n\
-    \      dfs_rooted_forest(res, graph, i, vis);\n  for (int i = 0; i < graph.size();\
-    \ i++)\n    if (!vis[i])\n      dfs_rooted_forest(res, graph, i, vis);\n  return\
-    \ res;\n}\n} // namespace\n} // namespace builders\n} // namespace graph\n} //\
-    \ namespace lib\n\n\n#line 1 \"Segtree.cpp\"\n\n\n#line 4 \"Segtree.cpp\"\n\n\
-    namespace lib {\nusing namespace std;\nnamespace seg {\nstruct LeafBuilder {\n\
-    \  template <typename Node> void operator()(Node &no, int i) const {}\n  inline\
-    \ pair<int, int> range() const { return {0, 0}; }\n  bool should_build() const\
-    \ { return true; }\n};\n\nstruct EmptyLeafBuilder : LeafBuilder {\n  int n;\n\
-    \  explicit EmptyLeafBuilder(int n) : n(n) {}\n  inline pair<int, int> range()\
-    \ const { return {0, n - 1}; }\n  bool should_build() const { return true; }\n\
-    };\n\nstruct ImplicitBuilder : LeafBuilder {\n  int L, R;\n  explicit ImplicitBuilder(int\
-    \ L, int R) : L(L), R(R) {}\n  inline pair<int, int> range() const { return {L,\
-    \ R}; }\n  bool should_build() const { return false; }\n};\n\n// TODO: NOT IMPLEMENTED\n\
-    template <typename DefaultNode>\nstruct ImplicitWithDefaultBuilder : LeafBuilder\
-    \ {\n  int L, R;\n  DefaultNode default_node;\n  explicit ImplicitWithDefaultBuilder(int\
+    \ DirectedGraph<V, E> {\n  typedef RootedForest<V, E> self_type;\n  using typename\
+    \ DirectedGraph<V, E>::adj_list;\n  using typename DirectedGraph<V, E>::edge_type;\n\
+    \  using DirectedGraph<V, E>::DirectedGraph;\n  using DirectedGraph<V, E>::adj;\n\
+    \  using DirectedGraph<V, E>::edge;\n  vector<int> p, pe;\n\n  void build_parents()\
+    \ {\n    if ((int)p.size() == this->size())\n      return;\n\n    int n = this->size();\n\
+    \    stack<int> st;\n    vector<bool> vis(n);\n    p.assign(n, -1), pe.assign(n,\
+    \ -1);\n    for (int i = 0; i < n; i++) {\n      if (!vis[i]) {\n        st.push(i);\n\
+    \        vis[i] = true;\n        while (!st.empty()) {\n          int u = st.top();\n\
+    \          st.pop();\n\n          for (int k : adj[u]) {\n            int v =\
+    \ edge(k).to;\n            vis[v] = true;\n            st.push(v), pe[v] = k,\
+    \ p[v] = u;\n          }\n        }\n      }\n    }\n  }\n\n  inline int parent(int\
+    \ i) const {\n    const_cast<self_type *>(this)->build_parents();\n    return\
+    \ p[i];\n  }\n\n  inline bool is_root(int i) const { return parent(i) != -1; }\n\
+    \n  inline edge_type &parent_edge(int i) {\n    build_parents();\n    return edge(pe[i]);\n\
+    \  }\n  inline edge_type &parent_edge(int i) const {\n    const_cast<self_type\
+    \ *>(this)->build_parents();\n    return edge(pe[i]);\n  }\n\n  vector<int> roots()\
+    \ const {\n    vector<int> res;\n    const_cast<self_type *>(this)->build_parents();\n\
+    \    int n = this->size();\n\n    for (int i = 0; i < n; i++)\n      if (p[i]\
+    \ == -1)\n        res.push_back(i);\n    return res;\n  }\n};\n\ntemplate <typename\
+    \ V = void, typename E = void>\nstruct RootedTree : public RootedForest<V, E>\
+    \ {\n  using typename RootedForest<V, E>::adj_list;\n  int root;\n\n  RootedTree(int\
+    \ n, int root) : RootedForest<V, E>(n) {\n    assert(n > 0);\n    assert(root\
+    \ < n);\n    this->root = root;\n  }\n\n  RootedTree(const adj_list &adj, int\
+    \ root) : RootedForest<V, E>(adj) {\n    assert(adj.size() > 0);\n    assert(root\
+    \ < adj.size());\n    this->root = root;\n  }\n};\n\nnamespace builders {\nnamespace\
+    \ {\ntemplate <typename F, typename G>\nvoid dfs_rooted_forest(F &forest, const\
+    \ G &graph, int u, vector<bool> &vis) {\n  vis[u] = true;\n  for (const auto &ed\
+    \ : graph.n_edges(u)) {\n    int v = ed.to;\n    if (!vis[v]) {\n      forest.add_edge(u,\
+    \ v);\n      dfs_rooted_forest(forest, graph, v, vis);\n    }\n  }\n}\n} // namespace\n\
+    \ntemplate <typename A, typename B>\nRootedForest<A, B> make_rooted_forest(const\
+    \ Graph<A, B> &graph,\n                                      const vector<int>\
+    \ &roots) {\n  RootedForest<A, B> res(graph.size());\n  vector<bool> vis(graph.size());\n\
+    \  for (int i : roots)\n    if (!vis[i])\n      dfs_rooted_forest(res, graph,\
+    \ i, vis);\n  for (int i = 0; i < graph.size(); i++)\n    if (!vis[i])\n     \
+    \ dfs_rooted_forest(res, graph, i, vis);\n  return res;\n}\n} // namespace builders\n\
+    } // namespace graph\n} // namespace lib\n\n\n#line 1 \"Segtree.cpp\"\n\n\n#line\
+    \ 4 \"Segtree.cpp\"\n\nnamespace lib {\nusing namespace std;\nnamespace seg {\n\
+    struct LeafBuilder {\n  template <typename Node> void operator()(Node &no, int\
+    \ i) const {}\n  inline pair<int, int> range() const { return {0, 0}; }\n  bool\
+    \ should_build() const { return true; }\n};\n\nstruct EmptyLeafBuilder : LeafBuilder\
+    \ {\n  int n;\n  explicit EmptyLeafBuilder(int n) : n(n) {}\n  inline pair<int,\
+    \ int> range() const { return {0, n - 1}; }\n  bool should_build() const { return\
+    \ true; }\n};\n\nstruct ImplicitBuilder : LeafBuilder {\n  int L, R;\n  explicit\
+    \ ImplicitBuilder(int L, int R) : L(L), R(R) {}\n  inline pair<int, int> range()\
+    \ const { return {L, R}; }\n  bool should_build() const { return false; }\n};\n\
+    \n// TODO: NOT IMPLEMENTED\ntemplate <typename DefaultNode>\nstruct ImplicitWithDefaultBuilder\
+    \ : LeafBuilder {\n  int L, R;\n  DefaultNode default_node;\n  explicit ImplicitWithDefaultBuilder(int\
     \ L, int R, DefaultNode def)\n      : L(L), R(R), default_node(def) {}\n\n  template\
     \ <typename Node> inline void operator()(Node &no, int i) const {\n    no = default_node;\n\
     \  }\n\n  inline pair<int, int> range() const { return {L, R}; }\n  bool should_build()\
@@ -477,7 +477,7 @@ data:
   isVerificationFile: false
   path: SegtreeHLD.cpp
   requiredBy: []
-  timestamp: '2023-02-24 16:39:19-03:00'
+  timestamp: '2023-02-27 10:03:43-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: SegtreeHLD.cpp

@@ -135,16 +135,16 @@ data:
     - icon: ':warning:'
       path: Simplex.cpp
       title: Simplex.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: Subset.cpp
       title: Subset.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: SuffixArray.cpp
       title: SuffixArray.cpp
     - icon: ':warning:'
       path: Symbolic.cpp
       title: Symbolic.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: Template.cpp
       title: Template.cpp
     - icon: ':question:'
@@ -172,7 +172,7 @@ data:
     - icon: ':warning:'
       path: ds/OrderedIntTree.cpp
       title: ds/OrderedIntTree.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: ds/StaticRMQ.cpp
       title: ds/StaticRMQ.cpp
   - name: dsu
@@ -180,10 +180,10 @@ data:
     - icon: ':warning:'
       path: dsu/BinaryLifting.cpp
       title: dsu/BinaryLifting.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: dsu/Compress.cpp
       title: dsu/Compress.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: dsu/DSU.cpp
       title: dsu/DSU.cpp
     - icon: ':warning:'
@@ -352,22 +352,22 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/yosupo/segment-add-get-min.test.cpp
       title: tests/yosupo/segment-add-get-min.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/yosupo/static-rmq.test.cpp
       title: tests/yosupo/static-rmq.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/yosupo/subset-convolution.test.cpp
       title: tests/yosupo/subset-convolution.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/yosupo/subset-sum.test.cpp
       title: tests/yosupo/subset-sum.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/yosupo/suffix-array.test.cpp
       title: tests/yosupo/suffix-array.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/yosupo/unionfind-with-compression.test.cpp
       title: tests/yosupo/unionfind-with-compression.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/yosupo/unionfind.test.cpp
       title: tests/yosupo/unionfind.test.cpp
 layout: toppage

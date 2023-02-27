@@ -42,7 +42,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/kth-term-lr.test.cpp
     title: tests/yosupo/kth-term-lr.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/yosupo/subset-sum.test.cpp
     title: tests/yosupo/subset-sum.test.cpp
   _isVerificationFailed: true
@@ -93,9 +93,9 @@ data:
     \ 1;\n  while (a > 1) {\n    q = a / b;\n    t = b, b = a % b, a = t;\n    t =\
     \ x0, x0 = x1 - q * x0, x1 = t;\n  }\n  if (x1 < 0)\n    x1 += b0;\n  return x1;\n\
     }\ntemplate<typename T, typename U>\nT powmod (T a, U b, U p) {\n    int res =\
-    \ 1;\n    while (b)\n        if (b & 1)\n            res = int (res * 1ll * a\
-    \ % p),  --b;\n        else\n            a = int (a * 1ll * a % p),  b >>= 1;\n\
-    \    return res;\n}\ntemplate<typename T>\nvector<T> factors(T n) {\n  vector<T>\
+    \ 1;\n    while (b)\n        if (b & 1)\n            res = (int) (res * 1ll *\
+    \ a % p),  --b;\n        else\n            a = (int) (a * 1ll * a % p),  b >>=\
+    \ 1;\n    return res;\n}\ntemplate<typename T>\nvector<T> factors(T n) {\n  vector<T>\
     \ f;\n  for(T i = 2; i*i <= n; i++) {\n    if(n % i == 0) f.push_back(i);\n  \
     \  while(n % i == 0) n /= i;\n  }\n  if(n > 1) f.push_back(n);\n  return f;\n\
     }\n} // namespace nt\n} // namespace lib\n\n\n#line 1 \"VectorN.cpp\"\n\n\n#line\
@@ -328,7 +328,7 @@ data:
   isVerificationFile: false
   path: FHT.cpp
   requiredBy: []
-  timestamp: '2022-12-14 09:28:49-03:00'
+  timestamp: '2023-02-27 10:03:35-03:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/yosupo/subset-sum.test.cpp

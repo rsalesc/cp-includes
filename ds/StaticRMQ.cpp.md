@@ -6,12 +6,12 @@ data:
     title: bits/stdc++.h
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/yosupo/static-rmq.test.cpp
     title: tests/yosupo/static-rmq.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"ds/StaticRMQ.cpp\"\n\n\n#include <bits/stdc++.h>\n\nnamespace\
@@ -55,8 +55,8 @@ data:
   isVerificationFile: false
   path: ds/StaticRMQ.cpp
   requiredBy: []
-  timestamp: '2023-02-24 16:39:19-03:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2023-02-27 10:03:43-03:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/yosupo/static-rmq.test.cpp
 documentation_of: ds/StaticRMQ.cpp

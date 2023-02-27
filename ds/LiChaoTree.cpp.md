@@ -88,7 +88,7 @@ data:
   isVerificationFile: false
   path: ds/LiChaoTree.cpp
   requiredBy: []
-  timestamp: '2022-12-14 09:29:18-03:00'
+  timestamp: '2023-02-27 10:03:35-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/yosupo/line-add-get-min.test.cpp

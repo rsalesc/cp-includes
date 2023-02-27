@@ -370,7 +370,7 @@ data:
   - SegtreeLazy.cpp
   - SegtreeNormal.cpp
   - SegtreeSplash.cpp
-  timestamp: '2023-02-24 16:39:19-03:00'
+  timestamp: '2023-02-27 10:03:43-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: SegtreeBeats.cpp

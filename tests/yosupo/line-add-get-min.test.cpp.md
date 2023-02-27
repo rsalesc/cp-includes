@@ -98,7 +98,7 @@ data:
   isVerificationFile: true
   path: tests/yosupo/line-add-get-min.test.cpp
   requiredBy: []
-  timestamp: '2022-12-14 09:29:18-03:00'
+  timestamp: '2023-02-27 10:03:35-03:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/yosupo/line-add-get-min.test.cpp

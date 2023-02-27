@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: FastMap.cpp
     title: FastMap.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: Template.cpp
     title: Template.cpp
   - icon: ':question:'
@@ -27,9 +27,15 @@ data:
     \ memset((v), (x), sizeof(v))\n#define all(v) (v).begin(), (v).end()\n#define\
     \ ff first\n#define ss second\n#define iopt ios::sync_with_stdio(false); cin.tie(0)\n\
     #define untie(p, a, b) decltype(p.first) a = p.first, decltype(p.second) b = p.second\n\
-    \ \nint gcd(int a, int b) { return b == 0 ? a : gcd(b, a%b); }\n \ntypedef pair<int,\
-    \ int> ii;\ntypedef long double LD;\ntypedef vector<int> vi;\n#line 1 \"FastMap.cpp\"\
-    \n\n\n#line 4 \"FastMap.cpp\"\n\n// Pretty much copied from:\n// https://nyaannyaan.github.io/library/data-structure/hash-map-variable-length.hpp\n\
+    #define TESTCASE(tn) cout << \"Case #\" << tn << \": \"\n \nint gcd(int a, int\
+    \ b) { return b == 0 ? a : gcd(b, a%b); }\n\nint floor2(int x, int y);\nint ceil2(int\
+    \ x, int y) {\n  if(y < 0) return ceil2(-x, -y);\n  return x < 0 ? -floor2(-x,\
+    \ y) : (x + y - 1) / y;\n}\nint floor2(int x, int y) {\n  if(y < 0) return floor2(-x,\
+    \ -y);\n  return x < 0 ? -ceil2(-x, y) : x / y;\n}\n \ntypedef pair<int, int>\
+    \ ii;\ntypedef long double LD;\ntypedef vector<int> vi;\n\n#define TC_MAIN int32_t\
+    \ main() { iopt; int T; cin >> T; for(int i = 1; i <= T; i++) solve(i); }\n#line\
+    \ 1 \"FastMap.cpp\"\n\n\n#line 4 \"FastMap.cpp\"\n\n// Pretty much copied from:\n\
+    // https://nyaannyaan.github.io/library/data-structure/hash-map-variable-length.hpp\n\
     namespace lib {\nusing namespace std;\n\ntemplate <typename Key, typename Val\
     \ = Key>\nstruct FastMap {\n  using u32 = uint32_t;\n  using u64 = uint64_t;\n\
     \n  u32 cap, s;\n  vector<Key> keys;\n  vector<Val> vals;\n  vector<bool> flag;\n\
@@ -77,7 +83,7 @@ data:
   isVerificationFile: true
   path: tests/yosupo/associative-array.test.cpp
   requiredBy: []
-  timestamp: '2022-12-14 09:29:18-03:00'
+  timestamp: '2023-02-27 10:03:35-03:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/yosupo/associative-array.test.cpp

@@ -61,7 +61,7 @@ data:
   - HLD.cpp
   - Graph.cpp
   - TwoSat.cpp
-  timestamp: '2022-12-14 09:28:49-03:00'
+  timestamp: '2023-02-27 10:03:35-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/yosupo/chordal.test.cpp

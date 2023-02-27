@@ -9,12 +9,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/and-convolution.test.cpp
     title: tests/yosupo/and-convolution.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/yosupo/subset-convolution.test.cpp
     title: tests/yosupo/subset-convolution.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links:
     - https://github.com/NyaanNyaan/library/tree/master/set-function
@@ -95,8 +95,8 @@ data:
   isVerificationFile: false
   path: Subset.cpp
   requiredBy: []
-  timestamp: '2022-12-14 09:28:49-03:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2023-02-27 10:03:35-03:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/yosupo/and-convolution.test.cpp
   - tests/yosupo/subset-convolution.test.cpp

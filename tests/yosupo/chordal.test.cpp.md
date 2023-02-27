@@ -135,53 +135,53 @@ data:
     \ V = void, typename E = void>\nusing Graph = GraphImpl<V, E, false>;\n\ntemplate<typename\
     \ V = void, typename E = void>\nusing DirectedGraph = GraphImpl<V, E, true>;\n\
     \ntemplate <typename V = void, typename E = void>\nstruct RootedForest : public\
-    \ Graph<V, E> {\n  typedef RootedForest<V, E> self_type;\n  using typename Graph<V,\
-    \ E>::adj_list;\n  using typename Graph<V, E>::edge_type;\n  using Graph<V, E>::Graph;\n\
-    \  using Graph<V, E>::adj;\n  using Graph<V, E>::edge;\n  vector<int> p, pe;\n\
-    \n  void build_parents() {\n    if ((int)p.size() == this->size())\n      return;\n\
-    \n    int n = this->size();\n    stack<int> st;\n    vector<bool> vis(n);\n  \
-    \  p.assign(n, -1), pe.assign(n, -1);\n    for (int i = 0; i < n; i++) {\n   \
-    \   if (!vis[i]) {\n        st.push(i);\n        vis[i] = true;\n        while\
-    \ (!st.empty()) {\n          int u = st.top();\n          st.pop();\n\n      \
-    \    for (int k : adj[u]) {\n            int v = edge(k).to;\n            vis[v]\
-    \ = true;\n            st.push(v), pe[v] = k, p[v] = u;\n          }\n       \
-    \ }\n      }\n    }\n  }\n\n  inline int parent(int i) const {\n    const_cast<self_type\
-    \ *>(this)->build_parents();\n    return p[i];\n  }\n\n  inline bool is_root(int\
-    \ i) const { return parent(i) != -1; }\n\n  inline edge_type &parent_edge(int\
-    \ i) {\n    build_parents();\n    return edge(pe[i]);\n  }\n  inline edge_type\
-    \ &parent_edge(int i) const {\n    const_cast<self_type *>(this)->build_parents();\n\
-    \    return edge(pe[i]);\n  }\n\n  vector<int> roots() const {\n    vector<int>\
-    \ res;\n    const_cast<self_type *>(this)->build_parents();\n    int n = this->size();\n\
-    \n    for (int i = 0; i < n; i++)\n      if (p[i] == -1)\n        res.push_back(i);\n\
-    \    return res;\n  }\n};\n\ntemplate <typename V = void, typename E = void>\n\
-    struct RootedTree : public RootedForest<V, E> {\n  using typename RootedForest<V,\
-    \ E>::adj_list;\n  int root;\n\n  RootedTree(int n, int root) : RootedForest<V,\
-    \ E>(n) {\n    assert(n > 0);\n    assert(root < n);\n    this->root = root;\n\
-    \  }\n\n  RootedTree(const adj_list &adj, int root) : RootedForest<V, E>(adj)\
-    \ {\n    assert(adj.size() > 0);\n    assert(root < adj.size());\n    this->root\
-    \ = root;\n  }\n};\n\nnamespace builders {\nnamespace {\ntemplate <typename F,\
-    \ typename G>\nvoid dfs_rooted_forest(F &forest, const G &graph, int u, vector<bool>\
-    \ &vis) {\n  vis[u] = true;\n  for (const auto &ed : graph.n_edges(u)) {\n   \
-    \ int v = ed.to;\n    if (!vis[v]) {\n      forest.add_edge(u, v);\n      dfs_rooted_forest(forest,\
-    \ graph, v, vis);\n    }\n  }\n}\n\ntemplate <typename A, typename B>\nRootedForest<A,\
-    \ B> make_rooted_forest(const Graph<A, B> &graph,\n                          \
-    \            const vector<int> &roots) {\n  RootedForest<A, B> res(graph.size());\n\
-    \  vector<bool> vis(graph.size());\n  for (int i : roots)\n    if (!vis[i])\n\
-    \      dfs_rooted_forest(res, graph, i, vis);\n  for (int i = 0; i < graph.size();\
-    \ i++)\n    if (!vis[i])\n      dfs_rooted_forest(res, graph, i, vis);\n  return\
-    \ res;\n}\n} // namespace\n} // namespace builders\n} // namespace graph\n} //\
-    \ namespace lib\n\n\n#line 1 \"graphs/Chordal.cpp\"\n\n\n#line 1 \"utils/FastList.cpp\"\
-    \n\n\n#line 4 \"utils/FastList.cpp\"\n\nnamespace lib {\n  using namespace std;\n\
-    namespace list {\ntemplate<typename T>\nstruct Node {\n  T val;\n  Node *next\
-    \ = nullptr, *prev = nullptr;\n  Node() {}\n  Node(T v) : val(v) {}\n\n  void\
-    \ clear_links() {\n    if(next != nullptr) next->prev = prev;\n    if(prev !=\
-    \ nullptr) prev->next = next;\n    next = prev = nullptr;\n  }\n};\n\ntemplate<typename\
-    \ T>\nvoid remove(Node<T>* no) {\n  if(no != nullptr) no->clear_links();\n}\n\n\
-    template<typename T>\nvoid append(Node<T>* no, Node<T>* nw) {\n  assert(no !=\
-    \ nullptr);\n  remove(nw);\n  if(no->next != nullptr) no->next->prev = nw;\n \
-    \ if(nw != nullptr) {\n    nw->next = no->next;\n    nw->prev = no;\n  }\n  no->next\
-    \ = nw;\n}\n\ntemplate<typename T>\nvoid prepend(Node<T>* no, Node<T>* nw) {\n\
-    \  assert(no != nullptr);\n  remove(nw);\n  if(no->prev != nullptr) no->prev->next\
+    \ DirectedGraph<V, E> {\n  typedef RootedForest<V, E> self_type;\n  using typename\
+    \ DirectedGraph<V, E>::adj_list;\n  using typename DirectedGraph<V, E>::edge_type;\n\
+    \  using DirectedGraph<V, E>::DirectedGraph;\n  using DirectedGraph<V, E>::adj;\n\
+    \  using DirectedGraph<V, E>::edge;\n  vector<int> p, pe;\n\n  void build_parents()\
+    \ {\n    if ((int)p.size() == this->size())\n      return;\n\n    int n = this->size();\n\
+    \    stack<int> st;\n    vector<bool> vis(n);\n    p.assign(n, -1), pe.assign(n,\
+    \ -1);\n    for (int i = 0; i < n; i++) {\n      if (!vis[i]) {\n        st.push(i);\n\
+    \        vis[i] = true;\n        while (!st.empty()) {\n          int u = st.top();\n\
+    \          st.pop();\n\n          for (int k : adj[u]) {\n            int v =\
+    \ edge(k).to;\n            vis[v] = true;\n            st.push(v), pe[v] = k,\
+    \ p[v] = u;\n          }\n        }\n      }\n    }\n  }\n\n  inline int parent(int\
+    \ i) const {\n    const_cast<self_type *>(this)->build_parents();\n    return\
+    \ p[i];\n  }\n\n  inline bool is_root(int i) const { return parent(i) != -1; }\n\
+    \n  inline edge_type &parent_edge(int i) {\n    build_parents();\n    return edge(pe[i]);\n\
+    \  }\n  inline edge_type &parent_edge(int i) const {\n    const_cast<self_type\
+    \ *>(this)->build_parents();\n    return edge(pe[i]);\n  }\n\n  vector<int> roots()\
+    \ const {\n    vector<int> res;\n    const_cast<self_type *>(this)->build_parents();\n\
+    \    int n = this->size();\n\n    for (int i = 0; i < n; i++)\n      if (p[i]\
+    \ == -1)\n        res.push_back(i);\n    return res;\n  }\n};\n\ntemplate <typename\
+    \ V = void, typename E = void>\nstruct RootedTree : public RootedForest<V, E>\
+    \ {\n  using typename RootedForest<V, E>::adj_list;\n  int root;\n\n  RootedTree(int\
+    \ n, int root) : RootedForest<V, E>(n) {\n    assert(n > 0);\n    assert(root\
+    \ < n);\n    this->root = root;\n  }\n\n  RootedTree(const adj_list &adj, int\
+    \ root) : RootedForest<V, E>(adj) {\n    assert(adj.size() > 0);\n    assert(root\
+    \ < adj.size());\n    this->root = root;\n  }\n};\n\nnamespace builders {\nnamespace\
+    \ {\ntemplate <typename F, typename G>\nvoid dfs_rooted_forest(F &forest, const\
+    \ G &graph, int u, vector<bool> &vis) {\n  vis[u] = true;\n  for (const auto &ed\
+    \ : graph.n_edges(u)) {\n    int v = ed.to;\n    if (!vis[v]) {\n      forest.add_edge(u,\
+    \ v);\n      dfs_rooted_forest(forest, graph, v, vis);\n    }\n  }\n}\n} // namespace\n\
+    \ntemplate <typename A, typename B>\nRootedForest<A, B> make_rooted_forest(const\
+    \ Graph<A, B> &graph,\n                                      const vector<int>\
+    \ &roots) {\n  RootedForest<A, B> res(graph.size());\n  vector<bool> vis(graph.size());\n\
+    \  for (int i : roots)\n    if (!vis[i])\n      dfs_rooted_forest(res, graph,\
+    \ i, vis);\n  for (int i = 0; i < graph.size(); i++)\n    if (!vis[i])\n     \
+    \ dfs_rooted_forest(res, graph, i, vis);\n  return res;\n}\n} // namespace builders\n\
+    } // namespace graph\n} // namespace lib\n\n\n#line 1 \"graphs/Chordal.cpp\"\n\
+    \n\n#line 1 \"utils/FastList.cpp\"\n\n\n#line 4 \"utils/FastList.cpp\"\n\nnamespace\
+    \ lib {\n  using namespace std;\nnamespace list {\ntemplate<typename T>\nstruct\
+    \ Node {\n  T val;\n  Node *next = nullptr, *prev = nullptr;\n  Node() {}\n  Node(T\
+    \ v) : val(v) {}\n\n  void clear_links() {\n    if(next != nullptr) next->prev\
+    \ = prev;\n    if(prev != nullptr) prev->next = next;\n    next = prev = nullptr;\n\
+    \  }\n};\n\ntemplate<typename T>\nvoid remove(Node<T>* no) {\n  if(no != nullptr)\
+    \ no->clear_links();\n}\n\ntemplate<typename T>\nvoid append(Node<T>* no, Node<T>*\
+    \ nw) {\n  assert(no != nullptr);\n  remove(nw);\n  if(no->next != nullptr) no->next->prev\
+    \ = nw;\n  if(nw != nullptr) {\n    nw->next = no->next;\n    nw->prev = no;\n\
+    \  }\n  no->next = nw;\n}\n\ntemplate<typename T>\nvoid prepend(Node<T>* no, Node<T>*\
+    \ nw) {\n  assert(no != nullptr);\n  remove(nw);\n  if(no->prev != nullptr) no->prev->next\
     \ = nw;\n  if(nw != nullptr) {\n    nw->prev = no->prev;\n    nw->next = no;\n\
     \  }\n  no->prev = nw;\n}\n} // namespace list\n} // namespace lib\n\n\n#line\
     \ 5 \"graphs/Chordal.cpp\"\n\nnamespace lib {\n  using namespace std;\nnamespace\
@@ -291,7 +291,7 @@ data:
   isVerificationFile: true
   path: tests/yosupo/chordal.test.cpp
   requiredBy: []
-  timestamp: '2022-12-14 09:29:18-03:00'
+  timestamp: '2023-02-27 10:03:35-03:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/yosupo/chordal.test.cpp

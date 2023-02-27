@@ -6,15 +6,15 @@ data:
     title: bits/stdc++.h
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/yosupo/unionfind-with-compression.test.cpp
     title: tests/yosupo/unionfind-with-compression.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/yosupo/unionfind.test.cpp
     title: tests/yosupo/unionfind.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"dsu/DSU.cpp\"\n\n\n#include <bits/stdc++.h>\n\nnamespace\
@@ -60,8 +60,8 @@ data:
   isVerificationFile: false
   path: dsu/DSU.cpp
   requiredBy: []
-  timestamp: '2023-02-21 13:50:33-03:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2023-02-27 10:03:43-03:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/yosupo/unionfind.test.cpp
   - tests/yosupo/unionfind-with-compression.test.cpp

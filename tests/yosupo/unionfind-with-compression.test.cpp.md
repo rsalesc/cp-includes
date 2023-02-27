@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: Template.cpp
     title: Template.cpp
   - icon: ':question:'
     path: bits/stdc++.h
     title: bits/stdc++.h
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: dsu/Compress.cpp
     title: dsu/Compress.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: dsu/DSU.cpp
     title: dsu/DSU.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/unionfind
@@ -54,12 +54,18 @@ data:
     \ x) memset((v), (x), sizeof(v))\n#define all(v) (v).begin(), (v).end()\n#define\
     \ ff first\n#define ss second\n#define iopt ios::sync_with_stdio(false); cin.tie(0)\n\
     #define untie(p, a, b) decltype(p.first) a = p.first, decltype(p.second) b = p.second\n\
-    \ \nint gcd(int a, int b) { return b == 0 ? a : gcd(b, a%b); }\n \ntypedef pair<int,\
-    \ int> ii;\ntypedef long double LD;\ntypedef vector<int> vi;\n#line 6 \"tests/yosupo/unionfind-with-compression.test.cpp\"\
-    \n\nint32_t main() {\n  iopt;\n\n  int n, Q;\n  cin >> n >> Q;\n\n  using UF =\
-    \ lib::dsu::ByRank<lib::dsu::Compress>;\n\n  UF uf(n);\n\n  for(int i = 0; i <\
-    \ Q; i++) {\n    int t, a, b;\n    cin >> t >> a >> b;\n    if(t == 0) uf.merge(a,\
-    \ b);\n    else cout << (int)(uf[a] == uf[b]) << endl;\n  }\n}\n"
+    #define TESTCASE(tn) cout << \"Case #\" << tn << \": \"\n \nint gcd(int a, int\
+    \ b) { return b == 0 ? a : gcd(b, a%b); }\n\nint floor2(int x, int y);\nint ceil2(int\
+    \ x, int y) {\n  if(y < 0) return ceil2(-x, -y);\n  return x < 0 ? -floor2(-x,\
+    \ y) : (x + y - 1) / y;\n}\nint floor2(int x, int y) {\n  if(y < 0) return floor2(-x,\
+    \ -y);\n  return x < 0 ? -ceil2(-x, y) : x / y;\n}\n \ntypedef pair<int, int>\
+    \ ii;\ntypedef long double LD;\ntypedef vector<int> vi;\n\n#define TC_MAIN int32_t\
+    \ main() { iopt; int T; cin >> T; for(int i = 1; i <= T; i++) solve(i); }\n#line\
+    \ 6 \"tests/yosupo/unionfind-with-compression.test.cpp\"\n\nint32_t main() {\n\
+    \  iopt;\n\n  int n, Q;\n  cin >> n >> Q;\n\n  using UF = lib::dsu::ByRank<lib::dsu::Compress>;\n\
+    \n  UF uf(n);\n\n  for(int i = 0; i < Q; i++) {\n    int t, a, b;\n    cin >>\
+    \ t >> a >> b;\n    if(t == 0) uf.merge(a, b);\n    else cout << (int)(uf[a] ==\
+    \ uf[b]) << endl;\n  }\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/unionfind\"\n#include \"\
     dsu/DSU.cpp\"\n#include \"dsu/Compress.cpp\"\n\n#include \"Template.cpp\"\n\n\
     int32_t main() {\n  iopt;\n\n  int n, Q;\n  cin >> n >> Q;\n\n  using UF = lib::dsu::ByRank<lib::dsu::Compress>;\n\
@@ -74,8 +80,8 @@ data:
   isVerificationFile: true
   path: tests/yosupo/unionfind-with-compression.test.cpp
   requiredBy: []
-  timestamp: '2023-02-21 13:50:33-03:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2023-02-27 10:03:43-03:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/yosupo/unionfind-with-compression.test.cpp
 layout: document

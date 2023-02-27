@@ -7,7 +7,7 @@ data:
   - icon: ':question:'
     path: NumberTheory.cpp
     title: NumberTheory.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: Subset.cpp
     title: Subset.cpp
   - icon: ':question:'
@@ -15,9 +15,9 @@ data:
     title: bits/stdc++.h
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/subset_convolution
@@ -32,8 +32,8 @@ data:
     \ = a / b;\n    t = b, b = a % b, a = t;\n    t = x0, x0 = x1 - q * x0, x1 = t;\n\
     \  }\n  if (x1 < 0)\n    x1 += b0;\n  return x1;\n}\ntemplate<typename T, typename\
     \ U>\nT powmod (T a, U b, U p) {\n    int res = 1;\n    while (b)\n        if\
-    \ (b & 1)\n            res = int (res * 1ll * a % p),  --b;\n        else\n  \
-    \          a = int (a * 1ll * a % p),  b >>= 1;\n    return res;\n}\ntemplate<typename\
+    \ (b & 1)\n            res = (int) (res * 1ll * a % p),  --b;\n        else\n\
+    \            a = (int) (a * 1ll * a % p),  b >>= 1;\n    return res;\n}\ntemplate<typename\
     \ T>\nvector<T> factors(T n) {\n  vector<T> f;\n  for(T i = 2; i*i <= n; i++)\
     \ {\n    if(n % i == 0) f.push_back(i);\n    while(n % i == 0) n /= i;\n  }\n\
     \  if(n > 1) f.push_back(n);\n  return f;\n}\n} // namespace nt\n} // namespace\
@@ -219,8 +219,8 @@ data:
   isVerificationFile: true
   path: tests/yosupo/subset-convolution.test.cpp
   requiredBy: []
-  timestamp: '2022-12-14 09:29:18-03:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2023-02-27 10:03:35-03:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/yosupo/subset-convolution.test.cpp
 layout: document

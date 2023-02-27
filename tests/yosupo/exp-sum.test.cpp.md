@@ -43,27 +43,28 @@ data:
     \ 1) {\n    q = a / b;\n    t = b, b = a % b, a = t;\n    t = x0, x0 = x1 - q\
     \ * x0, x1 = t;\n  }\n  if (x1 < 0)\n    x1 += b0;\n  return x1;\n}\ntemplate<typename\
     \ T, typename U>\nT powmod (T a, U b, U p) {\n    int res = 1;\n    while (b)\n\
-    \        if (b & 1)\n            res = int (res * 1ll * a % p),  --b;\n      \
-    \  else\n            a = int (a * 1ll * a % p),  b >>= 1;\n    return res;\n}\n\
-    template<typename T>\nvector<T> factors(T n) {\n  vector<T> f;\n  for(T i = 2;\
-    \ i*i <= n; i++) {\n    if(n % i == 0) f.push_back(i);\n    while(n % i == 0)\
-    \ n /= i;\n  }\n  if(n > 1) f.push_back(n);\n  return f;\n}\n} // namespace nt\n\
-    } // namespace lib\n\n\n#line 5 \"ModularInteger.cpp\"\n\n#if __cplusplus < 201300\n\
-    #error required(c++14)\n#endif\n\nnamespace lib {\nusing namespace std;\nnamespace\
-    \ {\ntemplate <typename T, T... Mods> struct ModularIntegerBase {\n  typedef ModularIntegerBase<T,\
-    \ Mods...> type;\n\n  T x[sizeof...(Mods)];\n  friend ostream &operator<<(ostream\
-    \ &output, const type &var) {\n    output << \"(\";\n    for (int i = 0; i < sizeof...(Mods);\
-    \ i++) {\n      if (i)\n        output << \", \";\n      output << var.x[i];\n\
-    \    }\n    return output << \")\";\n  }\n};\n\ntemplate <typename T, T Mod> struct\
-    \ ModularIntegerBase<T, Mod> {\n  typedef ModularIntegerBase<T, Mod> type;\n \
-    \ constexpr static T mod = Mod;\n\n  T x[1];\n\n  T& data() { return this->x[0];\
-    \ }\n  T data() const { return this->x[0]; }\n  explicit operator int() const\
-    \ { return this->x[0]; }\n  explicit operator int64_t() const { return this->x[0];\
-    \ }\n  explicit operator double() const { return this->x[0]; }\n  explicit operator\
-    \ long double() const { return this->x[0]; }\n  friend ostream &operator<<(ostream\
-    \ &output, const type &var) {\n    return output << var.x[0];\n  }\n};\n\ntemplate<typename\
-    \ T, typename U, T... Mods>\nstruct InversesTable {\n  constexpr static size_t\
-    \ n_mods = sizeof...(Mods);\n  constexpr static T mods[sizeof...(Mods)] = {Mods...};\n\
+    \        if (b & 1)\n            res = (int) (res * 1ll * a % p),  --b;\n    \
+    \    else\n            a = (int) (a * 1ll * a % p),  b >>= 1;\n    return res;\n\
+    }\ntemplate<typename T>\nvector<T> factors(T n) {\n  vector<T> f;\n  for(T i =\
+    \ 2; i*i <= n; i++) {\n    if(n % i == 0) f.push_back(i);\n    while(n % i ==\
+    \ 0) n /= i;\n  }\n  if(n > 1) f.push_back(n);\n  return f;\n}\n} // namespace\
+    \ nt\n} // namespace lib\n\n\n#line 5 \"ModularInteger.cpp\"\n\n#if __cplusplus\
+    \ < 201300\n#error required(c++14)\n#endif\n\nnamespace lib {\nusing namespace\
+    \ std;\nnamespace {\ntemplate <typename T, T... Mods> struct ModularIntegerBase\
+    \ {\n  typedef ModularIntegerBase<T, Mods...> type;\n\n  T x[sizeof...(Mods)];\n\
+    \  friend ostream &operator<<(ostream &output, const type &var) {\n    output\
+    \ << \"(\";\n    for (int i = 0; i < sizeof...(Mods); i++) {\n      if (i)\n \
+    \       output << \", \";\n      output << var.x[i];\n    }\n    return output\
+    \ << \")\";\n  }\n};\n\ntemplate <typename T, T Mod> struct ModularIntegerBase<T,\
+    \ Mod> {\n  typedef ModularIntegerBase<T, Mod> type;\n  constexpr static T mod\
+    \ = Mod;\n\n  T x[1];\n\n  T& data() { return this->x[0]; }\n  T data() const\
+    \ { return this->x[0]; }\n  explicit operator int() const { return this->x[0];\
+    \ }\n  explicit operator int64_t() const { return this->x[0]; }\n  explicit operator\
+    \ double() const { return this->x[0]; }\n  explicit operator long double() const\
+    \ { return this->x[0]; }\n  friend ostream &operator<<(ostream &output, const\
+    \ type &var) {\n    return output << var.x[0];\n  }\n};\n\ntemplate<typename T,\
+    \ typename U, T... Mods>\nstruct InversesTable {\n  constexpr static size_t n_mods\
+    \ = sizeof...(Mods);\n  constexpr static T mods[sizeof...(Mods)] = {Mods...};\n\
     \  constexpr static int n_inverses = 1e6 + 10;\n\n  T v[n_inverses][n_mods];\n\
     \  T max_x;\n\n  InversesTable() : v(), max_x(n_inverses) {\n    for(int j = 0;\
     \ j < sizeof...(Mods); j++)\n      v[1][j] = 1, max_x = min(max_x, mods[j]);\n\
@@ -266,7 +267,7 @@ data:
   isVerificationFile: true
   path: tests/yosupo/exp-sum.test.cpp
   requiredBy: []
-  timestamp: '2022-12-14 09:29:18-03:00'
+  timestamp: '2023-02-27 10:03:35-03:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/yosupo/exp-sum.test.cpp
