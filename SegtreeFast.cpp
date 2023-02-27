@@ -14,6 +14,7 @@ template <typename Node, typename CombinerFn> struct SegtreeFastBase {
   vector<Node> t;
   int L, n;
 
+  SegtreeFastBase() {}
   template <typename Builder> explicit SegtreeFastBase(const Builder &builder) {
     pair<int, int> range = builder.range();
     L = range.first;

@@ -39,6 +39,7 @@ struct RankDSU {
     r[u] = v;
     sz[v] += sz[u];
     last_merge_ = {u, v};
+    merges++;
     merged(u, v);
     return 1;
   }
