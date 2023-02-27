@@ -1,3 +1,5 @@
+#pragma once
+
 #include <cerrno>
 #include <cfloat>
 #include <ciso646>
