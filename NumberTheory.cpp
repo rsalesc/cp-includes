@@ -24,9 +24,9 @@ T powmod (T a, U b, U p) {
     int res = 1;
     while (b)
         if (b & 1)
-            res = int (res * 1ll * a % p),  --b;
+            res = (int) (res * 1ll * a % p),  --b;
         else
-            a = int (a * 1ll * a % p),  b >>= 1;
+            a = (int) (a * 1ll * a % p),  b >>= 1;
     return res;
 }
 template<typename T>

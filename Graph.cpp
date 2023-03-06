@@ -213,13 +213,13 @@ template<typename V = void, typename E = void>
 using DirectedGraph = GraphImpl<V, E, true>;
 
 template <typename V = void, typename E = void>
-struct RootedForest : public Graph<V, E> {
+struct RootedForest : public DirectedGraph<V, E> {
   typedef RootedForest<V, E> self_type;
-  using typename Graph<V, E>::adj_list;
-  using typename Graph<V, E>::edge_type;
-  using Graph<V, E>::Graph;
-  using Graph<V, E>::adj;
-  using Graph<V, E>::edge;
+  using typename DirectedGraph<V, E>::adj_list;
+  using typename DirectedGraph<V, E>::edge_type;
+  using DirectedGraph<V, E>::DirectedGraph;
+  using DirectedGraph<V, E>::adj;
+  using DirectedGraph<V, E>::edge;
   vector<int> p, pe;
 
   void build_parents() {
@@ -307,6 +307,7 @@ void dfs_rooted_forest(F &forest, const G &graph, int u, vector<bool> &vis) {
     }
   }
 }
+} // namespace
 
 template <typename A, typename B>
 RootedForest<A, B> make_rooted_forest(const Graph<A, B> &graph,
@@ -321,7 +322,6 @@ RootedForest<A, B> make_rooted_forest(const Graph<A, B> &graph,
       dfs_rooted_forest(res, graph, i, vis);
   return res;
 }
-} // namespace
 } // namespace builders
 } // namespace graph
 } // namespace lib
