@@ -54,9 +54,9 @@ data:
     title: polynomial/Transform.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/sharp_p_subset_sum
@@ -65,12 +65,12 @@ data:
   bundledCode: "#line 1 \"tests/yosupo/subset-sum.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/sharp_p_subset_sum\"\
     \n\n#include <bits/stdc++.h>\n#line 1 \"PowerSeries.cpp\"\n\n\n#line 1 \"BitTricks.cpp\"\
     \n\n\n#line 4 \"BitTricks.cpp\"\n\nnamespace lib {\nlong long next_power_of_two(long\
-    \ long n) {\n  return 1LL << (sizeof(long long) * 8 - 1 - __builtin_clzll(n) +\n\
-    \                 ((n & (n - 1LL)) != 0));\n}\n} // namespace lib\n\n\n#line 1\
-    \ \"PolynomialRing.cpp\"\n\n\n#line 1 \"Epsilon.cpp\"\n\n\n#line 4 \"Epsilon.cpp\"\
-    \n\nnamespace lib {\nusing namespace std;\n\ntemplate <typename T = double> struct\
-    \ Epsilon {\n  T eps;\n  constexpr Epsilon(T eps = 1e-9) : eps(eps) {}\n\n  template\
-    \ <typename G,\n            typename enable_if<is_floating_point<G>::value>::type\
+    \ long n) {\n  if (n <= 0) return 1;\n  return 1LL << (sizeof(long long) * 8 -\
+    \ 1 - __builtin_clzll(n) +\n                 ((n & (n - 1LL)) != 0));\n}\n} //\
+    \ namespace lib\n\n\n#line 1 \"PolynomialRing.cpp\"\n\n\n#line 1 \"Epsilon.cpp\"\
+    \n\n\n#line 4 \"Epsilon.cpp\"\n\nnamespace lib {\nusing namespace std;\n\ntemplate\
+    \ <typename T = double> struct Epsilon {\n  T eps;\n  constexpr Epsilon(T eps\
+    \ = 1e-9) : eps(eps) {}\n\n  template <typename G,\n            typename enable_if<is_floating_point<G>::value>::type\
     \ * = nullptr>\n  int operator()(G a, G b = 0) const {\n    return a + eps < b\
     \ ? -1 : (b + eps < a ? 1 : 0);\n  }\n\n  template <typename G,\n            typename\
     \ enable_if<!is_floating_point<G>::value>::type * = nullptr>\n  int operator()(G\
@@ -669,8 +669,8 @@ data:
   isVerificationFile: true
   path: tests/yosupo/subset-sum.test.cpp
   requiredBy: []
-  timestamp: '2023-02-27 10:03:35-03:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2023-03-06 11:24:14-03:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/yosupo/subset-sum.test.cpp
 layout: document

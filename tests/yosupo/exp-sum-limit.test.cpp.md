@@ -158,14 +158,14 @@ data:
     using MintNTT = Mint32<998244353>;\n} // namespace lib\n\n\n#line 1 \"polynomial/ExponentialSum.cpp\"\
     \n\n\n#line 1 \"Combinatorics.cpp\"\n\n\n#line 1 \"BitTricks.cpp\"\n\n\n#line\
     \ 4 \"BitTricks.cpp\"\n\nnamespace lib {\nlong long next_power_of_two(long long\
-    \ n) {\n  return 1LL << (sizeof(long long) * 8 - 1 - __builtin_clzll(n) +\n  \
-    \               ((n & (n - 1LL)) != 0));\n}\n} // namespace lib\n\n\n#line 5 \"\
-    Combinatorics.cpp\"\n\nnamespace lib {\nusing namespace std;\ntemplate<typename\
-    \ T>\nstruct Combinatorics {\n    static vector<T> fat;\n    static vector<T>\
-    \ inv;\n    static vector<T> ifat;\n\n    static T factorial(int i) {\n      \
-    \  ensure_fat(next_power_of_two(i));\n        return fat[i];\n    }\n\n    static\
-    \ T inverse(int i) {\n        ensure_inv(next_power_of_two(i));\n        return\
-    \ inv[i];\n    }\n\n    static T ifactorial(int i) {\n        ensure_ifat(next_power_of_two(i));\n\
+    \ n) {\n  if (n <= 0) return 1;\n  return 1LL << (sizeof(long long) * 8 - 1 -\
+    \ __builtin_clzll(n) +\n                 ((n & (n - 1LL)) != 0));\n}\n} // namespace\
+    \ lib\n\n\n#line 5 \"Combinatorics.cpp\"\n\nnamespace lib {\nusing namespace std;\n\
+    template<typename T>\nstruct Combinatorics {\n    static vector<T> fat;\n    static\
+    \ vector<T> inv;\n    static vector<T> ifat;\n\n    static T factorial(int i)\
+    \ {\n        ensure_fat(next_power_of_two(i));\n        return fat[i];\n    }\n\
+    \n    static T inverse(int i) {\n        ensure_inv(next_power_of_two(i));\n \
+    \       return inv[i];\n    }\n\n    static T ifactorial(int i) {\n        ensure_ifat(next_power_of_two(i));\n\
     \        return ifat[i];\n    }\n\n    static T nCr(int n, int K) {\n        if(K\
     \ > n) return 0;\n        ensure_fat(next_power_of_two(n));\n        ensure_ifat(next_power_of_two(n));\n\
     \        return fat[n] * ifat[n-K] * ifat[K];\n    }\n\n    static T arrangement(int\
@@ -267,7 +267,7 @@ data:
   isVerificationFile: true
   path: tests/yosupo/exp-sum-limit.test.cpp
   requiredBy: []
-  timestamp: '2023-02-27 10:03:35-03:00'
+  timestamp: '2023-03-06 11:24:14-03:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/yosupo/exp-sum-limit.test.cpp

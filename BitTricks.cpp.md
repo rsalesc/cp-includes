@@ -54,7 +54,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/multipoint.test.cpp
     title: tests/yosupo/multipoint.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/yosupo/subset-sum.test.cpp
     title: tests/yosupo/subset-sum.test.cpp
   _isVerificationFailed: true
@@ -63,13 +63,13 @@ data:
   attributes:
     links: []
   bundledCode: "#line 1 \"BitTricks.cpp\"\n\n\n#include <bits/stdc++.h>\n\nnamespace\
-    \ lib {\nlong long next_power_of_two(long long n) {\n  return 1LL << (sizeof(long\
-    \ long) * 8 - 1 - __builtin_clzll(n) +\n                 ((n & (n - 1LL)) != 0));\n\
-    }\n} // namespace lib\n\n\n"
+    \ lib {\nlong long next_power_of_two(long long n) {\n  if (n <= 0) return 1;\n\
+    \  return 1LL << (sizeof(long long) * 8 - 1 - __builtin_clzll(n) +\n         \
+    \        ((n & (n - 1LL)) != 0));\n}\n} // namespace lib\n\n\n"
   code: "#ifndef _LIB_BIT_TRICKS\n#define _LIB_BIT_TRICKS\n#include <bits/stdc++.h>\n\
-    \nnamespace lib {\nlong long next_power_of_two(long long n) {\n  return 1LL <<\
-    \ (sizeof(long long) * 8 - 1 - __builtin_clzll(n) +\n                 ((n & (n\
-    \ - 1LL)) != 0));\n}\n} // namespace lib\n\n#endif\n"
+    \nnamespace lib {\nlong long next_power_of_two(long long n) {\n  if (n <= 0) return\
+    \ 1;\n  return 1LL << (sizeof(long long) * 8 - 1 - __builtin_clzll(n) +\n    \
+    \             ((n & (n - 1LL)) != 0));\n}\n} // namespace lib\n\n#endif\n"
   dependsOn:
   - bits/stdc++.h
   isVerificationFile: false
@@ -83,7 +83,7 @@ data:
   - FFT.cpp
   - NTT.cpp
   - Lagrange.cpp
-  timestamp: '2023-02-27 10:03:35-03:00'
+  timestamp: '2023-03-06 11:24:14-03:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/yosupo/subset-sum.test.cpp

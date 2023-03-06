@@ -39,7 +39,7 @@ data:
   - icon: ':x:'
     path: tests/yosupo/fps-power.test.cpp
     title: tests/yosupo/fps-power.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/yosupo/subset-sum.test.cpp
     title: tests/yosupo/subset-sum.test.cpp
   _isVerificationFailed: true
@@ -49,16 +49,17 @@ data:
     links: []
   bundledCode: "#line 1 \"PowerSeries.cpp\"\n\n\n#line 1 \"BitTricks.cpp\"\n\n\n#include\
     \ <bits/stdc++.h>\n\nnamespace lib {\nlong long next_power_of_two(long long n)\
-    \ {\n  return 1LL << (sizeof(long long) * 8 - 1 - __builtin_clzll(n) +\n     \
-    \            ((n & (n - 1LL)) != 0));\n}\n} // namespace lib\n\n\n#line 1 \"PolynomialRing.cpp\"\
-    \n\n\n#line 1 \"Epsilon.cpp\"\n\n\n#line 4 \"Epsilon.cpp\"\n\nnamespace lib {\n\
-    using namespace std;\n\ntemplate <typename T = double> struct Epsilon {\n  T eps;\n\
-    \  constexpr Epsilon(T eps = 1e-9) : eps(eps) {}\n\n  template <typename G,\n\
-    \            typename enable_if<is_floating_point<G>::value>::type * = nullptr>\n\
-    \  int operator()(G a, G b = 0) const {\n    return a + eps < b ? -1 : (b + eps\
-    \ < a ? 1 : 0);\n  }\n\n  template <typename G,\n            typename enable_if<!is_floating_point<G>::value>::type\
-    \ * = nullptr>\n  int operator()(G a, G b = 0) const {\n    return a < b ? -1\
-    \ : (a > b ? 1 : 0);\n  }\n\n  template <typename G,\n            typename enable_if<is_floating_point<G>::value>::type\
+    \ {\n  if (n <= 0) return 1;\n  return 1LL << (sizeof(long long) * 8 - 1 - __builtin_clzll(n)\
+    \ +\n                 ((n & (n - 1LL)) != 0));\n}\n} // namespace lib\n\n\n#line\
+    \ 1 \"PolynomialRing.cpp\"\n\n\n#line 1 \"Epsilon.cpp\"\n\n\n#line 4 \"Epsilon.cpp\"\
+    \n\nnamespace lib {\nusing namespace std;\n\ntemplate <typename T = double> struct\
+    \ Epsilon {\n  T eps;\n  constexpr Epsilon(T eps = 1e-9) : eps(eps) {}\n\n  template\
+    \ <typename G,\n            typename enable_if<is_floating_point<G>::value>::type\
+    \ * = nullptr>\n  int operator()(G a, G b = 0) const {\n    return a + eps < b\
+    \ ? -1 : (b + eps < a ? 1 : 0);\n  }\n\n  template <typename G,\n            typename\
+    \ enable_if<!is_floating_point<G>::value>::type * = nullptr>\n  int operator()(G\
+    \ a, G b = 0) const {\n    return a < b ? -1 : (a > b ? 1 : 0);\n  }\n\n  template\
+    \ <typename G,\n            typename enable_if<is_floating_point<G>::value>::type\
     \ * = nullptr>\n  bool null(G a) const {\n    return (*this)(a) == 0;\n  }\n\n\
     \  template <typename G,\n            typename enable_if<!is_floating_point<G>::value>::type\
     \ * = nullptr>\n  bool null(G a) const {\n    return a == 0;\n  }\n};\n} // namespace\
@@ -481,7 +482,7 @@ data:
   isVerificationFile: false
   path: PowerSeries.cpp
   requiredBy: []
-  timestamp: '2023-02-27 10:03:35-03:00'
+  timestamp: '2023-03-06 11:24:14-03:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/yosupo/subset-sum.test.cpp

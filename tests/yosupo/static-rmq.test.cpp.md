@@ -4,14 +4,14 @@ data:
   - icon: ':question:'
     path: bits/stdc++.h
     title: bits/stdc++.h
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: ds/StaticRMQ.cpp
     title: ds/StaticRMQ.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/staticrmq
@@ -74,7 +74,7 @@ data:
   path: tests/yosupo/static-rmq.test.cpp
   requiredBy: []
   timestamp: '2023-02-27 10:03:43-03:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/yosupo/static-rmq.test.cpp
 layout: document

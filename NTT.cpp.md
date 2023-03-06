@@ -42,7 +42,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/yosupo/multipoint.test.cpp
     title: tests/yosupo/multipoint.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/yosupo/subset-sum.test.cpp
     title: tests/yosupo/subset-sum.test.cpp
   _isVerificationFailed: true
@@ -52,21 +52,21 @@ data:
     links: []
   bundledCode: "#line 1 \"NTT.cpp\"\n\n\n#include <bits/stdc++.h>\n#line 1 \"DFT.cpp\"\
     \n\n\n#line 1 \"BitTricks.cpp\"\n\n\n#line 4 \"BitTricks.cpp\"\n\nnamespace lib\
-    \ {\nlong long next_power_of_two(long long n) {\n  return 1LL << (sizeof(long\
-    \ long) * 8 - 1 - __builtin_clzll(n) +\n                 ((n & (n - 1LL)) != 0));\n\
-    }\n} // namespace lib\n\n\n#line 5 \"DFT.cpp\"\n\nnamespace lib {\nusing namespace\
-    \ std;\nnamespace linalg {\ntemplate <typename Ring, typename Provider>\nstruct\
-    \ DFT {\n  static vector<int> rev;\n  static vector<Ring> fa;\n\n  // function\
-    \ used to precompute rev for fixed size fft (n is a power of two)\n  static void\
-    \ dft_rev(int n) {\n    Provider()(n);\n    int lbn = __builtin_ctz(n);\n    if\
-    \ ((int)rev.size() < (1 << lbn))\n      rev.resize(1 << lbn);\n    int h = -1;\n\
-    \    for (int i = 1; i < n; i++) {\n      if ((i & (i - 1)) == 0)\n        h++;\n\
-    \      rev[i] = rev[i ^ (1 << h)] | (1 << (lbn - h - 1));\n    }\n  }\n\n  static\
-    \ void dft_iter(Ring *p, int n) {\n    Provider w;\n    for (int L = 2; L <= n;\
-    \ L <<= 1) {\n      for (int i = 0; i < n; i += L) {\n        for (int j = 0;\
-    \ j < L / 2; j++) {\n          Ring z = p[i + j + L / 2] * w[j + L / 2];\n   \
-    \       p[i + j + L / 2] = p[i + j] - z;\n          p[i + j] += z;\n        }\n\
-    \      }\n    }\n  }\n\n  static void swap(vector<Ring> &buf) { std::swap(fa,\
+    \ {\nlong long next_power_of_two(long long n) {\n  if (n <= 0) return 1;\n  return\
+    \ 1LL << (sizeof(long long) * 8 - 1 - __builtin_clzll(n) +\n                 ((n\
+    \ & (n - 1LL)) != 0));\n}\n} // namespace lib\n\n\n#line 5 \"DFT.cpp\"\n\nnamespace\
+    \ lib {\nusing namespace std;\nnamespace linalg {\ntemplate <typename Ring, typename\
+    \ Provider>\nstruct DFT {\n  static vector<int> rev;\n  static vector<Ring> fa;\n\
+    \n  // function used to precompute rev for fixed size fft (n is a power of two)\n\
+    \  static void dft_rev(int n) {\n    Provider()(n);\n    int lbn = __builtin_ctz(n);\n\
+    \    if ((int)rev.size() < (1 << lbn))\n      rev.resize(1 << lbn);\n    int h\
+    \ = -1;\n    for (int i = 1; i < n; i++) {\n      if ((i & (i - 1)) == 0)\n  \
+    \      h++;\n      rev[i] = rev[i ^ (1 << h)] | (1 << (lbn - h - 1));\n    }\n\
+    \  }\n\n  static void dft_iter(Ring *p, int n) {\n    Provider w;\n    for (int\
+    \ L = 2; L <= n; L <<= 1) {\n      for (int i = 0; i < n; i += L) {\n        for\
+    \ (int j = 0; j < L / 2; j++) {\n          Ring z = p[i + j + L / 2] * w[j + L\
+    \ / 2];\n          p[i + j + L / 2] = p[i + j] - z;\n          p[i + j] += z;\n\
+    \        }\n      }\n    }\n  }\n\n  static void swap(vector<Ring> &buf) { std::swap(fa,\
     \ buf); }\n  static void _dft(Ring *p, int n) {\n    dft_rev(n);\n    for (int\
     \ i = 0; i < n; i++)\n      if (i < rev[i])\n        std::swap(p[i], p[rev[i]]);\n\
     \    dft_iter(p, n);\n  }\n  static void _idft(Ring *p, int n) {\n    _dft(p,\
@@ -254,7 +254,7 @@ data:
   path: NTT.cpp
   requiredBy:
   - FHT.cpp
-  timestamp: '2023-02-27 10:03:35-03:00'
+  timestamp: '2023-03-06 11:24:14-03:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/yosupo/subset-sum.test.cpp
