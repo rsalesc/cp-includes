@@ -1,0 +1,325 @@
+\documentclass[a4paper, twocolumn, landscape, 9pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multicol}
+\usepackage[margin=0.5in, bmargin=0.4in, tmargin=0.8in]{geometry}
+\usepackage{titlesec}
+\usepackage{etoolbox}
+\usepackage{fancyhdr}
+\usepackage[titles]{tocloft}
+ 
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Page \thepage}
+\lhead{Federal University of Bahia - Universidade Federal da Bahia}
+
+\input{lst}
+
+% usage of commands
+% section, subsection and subsubsection were renewed so they receive 2 arguments instead of 1. ex: \section{title}{text}
+% \includecode[language]{file} include code from codes/{file}. default language is C++.
+% \includepiece[language]{file}{firstline}{lastline} does the same thing, but it includes from firstline to lastline only.
+%
+
+%% Control the fonts and formatting used in the table of contents.
+
+%% Aesthetic spacing redefines that look nicer to me than the defaults.
+
+\setlength{\cftbeforesecskip}{0.02em}
+\setlength{\cftbeforesubsecskip}{0.02em}
+\setlength{\cftbeforesubsubsecskip}{0.02em}
+
+%% Use Helvetica-Narrow Bold for Chapter entries
+
+\renewcommand{\cftsecfont}{%
+  \fontsize{10}{10}\usefont{T1}{phv}{bc}{n}\selectfont
+}
+\renewcommand{\cftsubsecfont}{
+	\fontsize{9}{9}\usefont{T1}{phv}{c}{n}\selectfont
+}
+\renewcommand{\cftsubsubsecfont}{
+	\fontsize{9}{9}\usefont{T1}{phv}{c}{n}\selectfont
+}
+
+\renewcommand{\familydefault}{\ttdefault}
+\setlength{\columnsep}{1cm}
+
+\let\Asection\section
+\let\Bsection\subsection
+\let\Csection\subsubsection
+
+\renewcommand{\section}[2]{
+   \ifstrequal{#2}{}{\Asection[#1 *]{#1} #2}{\Asection{#1} #2} %
+}
+\renewcommand{\subsection}[2]{
+    \ifstrequal{#2}{}{\Bsection[#1 *]{#1} #2}{\Bsection{#1} #2} %
+}
+\renewcommand{\subsubsection}[2]{
+    \ifstrequal{#2}{}{\Csection[#1 *]{#1} #2}{\Csection{#1} #2} %
+}
+
+\title{Roberio - cp-includes}
+\author{Roberto Sales}
+\date{}
+
+\begin{document}
+	
+\titleformat{\section}[hang]{\large}{}{0pt}{\thesection. }
+\titleformat{\subsection}[hang]{\normalsize}{}{0pt}{\thesubsection. }
+\titleformat{\subsubsection}[hang]{\small}{}{0pt}{\thesubsubsection. }
+\titlespacing{\section}{0px}{3px}{2px}
+\titlespacing{\subsection}{0px}{2px}{1px}
+
+% generate title and table of contents with no heading
+%\maketitle
+\thispagestyle{fancy}
+
+\makeatletter
+%\\renewcommand{\l@subsection}{\@dottedtocline{2}{1.5em}{3.0em}}
+%\renewcommand{\l@subsubsection}{\@dottedtocline{3}{3.0em}{4em}}
+\def\tableofcontents{\@starttoc{toc}}
+\makeatother
+
+\tableofcontents
+\newpage
+
+\section{unindexed}{
+  \subsection{BitTricks}{
+      \includecode{BitTricks.cpp}
+  }
+  \subsection{Combinatorics}{
+      \includecode{Combinatorics.cpp}
+  }
+  \subsection{Complex}{
+      \includecode{Complex.cpp}
+  }
+  \subsection{DFT}{
+      \includecode{DFT.cpp}
+  }
+  \subsection{DSU}{
+      \includecode{DSU.cpp}
+  }
+  \subsection{Epsilon}{
+      \includecode{Epsilon.cpp}
+  }
+  \subsection{Euclid}{
+      \includecode{Euclid.cpp}
+  }
+  \subsection{FFT}{
+      \includecode{FFT.cpp}
+  }
+  \subsection{FHT}{
+      \includecode{FHT.cpp}
+  }
+  \subsection{FastMap}{
+      \includecode{FastMap.cpp}
+  }
+  \subsection{Fenwick}{
+      \includecode{Fenwick.cpp}
+  }
+  \subsection{Graph}{
+      \includecode{Graph.cpp}
+  }
+  \subsection{HLD}{
+      \includecode{HLD.cpp}
+  }
+  \subsection{Karatsuba}{
+      \includecode{Karatsuba.cpp}
+  }
+  \subsection{Lagrange}{
+      \includecode{Lagrange.cpp}
+  }
+  \subsection{LinearProgram}{
+      \includecode{LinearProgram.cpp}
+  }
+  \subsection{LinearRecurrence}{
+      \includecode{LinearRecurrence.cpp}
+  }
+  \subsection{LongMultiplication}{
+      \includecode{LongMultiplication.cpp}
+  }
+  \subsection{Math}{
+      \includecode{Math.cpp}
+  }
+  \subsection{Matrix}{
+      \includecode{Matrix.cpp}
+  }
+  \subsection{Maxflow}{
+      \includecode{Maxflow.cpp}
+  }
+  \subsection{ModularInteger}{
+      \includecode{ModularInteger.cpp}
+  }
+  \subsection{MontgomeryInteger}{
+      \includecode{MontgomeryInteger.cpp}
+  }
+  \subsection{NTT}{
+      \includecode{NTT.cpp}
+  }
+  \subsection{NumberTheory}{
+      \includecode{NumberTheory.cpp}
+  }
+  \subsection{OfflineRMQ}{
+      \includecode{OfflineRMQ.cpp}
+  }
+  \subsection{PolynomialRing}{
+      \includecode{PolynomialRing.cpp}
+  }
+  \subsection{PowerSeries}{
+      \includecode{PowerSeries.cpp}
+  }
+  \subsection{Random}{
+      \includecode{Random.cpp}
+  }
+  \subsection{RangeDSU}{
+      \includecode{RangeDSU.cpp}
+  }
+  \subsection{RollingHash}{
+      \includecode{RollingHash.cpp}
+  }
+  \subsection{Segtree}{
+      \includecode{Segtree.cpp}
+  }
+  \subsection{SegtreeBeats}{
+      \includecode{SegtreeBeats.cpp}
+  }
+  \subsection{SegtreeFast}{
+      \includecode{SegtreeFast.cpp}
+  }
+  \subsection{SegtreeHLD}{
+      \includecode{SegtreeHLD.cpp}
+  }
+  \subsection{SegtreeImplicit}{
+      \includecode{SegtreeImplicit.cpp}
+  }
+  \subsection{SegtreeLazy}{
+      \includecode{SegtreeLazy.cpp}
+  }
+  \subsection{SegtreeNormal}{
+      \includecode{SegtreeNormal.cpp}
+  }
+  \subsection{SegtreePersistent}{
+      \includecode{SegtreePersistent.cpp}
+  }
+  \subsection{SegtreeSplash}{
+      \includecode{SegtreeSplash.cpp}
+  }
+  \subsection{Simplex}{
+      \includecode{Simplex.cpp}
+  }
+  \subsection{Subset}{
+      \includecode{Subset.cpp}
+  }
+  \subsection{SuffixArray}{
+      \includecode{SuffixArray.cpp}
+  }
+  \subsection{Symbolic}{
+      \includecode{Symbolic.cpp}
+  }
+  \subsection{Template}{
+      \includecode{Template.cpp}
+  }
+  \subsection{Traits}{
+      \includecode{Traits.cpp}
+  }
+  \subsection{Treap}{
+      \includecode{Treap.cpp}
+  }
+  \subsection{TwoSat}{
+      \includecode{TwoSat.cpp}
+  }
+  \subsection{VectorN}{
+      \includecode{VectorN.cpp}
+  }
+}
+\section{ds}{
+  \subsection{LiChaoTree}{
+      \includecode{ds/LiChaoTree.cpp}
+  }
+  \subsection{OrderedIntTree}{
+      \includecode{ds/OrderedIntTree.cpp}
+  }
+  \subsection{StaticRMQ}{
+      \includecode{ds/StaticRMQ.cpp}
+  }
+}
+\section{dsu}{
+  \subsection{BinaryLifting}{
+      \includecode{dsu/BinaryLifting.cpp}
+  }
+  \subsection{Compress}{
+      \includecode{dsu/Compress.cpp}
+  }
+  \subsection{DSU}{
+      \includecode{dsu/DSU.cpp}
+  }
+  \subsection{SpanningTree}{
+      \includecode{dsu/SpanningTree.cpp}
+  }
+  \subsection{Time}{
+      \includecode{dsu/Time.cpp}
+  }
+}
+\section{graphs}{
+  \subsection{BlockCut}{
+      \includecode{graphs/BlockCut.cpp}
+  }
+  \subsection{Chordal}{
+      \includecode{graphs/Chordal.cpp}
+  }
+}
+\section{matroid}{
+  \subsection{CographicMatroid}{
+      \includecode{matroid/CographicMatroid.cpp}
+  }
+  \subsection{ColorMatroid}{
+      \includecode{matroid/ColorMatroid.cpp}
+  }
+  \subsection{Compose}{
+      \includecode{matroid/Compose.cpp}
+  }
+  \subsection{GraphicMatroid}{
+      \includecode{matroid/GraphicMatroid.cpp}
+  }
+  \subsection{Matroid}{
+      \includecode{matroid/Matroid.cpp}
+  }
+  \subsection{MatroidIntersection}{
+      \includecode{matroid/MatroidIntersection.cpp}
+  }
+}
+\section{geometry}{
+  \subsection{Caliper}{
+      \includecode{geometry/Caliper.cpp}
+  }
+  \subsection{Circle2D}{
+      \includecode{geometry/Circle2D.cpp}
+  }
+  \subsection{GeometryEpsilon}{
+      \includecode{geometry/GeometryEpsilon.cpp}
+  }
+  \subsection{Line2D}{
+      \includecode{geometry/Line2D.cpp}
+  }
+  \subsection{Polygon2D}{
+      \includecode{geometry/Polygon2D.cpp}
+  }
+  \subsection{Trigonometry}{
+      \includecode{geometry/Trigonometry.cpp}
+  }
+}
+\section{polynomial}{
+  \subsection{ExponentialSum}{
+      \includecode{polynomial/ExponentialSum.cpp}
+  }
+  \subsection{MultipointEvaluation}{
+      \includecode{polynomial/MultipointEvaluation.cpp}
+  }
+  \subsection{Transform}{
+      \includecode{polynomial/Transform.cpp}
+  }
+}
+
+
+%\end{multicols}
+\end{document}
