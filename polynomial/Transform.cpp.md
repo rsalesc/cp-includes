@@ -70,12 +70,12 @@ data:
   timestamp: '2023-02-27 10:03:35-03:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/yosupo/subset-sum.test.cpp
-  - tests/yosupo/fht-convolution.test.cpp
   - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
+  - tests/yosupo/find-lr.test.cpp
   - tests/yosupo/kth-term-lr.test.cpp
   - tests/yosupo/fps-inv.test.cpp
-  - tests/yosupo/find-lr.test.cpp
+  - tests/yosupo/fht-convolution.test.cpp
 documentation_of: polynomial/Transform.cpp
 layout: document
 redirect_from:

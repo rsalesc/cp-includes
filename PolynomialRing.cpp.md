@@ -640,24 +640,24 @@ data:
   isVerificationFile: false
   path: PolynomialRing.cpp
   requiredBy:
+  - PowerSeries.cpp
   - LinearRecurrence.cpp
   - polynomial/MultipointEvaluation.cpp
-  - PowerSeries.cpp
   timestamp: '2023-02-27 10:03:35-03:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/yosupo/subset-sum.test.cpp
-  - tests/yosupo/subset-sum.test.cpp
   - tests/yosupo/fps-power.test.cpp
   - tests/yosupo/fps-power.test.cpp
   - tests/yosupo/multipoint.test.cpp
   - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
+  - tests/yosupo/find-lr.test.cpp
+  - tests/yosupo/find-lr.test.cpp
   - tests/yosupo/kth-term-lr.test.cpp
   - tests/yosupo/kth-term-lr.test.cpp
   - tests/yosupo/fps-inv.test.cpp
   - tests/yosupo/fps-inv.test.cpp
-  - tests/yosupo/find-lr.test.cpp
-  - tests/yosupo/find-lr.test.cpp
 documentation_of: PolynomialRing.cpp
 layout: document
 redirect_from:

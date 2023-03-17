@@ -485,8 +485,8 @@ data:
   timestamp: '2023-03-06 11:24:14-03:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/yosupo/subset-sum.test.cpp
   - tests/yosupo/fps-power.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
   - tests/yosupo/fps-inv.test.cpp
 documentation_of: PowerSeries.cpp
 layout: document

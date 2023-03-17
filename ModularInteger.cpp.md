@@ -312,31 +312,31 @@ data:
   isVerificationFile: false
   path: ModularInteger.cpp
   requiredBy:
-  - LinearRecurrence.cpp
-  - polynomial/MultipointEvaluation.cpp
-  - RollingHash.cpp
   - PowerSeries.cpp
+  - LinearRecurrence.cpp
   - PolynomialRing.cpp
+  - RollingHash.cpp
+  - polynomial/MultipointEvaluation.cpp
   timestamp: '2023-02-27 10:03:35-03:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/yosupo/and-convolution.test.cpp
-  - tests/yosupo/subset-sum.test.cpp
-  - tests/yosupo/subset-sum.test.cpp
-  - tests/yosupo/fht-convolution.test.cpp
   - tests/yosupo/fps-power.test.cpp
   - tests/yosupo/fps-power.test.cpp
   - tests/yosupo/multipoint.test.cpp
   - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
+  - tests/yosupo/find-lr.test.cpp
+  - tests/yosupo/find-lr.test.cpp
   - tests/yosupo/exp-sum.test.cpp
   - tests/yosupo/kth-term-lr.test.cpp
   - tests/yosupo/kth-term-lr.test.cpp
+  - tests/yosupo/exp-sum-limit.test.cpp
   - tests/yosupo/subset-convolution.test.cpp
   - tests/yosupo/fps-inv.test.cpp
   - tests/yosupo/fps-inv.test.cpp
-  - tests/yosupo/exp-sum-limit.test.cpp
-  - tests/yosupo/find-lr.test.cpp
-  - tests/yosupo/find-lr.test.cpp
+  - tests/yosupo/fht-convolution.test.cpp
+  - tests/yosupo/and-convolution.test.cpp
 documentation_of: ModularInteger.cpp
 layout: document
 redirect_from:

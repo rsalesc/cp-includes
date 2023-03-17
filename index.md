@@ -279,6 +279,11 @@ data:
     - icon: ':question:'
       path: polynomial/Transform.cpp
       title: polynomial/Transform.cpp
+  - name: tex
+    pages:
+    - icon: ':warning:'
+      path: tex/texscraper.py
+      title: tex/texscraper.py
   - name: traits
     pages:
     - icon: ':warning:'

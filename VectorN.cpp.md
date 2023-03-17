@@ -125,22 +125,22 @@ data:
   isVerificationFile: false
   path: VectorN.cpp
   requiredBy:
-  - FHT.cpp
-  - LinearRecurrence.cpp
-  - polynomial/MultipointEvaluation.cpp
   - PowerSeries.cpp
-  - NTT.cpp
+  - LinearRecurrence.cpp
   - PolynomialRing.cpp
+  - NTT.cpp
+  - FHT.cpp
+  - polynomial/MultipointEvaluation.cpp
   timestamp: '2023-02-27 10:03:35-03:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/yosupo/subset-sum.test.cpp
-  - tests/yosupo/fht-convolution.test.cpp
   - tests/yosupo/fps-power.test.cpp
   - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
+  - tests/yosupo/find-lr.test.cpp
   - tests/yosupo/kth-term-lr.test.cpp
   - tests/yosupo/fps-inv.test.cpp
-  - tests/yosupo/find-lr.test.cpp
+  - tests/yosupo/fht-convolution.test.cpp
 documentation_of: VectorN.cpp
 layout: document
 redirect_from:

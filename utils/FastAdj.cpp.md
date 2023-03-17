@@ -118,9 +118,9 @@ data:
   isVerificationFile: false
   path: utils/FastAdj.cpp
   requiredBy:
-  - matroid/MatroidIntersection.cpp
-  - matroid/GraphicMatroid.cpp
   - matroid/CographicMatroid.cpp
+  - matroid/GraphicMatroid.cpp
+  - matroid/MatroidIntersection.cpp
   timestamp: '2023-02-27 10:03:35-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

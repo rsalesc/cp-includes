@@ -58,8 +58,8 @@ data:
   verifiedWith:
   - tests/yosupo/unionfind.test.cpp
   - tests/yosupo/biconnected-components.test.cpp
-  - tests/yosupo/associative-array.test.cpp
   - tests/yosupo/unionfind-with-compression.test.cpp
+  - tests/yosupo/associative-array.test.cpp
 documentation_of: Template.cpp
 layout: document
 redirect_from:

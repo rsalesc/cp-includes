@@ -552,8 +552,8 @@ data:
   timestamp: '2023-02-27 10:03:35-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/yosupo/kth-term-lr.test.cpp
   - tests/yosupo/find-lr.test.cpp
+  - tests/yosupo/kth-term-lr.test.cpp
 documentation_of: LinearRecurrence.cpp
 layout: document
 redirect_from:

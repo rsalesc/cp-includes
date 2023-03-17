@@ -94,9 +94,9 @@ data:
   isVerificationFile: false
   path: Combinatorics.cpp
   requiredBy:
-  - polynomial/ExponentialSum.cpp
-  - polynomial/ExponentialSum.cpp
   - Lagrange.cpp
+  - polynomial/ExponentialSum.cpp
+  - polynomial/ExponentialSum.cpp
   timestamp: '2023-03-06 11:24:14-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
