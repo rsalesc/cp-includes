@@ -91,8 +91,8 @@ data:
   timestamp: '2023-02-27 10:03:35-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/yosupo/line-add-get-min.test.cpp
   - tests/yosupo/segment-add-get-min.test.cpp
+  - tests/yosupo/line-add-get-min.test.cpp
 documentation_of: ds/LiChaoTree.cpp
 layout: document
 redirect_from:

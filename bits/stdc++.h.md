@@ -677,122 +677,122 @@ data:
   isVerificationFile: false
   path: bits/stdc++.h
   requiredBy:
-  - Lagrange.cpp
-  - Symbolic.cpp
-  - FastMap.cpp
-  - SegtreeNormal.cpp
-  - TwoSat.cpp
-  - PowerSeries.cpp
-  - Random.cpp
-  - SegtreeHLD.cpp
-  - SegtreeBeats.cpp
-  - Bitset.cpp
-  - Complex.cpp
-  - graphs/Chordal.cpp
-  - graphs/BlockCut.cpp
-  - HLD.cpp
-  - SegtreeImplicit.cpp
-  - dsu/SpanningTree.cpp
-  - dsu/BinaryLifting.cpp
-  - dsu/Time.cpp
-  - dsu/DSU.cpp
-  - dsu/Compress.cpp
-  - LinearProgram.cpp
-  - Subset.cpp
-  - SegtreeSplash.cpp
-  - LinearRecurrence.cpp
-  - Lambda.cpp
-  - Matrix.cpp
-  - PolynomialRing.cpp
-  - Epsilon.cpp
-  - SegtreePersistent.cpp
-  - SuffixArray.cpp
-  - ModularInteger.cpp
-  - NumberTheory.cpp
   - Euclid.cpp
-  - matroid/CographicMatroid.cpp
-  - matroid/v2/EdgeFinder.cpp
-  - matroid/v2/BinaryMatroid.cpp
-  - matroid/v2/GraphicMatroid.cpp
-  - matroid/v2/ContractionMatroid.cpp
-  - matroid/v2/MatroidIntersection.cpp
-  - matroid/v2/Matroid.cpp
-  - matroid/v2/ColorMatroid.cpp
-  - matroid/GraphicMatroid.cpp
-  - matroid/Compose.cpp
-  - matroid/MatroidIntersection.cpp
-  - matroid/Matroid.cpp
-  - matroid/ColorMatroid.cpp
-  - NTT.cpp
-  - Math.cpp
-  - Simplex.cpp
-  - geometry/Line2D.cpp
-  - geometry/Circle2D.cpp
-  - geometry/Trigonometry.cpp
-  - geometry/Polygon2D.cpp
-  - geometry/Caliper.cpp
-  - geometry/GeometryEpsilon.cpp
-  - ds/LiChaoTree.cpp
-  - ds/StaticRMQ.cpp
-  - ds/OrderedIntTree.cpp
-  - MontgomeryInteger.cpp
-  - utils/Annotation.cpp
-  - utils/Wrappers.cpp
-  - utils/LazyArray.cpp
-  - utils/FastAdj.cpp
-  - utils/FastQueue.cpp
-  - utils/FastList.cpp
-  - Maxflow.cpp
-  - Template.cpp
-  - Graph.cpp
-  - RollingHash.cpp
-  - OfflineRMQ.cpp
-  - Segtree.cpp
-  - FHT.cpp
-  - FFT.cpp
-  - DSU.cpp
-  - polynomial/Transform.cpp
-  - polynomial/MultipointEvaluation.cpp
-  - polynomial/ExponentialSum.cpp
-  - VectorN.cpp
-  - DFT.cpp
-  - Combinatorics.cpp
-  - BitTricks.cpp
-  - traits/Tuple.cpp
-  - Treap.cpp
-  - HashMap.cpp
-  - LongMultiplication.cpp
-  - Fenwick.cpp
-  - SegtreeLazy.cpp
-  - Traits.cpp
   - pbds/TreeUpdater.cpp
+  - Math.cpp
+  - Epsilon.cpp
+  - Symbolic.cpp
+  - Combinatorics.cpp
+  - DSU.cpp
+  - Bitset.cpp
+  - LongMultiplication.cpp
+  - Matrix.cpp
+  - MontgomeryInteger.cpp
+  - Fenwick.cpp
+  - LinearProgram.cpp
+  - SegtreeSplash.cpp
   - Karatsuba.cpp
   - RangeDSU.cpp
+  - Lambda.cpp
+  - HashMap.cpp
+  - SegtreeNormal.cpp
+  - polynomial/ExponentialSum.cpp
+  - polynomial/Transform.cpp
+  - polynomial/MultipointEvaluation.cpp
+  - TwoSat.cpp
+  - geometry/GeometryEpsilon.cpp
+  - geometry/Trigonometry.cpp
+  - geometry/Polygon2D.cpp
+  - geometry/Circle2D.cpp
+  - geometry/Line2D.cpp
+  - geometry/Caliper.cpp
+  - DFT.cpp
+  - Traits.cpp
+  - Template.cpp
+  - Treap.cpp
+  - PolynomialRing.cpp
+  - dsu/DSU.cpp
+  - dsu/SpanningTree.cpp
+  - dsu/Compress.cpp
+  - dsu/BinaryLifting.cpp
+  - dsu/Time.cpp
+  - BitTricks.cpp
+  - traits/Tuple.cpp
+  - matroid/ColorMatroid.cpp
+  - matroid/Matroid.cpp
+  - matroid/CographicMatroid.cpp
+  - matroid/GraphicMatroid.cpp
+  - matroid/v2/ColorMatroid.cpp
+  - matroid/v2/Matroid.cpp
+  - matroid/v2/GraphicMatroid.cpp
+  - matroid/v2/BinaryMatroid.cpp
+  - matroid/v2/ContractionMatroid.cpp
+  - matroid/v2/EdgeFinder.cpp
+  - matroid/v2/MatroidIntersection.cpp
+  - matroid/Compose.cpp
+  - matroid/MatroidIntersection.cpp
+  - Segtree.cpp
+  - utils/LazyArray.cpp
+  - utils/Wrappers.cpp
+  - utils/FastAdj.cpp
+  - utils/Annotation.cpp
+  - utils/FastQueue.cpp
+  - utils/FastList.cpp
+  - FastMap.cpp
+  - SegtreePersistent.cpp
+  - PowerSeries.cpp
+  - Random.cpp
+  - FFT.cpp
+  - Graph.cpp
+  - RollingHash.cpp
+  - Simplex.cpp
+  - VectorN.cpp
+  - LinearRecurrence.cpp
+  - OfflineRMQ.cpp
+  - Complex.cpp
+  - SegtreeHLD.cpp
+  - SegtreeLazy.cpp
+  - NumberTheory.cpp
+  - HLD.cpp
+  - Subset.cpp
+  - Lagrange.cpp
+  - ModularInteger.cpp
+  - FHT.cpp
+  - SegtreeBeats.cpp
   - SegtreeFast.cpp
+  - ds/LiChaoTree.cpp
+  - ds/OrderedIntTree.cpp
+  - ds/StaticRMQ.cpp
+  - graphs/Chordal.cpp
+  - graphs/BlockCut.cpp
+  - SegtreeImplicit.cpp
+  - Maxflow.cpp
+  - SuffixArray.cpp
+  - NTT.cpp
   timestamp: '2023-02-27 10:03:35-03:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/yosupo/fps-power.test.cpp
-  - tests/yosupo/suffix-array.test.cpp
-  - tests/yosupo/multipoint.test.cpp
-  - tests/yosupo/subset-sum.test.cpp
-  - tests/yosupo/line-add-get-min.test.cpp
   - tests/yosupo/2sat.test.cpp
-  - tests/yosupo/find-lr.test.cpp
   - tests/yosupo/static-rmq.test.cpp
   - tests/yosupo/unionfind.test.cpp
-  - tests/yosupo/biconnected-components.test.cpp
-  - tests/yosupo/exp-sum.test.cpp
-  - tests/yosupo/kth-term-lr.test.cpp
-  - tests/yosupo/segment-add-get-min.test.cpp
   - tests/yosupo/exp-sum-limit.test.cpp
-  - tests/yosupo/unionfind-with-compression.test.cpp
+  - tests/yosupo/segment-add-get-min.test.cpp
   - tests/yosupo/chordal.test.cpp
+  - tests/yosupo/kth-term-lr.test.cpp
   - tests/yosupo/subset-convolution.test.cpp
-  - tests/yosupo/fps-inv.test.cpp
-  - tests/yosupo/associative-array.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
+  - tests/yosupo/biconnected-components.test.cpp
+  - tests/yosupo/multipoint.test.cpp
+  - tests/yosupo/unionfind-with-compression.test.cpp
   - tests/yosupo/fht-convolution.test.cpp
+  - tests/yosupo/associative-array.test.cpp
+  - tests/yosupo/find-lr.test.cpp
+  - tests/yosupo/suffix-array.test.cpp
+  - tests/yosupo/exp-sum.test.cpp
+  - tests/yosupo/fps-inv.test.cpp
+  - tests/yosupo/line-add-get-min.test.cpp
   - tests/yosupo/and-convolution.test.cpp
+  - tests/yosupo/fps-power.test.cpp
 documentation_of: bits/stdc++.h
 layout: document
 redirect_from:

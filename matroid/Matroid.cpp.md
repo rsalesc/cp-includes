@@ -155,10 +155,10 @@ data:
   isVerificationFile: false
   path: matroid/Matroid.cpp
   requiredBy:
+  - matroid/ColorMatroid.cpp
   - matroid/CographicMatroid.cpp
   - matroid/GraphicMatroid.cpp
   - matroid/Compose.cpp
-  - matroid/ColorMatroid.cpp
   timestamp: '2023-02-27 10:03:35-03:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

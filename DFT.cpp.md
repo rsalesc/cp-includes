@@ -121,19 +121,19 @@ data:
   isVerificationFile: false
   path: DFT.cpp
   requiredBy:
-  - NTT.cpp
-  - FHT.cpp
   - FFT.cpp
+  - FHT.cpp
+  - NTT.cpp
   timestamp: '2023-03-06 11:24:14-03:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/yosupo/fps-power.test.cpp
-  - tests/yosupo/multipoint.test.cpp
-  - tests/yosupo/subset-sum.test.cpp
-  - tests/yosupo/find-lr.test.cpp
   - tests/yosupo/kth-term-lr.test.cpp
-  - tests/yosupo/fps-inv.test.cpp
+  - tests/yosupo/subset-sum.test.cpp
+  - tests/yosupo/multipoint.test.cpp
   - tests/yosupo/fht-convolution.test.cpp
+  - tests/yosupo/find-lr.test.cpp
+  - tests/yosupo/fps-inv.test.cpp
+  - tests/yosupo/fps-power.test.cpp
 documentation_of: DFT.cpp
 layout: document
 redirect_from:

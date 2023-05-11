@@ -102,8 +102,8 @@ data:
   timestamp: '2023-03-06 11:24:14-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/yosupo/exp-sum.test.cpp
   - tests/yosupo/exp-sum-limit.test.cpp
+  - tests/yosupo/exp-sum.test.cpp
 documentation_of: Lagrange.cpp
 layout: document
 redirect_from:

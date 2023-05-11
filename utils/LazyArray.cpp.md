@@ -47,9 +47,9 @@ data:
   isVerificationFile: false
   path: utils/LazyArray.cpp
   requiredBy:
-  - graphs/BlockCut.cpp
   - dsu/SpanningTree.cpp
   - dsu/BinaryLifting.cpp
+  - graphs/BlockCut.cpp
   timestamp: '2023-02-27 10:03:35-03:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

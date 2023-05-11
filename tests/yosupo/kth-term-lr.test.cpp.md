@@ -469,13 +469,13 @@ data:
     \ acc;\n  }\n\n  type substr(int i, int sz) const {\n    int j = min(sz + i, size());\n\
     \    i = min(i, size());\n    if(i >= j) return type();\n    return type(begin(p)+i,\
     \ begin(p)+j);\n  }\n\n  type &operator+=(const type &rhs) {\n    if (rhs.size()\
-    \ > size())\n      p.resize(rhs.size());\n    int sz = size();\n    for (int i\
-    \ = 0; i < sz; i++)\n      p[i] += rhs[i];\n    normalize();\n    return *this;\n\
+    \ > size())\n      p.resize(rhs.size());\n    int sz = rhs.size();\n    for (int\
+    \ i = 0; i < sz; i++)\n      p[i] += rhs[i];\n    normalize();\n    return *this;\n\
     \  }\n\n  type &operator-=(const type &rhs) {\n    if (rhs.size() > size())\n\
-    \      p.resize(rhs.size());\n    int sz = size();\n    for (int i = 0; i < sz;\
-    \ i++)\n      p[i] -= rhs[i];\n    normalize();\n    return *this;\n  }\n\n  static\
-    \ vector<Field> multiply(const vector<Field>& a, const vector<Field>& b) {\n \
-    \   if(min(a.size(), b.size()) < Magic)\n      return NaiveMultiplication()(a,\
+    \      p.resize(rhs.size());\n    int sz = rhs.size();\n    for (int i = 0; i\
+    \ < sz; i++)\n      p[i] -= rhs[i];\n    normalize();\n    return *this;\n  }\n\
+    \n  static vector<Field> multiply(const vector<Field>& a, const vector<Field>&\
+    \ b) {\n    if(min(a.size(), b.size()) < Magic)\n      return NaiveMultiplication()(a,\
     \ b);\n    return Mult()(a, b);\n  }\n\n  type &operator*=(const type &rhs) {\n\
     \    p = multiply(p, rhs.p);\n    normalize();\n    return *this;\n  }\n\n  type\
     \ &operator*=(const Field &rhs) {\n    int sz = size();\n    for (int i = 0; i\
@@ -496,22 +496,23 @@ data:
     \ % rhs; }\n\n  type operator+(const type &rhs) const {\n    type res = *this;\n\
     \    return res += rhs;\n  }\n\n  type operator-(const type &rhs) const {\n  \
     \  type res = *this;\n    return res -= rhs;\n  }\n\n  type operator*(const type\
-    \ &rhs) const { return type(multiply(p, rhs.p)); }\n\n  type operator*(const Field\
-    \ &rhs) const {\n    type res = *this;\n    return res *= rhs;\n  }\n\n  type\
-    \ operator/(const Field &rhs) const {\n    type res = *this;\n    return res /=\
-    \ rhs;\n  }\n\n  type operator<<(const int rhs) const {\n    type res = *this;\n\
-    \    return res <<= rhs;\n  }\n\n  type operator>>(const int rhs) const {\n  \
-    \  type res = *this;\n    return res >>= rhs;\n  }\n\n  type operator%(const int\
-    \ rhs) const {\n    return Polynomial(p.begin(), p.begin() + min(rhs, size()));\n\
-    \  }\n\n  type operator/(const type &rhs) const {\n    return type::divmod(*this,\
-    \ rhs).first;\n  }\n\n  type operator%(const type &rhs) const {\n    return type::divmod(*this,\
-    \ rhs).second;\n  }\n\n  bool operator==(const type &rhs) const {\n    normalize();\n\
-    \    rhs.normalize();\n    return p == rhs.p;\n  }\n\n  template <// Used in SFINAE.\n\
-    \            typename U = Field,\n            enable_if_t<has_transform<Mult,\
-    \ U>::value>* = nullptr>\n  inline VectorN<U> transform(int n) {\n    return Mult().template\
-    \ transform<U>(n, p);\n  }\n\n  template <// Used in SFINAE.\n            typename\
+    \ &rhs) const { \n    type res(multiply(p, rhs.p));\n    res.normalize();\n  \
+    \  return res;\n  }\n\n  type operator*(const Field &rhs) const {\n    type res\
+    \ = *this;\n    return res *= rhs;\n  }\n\n  type operator/(const Field &rhs)\
+    \ const {\n    type res = *this;\n    return res /= rhs;\n  }\n\n  type operator<<(const\
+    \ int rhs) const {\n    type res = *this;\n    return res <<= rhs;\n  }\n\n  type\
+    \ operator>>(const int rhs) const {\n    type res = *this;\n    return res >>=\
+    \ rhs;\n  }\n\n  type operator%(const int rhs) const {\n    return Polynomial(p.begin(),\
+    \ p.begin() + min(rhs, size()));\n  }\n\n  type operator/(const type &rhs) const\
+    \ {\n    return type::divmod(*this, rhs).first;\n  }\n\n  type operator%(const\
+    \ type &rhs) const {\n    return type::divmod(*this, rhs).second;\n  }\n\n  bool\
+    \ operator==(const type &rhs) const {\n    normalize();\n    rhs.normalize();\n\
+    \    return p == rhs.p;\n  }\n\n  template <// Used in SFINAE.\n            typename\
     \ U = Field,\n            enable_if_t<has_transform<Mult, U>::value>* = nullptr>\n\
-    \  inline static type itransform(int n, const vector<U>& v) {\n    return Mult().template\
+    \  inline VectorN<U> transform(int n) {\n    return Mult().template transform<U>(n,\
+    \ p);\n  }\n\n  template <// Used in SFINAE.\n            typename U = Field,\n\
+    \            enable_if_t<has_transform<Mult, U>::value>* = nullptr>\n  inline\
+    \ static type itransform(int n, const vector<U>& v) {\n    return Mult().template\
     \ itransform<U>(n, v);\n  }\n\n  template <typename Functor,\n            // Used\
     \ in SFINAE.\n            typename U = Field,\n            enable_if_t<has_transform<Mult,\
     \ U>::value>* = nullptr,\n            typename ...Ts>\n  inline static type on_transform(\n\
@@ -708,7 +709,7 @@ data:
   isVerificationFile: true
   path: tests/yosupo/kth-term-lr.test.cpp
   requiredBy: []
-  timestamp: '2023-03-06 11:24:14-03:00'
+  timestamp: '2023-05-10 23:48:48-03:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/yosupo/kth-term-lr.test.cpp
