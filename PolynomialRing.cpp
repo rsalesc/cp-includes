@@ -177,7 +177,7 @@ struct Polynomial {
   type &operator+=(const type &rhs) {
     if (rhs.size() > size())
       p.resize(rhs.size());
-    int sz = size();
+    int sz = rhs.size();
     for (int i = 0; i < sz; i++)
       p[i] += rhs[i];
     normalize();
@@ -187,7 +187,7 @@ struct Polynomial {
   type &operator-=(const type &rhs) {
     if (rhs.size() > size())
       p.resize(rhs.size());
-    int sz = size();
+    int sz = rhs.size();
     for (int i = 0; i < sz; i++)
       p[i] -= rhs[i];
     normalize();
@@ -272,7 +272,11 @@ struct Polynomial {
     return res -= rhs;
   }
 
-  type operator*(const type &rhs) const { return type(multiply(p, rhs.p)); }
+  type operator*(const type &rhs) const { 
+    type res(multiply(p, rhs.p));
+    res.normalize();
+    return res;
+  }
 
   type operator*(const Field &rhs) const {
     type res = *this;
