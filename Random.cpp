@@ -17,7 +17,6 @@ struct Generator {
 #else
           (uint64_t)unique_ptr<char>(new char).get(),
 #endif
-          (uint64_t)__builtin_ia32_rdtsc()
     };
     rng = mt19937(seq);
   }

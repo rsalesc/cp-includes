@@ -20,6 +20,7 @@ struct GraphImpl {
   adj_list adj;
 
   vector<vertex_type> vertices;
+  vertex_type default_vertex_instance;
 
   class iterator {
   public:
@@ -140,13 +141,25 @@ struct GraphImpl {
 
   template <typename S = V,
             typename enable_if<!is_void<S>::value>::type * = nullptr>
-  inline S &vertex(int i) {
-    return vertices[i];
+  inline S &vertex_data(int i) {
+    return vertices[i].data;
   }
 
   template <typename S = V,
             typename enable_if<!is_void<S>::value>::type * = nullptr>
-  inline V vertex(int i) const {
+  const inline S& vertex_data(int i) const {
+    return vertices[i].data;
+  }
+
+  template <typename S = V,
+            typename enable_if<is_void<S>::value>::type * = nullptr>
+  const inline vertex_type& vertex(int i) const {
+    return default_vertex_instance;
+  }
+
+  template <typename S = V,
+            typename enable_if<!is_void<S>::value>::type * = nullptr>
+  const inline vertex_type& vertex(int i) const {
     return vertices[i];
   }
 
