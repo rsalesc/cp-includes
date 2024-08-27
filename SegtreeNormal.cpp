@@ -8,13 +8,13 @@ using namespace std;
 namespace seg {
 template <typename Node, typename CombinerFn,
           typename NodeManager = Explicit<Node>>
-struct SegtreeNormal : SegtreeImpl<Node, NodeManager, CombinerFn> {
+struct SegtreeNormal : public SegtreeImpl<Node, NodeManager, CombinerFn> {
   typedef SegtreeImpl<Node, NodeManager, CombinerFn> Base;
   using Base::combiner_fn;
   using Base::L;
   using Base::manager;
   using Base::R;
-  using Base::SegtreeImpl;
+  using Base::Base;
   using Base::split;
   using typename Base::vnode;
 

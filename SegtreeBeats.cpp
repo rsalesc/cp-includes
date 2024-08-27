@@ -112,7 +112,7 @@ struct SegtreeImpl {
     if (!pushdown_fn.dirty(manager.ref(no)))
       return;
     if(l == r) {
-      pushdown_fn(manager.ref(no), l, r, nullptr, nullptr);
+      pushdown_fn(manager.ref(no), l, r, (Node*)nullptr, (Node*)nullptr);
       return;
     }
     manager.ensure_left(no);
